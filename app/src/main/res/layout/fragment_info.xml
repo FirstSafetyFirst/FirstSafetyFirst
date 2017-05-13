@@ -1,0 +1,61 @@
+<!-- DO NOT TOUCH THE PADDING  took me 5 hours to find what was wrong and this just works -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundKnowIt"
+    tools:context="com.products.safetyfirst.fragment.InfoFragment">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:background="@color/colorAccent"
+        android:layout_alignParentRight="true" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:scrollbars="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <!-- The webview is used for justified Text viewing. The text is set programmatically -->
+            <android.support.v7.widget.CardView
+                android:id="@+id/info_main_text_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="0dp">
+
+                <com.products.safetyfirst.utils.JustifiedWebView
+                    android:id="@+id/info_main_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/info_background"
+                    android:isScrollContainer="false" />
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/info_main_text_container"
+                android:layout_margin="12dp"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="0dp">
+
+                <com.products.safetyfirst.utils.JustifiedWebView
+                    android:id="@+id/info_checklist_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:isScrollContainer="false" />
+            </android.support.v7.widget.CardView>
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>
