@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.products.safetyfirst.R;
+import com.products.safetyfirst.fragment.Dash_Fragment;
 import com.products.safetyfirst.fragment.Discussion_Fragment;
 import com.products.safetyfirst.fragment.Home_Fragment;
 import com.products.safetyfirst.fragment.KnowIt_Fragment;
@@ -26,7 +27,7 @@ import java.util.List;
 
 public class  TempActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    private static final String TAG_FRAGMENT_DASH = "tag_frag_dash";
     private static final String TAG_FRAGMENT_HOME = "tag_frag_home";
     private static final String TAG_FRAGMENT_NEWS = "tag_frag_news";
     private static final String TAG_FRAGMENT_DISCUSSION = "tag_frag_discussion";
@@ -54,39 +55,43 @@ public class  TempActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         buildFragmentsList();
+
+        // Set the 0th Fragment to be displayed by default.
+        switchFragment(0, TAG_FRAGMENT_DASH);
         navigationView.getMenu().getItem(0).setChecked(true);
 
     }
 
     public void open_news(View v){
-        switchFragment(0, TAG_FRAGMENT_NEWS);
+        switchFragment(1, TAG_FRAGMENT_NEWS);
     }
     public void open_discussion(View v){
-        switchFragment(1, TAG_FRAGMENT_DISCUSSION);
+        switchFragment(2, TAG_FRAGMENT_DISCUSSION);
     }
     public void open_knowit(View v){
-        switchFragment(3, TAG_FRAGMENT_KNOWIT);
+        switchFragment(4, TAG_FRAGMENT_KNOWIT);
     }
     public void open_laws(View v){
-        switchFragment(2, TAG_FRAGMENT_LAWS);
+        switchFragment(3, TAG_FRAGMENT_LAWS);
     }
 
     private void switchFragment(int pos, String tag) {
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.main_container, fragments.get(pos), tag)
+                .addToBackStack("Frag1")
                 .commit();
     }
 
 
     private void buildFragmentsList() {
-      //  Home_Fragment homeFragment = new Home_Fragment();
+        Dash_Fragment dashFragment = new Dash_Fragment();
         News_Fragment newsFragment = new News_Fragment();
         Discussion_Fragment discussionFragment = new Discussion_Fragment();
         Laws_Fragment lawsFragment = new Laws_Fragment();
         KnowIt_Fragment knowFragment = new KnowIt_Fragment();
 
-       // fragments.add(homeFragment);
+        fragments.add(dashFragment);
         fragments.add(newsFragment);
         fragments.add(discussionFragment);
         fragments.add(lawsFragment);
@@ -98,7 +103,11 @@ public class  TempActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        }
+        else if(getSupportFragmentManager().findFragmentByTag("Frag1") != null){
+            getSupportFragmentManager().popBackStackImmediate("Frag1",0);
+        }
+        else {
             super.onBackPressed();
         }
     }

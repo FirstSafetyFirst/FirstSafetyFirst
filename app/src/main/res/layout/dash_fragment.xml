@@ -44,12 +44,46 @@
 
 
         </android.support.design.widget.AppBarLayout>
-        <FrameLayout
-            android:id="@+id/main_container"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true">
-        </FrameLayout>
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:id="@+id/main_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true" />
+
+            <Button
+                android:id="@+id/news"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="News"
+                android:onClick="open_news"/>
+            <Button
+                android:id="@+id/discussion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Discussion"
+                android:onClick="open_discussion"
+                android:layout_below="@+id/news"/>
+            <Button
+                android:id="@+id/laws"
+                android:layout_below="@+id/discussion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Laws"
+                android:onClick="open_laws"/>
+            <Button
+                android:id="@+id/knowit"
+                android:layout_below="@+id/laws"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Know It"
+                android:onClick="open_knowit"/>
+        </RelativeLayout>
+
+
 
     </LinearLayout>
 
