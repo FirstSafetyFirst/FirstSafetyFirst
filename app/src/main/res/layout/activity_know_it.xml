@@ -4,23 +4,8 @@
     android:id="@+id/activity_know_it"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundKnowIt">
+    android:background="@color/background">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appBarLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/tabBarColor"
-        app:elevation="0dp">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/tabBarColor"
-            android:theme="@style/AppToolbar"
-            app:layout_scrollFlags="scroll|enterAlways" />
-    </android.support.design.widget.AppBarLayout>
 
     <View
         android:layout_width="match_parent"

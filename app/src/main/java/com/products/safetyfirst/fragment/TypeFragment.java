@@ -17,7 +17,6 @@ import android.widget.TextView;
 import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter;
 import com.mikepenz.fastadapter.items.AbstractItem;
 import com.products.safetyfirst.R;
-import com.products.safetyfirst.activity.KnowItMainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +42,7 @@ public class TypeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mainView = inflater.inflate(R.layout.fragment_type, container, false);
-        position = getArguments().getInt(KnowItMainActivity.position);
+        position = getArguments().getInt(KnowIt_Fragment.position);
         typeRecycler = (RecyclerView) mainView.findViewById(R.id.type_recycler);
 
         typeAdapter = new FastItemAdapter();

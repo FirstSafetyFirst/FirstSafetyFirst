@@ -1,15 +1,15 @@
-package com.products.safetyfirst.activity;
+package com.products.safetyfirst.fragment;
 
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,11 +18,12 @@ import com.mikepenz.fastadapter.IAdapter;
 import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter;
 import com.mikepenz.fastadapter.items.AbstractItem;
 import com.products.safetyfirst.R;
+import com.products.safetyfirst.activity.KnowItSecondActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class KnowItMainActivity extends AppCompatActivity {
+public class KnowIt_Fragment extends Fragment {
 
     public final static String position = "position";
 
@@ -31,22 +32,22 @@ public class KnowItMainActivity extends AppCompatActivity {
     private List<KnowItItem> items;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_know_it);
-
-        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        View rootView = inflater.inflate(R.layout.activity_know_it, container, false);
+       /* setSupportActionBar((Toolbar) rootView.findViewById(R.id.toolbar));
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle("Know It");
-        }
+        }*/
 
-        itemsRecycler = (RecyclerView) findViewById(R.id.know_it_recycler);
+        itemsRecycler = (RecyclerView) rootView.findViewById(R.id.know_it_recycler);
         itemsAdapter = new FastItemAdapter();
         items = new ArrayList<>();
 
-        itemsRecycler.setLayoutManager(new GridLayoutManager(this, 2));
+        itemsRecycler.setLayoutManager(new GridLayoutManager(getContext(), 2));
         itemsRecycler.setAdapter(itemsAdapter);
 
         String[] titles = getResources().getStringArray(R.array.item_title);
@@ -62,12 +63,14 @@ public class KnowItMainActivity extends AppCompatActivity {
         itemsAdapter.withOnClickListener(new FastAdapter.OnClickListener<KnowItItem>() {
             @Override
             public boolean onClick(View v, IAdapter<KnowItItem> adapter, KnowItItem item, int position) {
-                Intent intent = new Intent(KnowItMainActivity.this, KnowItSecondActivity.class);
-                intent.putExtra(KnowItMainActivity.position, position);
+                Intent intent = new Intent(getContext(), KnowItSecondActivity.class);
+                intent.putExtra(KnowIt_Fragment.position, position);
                 startActivity(intent);
                 return true;
             }
         });
+
+        return rootView;
     }
 
     private class KnowItItem extends AbstractItem<KnowItItem, ViewHolder> {

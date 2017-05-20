@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundKnowIt"
+    android:background="@color/background"
     tools:context="com.products.safetyfirst.activity.ItemTypeInfoActivity">
 
     <android.support.design.widget.AppBarLayout

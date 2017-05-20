@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.fragment.InfoFragment;
+import com.products.safetyfirst.fragment.KnowIt_Fragment;
 import com.products.safetyfirst.fragment.TypeFragment;
 
 public class KnowItSecondActivity extends AppCompatActivity {
@@ -28,7 +29,7 @@ public class KnowItSecondActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_know_it_second);
         setSupportActionBar((Toolbar) findViewById(R.id.know_it_toolbar));
-        position = getIntent().getIntExtra(KnowItMainActivity.position, 0);
+        position = getIntent().getIntExtra(KnowIt_Fragment.position, 0);
 
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
@@ -80,7 +81,7 @@ public class KnowItSecondActivity extends AppCompatActivity {
         categoryTabs.addTab(categoryTabs.newTab().setCustomView(tab2));
 
         final Bundle args = new Bundle();
-        args.putInt(KnowItMainActivity.position, position);
+        args.putInt(KnowIt_Fragment.position, position);
 
         FragmentPagerAdapter categoryAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             Fragment fragments[] = {new InfoFragment(), new TypeFragment()};

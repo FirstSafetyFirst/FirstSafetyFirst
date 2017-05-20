@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 
 import com.products.safetyfirst.R;
-import com.products.safetyfirst.activity.KnowItMainActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -34,7 +33,7 @@ public class InfoFragment extends Fragment {
         mainView = inflater.inflate(R.layout.fragment_info, container, false);
         infoTextView = (WebView) mainView.findViewById(R.id.info_main_text);
         checklistView = (WebView) mainView.findViewById(R.id.info_checklist_text);
-        position = getArguments().getInt(KnowItMainActivity.position, 0);
+        position = getArguments().getInt(KnowIt_Fragment.position, 0);
 
         Resources res = getResources();
 
