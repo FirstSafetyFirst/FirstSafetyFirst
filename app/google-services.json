@@ -1,0 +1,211 @@
+{
+  "project_info": {
+    "project_number": "658105027609",
+    "firebase_url": "https://safetyfirst-aec72.firebaseio.com",
+    "project_id": "safetyfirst-aec72",
+    "storage_bucket": "safetyfirst-aec72.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:658105027609:android:ce08cadf930fb1f1",
+        "android_client_info": {
+          "package_name": "com.vikas.dtu.safetyfirst"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "658105027609-c23ahiqk2k6l81cpcajnn6nl6v17hmbe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vikas.dtu.safetyfirst",
+            "certificate_hash": "6B1AF66CBB66376115C8453F3283882E00511ACE"
+          }
+        },
+        {
+          "client_id": "658105027609-3cqb1on3lv4t9nd1sdmg3rdib0i5arq8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vikas.dtu.safetyfirst",
+            "certificate_hash": "5FADC2552C3D8236F78FB48A4A31A243DAA2CD71"
+          }
+        },
+        {
+          "client_id": "658105027609-rm39prp1s7ata0djsdq90rtc5dqfe6kl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vikas.dtu.safetyfirst",
+            "certificate_hash": "4943FB45663560E895CC37D90821C56A3A17C0CE"
+          }
+        },
+        {
+          "client_id": "658105027609-c542veh2ntteqkcktc3blo1s8advvtku.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vikas.dtu.safetyfirst",
+            "certificate_hash": "072E21BD0E64D091685372FF069EA8B4AB630553"
+          }
+        },
+        {
+          "client_id": "658105027609-s7n128ab4vur7mc4vj0mb1164lkol7gm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vikas.dtu.safetyfirst",
+            "certificate_hash": "87222137856AF871D1539D4AFD2D0238ACA1412F"
+          }
+        },
+        {
+          "client_id": "658105027609-tg1of1bf7hitrsat8sm2id7e1id1mhd2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vikas.dtu.safetyfirst",
+            "certificate_hash": "7B0C61128DA23E7DF0111DA7D34F4D315819608E"
+          }
+        },
+        {
+          "client_id": "658105027609-160e2s6lj5qld2qoaos3g1r956t63fqv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvu-6jePJr0iJSEEQyZuhv3dskfEQCtq8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "658105027609-160e2s6lj5qld2qoaos3g1r956t63fqv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:658105027609:android:7c91ff33410e8ef9",
+        "android_client_info": {
+          "package_name": "com.vikas.dtu.safetyfirst2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "658105027609-osr3skit74bkbvvdr5svltc816kp4d5o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vikas.dtu.safetyfirst2",
+            "certificate_hash": "BE68B4858B5B6DB2D50ECE2FC748A1D6F2F55EA4"
+          }
+        },
+        {
+          "client_id": "658105027609-m8ujlgf3vmhcckhcbluihiahihe3s60c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vikas.dtu.safetyfirst2",
+            "certificate_hash": "E2523AB9790242F977B24CE2799C6AFA3525A116"
+          }
+        },
+        {
+          "client_id": "658105027609-7e7fpfaqon0dli4pk8ii0sdkphgmeokq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vikas.dtu.safetyfirst2",
+            "certificate_hash": "EF273E1E426539CFB43B8CB27DB63C2B49BE994A"
+          }
+        },
+        {
+          "client_id": "658105027609-b6ftvdnm22ok0pfhfrbkhr57j9f0lsoq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vikas.dtu.safetyfirst2",
+            "certificate_hash": "D5E4E6BC17D5D91E0403A99E6F9CC6841A28F3F2"
+          }
+        },
+        {
+          "client_id": "658105027609-6s58oeiia25835nd8ptb4ckfvsne3bnm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vikas.dtu.safetyfirst2",
+            "certificate_hash": "072E21BD0E64D091685372FF069EA8B4AB630553"
+          }
+        },
+        {
+          "client_id": "658105027609-2jrgjlqjoefc76bfsp00aicpnfsugfl5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vikas.dtu.safetyfirst2",
+            "certificate_hash": "7B0C61128DA23E7DF0111DA7D34F4D315819608E"
+          }
+        },
+        {
+          "client_id": "658105027609-0l2u1j42bv80sk1jigro1nje35mn6mpk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vikas.dtu.safetyfirst2",
+            "certificate_hash": "4943FB45663560E895CC37D90821C56A3A17C0CE"
+          }
+        },
+        {
+          "client_id": "658105027609-h9b7d439scslmcr13rb7gaib5j1ia63k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vikas.dtu.safetyfirst2",
+            "certificate_hash": "6B1AF66CBB66376115C8453F3283882E00511ACE"
+          }
+        },
+        {
+          "client_id": "658105027609-uhci93d73k3ojrullcn6djiurskmnkqd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vikas.dtu.safetyfirst2",
+            "certificate_hash": "5FADC2552C3D8236F78FB48A4A31A243DAA2CD71"
+          }
+        },
+        {
+          "client_id": "658105027609-1mni42nfek5af73kt21gdadjp1hnfenm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vikas.dtu.safetyfirst2",
+            "certificate_hash": "87222137856AF871D1539D4AFD2D0238ACA1412F"
+          }
+        },
+        {
+          "client_id": "658105027609-160e2s6lj5qld2qoaos3g1r956t63fqv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDvu-6jePJr0iJSEEQyZuhv3dskfEQCtq8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "658105027609-160e2s6lj5qld2qoaos3g1r956t63fqv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

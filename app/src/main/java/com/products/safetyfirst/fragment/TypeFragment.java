@@ -28,7 +28,7 @@ public class TypeFragment extends Fragment {
 
     private View mainView;
     private RecyclerView typeRecycler;
-    private FastItemAdapter typeAdapter;
+    private FastItemAdapter<TypeItem> typeAdapter;
     private List<TypeItem> types;
     private Integer position;
 
@@ -55,16 +55,13 @@ public class TypeFragment extends Fragment {
         TypedArray titleArray = res.obtainTypedArray(R.array.third_title);
         int titleId = titleArray.getResourceId(position,0);
         String[] titles = res.getStringArray(titleId);
-        titleArray.recycle();
 
         TypedArray descArray = res.obtainTypedArray(R.array.third_description);
         int descId =descArray.getResourceId(position,0);
         String[] descriptions = res.getStringArray(descId);
-        descArray.recycle();
 
         TypedArray imageArray = res.obtainTypedArray(R.array.third_image);
         int imageId = imageArray.getResourceId(position,0);
-        imageArray.recycle();
         TypedArray images = res.obtainTypedArray(imageId);
 
         for(int i = 0; i < titles.length; i++) {
@@ -76,7 +73,7 @@ public class TypeFragment extends Fragment {
         return mainView;
     }
 
-    private class TypeItem extends AbstractItem<TypeFragment.TypeItem, TypeFragment.ViewHolder> {
+    private class TypeItem extends AbstractItem<TypeItem, ViewHolder> {
 
         private String title;
         private Drawable image;

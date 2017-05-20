@@ -5,7 +5,20 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.webkit.WebView;
 
+
 public class JustifiedWebView extends WebView {
+
+    private String content;
+    private String heading;
+
+    public String getContent() {
+        return content;
+    }
+
+    public String getHeading() {
+        return heading;
+    }
+
     public JustifiedWebView(Context context) {
         super(context);
     }
@@ -26,5 +39,22 @@ public class JustifiedWebView extends WebView {
     @Override
     public void loadData(String data, String mimeType, String encoding) {
         super.loadData(data, mimeType, encoding);
+    }
+
+    public void setText(String content) {
+        setText(content, "");
+    }
+
+    // heading must be accompanied by its styling or it will be shown as it is
+    public void setText(String content, String heading) {
+        this.content = content;
+        this.heading = heading;
+        String text = "<html><body>"
+                + heading
+                + "<p align=\"justify\" style=\" color: #2c3b42 \">"
+                + content
+                + "</p> "
+                + "</body></html>";
+        loadData(text, "text/html", "utf-8");
     }
 }

@@ -10,7 +10,6 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:layout_below="@id/appBarLayout"
         android:background="@color/tabBarColor" />
 
     <View
@@ -23,7 +22,6 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/know_it_recycler"
-        android:layout_below="@id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

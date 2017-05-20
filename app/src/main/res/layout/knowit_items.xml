@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="4dp"
+    android:layout_width="match_parent"
+    android:layout_height="200dp">
+<RelativeLayout
+    android:layout_width="match_parent"
+
+    android:layout_height="match_parent">
+    <ImageView android:id="@+id/know_img"
+        android:layout_width="match_parent"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:foreground="#85000000"
+        android:src="@drawable/welcome"
+        android:layout_height="match_parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:layout_margin="40dp"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:background="#ffffff"
+            android:layout_height="1dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="ARIEL LIFT"
+            android:textColor="#ffffff"
+            android:layout_margin="15dp"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="match_parent"
+            android:background="#ffffff"
+            android:layout_height="1dp"/>
+
+
+    </LinearLayout>
+
+</RelativeLayout>
+</android.support.v7.widget.CardView>
