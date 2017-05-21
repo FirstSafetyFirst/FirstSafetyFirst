@@ -54,13 +54,12 @@ public class ItemTypeInfoActivity extends AppCompatActivity {
         tabSelectedListener = new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-//                viewPager.setCurrentItem(tab.getPosition(), true);
-//                ((TextView)tab.getCustomView().findViewById(R.id.tab_text)).setTextColor(getResources().getColor(R.color.colorAccent));
+                viewPager.setCurrentItem(tab.getPosition(), true);
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-//                ((TextView)tab.getCustomView().findViewById(R.id.tab_text)).setTextColor(getResources().getColor(R.color.white));
+
             }
 
             @Override
@@ -84,16 +83,16 @@ public class ItemTypeInfoActivity extends AppCompatActivity {
         }
 
         final Bundle args = new Bundle();
-        args.putInt(KnowIt_Fragment.position, 0);
+        args.putInt("position", 0);
+        final Fragment fragments[] = {new TypeInfoFragment(), new TypeHowToUseFragment(), new TypeChecklistFragment(), new TypeVideoFragment()};
+        for(Fragment fragment: fragments){
+            fragment.setArguments(args);
+        }
 
         FragmentPagerAdapter categoryAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
-            Fragment fragments[] = {new TypeInfoFragment(), new TypeHowToUseFragment(), new TypeChecklistFragment(), new TypeVideoFragment()};
-            String titles[] = {"Info", "Types"};
+            String titles[] = {"Info", "How To Use", "Checklist", "Video"};
             @Override
             public Fragment getItem(int position) {
-                for(Fragment fragment: fragments){
-                    fragment.setArguments(args);
-                }
                 return fragments[position];
             }
 
@@ -112,7 +111,14 @@ public class ItemTypeInfoActivity extends AppCompatActivity {
         viewPager.setCurrentItem(0);
         tabs.getTabAt(0).select();
 
-        //viewPager.addOnPageChangeListener(pageChangeListener);
+        viewPager.addOnPageChangeListener(pageChangeListener);
         tabs.addOnTabSelectedListener(tabSelectedListener);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        viewPager.removeOnPageChangeListener(pageChangeListener);
+        tabs.removeOnTabSelectedListener(tabSelectedListener);
     }
 }

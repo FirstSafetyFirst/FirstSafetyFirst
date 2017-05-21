@@ -1,6 +1,8 @@
 package com.products.safetyfirst.fragment;
 
 
+import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
@@ -17,6 +19,8 @@ import android.widget.TextView;
 import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter;
 import com.mikepenz.fastadapter.items.AbstractItem;
 import com.products.safetyfirst.R;
+import com.products.safetyfirst.activity.ItemTypeInfoActivity;
+import com.products.safetyfirst.fragment.ItemsFragments.TypeInfoFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,7 +105,13 @@ public class TypeFragment extends Fragment {
         @Override
         public void bindView(TypeFragment.ViewHolder holder, List<Object> payloads) {
             super.bindView(holder, payloads);
-
+            holder.mainView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getContext(), ItemTypeInfoActivity.class);
+                    startActivity(intent);
+                }
+            });
             holder.title.setText(title);
             holder.image.setImageDrawable(image);
         }
