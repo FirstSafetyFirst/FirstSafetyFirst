@@ -5,7 +5,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -26,13 +28,19 @@ public class Home_News_Adapter extends RecyclerView.Adapter<Home_News_Adapter.My
 
 public class MyViewHolder extends RecyclerView.ViewHolder {
 
-    public ImageView images,favicon;
+    private ImageView images,favicon, bookmark;
+    private TextView title, timestamp;
+    private Button detail;
 
     public MyViewHolder(View view) {
 
         super(view);
         images= (ImageView) view.findViewById(R.id.news_avtar);
         favicon= (ImageView) view.findViewById(R.id.favicon);
+        bookmark = (ImageView) view.findViewById(R.id.bookmark);
+        title = (TextView) view.findViewById(R.id.title);
+        timestamp = (TextView) view.findViewById(R.id.dateTime);
+        detail = (Button) view.findViewById(R.id.view_details);
 
     }
 }
@@ -58,11 +66,11 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
         String URL1="http://ndtvimages.yuppcdn.net/images/Sun_News_News_8748.jpg";
 
         Glide.with(context).load(URL).transform(new CircleTransform(context)).into(holder.favicon);
-
-
         Glide.with(context).load(URL1).into(holder.images);
 
-        holder.images.setOnClickListener(new View.OnClickListener() {
+        holder.title.setText( horizontalList.get(position).getTitle());
+        holder.timestamp.setText("10 May, 2017");
+        holder.detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, horizontalList.get(position).getTitle(),Toast.LENGTH_SHORT).show();
