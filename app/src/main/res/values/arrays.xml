@@ -1147,4 +1147,104 @@ An articulating boom lift is a type of crane that uses hydraulic cylinders to ri
         <item>@array/Telangana</item>
         <item>@array/WestBengal</item>
     </array>
+
+    <!--Youtube Links -->
+    <array name="youtubeEmbed">
+        <item>@array/aerial_lift_youtube</item>
+        <item>@array/crane_lift_youtube</item>
+        <item>@array/fire_sprinklers_youtube</item>
+        <item>@array/fork_lift_youtube</item>
+        <item>@array/heat_stress_youtube</item>
+        <item>@array/ladders_youtube</item>
+        <item>@array/respiratory_youtube</item>
+        <item>@array/scaffolds_youtube</item>
+    </array>
+
+    <string-array name="aerial_lift_youtube">
+        <item>https://www.youtube.com/embed/OGZOX2f2Yrc</item>
+        <item>https://www.youtube.com/embed/7j_q90XMqH0</item>
+        <item>no</item>
+        <item>https://www.youtube.com/embed/M-mFITmJ_q4</item>
+        <item>no</item>
+        <item>no</item>
+    </string-array>
+
+    <string-array name="crane_lift_youtube">
+        <item>https://www.youtube.com/embed/OYO_w-eLfag</item>
+        <item>no</item>
+        <item>https://www.youtube.com/embed/op8xvBmqQlU</item>
+        <item>https://www.youtube.com/embed/bQhkZVvd-IU</item>
+        <item>https://www.youtube.com/embed/NDPUfTrp4IE</item>
+        <item>https://www.youtube.com/embed/uO-RwTWqhrA</item>
+        <item>https://www.youtube.com/embed/jXIp0VEV67I</item>
+        <item>no</item>
+        <item>no</item>
+        <item>https://www.youtube.com/embed/9u3EuI6JRQA</item>
+        <item>https://www.youtube.com/embed/VWp9GOxrM08</item>
+    </string-array>
+
+    <string-array name="fire_sprinklers_youtube">
+        <item>https://www.youtube.com/embed/0Ej2j6NuJdo</item>
+        <item>https://www.youtube.com/embed/ALUAHfU1nYg</item>
+        <item>https://www.youtube.com/embed/ZDwRlcFl2Qo</item>
+        <item>https://www.youtube.com/embed/uHIQwTmfA44</item>
+    </string-array>
+
+    <string-array name="fork_lift_youtube">
+        <item>https://www.youtube.com/embed/5zzPw_oe-So</item>
+        <item>https://www.youtube.com/embed/pHcBUF5NzJ8</item>
+        <item>https://www.youtube.com/embed/7s-h87pogc4</item>
+        <item>https://www.youtube.com/embed/tKw2numtNd8</item>
+        <item>https://www.youtube.com/embed/qjZlFoKnyIw</item>
+        <item>https://www.youtube.com/embed/PuHD3ZuxrWM</item>
+    </string-array>
+
+    <string-array name="heat_stress_youtube">
+        <item>no</item>
+        <item>no</item>
+        <item>no</item>
+        <item>no</item>
+        <item>no</item>
+    </string-array>
+
+    <string-array name="ladders_youtube">
+        <item>https://www.youtube.com/embed/tcsdVup8NzA</item>
+        <item>https://www.youtube.com/watch?v=sWuOBu3GjHw</item>
+        <item>https://www.youtube.com/embed/jNggabGSvvs</item>
+        <item>no</item>
+        <item>https://www.youtube.com/embed/isv6O-FIj8c</item>
+        <item>https://www.youtube.com/embed/3g-Kwc7qMaY</item>
+    </string-array>
+
+    <string-array name="respiratory_youtube">
+        <item>https://www.youtube.com/embed/0d_RaKdqeck</item>
+        <item>https://www.youtube.com/embed/yBg2B2BP9nA</item>
+        <item>https://www.youtube.com/embed/OJ3ANkCeSzE</item>
+        <item>no</item>
+        <item>no</item>
+        <item>https://www.youtube.com/embed/EgtNgi7KMIk</item>
+    </string-array>
+
+    <string-array name="scaffolds_youtube">
+        <item>no</item>
+        <item>no</item>
+        <item>https://www.youtube.com/embed/MFJ4FNy1qWU</item>
+        <item>https://www.youtube.com/embed/56NZrk183BI</item>
+        <item>no</item>
+        <item>no</item>
+        <item>no</item>
+        <item>https://www.youtube.com/embed/Hx9i3L2eDzs</item>
+        <item>https://www.youtube.com/embed/Hx9i3L2eDzs</item>
+        <item>https://www.youtube.com/embed/Hx9i3L2eDzs</item>
+        <item>https://www.youtube.com/embed/Hx9i3L2eDzs</item>
+        <item>https://www.youtube.com/embed/Hx9i3L2eDzs</item>
+        <item>https://www.youtube.com/embed/Hx9i3L2eDzs</item>
+        <item>https://www.youtube.com/embed/Hx9i3L2eDzs</item>
+        <item>https://www.youtube.com/embed/Hx9i3L2eDzs</item>
+        <item>no</item>
+        <item>no</item>
+        <item>no</item>
+        <item>no</item>
+    </string-array>
+    <!--Youtube Links END-->
 </resources>
