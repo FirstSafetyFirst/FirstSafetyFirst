@@ -69,7 +69,7 @@ public class TypeFragment extends Fragment {
         TypedArray images = res.obtainTypedArray(imageId);
 
         for(int i = 0; i < titles.length; i++) {
-            types.add(new TypeFragment.TypeItem(titles[i], images.getDrawable(i)));
+            types.add(new TypeFragment.TypeItem(titles[i], images.getDrawable(i), i, position));
         }
         images.recycle();
         typeAdapter.add(types);
@@ -82,9 +82,14 @@ public class TypeFragment extends Fragment {
         private String title;
         private Drawable image;
 
-        TypeItem(String title, Drawable image){
+        private int positionValue;
+        private int typeValue;
+
+        TypeItem(String title, Drawable image, int typeValue, int positionValue){
             this.title = title;
             this.image = image;
+            this.typeValue = typeValue;
+            this.positionValue = positionValue;
         }
 
         @Override
@@ -109,6 +114,8 @@ public class TypeFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getContext(), ItemTypeInfoActivity.class);
+                    intent.putExtra(ItemTypeInfoActivity.typeNumber, typeValue);
+                    intent.putExtra(ItemTypeInfoActivity.position, positionValue);
                     startActivity(intent);
                 }
             });

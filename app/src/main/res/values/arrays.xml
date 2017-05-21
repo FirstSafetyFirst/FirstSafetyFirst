@@ -251,7 +251,6 @@ Working at Height Regulations – Overriding Principle
     </array>
 
 
-
     <!--Description-->
     <string-array name="aerial_lift_desc">
         <item>An aerial device with two or more hinged boom sections.
@@ -600,16 +599,16 @@ An articulating boom lift is a type of crane that uses hydraulic cylinders to ri
 
     <!--Image-->
 
-    <string-array name="aerial_lift_image">
+    <integer-array name="aerial_lift_image">
         <item>@drawable/third_aerial_1</item>
         <item>@drawable/third_aerial_2</item>
         <item>@drawable/third_aerial_3</item>
         <item>@drawable/third_aerial_4</item>
         <item>@drawable/third_aerial_5</item>
         <item>@drawable/third_aerial_6</item>
-    </string-array>
+    </integer-array>
 
-    <string-array name="crane_lift_image">
+    <integer-array name="crane_lift_image">
         <item>@drawable/third_crane_1</item>
         <item>@drawable/third_crane_2</item>
         <item>@drawable/third_crane_3</item>
@@ -621,35 +620,35 @@ An articulating boom lift is a type of crane that uses hydraulic cylinders to ri
         <item>@drawable/third_crane_9</item>
         <item>@drawable/third_crane_10</item>
         <item>@drawable/third_crane_11</item>
-    </string-array>
+    </integer-array>
 
-    <string-array name="fire_sprinklers_image">
+    <integer-array name="fire_sprinklers_image">
         <item>@drawable/third_fire_1</item>
         <item>@drawable/third_fire_2</item>
         <item>@drawable/third_fire_3</item>
         <item>@drawable/third_fire_4</item>
 
-    </string-array>
+    </integer-array>
 
-    <string-array name="fork_lift_image">
+    <integer-array name="fork_lift_image">
         <item>@drawable/third_forklift_1</item>
         <item>@drawable/third_forklift_2</item>
         <item>@drawable/third_forklift_3</item>
         <item>@drawable/third_forklift_4</item>
         <item>@drawable/third_forklift_5</item>
         <item>@drawable/third_forklift_6</item>
-    </string-array>
+    </integer-array>
 
-    <string-array name="heat_stress_image">
+    <integer-array name="heat_stress_image">
         <item>@drawable/third_heat_1</item>
         <item>@drawable/third_heat_2</item>
         <item>@drawable/third_heat_3</item>
         <item>@drawable/third_heat_4</item>
         <item>@drawable/third_heat_5</item>
 
-    </string-array>
+    </integer-array>
 
-    <string-array name="ladders_image">
+    <integer-array name="ladders_image">
         <item>@drawable/third_ladder_1</item>
         <item>@drawable/third_ladder_2</item>
         <item>@drawable/third_ladder_3</item>
@@ -657,9 +656,9 @@ An articulating boom lift is a type of crane that uses hydraulic cylinders to ri
         <item>@drawable/third_ladder_5</item>
         <item>@drawable/third_ladder_6</item>
 
-    </string-array>
+    </integer-array>
 
-    <string-array name="respiratory_protection_image">
+    <integer-array name="respiratory_protection_image">
         <item>@drawable/third_respiratory_1</item>
         <item>@drawable/third_respiratory_2</item>
         <item>@drawable/third_respiratory_3</item>
@@ -667,9 +666,9 @@ An articulating boom lift is a type of crane that uses hydraulic cylinders to ri
         <item>@drawable/third_respiratory_5</item>
         <item>@drawable/third_respiratory_6</item>
 
-    </string-array>
+    </integer-array>
 
-    <string-array name="scaffoldings_image">
+    <integer-array name="scaffoldings_image">
         <item>@drawable/third_scaffold_1</item>
         <item>@drawable/third_scaffold_2</item>
         <item>@drawable/third_scaffold_3</item>
@@ -689,7 +688,7 @@ An articulating boom lift is a type of crane that uses hydraulic cylinders to ri
         <item>@drawable/third_scaffold_17</item>
         <item>@drawable/third_scaffold_18</item>
         <item>@drawable/third_scaffold_19</item>
-    </string-array>
+    </integer-array>
 
 
     <array name="third_image">

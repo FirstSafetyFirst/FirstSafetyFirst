@@ -29,7 +29,7 @@ public class KnowItSecondActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_know_it_second);
         setSupportActionBar((Toolbar) findViewById(R.id.know_it_toolbar));
-        position = getIntent().getIntExtra(KnowIt_Fragment.position, 0);
+        position = getIntent().getIntExtra("position", 0);
 
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
@@ -44,6 +44,8 @@ public class KnowItSecondActivity extends AppCompatActivity {
         setupTabs();
 
     }
+
+
 
     void setupTabs() {
         tabSelectedListener = new TabLayout.OnTabSelectedListener() {
@@ -115,6 +117,7 @@ public class KnowItSecondActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
+        categoryTabs.removeOnTabSelectedListener(tabSelectedListener);
+        categoryView.removeOnPageChangeListener(pageChangeListener);
     }
 }

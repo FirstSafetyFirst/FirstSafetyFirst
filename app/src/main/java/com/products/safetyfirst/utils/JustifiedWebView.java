@@ -47,6 +47,7 @@ public class JustifiedWebView extends WebView {
 
     // heading must be accompanied by its styling or it will be shown as it is
     public void setText(String content, String heading) {
+        content = content.replaceAll("\n", "<br>");
         this.content = content;
         this.heading = heading;
         String text = "<html><body>"
