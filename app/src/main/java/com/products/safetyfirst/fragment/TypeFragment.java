@@ -16,6 +16,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.mikepenz.fastadapter.FastAdapter;
+import com.mikepenz.fastadapter.IAdapter;
 import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter;
 import com.mikepenz.fastadapter.items.AbstractItem;
 import com.products.safetyfirst.R;
@@ -34,7 +36,7 @@ public class TypeFragment extends Fragment {
     private RecyclerView typeRecycler;
     private FastItemAdapter<TypeItem> typeAdapter;
     private List<TypeItem> types;
-    private Integer position;
+    private static Integer tool;
 
     public TypeFragment() {
         // Required empty public constructor
@@ -46,7 +48,7 @@ public class TypeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mainView = inflater.inflate(R.layout.fragment_type, container, false);
-        position = getArguments().getInt(KnowIt_Fragment.position);
+        tool = getArguments().getInt(KnowIt_Fragment.tool);
         typeRecycler = (RecyclerView) mainView.findViewById(R.id.type_recycler);
 
         typeAdapter = new FastItemAdapter();
@@ -57,23 +59,33 @@ public class TypeFragment extends Fragment {
 
         Resources res = getResources();
         TypedArray titleArray = res.obtainTypedArray(R.array.third_title);
-        int titleId = titleArray.getResourceId(position,0);
+        int titleId = titleArray.getResourceId(tool,0);
         String[] titles = res.getStringArray(titleId);
 
         TypedArray descArray = res.obtainTypedArray(R.array.third_description);
-        int descId =descArray.getResourceId(position,0);
+        int descId =descArray.getResourceId(tool,0);
         String[] descriptions = res.getStringArray(descId);
 
         TypedArray imageArray = res.obtainTypedArray(R.array.third_image);
-        int imageId = imageArray.getResourceId(position,0);
+        int imageId = imageArray.getResourceId(tool,0);
         TypedArray images = res.obtainTypedArray(imageId);
 
         for(int i = 0; i < titles.length; i++) {
-            types.add(new TypeFragment.TypeItem(titles[i], images.getDrawable(i), i, position));
+            types.add(new TypeFragment.TypeItem(titles[i], images.getDrawable(i)));
         }
         images.recycle();
         typeAdapter.add(types);
 
+        typeAdapter.withOnClickListener(new FastAdapter.OnClickListener<TypeItem>() {
+            @Override
+            public boolean onClick(View v, IAdapter<TypeItem> adapter, TypeItem item, int position) {
+                Intent intent = new Intent(getContext(), ItemTypeInfoActivity.class);
+                intent.putExtra(ItemTypeInfoActivity.typeNumber, position);
+                intent.putExtra(ItemTypeInfoActivity.tool, TypeFragment.tool);
+                startActivity(intent);
+                return true;
+            }
+        });
         return mainView;
     }
 
@@ -82,14 +94,9 @@ public class TypeFragment extends Fragment {
         private String title;
         private Drawable image;
 
-        private int positionValue;
-        private int typeValue;
-
-        TypeItem(String title, Drawable image, int typeValue, int positionValue){
+        TypeItem(String title, Drawable image){
             this.title = title;
             this.image = image;
-            this.typeValue = typeValue;
-            this.positionValue = positionValue;
         }
 
         @Override
@@ -110,15 +117,6 @@ public class TypeFragment extends Fragment {
         @Override
         public void bindView(TypeFragment.ViewHolder holder, List<Object> payloads) {
             super.bindView(holder, payloads);
-            holder.mainView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getContext(), ItemTypeInfoActivity.class);
-                    intent.putExtra(ItemTypeInfoActivity.typeNumber, typeValue);
-                    intent.putExtra(ItemTypeInfoActivity.position, positionValue);
-                    startActivity(intent);
-                }
-            });
             holder.title.setText(title);
             holder.image.setImageDrawable(image);
         }

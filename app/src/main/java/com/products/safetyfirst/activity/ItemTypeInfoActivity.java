@@ -1,6 +1,7 @@
 package com.products.safetyfirst.activity;
 
 import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -29,10 +30,10 @@ public class ItemTypeInfoActivity extends AppCompatActivity {
     private TabLayout.OnTabSelectedListener tabSelectedListener;
     private TabLayout.TabLayoutOnPageChangeListener pageChangeListener;
 
-    private int positionValue;
+    private int toolValue;
     private int typeValue;
 
-    public static final String position = "position";
+    public static final String tool = "tool";
     public static final String typeNumber = "typeNumber";
 
 
@@ -48,18 +49,19 @@ public class ItemTypeInfoActivity extends AppCompatActivity {
         actionBar.setTitle("Detail");
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        positionValue = getIntent().getIntExtra(position, 0);
+        toolValue = getIntent().getIntExtra(tool, 0);
         typeValue = getIntent().getIntExtra(typeNumber, 0);
 
-        TypedArray ta = getResources().obtainTypedArray(R.array.third_image);
-        Log.e("Drwable", getResources().getIntArray(
-                ta.getResourceId(positionValue, R.array.aerial_lift_image))[typeValue] + " : " + typeValue + " : " + positionValue);
-        mainImage.setImageDrawable(getResources().getDrawable(
-                getResources().getIntArray(
-                        ta.getResourceId(positionValue, R.array.aerial_lift_image))[typeValue]));
+        TypedArray imageArray = getResources().obtainTypedArray(R.array.third_image);
+        int imageId = imageArray.getResourceId(toolValue,0);
+        TypedArray a = getResources().obtainTypedArray(imageId);
+        Drawable image = a.getDrawable(typeValue);
+        mainImage.setImageDrawable(image);
+
+        a.recycle();
+        imageArray.recycle();
 
         //((NestedScrollView) findViewById(R.id.nestedScroll)).setFillViewport(true);
-        ta.recycle();
         tabs = (TabLayout) findViewById(R.id.tabs);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
 
@@ -107,7 +109,7 @@ public class ItemTypeInfoActivity extends AppCompatActivity {
         }
 
         final Bundle args = new Bundle();
-        args.putInt(position, positionValue);
+        args.putInt(tool, toolValue);
         args.putInt(typeNumber, typeValue);
         final Fragment fragments[] = {new TypeInfoFragment(),
                 new TypeHowToUseFragment(),

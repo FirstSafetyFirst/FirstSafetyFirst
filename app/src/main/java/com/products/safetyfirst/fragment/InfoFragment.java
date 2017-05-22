@@ -34,7 +34,7 @@ public class InfoFragment extends Fragment {
         mainView = inflater.inflate(R.layout.fragment_info, container, false);
         infoTextView = (JustifiedWebView) mainView.findViewById(R.id.info_main_text);
         checklistView = (JustifiedWebView) mainView.findViewById(R.id.info_checklist_text);
-        position = getArguments().getInt(KnowIt_Fragment.position, 0);
+        position = getArguments().getInt(KnowIt_Fragment.tool, 0);
 
         Resources res = getResources();
 

@@ -19,7 +19,7 @@ public class TypeInfoFragment extends Fragment {
 
     private View mainView;
     private JustifiedWebView informationView;
-    private int positionValue;
+    private int toolValue;
     private int typeValue;
     public TypeInfoFragment() {
         // Required empty public constructor
@@ -33,12 +33,12 @@ public class TypeInfoFragment extends Fragment {
         mainView = inflater.inflate(R.layout.fragment_type_info, container, false);
         informationView = (JustifiedWebView) mainView.findViewById(R.id.type_info);
 
-        positionValue = getArguments().getInt(ItemTypeInfoActivity.position, 0);
+        toolValue = getArguments().getInt(ItemTypeInfoActivity.tool, 0);
         typeValue = getArguments().getInt(ItemTypeInfoActivity.typeNumber, 0);
 
         TypedArray ta = getResources().obtainTypedArray(R.array.third_description);
 
-        informationView.setText(getResources().getStringArray(ta.getResourceId(positionValue, 0))[typeValue],
+        informationView.setText(getResources().getStringArray(ta.getResourceId(toolValue, 0))[typeValue],
                 "<span style=\" color: #f1551a; font-size: 20px; \">"
                         + "INFORMATION"
                         + "</span><hr>");

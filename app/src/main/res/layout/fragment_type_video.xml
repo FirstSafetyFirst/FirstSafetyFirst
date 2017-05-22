@@ -3,10 +3,25 @@
     android:id="@+id/nested_scroll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.products.safetyfirst.KnowIt.ItemsFragments.TypeVideoFragment">
-    <WebView
-        android:id="@+id/webview"
+    tools:context="com.products.safetyfirst.fragment.ItemsFragments.TypeVideoFragment">
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+
+        <WebView
+            android:id="@+id/webview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/not_available"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="NOT AVAILABLE"
+            android:textSize="28sp"
+            android:visibility="gone"/>
+    </RelativeLayout>
 
 </android.support.v4.widget.NestedScrollView>

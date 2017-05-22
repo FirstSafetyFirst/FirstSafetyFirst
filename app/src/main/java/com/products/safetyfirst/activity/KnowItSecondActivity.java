@@ -20,7 +20,7 @@ public class KnowItSecondActivity extends AppCompatActivity {
 
     private TabLayout categoryTabs;
     private ViewPager categoryView;
-    private int position;
+    private int tool;
     private TabLayout.OnTabSelectedListener tabSelectedListener;
     private TabLayout.TabLayoutOnPageChangeListener pageChangeListener;
 
@@ -29,12 +29,12 @@ public class KnowItSecondActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_know_it_second);
         setSupportActionBar((Toolbar) findViewById(R.id.know_it_toolbar));
-        position = getIntent().getIntExtra("position", 0);
+        tool = getIntent().getIntExtra("tool", 0);
 
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle(getResources().getStringArray(R.array.item_title)[position]);
+            actionBar.setTitle(getResources().getStringArray(R.array.item_title)[tool]);
         }
 
 
@@ -83,7 +83,7 @@ public class KnowItSecondActivity extends AppCompatActivity {
         categoryTabs.addTab(categoryTabs.newTab().setCustomView(tab2));
 
         final Bundle args = new Bundle();
-        args.putInt(KnowIt_Fragment.position, position);
+        args.putInt(KnowIt_Fragment.tool, tool);
 
         FragmentPagerAdapter categoryAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             Fragment fragments[] = {new InfoFragment(), new TypeFragment()};
