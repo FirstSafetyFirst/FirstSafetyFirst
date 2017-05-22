@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.activity.ItemTypeInfoActivity;
@@ -28,12 +29,24 @@ public class TypeChecklistFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_type_checklist, container, false);
+        View mainView = inflater.inflate(R.layout.fragment_type_checklist, container, false);
+        Button btn = (Button) mainView.findViewById(R.id.checklist);
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openPdf();
+            }
+        });
+        return mainView;
     }
 
     @Override
     public void onResume() {
         super.onResume();
+    }
+
+    private void openPdf(){
         String url;
 
         int toolValue = getArguments().getInt(ItemTypeInfoActivity.tool, 0);
@@ -44,6 +57,7 @@ public class TypeChecklistFragment extends Fragment {
 //        Intent intent = new Intent(Intent.ACTION_VIEW);
 //        intent.setDataAndType(Uri.parse(url), "application/pdf");
 //        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        ta.recycle();
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         startActivity(intent);
     }
