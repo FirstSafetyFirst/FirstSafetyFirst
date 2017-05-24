@@ -58,8 +58,7 @@ public class TypeChecklistFragment extends Fragment {
 //        intent.setDataAndType(Uri.parse(url), "application/pdf");
 //        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         ta.recycle();
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://drive.google.com/viewerng/viewer?embedded=true&url="+url));
         startActivity(intent);
     }
 }
-// TODO : ANDROID PERMISSION WRITE_eXTERNAL_STORAGE
