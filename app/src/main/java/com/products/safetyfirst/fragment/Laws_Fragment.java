@@ -125,8 +125,6 @@ public class Laws_Fragment extends Fragment {
         categoryTabs.addTab(categoryTabs.newTab().setCustomView(tab2));
         categoryTabs.addTab(categoryTabs.newTab().setCustomView(tab3));
 
-        final Bundle args = new Bundle();
-
         FragmentPagerAdapter categoryAdapter = new FragmentPagerAdapter(getFragmentManager()) {
             Fragment fragments[] = {new State_Fragment(), new National_Fragment(), new International_Fragment()};
             String titles[] = {"State Laws", "National Laws", "International Laws"};
@@ -153,6 +151,14 @@ public class Laws_Fragment extends Fragment {
         categoryView.addOnPageChangeListener(pageChangeListener);
         categoryTabs.addOnTabSelectedListener(tabSelectedListener);
     }
+
+    /**
+     *
+     * @param text
+     * @param colorResource
+     * @param textSize
+     * @return
+     */
 
     private View newTab(String text, int colorResource, int textSize) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
