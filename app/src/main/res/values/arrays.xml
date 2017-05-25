@@ -1256,8 +1256,8 @@ An articulating boom lift is a type of crane that uses hydraulic cylinders to ri
         <item>@array/scaffolds_check</item>
     </array>
 
-    <string-array name="aerial_lift_check">
-        <item>http://www.ehsdb.com/resources/Aerial_lift/Articulating%%20Boom%%20Lift.pdf</item>
+    <string-array name="aerial_lift_check" formatted="false">
+        <item>http://www.ehsdb.com/resources/Aerial_lift/Articulating%20Boom%20Lift.pdf</item>
         <item><![CDATA[https://firebasestorage.googleapis.com/v0/b/safetyfirst-aec72.appspot.com/o/checklist%2FElevated_Work_Platform_Checklist.pdf?alt=media&token=71bd0353–d598–454e-85ab-0158a9569b70]]></item>
         <item>http://access.ewu.edu/Documents/HRRR/ehs/Procedures/P25AerialLiftPREInsp.pdf</item>
         <item>http://publicsafety.lafayette.edu/files/2011/11/Scissor-Lift-Inspection-Checklist.pdf</item>
@@ -1283,7 +1283,7 @@ An articulating boom lift is a type of crane that uses hydraulic cylinders to ri
         <item>http://www.co.frederick.va.us/home/showdocument?id=230</item>
         <item><![CDATA[http://www.hanover.com/linec/docs/171-1749.pdf]]></item>
         <item><![CDATA[http://c.ymcdn.com/sites/www.nfsa.org/resource/resmgr/forms/25-13x-2011.pdf]]></item>
-        <item><![CDATA[https://firebasestorage.googleapis.com/v0/b/safetyfirst-aec72.appspot.com/o/checklist%2FNFPA%20Form%20-%20Sprinkler%%20System.pdf?alt=media&token=4351674e-73f2-4c7a-95d4-8f7c43840794]]></item>
+        <item><![CDATA[https://firebasestorage.googleapis.com/v0/b/safetyfirst-aec72.appspot.com/o/checklist%2FNFPA%20Form%20-%20Sprinkler%20System.pdf?alt=media&token=4351674e-73f2-4c7a-95d4-8f7c43840794]]></item>
     </string-array>
 
     <string-array name="fork_lift_check">
