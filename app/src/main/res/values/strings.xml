@@ -51,4 +51,5 @@
     <string name="conrmation_sent">A confirmation email will be sent to the above mentioned Email ID</string>
     <string name="conrmation_click">Click on the link in the email to proceed further</string>
     <string name="hello_blank_fragment">blank_fragment</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer facilisis felis imperdiet nibh efficitur, quis aliquam odio volutpat. Morbi in tellus tortor. Ut suscipit velit id nibh luctus, sed accumsan dolor cursus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vivamus in interdum nisi, at volutpat nibh. Mauris ultrices auctor eros non rhoncus. In hac habitasse platea dictumst. Donec ut pulvinar augue, ac semper libero.</string>
 </resources>
