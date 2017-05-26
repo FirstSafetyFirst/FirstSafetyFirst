@@ -57,7 +57,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
 //        holder.slider_image.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                Toast.makeText(context, horizontalList.get(position).getDesc(),Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, horizontalList.get(position).getBody(),Toast.LENGTH_SHORT).show();
 //            }
 //        });
     }

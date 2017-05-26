@@ -6,15 +6,16 @@ package com.products.safetyfirst.models;
 
 public class News_model {
 
-    String title,img_url,favicon,desc;
-    Integer timestamp;
+    private String title,img_url,favicon, body, uid, author;
+    private Integer timestamp;
 
-    public News_model(String title, String img_url, String favicon, String desc, Integer timestamp) {
+    public News_model(String title, String img_url, String favicon, String body,String author, Integer timestamp) {
         this.title = title;
         this.img_url = img_url;
         this.favicon = favicon;
-        this.desc = desc;
+        this.body = body;
         this.timestamp = timestamp;
+        this.author = author;
     }
 
     public String getTitle() {
@@ -41,13 +42,17 @@ public class News_model {
         this.favicon = favicon;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getBody() {
+        return body;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setBody(String body) {
+        this.body = body;
     }
+
+    public String getAuthor(){ return author;}
+
+    public void setAuthor(String author) { this.author = author; }
 
     public Integer getTimestamp() {
         return timestamp;

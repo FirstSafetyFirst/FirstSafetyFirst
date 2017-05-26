@@ -44,9 +44,9 @@ public class Home_Fragment extends Fragment {
     private ArrayList<Object> getSampleArrayList() {
         ArrayList<Object> items = new ArrayList<>();
         items.add(new Slider_Model("Dany Targaryen", "Valyria",""));
-        items.add(new News_model("Rob Stark", "Winterfell","","",99));
+        items.add(new News_model("Rob Stark", "Winterfell","","","TOI",99));
         items.add(new Event_model("","","","",""));
-        items.add(new News_model("Tyrion Lanister", "King's Landing","","",99));
+        items.add(new News_model("Tyrion Lanister", "King's Landing","","","TOI",99));
         items.add(new Event_model("Tyrion Lanister", "King's Landing","","",""));
         return items;
     }

@@ -95,6 +95,7 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         android:theme="@style/AppTheme.PopupOverlay"
+        android:background="@drawable/side_nav_bar"
         app:headerLayout="@layout/nav_header_home"
         app:menu="@menu/activity_home_drawer" />
 

@@ -136,8 +136,8 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private void configureNEWS(News vh2, int position) {
 
         List<News_model> data=new ArrayList<>();
-        data.add(new News_model("aa","vbb","cc","ddd",9009));
-        data.add(new News_model("aa","vbb","cc","ddd",9009));
+        data.add(new News_model("aa","vbb","cc","ddd","TOI",9009));
+        data.add(new News_model("aa","vbb","cc","ddd","TOI",9009));
         vh2.getNews().setHasFixedSize(true);
         vh2.getNews().setNestedScrollingEnabled(false);
         CustomLinearLayoutManager mLayoutManager = new CustomLinearLayoutManager(ctx,LinearLayoutManager.VERTICAL,false);

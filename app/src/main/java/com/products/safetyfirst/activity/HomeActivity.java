@@ -18,7 +18,7 @@ import com.products.safetyfirst.fragment.Discussion_Fragment;
 import com.products.safetyfirst.fragment.Home_Fragment;
 import com.products.safetyfirst.fragment.KnowIt_Fragment;
 import com.products.safetyfirst.fragment.Laws_Fragment;
-import com.products.safetyfirst.fragment.News_Fragment;
+import com.products.safetyfirst.fragment.News_Events_Fragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -102,7 +102,7 @@ public class  HomeActivity extends AppCompatActivity
 
     private void buildFragmentsList() {
         Home_Fragment homeFragment = new Home_Fragment();
-        News_Fragment newsFragment = new News_Fragment();
+        News_Events_Fragment newsFragment = new News_Events_Fragment();
         Discussion_Fragment discussionFragment = new Discussion_Fragment();
         Laws_Fragment lawsFragment = new Laws_Fragment();
         KnowIt_Fragment knowFragment = new KnowIt_Fragment();
@@ -161,17 +161,17 @@ public class  HomeActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_faq) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_help) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_feedback) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_tnc) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_invite) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_logout) {
 
         }
 
