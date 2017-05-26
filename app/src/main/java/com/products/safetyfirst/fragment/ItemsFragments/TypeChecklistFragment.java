@@ -1,6 +1,7 @@
 package com.products.safetyfirst.fragment.ItemsFragments;
 
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.net.Uri;
@@ -12,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.activity.ItemTypeInfoActivity;
@@ -36,6 +39,8 @@ import static android.app.Activity.RESULT_OK;
 public class TypeChecklistFragment extends Fragment {
 
     private File openedFile;
+    private ProgressBar progress;
+    private Button btn;
     public static final int VIEW_FILE_CODE = 10;
 
     public TypeChecklistFragment() {
@@ -48,12 +53,15 @@ public class TypeChecklistFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View mainView = inflater.inflate(R.layout.fragment_type_checklist, container, false);
-        Button btn = (Button) mainView.findViewById(R.id.checklist);
+        btn = (Button) mainView.findViewById(R.id.checklist);
+        progress = (ProgressBar) mainView.findViewById(R.id.download_progress);
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openPdf();
+                progress.setVisibility(View.VISIBLE);
+                btn.setVisibility(View.GONE);
             }
         });
         return mainView;
@@ -88,9 +96,17 @@ public class TypeChecklistFragment extends Fragment {
                 }
                 getActivity().runOnUiThread(new Runnable(){
                     public void run() {
-                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.fromFile(externalFile));
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                        startActivityForResult(intent, VIEW_FILE_CODE);
+                        progress.setVisibility(View.GONE);
+                        btn.setVisibility(View.VISIBLE);
+                        try {
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.fromFile(externalFile));
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                            startActivityForResult(intent, VIEW_FILE_CODE);
+                        } catch (ActivityNotFoundException e){
+                            Toast.makeText(getContext(), "Install PDF Viewer", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.google.android.apps.pdfviewer&hl=en"));
+                            startActivity(intent);
+                        }
                     }
                 });
             }

@@ -1,16 +1,19 @@
 package com.products.safetyfirst.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.telephony.TelephonyManager;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.products.safetyfirst.R;
 
@@ -41,6 +44,9 @@ public class Laws_Fragment extends Fragment {
 //        tabLayout = (TabLayout)rootView.findViewById(R.id.category_tabs);
 //        tabLayout.setupWithViewPager(viewPager);
 
+        TelephonyManager tm = (TelephonyManager)getActivity().getSystemService(Context.TELEPHONY_SERVICE);
+        String countryCode = tm.getSimCountryIso();
+        Toast.makeText(getContext(), countryCode, Toast.LENGTH_LONG).show();
 
         categoryTabs = (TabLayout) rootView.findViewById(R.id.category_tabs);
         categoryView = (ViewPager) rootView.findViewById(R.id.know_it_viewpager);
