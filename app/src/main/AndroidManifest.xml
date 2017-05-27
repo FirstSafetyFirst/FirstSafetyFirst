@@ -4,6 +4,7 @@
 
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -56,16 +57,17 @@
         <activity
             android:name=".activity.KnowItSecondActivity"
             android:parentActivityName=".activity.HomeActivity"
-            android:theme="@style/NoActionBar" />
+            android:theme="@style/NoActionBar"
+            android:launchMode="singleTop"/>
 
         <activity
             android:name=".activity.ItemTypeInfoActivity"
             android:label="@string/title_activity_item_type_info"
             android:parentActivityName=".activity.KnowItSecondActivity"
             android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.products.safetyfirst.activity.KnowItSecondActivity" />
+            <!--<meta-data-->
+                <!--android:name="android.support.PARENT_ACTIVITY"-->
+                <!--android:value="com.products.safetyfirst.activity.KnowItSecondActivity" />-->
         </activity>
     </application>
 

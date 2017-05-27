@@ -55,7 +55,7 @@
 \n•	Hook: the hook (or hooks) is used to connect the material to the crane. It hangs at the end of thick steel cables that run along the jib to the motor.
 \n•	Weights: Large concrete counterweights are mounted toward the rear of the mast, to compensate for the weight of the goods lifted
 </item>
-        <item>A fire sprinkler or sprinkler head is the component of a fire sprinkler system that discharges water when the effects of a fire have been detected, such as when a predetermined temperature has been exceeded. Fire sprinklers are extensively used worldwide, with over 40 million sprinkler heads fitted each year. In buildings protected by properly designed and maintained fire sprinklers, over 99% of fires were controlled by fire sprinklers alone.
+        <item>A fire sprinkler or sprinkler head is the component of a fire sprinkler system that discharges water when the effects of a fire have been detected, such as when a predetermined temperature has been exceeded. Fire sprinklers are extensively used worldwide, with over 40 million sprinkler heads fitted each year. In buildings protected by properly designed and maintained fire sprinklers, over 99%% of fires were controlled by fire sprinklers alone.
         \n\n
         Parts of a sprinkler system
 \n•	OSY- Outside Stem and Yoke
@@ -148,7 +148,7 @@ Working at Height Regulations – Overriding Principle
     <!--Know it - Third Activity-->
     <!--Title-->
 
-    <string-array name = "aerial_lift_title">
+    <string-array name="aerial_lift_title">
         <item>Articulating Boom Lift</item>
         <item>Elevating Work Platform</item>
         <item>Extensible Boom Platform</item>
@@ -249,7 +249,6 @@ Working at Height Regulations – Overriding Principle
         <item>@array/respiratory_protection_title</item>
         <item>@array/scaffoldings_title</item>
     </array>
-
 
 
     <!--Description-->
@@ -600,16 +599,16 @@ An articulating boom lift is a type of crane that uses hydraulic cylinders to ri
 
     <!--Image-->
 
-    <string-array name="aerial_lift_image">
+    <integer-array name="aerial_lift_image">
         <item>@drawable/third_aerial_1</item>
         <item>@drawable/third_aerial_2</item>
         <item>@drawable/third_aerial_3</item>
         <item>@drawable/third_aerial_4</item>
         <item>@drawable/third_aerial_5</item>
         <item>@drawable/third_aerial_6</item>
-    </string-array>
+    </integer-array>
 
-    <string-array name="crane_lift_image">
+    <integer-array name="crane_lift_image">
         <item>@drawable/third_crane_1</item>
         <item>@drawable/third_crane_2</item>
         <item>@drawable/third_crane_3</item>
@@ -621,35 +620,35 @@ An articulating boom lift is a type of crane that uses hydraulic cylinders to ri
         <item>@drawable/third_crane_9</item>
         <item>@drawable/third_crane_10</item>
         <item>@drawable/third_crane_11</item>
-    </string-array>
+    </integer-array>
 
-    <string-array name="fire_sprinklers_image">
+    <integer-array name="fire_sprinklers_image">
         <item>@drawable/third_fire_1</item>
         <item>@drawable/third_fire_2</item>
         <item>@drawable/third_fire_3</item>
         <item>@drawable/third_fire_4</item>
 
-    </string-array>
+    </integer-array>
 
-    <string-array name="fork_lift_image">
+    <integer-array name="fork_lift_image">
         <item>@drawable/third_forklift_1</item>
         <item>@drawable/third_forklift_2</item>
         <item>@drawable/third_forklift_3</item>
         <item>@drawable/third_forklift_4</item>
         <item>@drawable/third_forklift_5</item>
         <item>@drawable/third_forklift_6</item>
-    </string-array>
+    </integer-array>
 
-    <string-array name="heat_stress_image">
+    <integer-array name="heat_stress_image">
         <item>@drawable/third_heat_1</item>
         <item>@drawable/third_heat_2</item>
         <item>@drawable/third_heat_3</item>
         <item>@drawable/third_heat_4</item>
         <item>@drawable/third_heat_5</item>
 
-    </string-array>
+    </integer-array>
 
-    <string-array name="ladders_image">
+    <integer-array name="ladders_image">
         <item>@drawable/third_ladder_1</item>
         <item>@drawable/third_ladder_2</item>
         <item>@drawable/third_ladder_3</item>
@@ -657,9 +656,9 @@ An articulating boom lift is a type of crane that uses hydraulic cylinders to ri
         <item>@drawable/third_ladder_5</item>
         <item>@drawable/third_ladder_6</item>
 
-    </string-array>
+    </integer-array>
 
-    <string-array name="respiratory_protection_image">
+    <integer-array name="respiratory_protection_image">
         <item>@drawable/third_respiratory_1</item>
         <item>@drawable/third_respiratory_2</item>
         <item>@drawable/third_respiratory_3</item>
@@ -667,9 +666,9 @@ An articulating boom lift is a type of crane that uses hydraulic cylinders to ri
         <item>@drawable/third_respiratory_5</item>
         <item>@drawable/third_respiratory_6</item>
 
-    </string-array>
+    </integer-array>
 
-    <string-array name="scaffoldings_image">
+    <integer-array name="scaffoldings_image">
         <item>@drawable/third_scaffold_1</item>
         <item>@drawable/third_scaffold_2</item>
         <item>@drawable/third_scaffold_3</item>
@@ -689,7 +688,7 @@ An articulating boom lift is a type of crane that uses hydraulic cylinders to ri
         <item>@drawable/third_scaffold_17</item>
         <item>@drawable/third_scaffold_18</item>
         <item>@drawable/third_scaffold_19</item>
-    </string-array>
+    </integer-array>
 
 
     <array name="third_image">
@@ -890,8 +889,7 @@ An articulating boom lift is a type of crane that uses hydraulic cylinders to ri
     <array name="AndhraPradeshLawsImage">
         <item>@drawable/back_law7</item>
     </array>
-    <string-array name="AndhraPradeshforms">
-    </string-array>
+    <string-array name="AndhraPradeshforms"></string-array>
     <array name="AndhraPradesh">
         <item>@array/AndhraPradeshLaws</item>
         <item>@array/AndhraPradeshLawsImage</item>
@@ -1006,8 +1004,7 @@ An articulating boom lift is a type of crane that uses hydraulic cylinders to ri
     <array name="Keralaimage">
         <item>@drawable/back_law7</item>
     </array>
-    <string-array name="Keralaform">
-    </string-array>
+    <string-array name="Keralaform"></string-array>
     <array name="Kerala">
         <item>@array/Keralalaws</item>
         <item>@array/Keralaimage</item>
@@ -1041,8 +1038,7 @@ An articulating boom lift is a type of crane that uses hydraulic cylinders to ri
         <item>@drawable/back_law4</item>
         <item>@drawable/back_law5</item>
     </array>
-    <string-array name="Orrisaform">
-    </string-array>
+    <string-array name="Orrisaform"></string-array>
     <array name="Orrisa">
         <item>@array/Orrisalaws</item>
         <item>@array/Orrisaimage</item>
@@ -1083,8 +1079,7 @@ An articulating boom lift is a type of crane that uses hydraulic cylinders to ri
         <item>@drawable/back_law7</item>
         <item>@drawable/back_law1</item>
     </array>
-    <string-array name="TamilNaduform">
-    </string-array>
+    <string-array name="TamilNaduform"></string-array>
     <array name="TamilNadu">
         <item>@array/TamilNadulaws</item>
         <item>@array/TamilNaduimage</item>
@@ -1147,4 +1142,204 @@ An articulating boom lift is a type of crane that uses hydraulic cylinders to ri
         <item>@array/Telangana</item>
         <item>@array/WestBengal</item>
     </array>
+
+    <!--Youtube Links -->
+    <array name="youtubeEmbed">
+        <item>@array/aerial_lift_youtube</item>
+        <item>@array/crane_lift_youtube</item>
+        <item>@array/fire_sprinklers_youtube</item>
+        <item>@array/fork_lift_youtube</item>
+        <item>@array/heat_stress_youtube</item>
+        <item>@array/ladders_youtube</item>
+        <item>@array/respiratory_youtube</item>
+        <item>@array/scaffolds_youtube</item>
+    </array>
+
+    <string-array name="aerial_lift_youtube">
+        <item>https://www.youtube.com/embed/OGZOX2f2Yrc</item>
+        <item>https://www.youtube.com/embed/7j_q90XMqH0</item>
+        <item>no</item>
+        <item>https://www.youtube.com/embed/M-mFITmJ_q4</item>
+        <item>no</item>
+        <item>no</item>
+    </string-array>
+
+    <string-array name="crane_lift_youtube">
+        <item>https://www.youtube.com/embed/OYO_w-eLfag</item>
+        <item>no</item>
+        <item>https://www.youtube.com/embed/op8xvBmqQlU</item>
+        <item>https://www.youtube.com/embed/bQhkZVvd-IU</item>
+        <item>https://www.youtube.com/embed/NDPUfTrp4IE</item>
+        <item>https://www.youtube.com/embed/uO-RwTWqhrA</item>
+        <item>https://www.youtube.com/embed/jXIp0VEV67I</item>
+        <item>no</item>
+        <item>no</item>
+        <item>https://www.youtube.com/embed/9u3EuI6JRQA</item>
+        <item>https://www.youtube.com/embed/VWp9GOxrM08</item>
+    </string-array>
+
+    <string-array name="fire_sprinklers_youtube">
+        <item>https://www.youtube.com/embed/0Ej2j6NuJdo</item>
+        <item>https://www.youtube.com/embed/ALUAHfU1nYg</item>
+        <item>https://www.youtube.com/embed/ZDwRlcFl2Qo</item>
+        <item>https://www.youtube.com/embed/uHIQwTmfA44</item>
+    </string-array>
+
+    <string-array name="fork_lift_youtube">
+        <item>https://www.youtube.com/embed/5zzPw_oe-So</item>
+        <item>https://www.youtube.com/embed/pHcBUF5NzJ8</item>
+        <item>https://www.youtube.com/embed/7s-h87pogc4</item>
+        <item>https://www.youtube.com/embed/tKw2numtNd8</item>
+        <item>https://www.youtube.com/embed/qjZlFoKnyIw</item>
+        <item>https://www.youtube.com/embed/PuHD3ZuxrWM</item>
+    </string-array>
+
+    <string-array name="heat_stress_youtube">
+        <item>no</item>
+        <item>no</item>
+        <item>no</item>
+        <item>no</item>
+        <item>no</item>
+    </string-array>
+
+    <string-array name="ladders_youtube">
+        <item>https://www.youtube.com/embed/tcsdVup8NzA</item>
+        <item>https://www.youtube.com/watch?v=sWuOBu3GjHw</item>
+        <item>https://www.youtube.com/embed/jNggabGSvvs</item>
+        <item>no</item>
+        <item>https://www.youtube.com/embed/isv6O-FIj8c</item>
+        <item>https://www.youtube.com/embed/3g-Kwc7qMaY</item>
+    </string-array>
+
+    <string-array name="respiratory_youtube">
+        <item>https://www.youtube.com/embed/0d_RaKdqeck</item>
+        <item>https://www.youtube.com/embed/yBg2B2BP9nA</item>
+        <item>https://www.youtube.com/embed/OJ3ANkCeSzE</item>
+        <item>no</item>
+        <item>no</item>
+        <item>https://www.youtube.com/embed/EgtNgi7KMIk</item>
+    </string-array>
+
+    <string-array name="scaffolds_youtube">
+        <item>no</item>
+        <item>no</item>
+        <item>https://www.youtube.com/embed/MFJ4FNy1qWU</item>
+        <item>https://www.youtube.com/embed/56NZrk183BI</item>
+        <item>no</item>
+        <item>no</item>
+        <item>no</item>
+        <item>https://www.youtube.com/embed/Hx9i3L2eDzs</item>
+        <item>https://www.youtube.com/embed/Hx9i3L2eDzs</item>
+        <item>https://www.youtube.com/embed/Hx9i3L2eDzs</item>
+        <item>https://www.youtube.com/embed/Hx9i3L2eDzs</item>
+        <item>https://www.youtube.com/embed/Hx9i3L2eDzs</item>
+        <item>https://www.youtube.com/embed/Hx9i3L2eDzs</item>
+        <item>https://www.youtube.com/embed/Hx9i3L2eDzs</item>
+        <item>https://www.youtube.com/embed/Hx9i3L2eDzs</item>
+        <item>no</item>
+        <item>no</item>
+        <item>no</item>
+        <item>no</item>
+    </string-array>
+    <!--Youtube Links END-->
+
+    <!--PDF Links-->
+
+    <array name="checklist_embed">
+        <item>@array/aerial_lift_check</item>
+        <item>@array/crane_lift_check</item>
+        <item>@array/fire_sprinklers_check</item>
+        <item>@array/fork_lift_check</item>
+        <item>@array/heat_stress_check</item>
+        <item>@array/ladders_check</item>
+        <item>@array/respiratory_check</item>
+        <item>@array/scaffolds_check</item>
+    </array>
+
+    <string-array name="aerial_lift_check" formatted="false">
+        <item>http://www.ehsdb.com/resources/Aerial_lift/Articulating%20Boom%20Lift.pdf</item>
+        <item><![CDATA[https://firebasestorage.googleapis.com/v0/b/safetyfirst-aec72.appspot.com/o/checklist%2FElevated_Work_Platform_Checklist.pdf?alt=media&token=71bd0353–d598–454e-85ab-0158a9569b70]]></item>
+        <item>http://access.ewu.edu/Documents/HRRR/ehs/Procedures/P25AerialLiftPREInsp.pdf</item>
+        <item>http://publicsafety.lafayette.edu/files/2011/11/Scissor-Lift-Inspection-Checklist.pdf</item>
+        <item>https://www.jlg.com/ground_support/pdf/annual-machine-inspection-check-list.pdf</item>
+        <item>no</item>
+    </string-array>
+
+    <string-array name="crane_lift_check">
+        <item>https://www.wshc.sg/files/wshc/upload/cms/file/3_Mobile_Crawler_Crane_checklist.pdf</item>
+        <item>http://www.ehsdb.com/resources/Crane/Inspection_forms/General%%20crane%%20inspection%%20form.PDF</item>
+        <item>https://www.wshc.sg/files/wshc/upload/cms/file/2_Tower_Crane_Checklist.pdf</item>
+        <item>http://www.mysafetytraining.com/images/truckcranechecklist.pdf</item>
+        <item>http://www.ehsdb.com/resources/Crane/Inspection_forms/General%%20crane%%20inspection%%20form.PDF</item>
+        <item>http://www.stos.co.nz/PTW%%5CHot%%20Work%%202%%5CChecklist%%2029%%20-%%20Lifting%%20Operations%%20Involving%%20Crane%%20or%%20Hiab%%20Onshore.pdf</item>
+        <item>http://stlcrane.com/wp-content/uploads/daily_crane_operator_inspection_checklist.pdf</item>
+        <item>http://www.ehsdb.com/resources/Crane/Inspection_forms/General%%20crane%%20inspection%%20form.PDF</item>
+        <item>http://www.ehsdb.com/resources/Crane/Inspection_forms/General%%20crane%%20inspection%%20form.PDF</item>
+        <item>http://www.isri.org/docs/default-source/safety/overhead-gantry-crane.pdf?sfvrsn=4</item>
+        <item>http://www.ehsdb.com/resources/Crane/Inspection_forms/General%%20crane%%20inspection%%20form.PDF</item>
+    </string-array>
+
+    <string-array name="fire_sprinklers_check">
+        <item>http://www.co.frederick.va.us/home/showdocument?id=230</item>
+        <item><![CDATA[http://www.hanover.com/linec/docs/171-1749.pdf]]></item>
+        <item><![CDATA[http://c.ymcdn.com/sites/www.nfsa.org/resource/resmgr/forms/25-13x-2011.pdf]]></item>
+        <item><![CDATA[https://firebasestorage.googleapis.com/v0/b/safetyfirst-aec72.appspot.com/o/checklist%2FNFPA%20Form%20-%20Sprinkler%20System.pdf?alt=media&token=4351674e-73f2-4c7a-95d4-8f7c43840794]]></item>
+    </string-array>
+
+    <string-array name="fork_lift_check">
+        <item>http://sielift.com/wp-content/uploads/2016/06/Reach-Truck-Daily-Operator-Checklist-2.pdf</item>
+        <item><![CDATA[https://firebasestorage.googleapis.com/v0/b/safetyfirst-aec72.appspot.com/o/checklist%2FCounterbalanced-Forklift-Pre-Use-Inspection-SUP-140-e-EN-16-077.pdf?alt=media&token=aa5ed4e0-2d3d-49c2-8915-89672f2287db]]></item>
+        <item>https://www.nccer.org/uploads/fileLibrary/HEO_L2_2013_CEP.pdf</item>
+        <item>http://www.aalhysterforklifts.com.au/uploads/blog/Adaptalift_Hyster_Forklift_Safety_Prestart_Checklist.pdf</item>
+        <item>http://www.tsha.com.au/uploads/TSH%%20Pre-Acceptance%%20Checklist%%20Issue%%202%%20Oct%%202013.pdf</item>
+        <item><![CDATA[https://firebasestorage.googleapis.com/v0/b/safetyfirst-aec72.appspot.com/o/checklist%2FPowered-Pallet-Truck-Pre-Use-Inspection-SUP-146-e-EN-16-077.pdf?alt=media&token=f66d09fa-f974-4075-b9c6-8451be34589c]]></item>
+    </string-array>
+
+    <string-array name="heat_stress_check">
+        <item>no</item>
+        <item>no</item>
+        <item>no</item>
+        <item>no</item>
+        <item>no</item>
+    </string-array>
+
+    <string-array name="ladders_check">
+        <item>http://www.britishladders.co.uk/images/steplader.pdf</item>
+        <item>http://www-ehs.ucsd.edu/shop/pdf/Ladder_Inspection_Form.pdf</item>
+        <item><![CDATA[https://firebasestorage.googleapis.com/v0/b/safetyfirst-aec72.appspot.com/o/checklist%2Fportable%20ladder.pdf?alt=media&token=62192121-a582-487e-bd50-d22665ecc43d]]></item>
+        <item><![CDATA[https://firebasestorage.googleapis.com/v0/b/safetyfirst-aec72.appspot.com/o/checklist%2FLadder-safety-Ladders-checklist-3-monthly-inspection.pdf?alt=media&token=7034cbde-9f9d-4509-bc68-6dacee9d333a]]></item>
+        <item><![CDATA[https://firebasestorage.googleapis.com/v0/b/safetyfirst-aec72.appspot.com/o/checklist%2Fmobile-ladder-stands-checklist.pdf?alt=media&token=23b63a48-82d6-4f6b-beea-760d13fc7058]]></item>
+        <item>https://www.osha.gov/dte/grant_materials/fy06/46e0-ht10/stf_ladder_safety_checklist.pdf</item>
+    </string-array>
+
+    <string-array name="respiratory_check">
+        <item><![CDATA[https://firebasestorage.googleapis.com/v0/b/safetyfirst-aec72.appspot.com/o/checklist%2FResp_Inspection_Checklist.pdf?alt=media&token=42abd5ac-602f-4640-9d20-1f2696a4b6a6]]></item>
+        <item><![CDATA[https://firebasestorage.googleapis.com/v0/b/safetyfirst-aec72.appspot.com/o/checklist%2FResp_Inspection_Checklist.pdf?alt=media&token=42abd5ac-602f-4640-9d20-1f2696a4b6a6]]></item>
+        <item><![CDATA[https://firebasestorage.googleapis.com/v0/b/safetyfirst-aec72.appspot.com/o/checklist%2FResp_Inspection_Checklist.pdf?alt=media&token=42abd5ac-602f-4640-9d20-1f2696a4b6a6]]></item>
+        <item><![CDATA[https://firebasestorage.googleapis.com/v0/b/safetyfirst-aec72.appspot.com/o/checklist%2FResp_Inspection_Checklist.pdf?alt=media&token=42abd5ac-602f-4640-9d20-1f2696a4b6a6]]></item>
+        <item><![CDATA[https://firebasestorage.googleapis.com/v0/b/safetyfirst-aec72.appspot.com/o/checklist%2FResp_Inspection_Checklist.pdf?alt=media&token=42abd5ac-602f-4640-9d20-1f2696a4b6a6]]></item>
+        <item><![CDATA[https://firebasestorage.googleapis.com/v0/b/safetyfirst-aec72.appspot.com/o/checklist%2FResp_Inspection_Checklist.pdf?alt=media&token=42abd5ac-602f-4640-9d20-1f2696a4b6a6]]></item>
+    </string-array>
+
+    <string-array name="scaffolds_check">
+        <item>http://www.hymer-alu.de/uploads/media/HYM_16_EN_Kontrollblatt_Gerueste_01_Ansicht.pdf</item>
+        <item>http://www.hymer-alu.de/uploads/media/HYM_16_EN_Kontrollblatt_Gerueste_01_Ansicht.pdf</item>
+        <item>http://eagosh.org/eagosh-files/events/nov_09/Mobilescaffoldtowers67150_e.pdf</item>
+        <item>http://ohsinsider.com/wp-content/uploads/2013/11/scaffolding-inspection-checklist1.pdf</item>
+        <item>http://www.atlas-sales.com/Training/Forms/Scaffolding%%20Inspection%%20Checklist.pdf</item>
+        <item>http://www.atlas-sales.com/Training/Forms/Scaffolding%%20Inspection%%20Checklist.pdf</item>
+        <item>http://www.atlas-sales.com/Training/Forms/Scaffolding%%20Inspection%%20Checklist.pdf</item>
+        <item>https://www.worksafe.qld.gov.au/__data/assets/pdf_file/0013/83200/suspendedscaffchecklist.pdf</item>
+        <item>https://www.worksafe.qld.gov.au/__data/assets/pdf_file/0013/83200/suspendedscaffchecklist.pdf</item>
+        <item>https://www.worksafe.qld.gov.au/__data/assets/pdf_file/0013/83200/suspendedscaffchecklist.pdf</item>
+        <item>https://www.worksafe.qld.gov.au/__data/assets/pdf_file/0013/83200/suspendedscaffchecklist.pdf</item>
+        <item>https://www.worksafe.qld.gov.au/__data/assets/pdf_file/0013/83200/suspendedscaffchecklist.pdf</item>
+        <item>https://www.worksafe.qld.gov.au/__data/assets/pdf_file/0013/83200/suspendedscaffchecklist.pdf</item>
+        <item>https://www.worksafe.qld.gov.au/__data/assets/pdf_file/0013/83200/suspendedscaffchecklist.pdf</item>
+        <item>https://www.worksafe.qld.gov.au/__data/assets/pdf_file/0013/83200/suspendedscaffchecklist.pdf</item>
+        <item>no</item>
+        <item>no</item>
+        <item>no</item>
+        <item>no</item>
+    </string-array>
 </resources>

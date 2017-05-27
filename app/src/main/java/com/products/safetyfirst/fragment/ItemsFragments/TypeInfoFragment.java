@@ -1,6 +1,7 @@
 package com.products.safetyfirst.fragment.ItemsFragments;
 
 
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.products.safetyfirst.R;
+import com.products.safetyfirst.activity.ItemTypeInfoActivity;
 import com.products.safetyfirst.utils.JustifiedWebView;
 
 /**
@@ -17,6 +19,8 @@ public class TypeInfoFragment extends Fragment {
 
     private View mainView;
     private JustifiedWebView informationView;
+    private int toolValue;
+    private int typeValue;
     public TypeInfoFragment() {
         // Required empty public constructor
     }
@@ -29,12 +33,17 @@ public class TypeInfoFragment extends Fragment {
         mainView = inflater.inflate(R.layout.fragment_type_info, container, false);
         informationView = (JustifiedWebView) mainView.findViewById(R.id.type_info);
 
-        informationView.setText(getResources().getStringArray(R.array.second_desc)[0],
+        toolValue = getArguments().getInt(ItemTypeInfoActivity.tool, 0);
+        typeValue = getArguments().getInt(ItemTypeInfoActivity.typeNumber, 0);
+
+        TypedArray ta = getResources().obtainTypedArray(R.array.third_description);
+
+        informationView.setText(getResources().getStringArray(ta.getResourceId(toolValue, 0))[typeValue],
                 "<span style=\" color: #f1551a; font-size: 20px; \">"
                         + "INFORMATION"
                         + "</span><hr>");
 
-
+        ta.recycle();
         return mainView;
     }
 

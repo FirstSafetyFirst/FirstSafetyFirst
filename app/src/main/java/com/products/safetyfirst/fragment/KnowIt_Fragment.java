@@ -25,7 +25,7 @@ import java.util.List;
 
 public class KnowIt_Fragment extends Fragment {
 
-    public final static String position = "position";
+    public final static String tool = "tool";
 
     private RecyclerView itemsRecycler;
     private FastItemAdapter itemsAdapter;
@@ -64,7 +64,7 @@ public class KnowIt_Fragment extends Fragment {
             @Override
             public boolean onClick(View v, IAdapter<KnowItItem> adapter, KnowItItem item, int position) {
                 Intent intent = new Intent(getContext(), KnowItSecondActivity.class);
-                intent.putExtra(KnowIt_Fragment.position, position);
+                intent.putExtra(KnowIt_Fragment.tool, position);
                 startActivity(intent);
                 return true;
             }
