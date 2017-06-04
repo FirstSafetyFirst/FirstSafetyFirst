@@ -8,7 +8,7 @@
 
     <string name="title_activity_splash">SplashActivity</string>
     <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">SAFETY\nFIRST</string>
+    <string name="dummy_content">Best answer to come here. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eius-mod tempor insididunt ut labore et dolore manga aliqua. Ut enim ad minim veiam sol monar.</string>
     <string name="title_activity_item_type_info">ItemTypeInfoActivity</string>
 
     //intro
@@ -59,4 +59,15 @@
     <string name="logout">Logout</string>
     <string name="invite">Invite</string>
     <string name="bookmark_image">Bookmark Image</string>
+    <string name="overflowMenu">Overflow Menu</string>
+    <string name="like">Like</string>
+    <string name="answer">Answer</string>
+    <string name="read_more">Read More</string>
+    <string name="phone">Phone</string>
+    <string name="company">Company Name</string>
+    <string name="designation">Designation</string>
+    <string name="type">Select</string>
+    <string name="certificate">Certificate Number</string>
+    <string name="city">City</string>
+    <string name="interests">Select the firelds that interest you</string>
 </resources>

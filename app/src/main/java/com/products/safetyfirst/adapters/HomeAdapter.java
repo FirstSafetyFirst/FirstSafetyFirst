@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import com.google.firebase.database.Query;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.customview.CustomLinearLayoutManager;
 import com.products.safetyfirst.customview.SpacesItemDecoration;
@@ -135,16 +136,16 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
     private void configureNEWS(News vh2, int position) {
 
-        List<News_model> data=new ArrayList<>();
+       /* List<News_model> data=new ArrayList<>();
         data.add(new News_model("aa","vbb","cc","ddd","TOI",9009));
         data.add(new News_model("aa","vbb","cc","ddd","TOI",9009));
         vh2.getNews().setHasFixedSize(true);
         vh2.getNews().setNestedScrollingEnabled(false);
         CustomLinearLayoutManager mLayoutManager = new CustomLinearLayoutManager(ctx,LinearLayoutManager.VERTICAL,false);
         vh2.getNews().setLayoutManager(mLayoutManager);
-        Home_News_Adapter adapter=new Home_News_Adapter(ctx, data);
+        Home_News_Adapter adapter=new Home_News_Adapter(ctx, (Query) data);
         vh2.getNews().setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();*/
 
 
     }

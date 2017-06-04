@@ -24,14 +24,14 @@
             android:src="@drawable/welcome"
             android:layout_height="match_parent"
             android:layout_marginTop="10dp"
-            android:background="@drawable/image_round"
+            android:background="@drawable/round_corner"
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="5dp"
             android:layout_marginStart="5dp"
             android:contentDescription="@string/news_image" />
         <View
             android:layout_width="1dp"
-            android:layout_height="140dp"
+            android:layout_height="130dp"
             android:background="@android:color/darker_gray"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
@@ -52,7 +52,8 @@
         <TextView android:id="@+id/title"
             android:layout_width="match_parent"
             tools:text="Fu-5 things for Monday, April 24,North korea, Trump,Afganistan"
-            android:maxLines="3"
+            android:maxLines="4"
+            android:textStyle="bold"
             android:ellipsize="end"
             android:textColor="@color/colorPrimary"
             android:layout_height="wrap_content" />

@@ -138,7 +138,7 @@ public class  TempActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_faq) {
-            // Handle the camera action
+
         } else if (id == R.id.nav_help) {
 
         } else if (id == R.id.nav_feedback) {

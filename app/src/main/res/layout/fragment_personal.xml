@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context="com.products.safetyfirst.fragment.Personal_Fragment">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background"
+    android:layout_margin="@dimen/activity_horizontal_margin"
+    >
+
+    <android.support.v7.widget.CardView
+
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="8dp"
+        app:contentPaddingBottom="0dp"
+        app:cardCornerRadius="4dp"
+        app:cardBackgroundColor="@android:color/white">
+
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/activity_horizontal_margin">
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/camera"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                app:layout_anchor="@id/main"
+                app:layout_anchorGravity="right|end|bottom"
+                android:background="@color/colorPrimary"
+                android:foregroundGravity="center_horizontal"
+                app:srcCompat="@drawable/ic_camera_alt_black_24dp" />
+
+            <EditText
+                android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:drawableLeft="@drawable/ic_person_black_24dp"
+                android:drawablePadding="@dimen/activity_horizontal_margin"
+                android:drawableStart="@drawable/ic_person_black_24dp"
+                android:drawableTint="@color/colorPrimary"
+                android:hint="@string/username" />
+
+            <EditText
+                android:id="@+id/phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:drawableLeft="@drawable/ic_phone_black_24dp"
+                android:drawablePadding="@dimen/activity_horizontal_margin"
+                android:drawableStart="@drawable/ic_phone_black_24dp"
+                android:drawableTint="@color/colorPrimary"
+                android:hint="@string/phone" />
+
+            <EditText
+                android:id="@+id/company"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:drawableLeft="@drawable/ic_business_black_24dp"
+                android:drawablePadding="@dimen/activity_horizontal_margin"
+                android:drawableStart="@drawable/ic_business_black_24dp"
+                android:drawableTint="@color/colorPrimary"
+                android:hint="@string/company" />
+
+            <EditText
+                android:id="@+id/designation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:drawableLeft="@drawable/ic_assignment_ind_black_24dp"
+                android:drawablePadding="@dimen/activity_horizontal_margin"
+                android:drawableStart="@drawable/ic_assignment_ind_black_24dp"
+                android:drawableTint="@color/colorPrimary"
+                android:hint="@string/designation" />
+
+            <EditText
+                android:id="@+id/type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:drawableLeft="@drawable/ic_people_black_24dp"
+                android:drawablePadding="@dimen/activity_horizontal_margin"
+                android:drawableStart="@drawable/ic_people_black_24dp"
+                android:drawableTint="@color/colorPrimary"
+                android:hint="@string/type" />
+
+            <EditText
+                android:id="@+id/certificate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:drawableLeft="@drawable/ic_library_books_black_24dp"
+                android:drawablePadding="@dimen/activity_horizontal_margin"
+                android:drawableStart="@drawable/ic_library_books_black_24dp"
+                android:drawableTint="@color/colorPrimary"
+                android:hint="@string/certificate" />
+
+            <EditText
+                android:id="@+id/city"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:drawableLeft="@drawable/ic_location_city_black_24dp"
+                android:drawablePadding="@dimen/activity_horizontal_margin"
+                android:drawableStart="@drawable/ic_location_city_black_24dp"
+                android:drawableTint="@color/colorPrimary"
+                android:hint="@string/city" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</RelativeLayout>
+</FrameLayout>

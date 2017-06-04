@@ -3,18 +3,18 @@ package com.products.safetyfirst.fragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.adapters.Home_News_Adapter;
-import com.products.safetyfirst.adapters.Laws_Adapter;
-import com.products.safetyfirst.customview.SpacesItemDecoration;
-import com.products.safetyfirst.models.Law_model;
 import com.products.safetyfirst.models.News_model;
 
 import java.util.ArrayList;
@@ -25,31 +25,49 @@ import java.util.List;
  */
 
 public class News_Fragment extends Fragment {
-    public static final String ARG_TITLE = "arg_title";
-RecyclerView home_recycler;
+    private static final String TAG = "NewsListFragment";
+RecyclerView news_recycler;
 
+    private DatabaseReference mDatabase;
+    private ProgressBar mProgressBar;
+    private ProgressBar mpaginateprogbar;
 
+    public News_Fragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.news_fragment, container, false);
 
-        List<News_model> data=new ArrayList<>();
-        data.add(new News_model("Fu-5 things for Monday, April 24,North korea, Trump,Afganistan","vbb","cc","ddd","TOI",9009));
-        data.add(new News_model("aa","vbb","cc","ddd","TOI",9009));
-        data.add(new News_model("aa","vbb","cc","ddd","TOI",9009));
-        data.add(new News_model("aa","vbb","cc","ddd","TOI",9009));
-        data.add(new News_model("aa","vbb","cc","ddd","TOI",9009));
-        data.add(new News_model("aa","vbb","cc","ddd","TOI",9009));
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mpaginateprogbar=(ProgressBar) rootView.findViewById(R.id.newspaginateprogbar);
 
-        home_recycler=(RecyclerView)rootView.findViewById(R.id.home_recycler);
-        home_recycler.setHasFixedSize(true);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-        home_recycler.setLayoutManager(mLayoutManager);
-        home_recycler.setItemAnimator(new DefaultItemAnimator());
-        home_recycler.setAdapter(new Home_News_Adapter(getActivity(),data));
+        mProgressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
+
+        news_recycler =(RecyclerView)rootView.findViewById(R.id.news_recycler);
+        news_recycler.setHasFixedSize(true);
         return rootView;
     }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        // Set up Layout Manager, reverse layout
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        mLayoutManager.setReverseLayout(true);
+        mLayoutManager.setStackFromEnd(true);
+        news_recycler.setLayoutManager(mLayoutManager);
+        news_recycler.setItemAnimator(new DefaultItemAnimator());
+
+        Query newsQuery =  mDatabase.child("news").orderByKey().limitToLast(10);
+        news_recycler.setAdapter(new Home_News_Adapter(getActivity(),newsQuery, mDatabase, mpaginateprogbar));
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+
 
 }

@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SafetyFirstNew.iml" filepath="$PROJECT_DIR$/SafetyFirstNew.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/safetyfirstnew.iml" filepath="$PROJECT_DIR$/safetyfirstnew.iml" />
     </modules>
   </component>
 </project>
