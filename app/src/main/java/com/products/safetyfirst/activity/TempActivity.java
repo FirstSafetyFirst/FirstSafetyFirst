@@ -18,6 +18,7 @@ import com.products.safetyfirst.fragment.Discussion_Fragment;
 import com.products.safetyfirst.fragment.KnowIt_Fragment;
 import com.products.safetyfirst.fragment.Laws_Fragment;
 import com.products.safetyfirst.fragment.News_Events_Fragment;
+import com.products.safetyfirst.fragment.UpdateProfileFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -148,6 +149,8 @@ public class  TempActivity extends AppCompatActivity
         } else if (id == R.id.nav_invite) {
 
         } else if (id == R.id.nav_logout) {
+
+        } else if (id == R.id.nav_update_profile){
 
         }
 
