@@ -71,6 +71,19 @@
             <!-- android:name="android.support.PARENT_ACTIVITY" -->
             <!-- android:value="com.products.safetyfirst.activity.KnowItSecondActivity" /> -->
         </activity>
+        <activity android:name=".activity.BaseActivity">
+        </activity>
+        <activity android:name=".activity.EmailPasswordActivity">
+        </activity>
+        <activity android:name=".activity.GoogleSignInActivity">
+        </activity>
+        <activity android:name=".activity.SignUpActivity">
+        </activity>
+        <activity android:name=".activity.SignInActivity">
+        </activity>
+        <activity android:name=".activity.PasswordResetActivity">
+
+        </activity>
     </application>
 
 </manifest>

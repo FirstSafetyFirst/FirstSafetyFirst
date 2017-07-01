@@ -1,6 +1,8 @@
 package com.products.safetyfirst.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,6 +14,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.fragment.Dash_Fragment;
 import com.products.safetyfirst.fragment.Discussion_Fragment;
@@ -23,7 +27,10 @@ import com.products.safetyfirst.fragment.UpdateProfileFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-public class  TempActivity extends AppCompatActivity
+//import static com.products.safetyfirst.activity.SignInActivity.PREF_KEY_FIRST_START;
+//import static com.products.safetyfirst.activity.SignInActivity.REQUEST_CODE_INTRO;
+
+public class  TempActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG_FRAGMENT_DASH = "tag_frag_dash";
     private static final String TAG_FRAGMENT_HOME = "tag_frag_home";
@@ -31,6 +38,7 @@ public class  TempActivity extends AppCompatActivity
     private static final String TAG_FRAGMENT_DISCUSSION = "tag_frag_discussion";
     private static final String TAG_FRAGMENT_LAWS = "tag_frag_laws";
     private static final String TAG_FRAGMENT_KNOWIT = "tag_frag_knowit";
+    private FirebaseUser mFirebaseUser;
 
     List<Fragment> fragments = new ArrayList<>(5);
 
@@ -42,6 +50,7 @@ public class  TempActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -57,6 +66,25 @@ public class  TempActivity extends AppCompatActivity
         // Set the 0th Fragment to be displayed by default.
         switchFragment(0, TAG_FRAGMENT_DASH);
         navigationView.getMenu().getItem(0).setChecked(true);
+         mFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (mFirebaseUser == null) {
+           // startActivity(new Intent(this, SignInActivity.class));
+          //  finish();
+
+
+            // get menu from navigationView
+            Menu menu = navigationView.getMenu();
+
+            // find MenuItem you want to change
+            MenuItem nav_logout = menu.findItem(R.id.nav_logout);
+
+            // set new title to the MenuItem
+            nav_logout.setTitle("Sign In");
+            // enable signup when user is not signed in
+          //  menu.findItem(R.id.nav_signup).setEnabled(true);
+
+
+        }
 
     }
 
@@ -149,6 +177,14 @@ public class  TempActivity extends AppCompatActivity
         } else if (id == R.id.nav_invite) {
 
         } else if (id == R.id.nav_logout) {
+            mFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+            if (mFirebaseUser == null) {
+                startActivity(new Intent(TempActivity.this,SignInActivity.class));
+
+
+            }
+            else
+                logout();
 
         } else if (id == R.id.nav_update_profile){
 
