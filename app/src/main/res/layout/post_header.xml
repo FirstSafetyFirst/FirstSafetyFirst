@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -8,20 +9,21 @@
 
         <TextView
             android:id="@+id/post_title"
-            style="@style/Base.TextAppearance.AppCompat.Headline"
+            style="@style/Base.TextAppearance.AppCompat.Medium"
             android:layout_width="wrap_content"
             android:textColor="@color/colorPrimary"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
-            android:gravity="center_vertical"
+            android:gravity="left"
+            android:textStyle="bold"
             android:textIsSelectable="true"
             android:layout_toLeftOf="@+id/overflow"
             android:layout_toStartOf="@+id/overflow"
-            tools:text="What is a standard step Ladder? What is its Role?" />
+            android:text="What is a standard step Ladder? What is its Role?" />
         <TextView
             android:id="@+id/dateTime"
-            style="@style/Base.TextAppearance.AppCompat.Small"
+            style="@style/Base.TextAppearance.AppCompat.Caption"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -30,13 +32,13 @@
             android:textStyle="italic"
             android:gravity="center_vertical"
             android:textIsSelectable="true"
-            tools:text="01:00AM 26 Jan 2017" />
+            android:text="01:00AM 26 Jan 2017" />
 
     <ImageView
         android:id="@+id/overflow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_more_vert_black_24dp"
+        app:srcCompat="@drawable/ic_more_vert_black_24dp"
         android:contentDescription="@string/overflowMenu"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"

@@ -43,7 +43,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
     private TextView title, timestamp;
     private Button detail;
 
-    public MyViewHolder(View view) {
+    private MyViewHolder(View view) {
 
         super(view);
         images= (ImageView) view.findViewById(R.id.news_avtar);
@@ -163,16 +163,16 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
         String URL="http://fscl01.fonpit.de/userfiles/6727621/image/2016/Nougat/AndroidPIT-Android-N-Nougat-2480.jpg";
         String URL1="http://ndtvimages.yuppcdn.net/images/Sun_News_News_8748.jpg";
 
-        Glide.with(context).load(URL).transform(new CircleTransform(context)).into(holder.favicon);
+        Glide.with(context).load(newsArrayList.get(position).getImg_url()).transform(new CircleTransform(context)).into(holder.images);
         if(newsArrayList.get(position).getImg_url() != null)
-        Glide.with(context).load(newsArrayList.get(position).getImg_url()).into(holder.images);
+        Glide.with(context).load(newsArrayList.get(position).getImg_url()).into(holder.favicon);
 
         holder.title.setText( newsArrayList.get(position).getTitle());
         holder.timestamp.setText("10 May, 2017");
         holder.detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, newsArrayList.get(position).getTitle(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, newsArrayList.get(position).getImg_url(),Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -33,7 +33,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
 
         super(view);
        // images= (ImageView) view.findViewById(R.id.discuss_img);
-       // favicons= (ImageView) view.findViewById(R.id.person_favicon);
+        favicons= (ImageView) view.findViewById(R.id.post_author_photo);
 
     }
 }
@@ -60,14 +60,14 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
 
         Glide.with(context).load(URL).transform(new CircleTransform(context)).into(holder.favicons);
 
-        Glide.with(context).load(URL1).into(holder.images);
+//        Glide.with(context).load(URL1).into(holder.images);
 
-        holder.images.setOnClickListener(new View.OnClickListener() {
+       /* holder.images.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, horizontalList.get(position).getTitle(),Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
     }
 
     @Override
