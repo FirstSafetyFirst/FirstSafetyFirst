@@ -7,131 +7,40 @@
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/activity_horizontal_margin"
     card_view:cardCornerRadius="4dp">
-
-    <RelativeLayout android:id="@+id/cont1"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_margin="5dp"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/person_favicon"
-                android:layout_width="40dp"
-                android:adjustViewBounds="true"
-                android:scaleType="fitXY"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_person_black_24dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:text="@string/author_name"
-                android:id="@+id/organizer_name"
-                android:fontFamily="sans-serif"
-                android:textColor="@color/colorPrimary"
-                android:layout_marginStart="5dp"
-                android:layout_toEndOf="@+id/person_favicon"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_toRightOf="@+id/person_favicon" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:text="01:00AM"
-                android:textSize="@dimen/date_time"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_below="@+id/organizer_name"
-                android:layout_toRightOf="@+id/person_favicon"
-                android:layout_height="wrap_content" />
-
-
-                <android.support.design.widget.CheckableImageButton
-                    android:layout_width="wrap_content"
-                    android:src="@drawable/ic_more_vert_black_24dp"
-                    android:layout_alignParentRight="true"
-                    android:backgroundTint="#00000000"
-                    android:layout_height="wrap_content" />
-
-
-        <ImageView
-            android:id="@+id/discuss_img"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            android:layout_below="@+id/person_favicon"
+    <include
+        android:id="@+id/post_author_layout"
+        layout="@layout/post_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+        <View
             android:layout_width="match_parent"
-            android:src="@drawable/welcome"
-            android:layout_marginTop="5dp"
-            android:layout_alignParentRight="true"
-            android:layout_height="200dp"/>
-
-        <TextView android:id="@+id/titles"
-            android:layout_width="match_parent"
-            android:text="Fu-5 things for Monday, April 24,North korea, Trump,Afganistan..."
-            android:layout_below="@id/discuss_img"
-            android:textStyle="bold"
-            android:textColor="@color/colorPrimary"
-            android:maxLines="2"
-            android:ellipsize="end"
-            android:fontFamily="sans-serif"
-            android:layout_height="wrap_content" />
-        <RelativeLayout android:id="@+id/menus"
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_margin="5dp"
-            android:layout_below="@+id/titles"
-            android:layout_height="wrap_content">
-
-
-            <LinearLayout android:id="@+id/cont2"
-                android:layout_width="wrap_content"
-                android:orientation="horizontal"
-                android:layout_alignParentLeft="true"
-                android:layout_height="wrap_content">
-                <android.support.design.widget.CheckableImageButton
-                    android:layout_width="wrap_content"
-                    android:src="@drawable/ic_favorite_border_black_24dp"
-                    android:backgroundTint="#00000000"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:text="224 Likes"
-                    android:layout_gravity="center"
-                    android:layout_height="wrap_content" />
-                <android.support.design.widget.CheckableImageButton
-                    android:layout_width="wrap_content"
-                    android:src="@drawable/ic_comment_black_24dp"
-                    android:backgroundTint="#00000000"
-                    android:layout_height="wrap_content" />
-                <android.support.design.widget.CheckableImageButton
-                    android:layout_width="wrap_content"
-                    android:src="@drawable/ic_share_black_24dp"
-                    android:backgroundTint="#00000000"
-                    android:layout_height="wrap_content" />
-            </LinearLayout>
-
-            <android.support.design.widget.CheckableImageButton
-                android:layout_width="wrap_content"
-                android:src="@drawable/ic_turned_in_not_black_24dp"
-                android:layout_alignParentRight="true"
-                android:backgroundTint="#00000000"
-                android:layout_height="wrap_content" />
-
-            <TextView android:id="@+id/comments"
-                android:layout_width="wrap_content"
-                android:text="View all 20 Comments"
-                android:layout_marginLeft="5dp"
-                android:layout_below="@+id/cont2"
-                android:layout_gravity="center"
-                android:layout_height="wrap_content" />
-
-        </RelativeLayout>
-
-        <View android:id="@+id/line1"
-            android:layout_below="@+id/menus"
-            android:layout_width="match_parent"
-            android:background="#dadada"
-            android:layout_marginBottom="5dp"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginLeft="5dp"
-            android:layout_marginRight="10dp"
-            android:layout_height="1dp"/>
+            android:layout_marginRight="5dp"
+            />
+    <include
+        android:id="@+id/post_author_layout"
+        layout="@layout/post_author"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <include
+        android:id="@+id/post_author_layout"
+        layout="@layout/post_body"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <include
+        android:id="@+id/post_author_layout"
+        layout="@layout/post_footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    </LinearLayout>
 
-    </RelativeLayout>
 </android.support.v7.widget.CardView>

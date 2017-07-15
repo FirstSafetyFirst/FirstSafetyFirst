@@ -45,6 +45,9 @@
     <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
         <item name="android:background">@color/black_overlay</item>
     </style>
+    <style name="AppTheme.WhiteAccent">
+        <item name="colorAccent">@color/white</item>
+    </style>
 
     <style name="ThemeOverlay.MyTextDetail" parent="AppTheme">
         <item name="android:layout_width">wrap_content</item>

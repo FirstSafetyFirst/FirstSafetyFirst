@@ -30,7 +30,7 @@ public class Home_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.home_fragment, container, false);
-        home_recycler=(RecyclerView)rootView.findViewById(R.id.home_recycler);
+        home_recycler=(RecyclerView)rootView.findViewById(R.id.news_recycler);
         home_recycler.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         home_recycler.setLayoutManager(mLayoutManager);

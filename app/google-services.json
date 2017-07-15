@@ -255,6 +255,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "658105027609-eki66n95ahv31n05h0o7ukfbqb39mvlj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.products.safetyfirst",
+            "certificate_hash": "072e21bd0e64d091685372ff069ea8b4ab630553"
+          }
+        },
+        {
           "client_id": "658105027609-3iiabnkvdnd2eikvhcvli72gchh8arq1.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

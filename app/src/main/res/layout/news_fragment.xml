@@ -6,10 +6,6 @@
     android:layout_height="match_parent"
     android:background="@color/background">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/tabBarColor" />
 
     <View
         android:layout_width="match_parent"
@@ -23,11 +19,19 @@
         <android.support.v7.widget.RecyclerView
             android:layout_marginLeft="@dimen/activity_vertical_margin"
             android:layout_marginRight="@dimen/activity_vertical_margin"
-            android:id="@+id/home_recycler"
+            android:id="@+id/news_recycler"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:id="@+id/newspaginateprogbar"
+        android:layout_alignParentBottom="true"
+        android:theme="@style/AppTheme.WhiteAccent"
+        android:visibility="gone"
+        />
 
 
 </RelativeLayout>

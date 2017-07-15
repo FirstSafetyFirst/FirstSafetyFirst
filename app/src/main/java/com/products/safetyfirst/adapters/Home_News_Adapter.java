@@ -7,24 +7,35 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.customview.CircleTransform;
 import com.products.safetyfirst.models.News_model;
 
-import java.util.List;
-
-/**
- * Created by JHON on 02-Apr-17.
- */
+import java.util.ArrayList;
 
 public class Home_News_Adapter extends RecyclerView.Adapter<Home_News_Adapter.MyViewHolder> {
 
     private final Context context;
-    private List<News_model> horizontalList;
+    private DatabaseReference mDatabase;
+    private ArrayList<News_model> newsArrayList = new ArrayList<>();
+    private ArrayList<String> newsArrayKey=new ArrayList<>();
+    private Query newsquery;
+    private String mLastkey;
+private ProgressBar mpaginateprogbar;
+    ArrayList<News_model> getNews=new ArrayList<>();
+    ArrayList<News_model> tempNews=new ArrayList<>();
+    ArrayList<String> tempkeys=new ArrayList<>();
+    ArrayList<String> getKeys=new ArrayList<>();
 
 public class MyViewHolder extends RecyclerView.ViewHolder {
 
@@ -46,9 +57,96 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
 }
 
 
-    public Home_News_Adapter(Context cont, List<News_model> horizontalList) {
-        this.horizontalList = horizontalList;
+    public Home_News_Adapter(Context cont, Query newsquery,DatabaseReference mDatabase, ProgressBar mpaginateprogbar ) {
         this.context=cont;
+        this.newsquery = newsquery;
+        this.mDatabase = mDatabase;
+        this.mpaginateprogbar = mpaginateprogbar;
+        newsquery.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                newsArrayKey.add(dataSnapshot.getKey());
+                newsArrayList.add(dataSnapshot.getValue(News_model.class));
+                notifyItemInserted(newsArrayList.size()-1);
+                if(newsArrayList.size()==1){
+                    mLastkey=dataSnapshot.getKey();
+                }
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void getMoreData(){
+        tempkeys=newsArrayKey;
+        tempNews=newsArrayList;
+        Query Getmorenewsquery=mDatabase.child("news").orderByKey().endAt(mLastkey).limitToLast(10);
+        Getmorenewsquery.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                getNews.add(dataSnapshot.getValue(News_model.class));
+                getKeys.add(dataSnapshot.getKey());
+                if(getNews.size()==10){
+                    getNews.remove(9);
+                    getKeys.remove(9);
+                    newsArrayList=getNews;
+                    newsArrayKey=getKeys;
+                    for(int i=0;i<tempNews.size();i++){
+                        newsArrayList.add(tempNews.get(i));
+                        newsArrayKey.add(tempkeys.get(i));
+                    }
+                    notifyItemRangeInserted(0,9);
+                    mpaginateprogbar.setVisibility(View.GONE);
+                    getKeys=new ArrayList<>();
+                    getNews=new ArrayList<>();
+                }
+                if(getNews.size()==1){
+                    mLastkey=dataSnapshot.getKey();
+                }
+
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     @Override
@@ -66,20 +164,28 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
         String URL1="http://ndtvimages.yuppcdn.net/images/Sun_News_News_8748.jpg";
 
         Glide.with(context).load(URL).transform(new CircleTransform(context)).into(holder.favicon);
-        Glide.with(context).load(URL1).into(holder.images);
+        if(newsArrayList.get(position).getImg_url() != null)
+        Glide.with(context).load(newsArrayList.get(position).getImg_url()).into(holder.images);
 
-        holder.title.setText( horizontalList.get(position).getTitle());
+        holder.title.setText( newsArrayList.get(position).getTitle());
         holder.timestamp.setText("10 May, 2017");
         holder.detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, horizontalList.get(position).getTitle(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, newsArrayList.get(position).getTitle(),Toast.LENGTH_SHORT).show();
             }
         });
+
+        if (position==0){
+            mpaginateprogbar.setVisibility(View.VISIBLE);
+            getMoreData();
+        }
     }
 
     @Override
     public int getItemCount() {
-        return horizontalList.size();
+        return newsArrayList.size();
     }
+
+
 }

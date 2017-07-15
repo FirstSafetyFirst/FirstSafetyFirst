@@ -32,8 +32,8 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
     public MyViewHolder(View view) {
 
         super(view);
-        images= (ImageView) view.findViewById(R.id.discuss_img);
-        favicons= (ImageView) view.findViewById(R.id.person_favicon);
+       // images= (ImageView) view.findViewById(R.id.discuss_img);
+       // favicons= (ImageView) view.findViewById(R.id.person_favicon);
 
     }
 }

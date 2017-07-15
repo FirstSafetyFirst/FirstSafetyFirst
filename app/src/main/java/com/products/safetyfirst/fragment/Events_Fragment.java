@@ -38,7 +38,7 @@ RecyclerView home_recycler;
         data.add(new Event_model("Fu-5 things for Monday, April 24,North korea, Trump,Afganistan","vbb","cc","ddd","TOI"));
         data.add(new Event_model("Fu-5 things for Monday, April 24,North korea, Trump,Afganistan","vbb","cc","ddd","TOI"));
 
-        home_recycler=(RecyclerView)rootView.findViewById(R.id.home_recycler);
+        home_recycler=(RecyclerView)rootView.findViewById(R.id.news_recycler);
         home_recycler.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         home_recycler.setLayoutManager(mLayoutManager);

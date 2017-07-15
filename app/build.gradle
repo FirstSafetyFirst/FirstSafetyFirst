@@ -11,6 +11,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+        vectorDrawables.useSupportLibrary true
     }
     buildTypes {
         debug {
@@ -32,7 +33,6 @@ dependencies {
     compile('com.mikepenz:fastadapter:2.5.1@aar') {
         transitive = true
     }
-    // glide
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha9'
     compile 'com.android.support:design:25.3.1'
@@ -47,6 +47,8 @@ dependencies {
     compile 'com.google.firebase:firebase-auth:11.0.0'
     compile 'com.google.android.gms:play-services-auth:11.0.0'
     compile 'com.google.android.gms:play-services-appinvite:11.0.0'
+    compile 'de.hdodenhof:circleimageview:2.0.0'
+    compile 'com.google.android.gms:play-services-plus:11.0.0'
     testCompile 'junit:junit:4.12'
 }
 apply plugin: 'com.google.gms.google-services'

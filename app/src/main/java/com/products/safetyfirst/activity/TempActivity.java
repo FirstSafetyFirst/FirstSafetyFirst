@@ -22,6 +22,7 @@ import com.products.safetyfirst.fragment.Discussion_Fragment;
 import com.products.safetyfirst.fragment.KnowIt_Fragment;
 import com.products.safetyfirst.fragment.Laws_Fragment;
 import com.products.safetyfirst.fragment.News_Events_Fragment;
+import com.products.safetyfirst.fragment.UpdateProfileFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -166,7 +167,7 @@ public class  TempActivity extends BaseActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_faq) {
-            // Handle the camera action
+
         } else if (id == R.id.nav_help) {
 
         } else if (id == R.id.nav_feedback) {
@@ -184,6 +185,8 @@ public class  TempActivity extends BaseActivity
             }
             else
                 logout();
+
+        } else if (id == R.id.nav_update_profile){
 
         }
 
