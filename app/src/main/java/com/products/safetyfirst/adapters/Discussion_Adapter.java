@@ -199,8 +199,10 @@ public class Discussion_Adapter extends RecyclerView.Adapter<Discussion_Adapter.
         if(postArrayList.get(position).getTitle() != null)
             holder.post_title.setText(postArrayList.get(position).getTitle());
 
-        if(userMap.containsKey(postArrayList.get(position).getUid()))
+        if(userMap.containsKey(postArrayList.get(position).getUid())) {
             holder.post_author.setText(userMap.get(postArrayList.get(position).getUid()).getUsername());
+            holder.post_author_email.setText(userMap.get(postArrayList.get(position).getUid()).getEmail());
+        }
             //holder.post_author.setText(postArrayList.get(position).getAuthor());
 
         if(postArrayList.get(position).getDesc() != null)
