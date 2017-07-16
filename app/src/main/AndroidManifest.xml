@@ -73,10 +73,10 @@
         </activity>
         <activity android:name=".activity.BaseActivity">
         </activity>
-        <activity android:name=".activity.EmailPasswordActivity">
-        </activity>
-        <activity android:name=".activity.GoogleSignInActivity">
-        </activity>
+        <!--<activity android:name=".activity.EmailPasswordActivity">-->
+        <!--</activity>-->
+        <!--<activity android:name=".activity.GoogleSignInActivity">-->
+        <!--</activity>-->
         <activity android:name=".activity.SignUpActivity">
         </activity>
         <activity android:name=".activity.SignInActivity">
