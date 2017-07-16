@@ -160,9 +160,6 @@ public class NewsViewholder extends RecyclerView.ViewHolder {
     @Override
     public void onBindViewHolder(final NewsViewholder holder, final int position) {
 
-        String URL="http://fscl01.fonpit.de/userfiles/6727621/image/2016/Nougat/AndroidPIT-Android-N-Nougat-2480.jpg";
-        String URL1="http://ndtvimages.yuppcdn.net/images/Sun_News_News_8748.jpg";
-
         Glide.with(context).load(newsArrayList.get(position).getImg_url()).transform(new CircleTransform(context)).into(holder.images);
         if(newsArrayList.get(position).getImg_url() != null)
         Glide.with(context).load(newsArrayList.get(position).getImg_url()).into(holder.favicon);

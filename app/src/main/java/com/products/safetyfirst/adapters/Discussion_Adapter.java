@@ -48,22 +48,23 @@ public class DiscussionViewholder extends RecyclerView.ViewHolder {
 
     private ImageView images, overflow,post_author_photo, likeBtn, ansBtn, bookmark ;
     private TextView post_title, dateTime, post_author, post_author_email;
-    private JustifiedWebView type_info;
+    private JustifiedWebView body;
     private Button readMore;
 
     private DiscussionViewholder(View view) {
 
         super(view);
-        post_author_photo   = (ImageView) view.findViewById(R.id.post_author_photo);
-        overflow            = (ImageView) view.findViewById(R.id.overflow);
-        likeBtn             = (ImageView) view.findViewById(R.id.LikeBtn);
-        ansBtn              = (ImageView) view.findViewById(R.id.ansBtn);
-        bookmark            = (ImageView) view.findViewById(R.id.bookmark);
-        post_title          = (TextView)  view.findViewById(R.id.post_title);
-        dateTime            = (TextView)  view.findViewById(R.id.dateTime);
-        post_author         = (TextView)  view.findViewById(R.id.post_author);
-        post_author_email   = (TextView)  view.findViewById(R.id.post_author_email);
-        readMore            = (Button)    view.findViewById(R.id.view_details);
+        post_author_photo   = (ImageView)         view.findViewById(R.id.post_author_photo);
+        overflow            = (ImageView)         view.findViewById(R.id.overflow);
+        likeBtn             = (ImageView)         view.findViewById(R.id.LikeBtn);
+        ansBtn              = (ImageView)         view.findViewById(R.id.ansBtn);
+        bookmark            = (ImageView)         view.findViewById(R.id.bookmark);
+        post_title          = (TextView)          view.findViewById(R.id.post_title);
+        body                = (JustifiedWebView)  view.findViewById(R.id.type_info);
+        dateTime            = (TextView)          view.findViewById(R.id.dateTime);
+        post_author         = (TextView)          view.findViewById(R.id.post_author);
+        post_author_email   = (TextView)          view.findViewById(R.id.post_author_email);
+        readMore            = (Button)            view.findViewById(R.id.view_details);
 
 
     }
@@ -175,20 +176,19 @@ public class DiscussionViewholder extends RecyclerView.ViewHolder {
     @Override
     public void onBindViewHolder(final DiscussionViewholder holder, final int position) {
 
-        String URL="http://fscl01.fonpit.de/userfiles/6727621/image/2016/Nougat/AndroidPIT-Android-N-Nougat-2480.jpg";
 
-        //Glide.with(context).load(URL).transform(new CircleTransform(context)).into(holder.post_author_photo);
 
         if(postArrayList.get(position).getImg_url() != null)
-            Glide.with(context).load(postArrayList.get(position).getImg_url()).into(holder.post_author_photo);
+            Glide.with(context).load(postArrayList.get(position).getImg_url()).transform(new CircleTransform(context)).into(holder.post_author_photo);
 
         holder.post_title.setText( postArrayList.get(position).getTitle());
+        holder.body.setText( postArrayList.get(position).getTitle());
       //  holder.post_author.setText( postArrayList.get(position).getTitle() );
         holder.dateTime.setText("10 May, 2017");
         holder.readMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, postArrayList.get(position).getImg_url(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, postArrayList.get(position).getTitle(),Toast.LENGTH_SHORT).show();
             }
         });
 
