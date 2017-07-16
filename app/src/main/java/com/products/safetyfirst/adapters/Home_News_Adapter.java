@@ -1,6 +1,7 @@
 package com.products.safetyfirst.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.products.safetyfirst.R;
+import com.products.safetyfirst.activity.NewsDetailActivity;
 import com.products.safetyfirst.customview.CircleTransform;
 import com.products.safetyfirst.models.News_model;
 
@@ -170,6 +172,9 @@ public class NewsViewholder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, newsArrayList.get(position).getTitle(),Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, NewsDetailActivity.class);
+                context.startActivity(intent);
+
             }
         });
 
