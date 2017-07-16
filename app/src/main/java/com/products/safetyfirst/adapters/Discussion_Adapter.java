@@ -5,73 +5,201 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.customview.CircleTransform;
 import com.products.safetyfirst.models.Discussion_model;
-import com.products.safetyfirst.models.News_model;
+import com.products.safetyfirst.utils.JustifiedWebView;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by JHON on 02-Apr-17.
  */
 
-public class Discussion_Adapter extends RecyclerView.Adapter<Discussion_Adapter.MyViewHolder> {
+public class Discussion_Adapter extends RecyclerView.Adapter<Discussion_Adapter.DiscussionViewholder> {
+
+   // private List<Discussion_model> horizontalList;
 
     private final Context context;
-    private List<Discussion_model> horizontalList;
+    private DatabaseReference mDatabase;
+    private ArrayList<Discussion_model> postArrayList = new ArrayList<>();
+    private ArrayList<String> postArrayKey =new ArrayList<>();
+    private Query postQuery;
+    private String mLastkey;
+    private ProgressBar mpaginateprogbar;
+    ArrayList<Discussion_model> getPost=new ArrayList<>();
+    ArrayList<Discussion_model> tempPost=new ArrayList<>();
+    ArrayList<String> tempkeys=new ArrayList<>();
+    ArrayList<String> getKeys=new ArrayList<>();
 
-public class MyViewHolder extends RecyclerView.ViewHolder {
+public class DiscussionViewholder extends RecyclerView.ViewHolder {
 
-    public ImageView images,favicons;
+    private ImageView images, overflow,post_author_photo, likeBtn, ansBtn, bookmark ;
+    private TextView post_title, dateTime, post_author, post_author_email;
+    private JustifiedWebView type_info;
+    private Button readMore;
 
-    public MyViewHolder(View view) {
+    private DiscussionViewholder(View view) {
 
         super(view);
-       // images= (ImageView) view.findViewById(R.id.discuss_img);
-        favicons= (ImageView) view.findViewById(R.id.post_author_photo);
+        post_author_photo   = (ImageView) view.findViewById(R.id.post_author_photo);
+        overflow            = (ImageView) view.findViewById(R.id.overflow);
+        likeBtn             = (ImageView) view.findViewById(R.id.LikeBtn);
+        ansBtn              = (ImageView) view.findViewById(R.id.ansBtn);
+        bookmark            = (ImageView) view.findViewById(R.id.bookmark);
+        post_title          = (TextView)  view.findViewById(R.id.post_title);
+        dateTime            = (TextView)  view.findViewById(R.id.dateTime);
+        post_author         = (TextView)  view.findViewById(R.id.post_author);
+        post_author_email   = (TextView)  view.findViewById(R.id.post_author_email);
+        readMore            = (Button)    view.findViewById(R.id.view_details);
+
 
     }
 }
 
 
-    public Discussion_Adapter(Context cont, List<Discussion_model> horizontalList) {
-        this.horizontalList = horizontalList;
+    public Discussion_Adapter(Context cont, Query postQuery,DatabaseReference mDatabase, ProgressBar mpaginateprogbar) {
+
         this.context=cont;
+        this.postQuery = postQuery;
+        this.mDatabase = mDatabase;
+        this.mpaginateprogbar = mpaginateprogbar;
+        postQuery.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                postArrayKey.add(dataSnapshot.getKey());
+                postArrayList.add(dataSnapshot.getValue(Discussion_model.class));
+                notifyItemInserted(postArrayList.size()-1);
+                if(postArrayList.size()==1){
+                    mLastkey=dataSnapshot.getKey();
+                }
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
+    public void getMoreData(){
+        tempkeys= postArrayKey;
+        tempPost=postArrayList;
+        Query Getmorenewsquery=mDatabase.child("posts").orderByKey().endAt(mLastkey).limitToLast(10);
+        Getmorenewsquery.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                getPost.add(dataSnapshot.getValue(Discussion_model.class));
+                getKeys.add(dataSnapshot.getKey());
+                if(getPost.size()==10){
+                    getPost.remove(9);
+                    getKeys.remove(9);
+                    postArrayList=getPost;
+                    postArrayKey =getKeys;
+                    for(int i=0;i<tempPost.size();i++){
+                        postArrayList.add(tempPost.get(i));
+                        postArrayKey.add(tempkeys.get(i));
+                    }
+                    notifyItemRangeInserted(0,9);
+                    mpaginateprogbar.setVisibility(View.GONE);
+                    getKeys=new ArrayList<>();
+                    getPost=new ArrayList<>();
+                }
+                if(getPost.size()==1){
+                    mLastkey=dataSnapshot.getKey();
+                }
+
+
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public DiscussionViewholder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.discussion_item, parent, false);
 
-        return new MyViewHolder(itemView);
+        return new DiscussionViewholder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(final MyViewHolder holder, final int position) {
+    public void onBindViewHolder(final DiscussionViewholder holder, final int position) {
 
         String URL="http://fscl01.fonpit.de/userfiles/6727621/image/2016/Nougat/AndroidPIT-Android-N-Nougat-2480.jpg";
-        String URL1="http://ndtvimages.yuppcdn.net/images/Sun_News_News_8748.jpg";
 
-        Glide.with(context).load(URL).transform(new CircleTransform(context)).into(holder.favicons);
+        //Glide.with(context).load(URL).transform(new CircleTransform(context)).into(holder.post_author_photo);
 
-//        Glide.with(context).load(URL1).into(holder.images);
+        if(postArrayList.get(position).getImg_url() != null)
+            Glide.with(context).load(postArrayList.get(position).getImg_url()).into(holder.post_author_photo);
 
-       /* holder.images.setOnClickListener(new View.OnClickListener() {
+        holder.post_title.setText( postArrayList.get(position).getTitle());
+      //  holder.post_author.setText( postArrayList.get(position).getTitle() );
+        holder.dateTime.setText("10 May, 2017");
+        holder.readMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, horizontalList.get(position).getTitle(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, postArrayList.get(position).getImg_url(),Toast.LENGTH_SHORT).show();
             }
-        });*/
+        });
+
+        if (position==0){
+            mpaginateprogbar.setVisibility(View.VISIBLE);
+            getMoreData();
+        }
     }
 
     @Override
     public int getItemCount() {
-        return horizontalList.size();
+        return postArrayList.size();
     }
 }

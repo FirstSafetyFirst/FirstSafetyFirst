@@ -26,7 +26,7 @@ import java.util.List;
 
 public class News_Fragment extends Fragment {
     private static final String TAG = "NewsListFragment";
-RecyclerView news_recycler;
+    RecyclerView news_recycler;
 
     private DatabaseReference mDatabase;
     private ProgressBar mProgressBar;

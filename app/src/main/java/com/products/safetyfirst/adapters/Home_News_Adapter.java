@@ -23,7 +23,7 @@ import com.products.safetyfirst.models.News_model;
 
 import java.util.ArrayList;
 
-public class Home_News_Adapter extends RecyclerView.Adapter<Home_News_Adapter.MyViewHolder> {
+public class Home_News_Adapter extends RecyclerView.Adapter<Home_News_Adapter.NewsViewholder> {
 
     private final Context context;
     private DatabaseReference mDatabase;
@@ -31,19 +31,19 @@ public class Home_News_Adapter extends RecyclerView.Adapter<Home_News_Adapter.My
     private ArrayList<String> newsArrayKey=new ArrayList<>();
     private Query newsquery;
     private String mLastkey;
-private ProgressBar mpaginateprogbar;
+    private ProgressBar mpaginateprogbar;
     ArrayList<News_model> getNews=new ArrayList<>();
     ArrayList<News_model> tempNews=new ArrayList<>();
     ArrayList<String> tempkeys=new ArrayList<>();
     ArrayList<String> getKeys=new ArrayList<>();
 
-public class MyViewHolder extends RecyclerView.ViewHolder {
+public class NewsViewholder extends RecyclerView.ViewHolder {
 
     private ImageView images,favicon, bookmark;
     private TextView title, timestamp;
     private Button detail;
 
-    private MyViewHolder(View view) {
+    private NewsViewholder(View view) {
 
         super(view);
         images= (ImageView) view.findViewById(R.id.news_avtar);
@@ -150,15 +150,15 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
     }
 
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public NewsViewholder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.news_item, parent, false);
 
-        return new MyViewHolder(itemView);
+        return new NewsViewholder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(final MyViewHolder holder, final int position) {
+    public void onBindViewHolder(final NewsViewholder holder, final int position) {
 
         String URL="http://fscl01.fonpit.de/userfiles/6727621/image/2016/Nougat/AndroidPIT-Android-N-Nougat-2480.jpg";
         String URL1="http://ndtvimages.yuppcdn.net/images/Sun_News_News_8748.jpg";

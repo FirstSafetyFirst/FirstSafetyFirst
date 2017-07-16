@@ -10,13 +10,14 @@
         <TextView
             android:id="@+id/post_title"
             style="@style/Base.TextAppearance.AppCompat.Medium"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:textColor="@color/colorPrimary"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
-            android:gravity="left"
+
             android:textStyle="bold"
+            android:textAllCaps="true"
             android:textIsSelectable="true"
             android:layout_toLeftOf="@+id/overflow"
             android:layout_toStartOf="@+id/overflow"

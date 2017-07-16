@@ -16,6 +16,7 @@ import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.fragment.Dash_Fragment;
 import com.products.safetyfirst.fragment.Discussion_Fragment;
@@ -47,6 +48,9 @@ public class  TempActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_temp);
 
+
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");

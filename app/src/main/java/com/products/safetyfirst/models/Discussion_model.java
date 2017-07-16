@@ -6,8 +6,10 @@ package com.products.safetyfirst.models;
 
 public class Discussion_model {
 
-    String title,img_url,favicon,desc;
-    Integer timestamp;
+    private String title,img_url,favicon,desc;
+    private Integer timestamp;
+
+    public Discussion_model(){}
 
     public Discussion_model(String title, String img_url, String favicon, String desc, Integer timestamp) {
         this.title = title;
