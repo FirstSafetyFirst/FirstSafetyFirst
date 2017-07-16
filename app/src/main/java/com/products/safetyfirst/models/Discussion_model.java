@@ -1,22 +1,43 @@
 package com.products.safetyfirst.models;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
- * Created by profileconnect on 24/04/17.
+ * Created by vikas on 24/04/17.
  */
 
 public class Discussion_model {
 
-    private String title,img_url,favicon,desc;
+    private String favicon;
     private Integer timestamp;
+
+    private String authorImageUrl;
+    private String uid;
+    private String author;
+    private String title;
+    private String body;
+    private String xmlBody;
+    private int starCount = 0;
+    private Map<String, Boolean> stars = new HashMap<>();
+
+    private String image;
+    private String file;
+    private String link;
+    private ArrayList<String> imageList;     // For Multiple Image Upload
 
     public Discussion_model(){}
 
-    public Discussion_model(String title, String img_url, String favicon, String desc, Integer timestamp) {
-        this.title = title;
-        this.img_url = img_url;
-        this.favicon = favicon;
-        this.desc = desc;
-        this.timestamp = timestamp;
+    public Discussion_model(String uid, String title, String authorImageUrl, String favicon, String body, Integer timestamp, String file, ArrayList<String> imageList) {
+        this.title          = title;
+        this.authorImageUrl = authorImageUrl;
+        this.favicon        = favicon;
+        this.body           = body;
+        this.imageList      = imageList;
+        this.file           = file;
+        this.timestamp      = timestamp;
+        this.uid            = uid;
     }
 
     public String getTitle() {
@@ -28,11 +49,11 @@ public class Discussion_model {
     }
 
     public String getImg_url() {
-        return img_url;
+        return authorImageUrl;
     }
 
-    public void setImg_url(String img_url) {
-        this.img_url = img_url;
+    public void setImg_url(String authorImageUrl) {
+        this.authorImageUrl = authorImageUrl;
     }
 
     public String getFavicon() {
@@ -44,11 +65,14 @@ public class Discussion_model {
     }
 
     public String getDesc() {
-        return desc;
+        return body;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public String getImage() {return image;}
+    public String getPostAuthorUID() {return uid;}
+
+    public void setDesc(String body) {
+        this.body = body;
     }
 
     public Integer getTimestamp() {

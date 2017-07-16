@@ -169,7 +169,7 @@ public class NewsViewholder extends RecyclerView.ViewHolder {
         holder.detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, newsArrayList.get(position).getImg_url(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, newsArrayList.get(position).getTitle(),Toast.LENGTH_SHORT).show();
             }
         });
 

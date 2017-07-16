@@ -2,6 +2,7 @@ package com.products.safetyfirst.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,56 +25,53 @@ import com.products.safetyfirst.utils.JustifiedWebView;
 
 import java.util.ArrayList;
 
-/**
- * Created by JHON on 02-Apr-17.
- */
 
 public class Discussion_Adapter extends RecyclerView.Adapter<Discussion_Adapter.DiscussionViewholder> {
 
-   // private List<Discussion_model> horizontalList;
+    private static final String TAG = "DISCUSSION_MODEL";
 
     private final Context context;
     private DatabaseReference mDatabase;
     private ArrayList<Discussion_model> postArrayList = new ArrayList<>();
-    private ArrayList<String> postArrayKey =new ArrayList<>();
+    private ArrayList<String> postArrayKey = new ArrayList<>();
     private Query postQuery;
     private String mLastkey;
     private ProgressBar mpaginateprogbar;
-    ArrayList<Discussion_model> getPost=new ArrayList<>();
-    ArrayList<Discussion_model> tempPost=new ArrayList<>();
-    ArrayList<String> tempkeys=new ArrayList<>();
-    ArrayList<String> getKeys=new ArrayList<>();
+    private ArrayList<Discussion_model> getPost = new ArrayList<>();
+    private ArrayList<Discussion_model> tempPost = new ArrayList<>();
+    private ArrayList<String> tempkeys = new ArrayList<>();
+    private ArrayList<String> getKeys = new ArrayList<>();
 
-public class DiscussionViewholder extends RecyclerView.ViewHolder {
+    public class DiscussionViewholder extends RecyclerView.ViewHolder {
 
-    private ImageView images, overflow,post_author_photo, likeBtn, ansBtn, bookmark ;
-    private TextView post_title, dateTime, post_author, post_author_email;
-    private JustifiedWebView body;
-    private Button readMore;
+        private ImageView images, overflow, post_author_photo, likeBtn, ansBtn, bookmark;
+        private TextView post_title, dateTime, post_author, post_author_email;
+        private JustifiedWebView body;
+        private Button readMore;
 
-    private DiscussionViewholder(View view) {
+        private DiscussionViewholder(View view) {
 
-        super(view);
-        post_author_photo   = (ImageView)         view.findViewById(R.id.post_author_photo);
-        overflow            = (ImageView)         view.findViewById(R.id.overflow);
-        likeBtn             = (ImageView)         view.findViewById(R.id.LikeBtn);
-        ansBtn              = (ImageView)         view.findViewById(R.id.ansBtn);
-        bookmark            = (ImageView)         view.findViewById(R.id.bookmark);
-        post_title          = (TextView)          view.findViewById(R.id.post_title);
-        body                = (JustifiedWebView)  view.findViewById(R.id.type_info);
-        dateTime            = (TextView)          view.findViewById(R.id.dateTime);
-        post_author         = (TextView)          view.findViewById(R.id.post_author);
-        post_author_email   = (TextView)          view.findViewById(R.id.post_author_email);
-        readMore            = (Button)            view.findViewById(R.id.view_details);
+            super(view);
+            post_author_photo   = (ImageView) view.findViewById(R.id.post_author_photo);
+            overflow            = (ImageView) view.findViewById(R.id.overflow);
+            likeBtn             = (ImageView) view.findViewById(R.id.LikeBtn);
+            ansBtn              = (ImageView) view.findViewById(R.id.ansBtn);
+            bookmark            = (ImageView) view.findViewById(R.id.bookmark);
+            post_title          = (TextView) view.findViewById(R.id.post_title);
+            body                = (JustifiedWebView) view.findViewById(R.id.type_info);
+            dateTime            = (TextView) view.findViewById(R.id.dateTime);
+            post_author         = (TextView) view.findViewById(R.id.post_author);
+            post_author_email   = (TextView) view.findViewById(R.id.post_author_email);
+            readMore            = (Button) view.findViewById(R.id.view_details);
 
 
+        }
     }
-}
 
 
-    public Discussion_Adapter(Context cont, Query postQuery,DatabaseReference mDatabase, ProgressBar mpaginateprogbar) {
+    public Discussion_Adapter(Context cont, Query postQuery, DatabaseReference mDatabase, ProgressBar mpaginateprogbar) {
 
-        this.context=cont;
+        this.context = cont;
         this.postQuery = postQuery;
         this.mDatabase = mDatabase;
         this.mpaginateprogbar = mpaginateprogbar;
@@ -82,9 +80,9 @@ public class DiscussionViewholder extends RecyclerView.ViewHolder {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 postArrayKey.add(dataSnapshot.getKey());
                 postArrayList.add(dataSnapshot.getValue(Discussion_model.class));
-                notifyItemInserted(postArrayList.size()-1);
-                if(postArrayList.size()==1){
-                    mLastkey=dataSnapshot.getKey();
+                notifyItemInserted(postArrayList.size() - 1);
+                if (postArrayList.size() == 1) {
+                    mLastkey = dataSnapshot.getKey();
                 }
 
             }
@@ -111,31 +109,31 @@ public class DiscussionViewholder extends RecyclerView.ViewHolder {
         });
     }
 
-    public void getMoreData(){
-        tempkeys= postArrayKey;
-        tempPost=postArrayList;
-        Query Getmorenewsquery=mDatabase.child("posts").orderByKey().endAt(mLastkey).limitToLast(10);
+    public void getMoreData() {
+        tempkeys = postArrayKey;
+        tempPost = postArrayList;
+        Query Getmorenewsquery = mDatabase.child("posts").orderByKey().endAt(mLastkey).limitToLast(10);
         Getmorenewsquery.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 getPost.add(dataSnapshot.getValue(Discussion_model.class));
                 getKeys.add(dataSnapshot.getKey());
-                if(getPost.size()==10){
+                if (getPost.size() == 10) {
                     getPost.remove(9);
                     getKeys.remove(9);
-                    postArrayList=getPost;
-                    postArrayKey =getKeys;
-                    for(int i=0;i<tempPost.size();i++){
+                    postArrayList = getPost;
+                    postArrayKey = getKeys;
+                    for (int i = 0; i < tempPost.size(); i++) {
                         postArrayList.add(tempPost.get(i));
                         postArrayKey.add(tempkeys.get(i));
                     }
-                    notifyItemRangeInserted(0,9);
+                    notifyItemRangeInserted(0, 9);
                     mpaginateprogbar.setVisibility(View.GONE);
-                    getKeys=new ArrayList<>();
-                    getPost=new ArrayList<>();
+                    getKeys = new ArrayList<>();
+                    getPost = new ArrayList<>();
                 }
-                if(getPost.size()==1){
-                    mLastkey=dataSnapshot.getKey();
+                if (getPost.size() == 1) {
+                    mLastkey = dataSnapshot.getKey();
                 }
 
 
@@ -174,25 +172,30 @@ public class DiscussionViewholder extends RecyclerView.ViewHolder {
     }
 
     @Override
-    public void onBindViewHolder(final DiscussionViewholder holder, final int position) {
+    public void onBindViewHolder(final DiscussionViewholder holder,final int position) {
 
-
-
-        if(postArrayList.get(position).getImg_url() != null)
+        if (postArrayList.get(position).getImg_url() != null)
             Glide.with(context).load(postArrayList.get(position).getImg_url()).transform(new CircleTransform(context)).into(holder.post_author_photo);
+        else
+            Glide.with(context).load(R.drawable.ic_person_black_24dp).into(holder.post_author_photo);
 
-        holder.post_title.setText( postArrayList.get(position).getTitle());
-        holder.body.setText( postArrayList.get(position).getTitle());
-      //  holder.post_author.setText( postArrayList.get(position).getTitle() );
+        if(postArrayList.get(position).getTitle() != null)
+            holder.post_title.setText(postArrayList.get(position).getTitle());
+
+        if(postArrayList.get(position).getDesc() != null)
+            holder.body.setText(postArrayList.get(position).getDesc());
+
+        //  holder.post_author.setText( postArrayList.get(position).getTitle() );
         holder.dateTime.setText("10 May, 2017");
         holder.readMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, postArrayList.get(position).getTitle(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, postArrayList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+                Log.d(TAG,String.valueOf(position) + String.valueOf(postArrayList.get(position).getDesc())+String.valueOf(postArrayList.get(position).getTitle()));
             }
         });
 
-        if (position==0){
+        if (position == 0) {
             mpaginateprogbar.setVisibility(View.VISIBLE);
             getMoreData();
         }
