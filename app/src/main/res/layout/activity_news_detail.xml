@@ -41,7 +41,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_scrolling"
+        android:id="@+id/bookmark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/big_activity_fab_margin"
@@ -51,5 +51,31 @@
         app:layout_anchorGravity="bottom|end" />
 
     <include layout="@layout/content_scrolling" />
-
+<android.support.v7.widget.ButtonBarLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorAccent"
+    android:layout_gravity="bottom">
+    <Button
+        android:id="@+id/read_more"
+        android:layout_width="0dp"
+        android:layout_weight="0.5"
+        android:textAllCaps="true"
+        android:text="@string/read_more"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:background="@color/colorAccent"
+        android:layout_height="wrap_content"
+        />
+    <ImageButton
+        android:id="@+id/share"
+        android:layout_width="0dp"
+        android:layout_weight="0.5"
+        app:srcCompat="@drawable/ic_share_black_24dp"
+        android:tint="@android:color/white"
+        android:background="@color/colorAccent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        />
+</android.support.v7.widget.ButtonBarLayout>
 </android.support.design.widget.CoordinatorLayout>

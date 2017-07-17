@@ -7,6 +7,7 @@
         <item name="colorPrimaryDark">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
     <style name="AppThemeOverlayBar" parent="AppTheme">
         <item name="android:windowActionBarOverlay">true</item>
         <!--For compatibility-->
@@ -23,6 +24,7 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
     <style name="AppToolbar" parent="AppTheme">
         <item name="android:textColorPrimary">@android:color/white</item>
         <item name="android:textColorSecondary">@android:color/white</item>
@@ -45,6 +47,7 @@
     <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
         <item name="android:background">@color/black_overlay</item>
     </style>
+
     <style name="AppTheme.WhiteAccent">
         <item name="colorAccent">@color/white</item>
     </style>
@@ -71,4 +74,8 @@
         <item name="android:gravity">center</item>
         <item name="android:textSize">36sp</item>
     </style>
+
+    <style name="AppTheme.NoActionBar.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

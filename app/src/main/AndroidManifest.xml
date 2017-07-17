@@ -14,7 +14,7 @@
         <activity
             android:name=".activity.IntroActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <!--
         <activity
             android:name="com.products.safetyfirst.activity.SplashActivity"
@@ -29,7 +29,7 @@
         </activity>
         -->
         <activity
-            android:name="com.products.safetyfirst.activity.TempActivity"
+            android:name=".activity.TempActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_splash"
             android:theme="@style/AppTheme.NoActionBar">
@@ -57,6 +57,10 @@
             android:name=".activity.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".activity.NewsDetailActivity"
+            android:parentActivityName=".activity.TempActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".activity.KnowItSecondActivity"
             android:launchMode="singleTop"
             android:parentActivityName=".activity.HomeActivity"
@@ -71,19 +75,18 @@
             <!-- android:name="android.support.PARENT_ACTIVITY" -->
             <!-- android:value="com.products.safetyfirst.activity.KnowItSecondActivity" /> -->
         </activity>
-        <activity android:name=".activity.BaseActivity">
-        </activity>
-        <!--<activity android:name=".activity.EmailPasswordActivity">-->
-        <!--</activity>-->
-        <!--<activity android:name=".activity.GoogleSignInActivity">-->
-        <!--</activity>-->
-        <activity android:name=".activity.SignUpActivity">
-        </activity>
-        <activity android:name=".activity.SignInActivity">
-        </activity>
-        <activity android:name=".activity.PasswordResetActivity">
-
-        </activity>
+        <activity android:name=".activity.BaseActivity"></activity>
+        <!-- <activity android:name=".activity.EmailPasswordActivity"> -->
+        <!-- </activity> -->
+        <!-- <activity android:name=".activity.GoogleSignInActivity"> -->
+        <!-- </activity> -->
+        <activity android:name=".activity.SignUpActivity"></activity>
+        <activity android:name=".activity.SignInActivity"></activity>
+        <activity android:name=".activity.PasswordResetActivity"></activity>
+        <activity
+            android:name=".activity.PostDetailActivity"
+            android:label="@string/title_activity_post_detail"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

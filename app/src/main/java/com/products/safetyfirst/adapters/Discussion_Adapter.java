@@ -1,6 +1,7 @@
 package com.products.safetyfirst.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.products.safetyfirst.R;
+import com.products.safetyfirst.activity.PostDetailActivity;
 import com.products.safetyfirst.customview.CircleTransform;
 import com.products.safetyfirst.models.Discussion_model;
 import com.products.safetyfirst.models.UserModel;
@@ -214,6 +216,8 @@ public class Discussion_Adapter extends RecyclerView.Adapter<Discussion_Adapter.
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, postArrayList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, PostDetailActivity.class);
+                context.startActivity(intent);
                 Log.d(TAG,String.valueOf(position) + String.valueOf(postArrayList.get(position).getDesc())+String.valueOf(postArrayList.get(position).getTitle()));
             }
         });
