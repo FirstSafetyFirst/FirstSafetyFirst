@@ -14,7 +14,7 @@
         <activity
             android:name=".activity.IntroActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <!--
         <activity
             android:name="com.products.safetyfirst.activity.SplashActivity"
@@ -29,7 +29,7 @@
         </activity>
         -->
         <activity
-            android:name=".activity.TempActivity"
+            android:name="com.products.safetyfirst.activity.TempActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_splash"
             android:theme="@style/AppTheme.NoActionBar">
@@ -71,13 +71,19 @@
             <!-- android:name="android.support.PARENT_ACTIVITY" -->
             <!-- android:value="com.products.safetyfirst.activity.KnowItSecondActivity" /> -->
         </activity>
-        <activity android:name=".activity.BaseActivity"></activity>
-        <activity android:name=".activity.EmailPasswordActivity"></activity>
-        <activity android:name=".activity.GoogleSignInActivity"></activity>
-        <activity android:name=".activity.SignUpActivity"></activity>
-        <activity android:name=".activity.SignInActivity"></activity>
-        <activity android:name=".activity.PasswordResetActivity"></activity>
-        <activity android:name=".activity.NewsDetailActivity"></activity>
+        <activity android:name=".activity.BaseActivity">
+        </activity>
+        <!--<activity android:name=".activity.EmailPasswordActivity">-->
+        <!--</activity>-->
+        <!--<activity android:name=".activity.GoogleSignInActivity">-->
+        <!--</activity>-->
+        <activity android:name=".activity.SignUpActivity">
+        </activity>
+        <activity android:name=".activity.SignInActivity">
+        </activity>
+        <activity android:name=".activity.PasswordResetActivity">
+
+        </activity>
     </application>
 
 </manifest>

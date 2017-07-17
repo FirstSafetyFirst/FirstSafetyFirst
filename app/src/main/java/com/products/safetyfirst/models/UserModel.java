@@ -4,10 +4,15 @@ import java.util.ArrayList;
 
 /**
  * Created by Vikas on 09-06-2017.
+ *
+ * Notes:  1. use username not full_name
+ *         2. use photoUrl not userImage
+ *         3. use answers_given not answersGiven
+ *         4. use questions_asked not questionsAsked
  */
 
 public class UserModel {
-    private String name;
+    private String username;
     private int rank;
     private String email;
     private ArrayList<String> followers;
@@ -17,16 +22,20 @@ public class UserModel {
     private boolean notGoodUser;
     private boolean verified;
     private String photoUrl;
+    private int answers_given;
+    private int questions_asked;
+
+    public UserModel(){}
 
 
-    public UserModel(String name, String email, String photoUrl){
-        this.name       = name;
+    public UserModel(String username, String email, String photoUrl){
+        this.username = username;
         this.email      = email;
         this.photoUrl   = photoUrl;
     }
 
-    public UserModel(String name, String email, String photoUrl,  ArrayList<String> followers,  ArrayList<String> following, ArrayList<String> news, ArrayList<String> topics){
-        this.name       = name;
+    public UserModel(String username, String email, String photoUrl, ArrayList<String> followers, ArrayList<String> following, ArrayList<String> news, ArrayList<String> topics){
+        this.username = username;
         this.email      = email;
         this.photoUrl   = photoUrl;
         this.followers  = followers;
@@ -35,12 +44,12 @@ public class UserModel {
         this.topics     = topics;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public int getRank() {
@@ -113,5 +122,21 @@ public class UserModel {
 
     public void setPhotoUrl(String photoUrl) {
         this.photoUrl = photoUrl;
+    }
+
+    public int getAnswers_given() {
+        return answers_given;
+    }
+
+    public void setAnswers_given(int answers_given) {
+        this.answers_given = answers_given;
+    }
+
+    public int getQuestions_asked() {
+        return questions_asked;
+    }
+
+    public void setQuestions_asked(int questions_asked) {
+        this.questions_asked = questions_asked;
     }
 }

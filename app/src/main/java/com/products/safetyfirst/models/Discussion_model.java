@@ -15,6 +15,91 @@ public class Discussion_model {
 
     private String authorImageUrl;
     private String uid;
+
+    public String getAuthorImageUrl() {
+        return authorImageUrl;
+    }
+
+    public void setAuthorImageUrl(String authorImageUrl) {
+        this.authorImageUrl = authorImageUrl;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
+
+    public String getXmlBody() {
+        return xmlBody;
+    }
+
+    public void setXmlBody(String xmlBody) {
+        this.xmlBody = xmlBody;
+    }
+
+    public int getStarCount() {
+        return starCount;
+    }
+
+    public void setStarCount(int starCount) {
+        this.starCount = starCount;
+    }
+
+    public Map<String, Boolean> getStars() {
+        return stars;
+    }
+
+    public void setStars(Map<String, Boolean> stars) {
+        this.stars = stars;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getFile() {
+        return file;
+    }
+
+    public void setFile(String file) {
+        this.file = file;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public ArrayList<String> getImageList() {
+        return imageList;
+    }
+
+    public void setImageList(ArrayList<String> imageList) {
+        this.imageList = imageList;
+    }
+
     private String author;
     private String title;
     private String body;
@@ -46,14 +131,6 @@ public class Discussion_model {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getImg_url() {
-        return authorImageUrl;
-    }
-
-    public void setImg_url(String authorImageUrl) {
-        this.authorImageUrl = authorImageUrl;
     }
 
     public String getFavicon() {

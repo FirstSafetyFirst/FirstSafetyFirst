@@ -18,12 +18,16 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.customview.CircleTransform;
 import com.products.safetyfirst.models.Discussion_model;
+import com.products.safetyfirst.models.UserModel;
 import com.products.safetyfirst.utils.JustifiedWebView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class Discussion_Adapter extends RecyclerView.Adapter<Discussion_Adapter.DiscussionViewholder> {
@@ -41,6 +45,7 @@ public class Discussion_Adapter extends RecyclerView.Adapter<Discussion_Adapter.
     private ArrayList<Discussion_model> tempPost = new ArrayList<>();
     private ArrayList<String> tempkeys = new ArrayList<>();
     private ArrayList<String> getKeys = new ArrayList<>();
+    private Map<String, UserModel> userMap = new HashMap<>();
 
     public class DiscussionViewholder extends RecyclerView.ViewHolder {
 
@@ -80,6 +85,10 @@ public class Discussion_Adapter extends RecyclerView.Adapter<Discussion_Adapter.
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 postArrayKey.add(dataSnapshot.getKey());
                 postArrayList.add(dataSnapshot.getValue(Discussion_model.class));
+
+                /* add user */
+                addUser(dataSnapshot.getValue(Discussion_model.class).getUid(), postArrayList.size() - 1, postArrayList.size() - 1);
+
                 notifyItemInserted(postArrayList.size() - 1);
                 if (postArrayList.size() == 1) {
                     mLastkey = dataSnapshot.getKey();
@@ -118,6 +127,10 @@ public class Discussion_Adapter extends RecyclerView.Adapter<Discussion_Adapter.
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 getPost.add(dataSnapshot.getValue(Discussion_model.class));
                 getKeys.add(dataSnapshot.getKey());
+
+                /* add user */
+                addUser(dataSnapshot.getValue(Discussion_model.class).getUid(), 0, 9);
+
                 if (getPost.size() == 10) {
                     getPost.remove(9);
                     getKeys.remove(9);
@@ -174,13 +187,23 @@ public class Discussion_Adapter extends RecyclerView.Adapter<Discussion_Adapter.
     @Override
     public void onBindViewHolder(final DiscussionViewholder holder,final int position) {
 
-        if (postArrayList.get(position).getImg_url() != null)
-            Glide.with(context).load(postArrayList.get(position).getImg_url()).transform(new CircleTransform(context)).into(holder.post_author_photo);
-        else
-            Glide.with(context).load(R.drawable.ic_person_black_24dp).into(holder.post_author_photo);
+        if (postArrayList.get(position).getAuthorImageUrl() != null && postArrayList.get(position).getAuthorImageUrl() != "") {
+            Glide.with(context).load(postArrayList.get(position).getAuthorImageUrl()).error(R.drawable.ic_person_black_24dp).transform(new CircleTransform(context)).into(holder.post_author_photo);
+            Log.e("DiscussionAdapter", "Loaded Image");
+        }
+        else {
+            holder.post_author_photo.setImageResource(R.drawable.ic_person_black_24dp);
+            Log.e("DiscussionAdapter", "No Image on Post :: " + postArrayList.get(position).getUid());
+        }
 
         if(postArrayList.get(position).getTitle() != null)
             holder.post_title.setText(postArrayList.get(position).getTitle());
+
+        if(userMap.containsKey(postArrayList.get(position).getUid())) {
+            holder.post_author.setText(userMap.get(postArrayList.get(position).getUid()).getUsername());
+            holder.post_author_email.setText(userMap.get(postArrayList.get(position).getUid()).getEmail());
+        }
+            //holder.post_author.setText(postArrayList.get(position).getAuthor());
 
         if(postArrayList.get(position).getDesc() != null)
             holder.body.setText(postArrayList.get(position).getDesc());
@@ -204,5 +227,24 @@ public class Discussion_Adapter extends RecyclerView.Adapter<Discussion_Adapter.
     @Override
     public int getItemCount() {
         return postArrayList.size();
+    }
+
+    void addUser(final String uid, final int notifyStart, final int notifyEnd) {
+        if(!userMap.containsKey(uid)){
+            Log.e("DiscussionAdapter", "Adding User " + uid);
+            mDatabase.child("users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    UserModel user = dataSnapshot.getValue(UserModel.class);
+                    userMap.put(uid, user);
+                    notifyItemRangeChanged(notifyStart, notifyEnd);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
     }
 }
