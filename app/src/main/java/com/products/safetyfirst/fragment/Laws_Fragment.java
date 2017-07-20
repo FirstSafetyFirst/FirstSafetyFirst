@@ -4,11 +4,9 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.telephony.TelephonyManager;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.products.safetyfirst.R;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by profileconnect on 20/04/17.

@@ -9,7 +9,6 @@ import android.widget.ImageView;
 
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.models.Knowit_model;
-import com.products.safetyfirst.models.News_model;
 
 import java.util.List;
 
@@ -21,19 +20,6 @@ public class Knowit_Adapter extends RecyclerView.Adapter<Knowit_Adapter.MyViewHo
 
     private final Context context;
     private List<Knowit_model> horizontalList;
-
-public class MyViewHolder extends RecyclerView.ViewHolder {
-
-    public ImageView images;
-
-    public MyViewHolder(View view) {
-
-        super(view);
-        images= (ImageView) view.findViewById(R.id.know_img);
-
-    }
-}
-
 
     public Knowit_Adapter(Context cont, List<Knowit_model> horizontalList) {
         this.horizontalList = horizontalList;
@@ -64,5 +50,17 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
     @Override
     public int getItemCount() {
         return horizontalList.size();
+    }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+
+        public ImageView images;
+
+        public MyViewHolder(View view) {
+
+            super(view);
+            images = (ImageView) view.findViewById(R.id.know_img);
+
+        }
     }
 }

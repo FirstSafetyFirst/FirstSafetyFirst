@@ -39,10 +39,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <!--
-            <activity
-            android:name="com.products.safetyfirst.activity.MainActivity"
+        <activity
+            android:name=".activity.HomeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_splash"
             android:theme="@style/AppTheme.NoActionBar">
@@ -51,11 +49,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            </activity>
-        -->
-        <activity
-            android:name=".activity.HomeActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+        </activity>
         <activity
             android:name=".activity.NewsDetailActivity"
             android:parentActivityName=".activity.TempActivity"
@@ -75,18 +69,19 @@
             <!-- android:name="android.support.PARENT_ACTIVITY" -->
             <!-- android:value="com.products.safetyfirst.activity.KnowItSecondActivity" /> -->
         </activity>
-        <activity android:name=".activity.BaseActivity"></activity>
+        <activity android:name=".activity.BaseActivity" />
         <!-- <activity android:name=".activity.EmailPasswordActivity"> -->
         <!-- </activity> -->
         <!-- <activity android:name=".activity.GoogleSignInActivity"> -->
         <!-- </activity> -->
-        <activity android:name=".activity.SignUpActivity"></activity>
-        <activity android:name=".activity.SignInActivity"></activity>
-        <activity android:name=".activity.PasswordResetActivity"></activity>
+        <activity android:name=".activity.SignUpActivity" />
+        <activity android:name=".activity.SignInActivity" />
+        <activity android:name=".activity.PasswordResetActivity" />
         <activity
             android:name=".activity.PostDetailActivity"
             android:label="@string/title_activity_post_detail"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity.ProfileActivity"></activity>
     </application>
 
 </manifest>

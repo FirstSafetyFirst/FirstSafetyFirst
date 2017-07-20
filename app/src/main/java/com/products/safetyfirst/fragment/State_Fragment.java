@@ -1,7 +1,6 @@
 package com.products.safetyfirst.fragment;
 
 import android.content.Intent;
-import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,7 +18,6 @@ import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter;
 import com.mikepenz.fastadapter.items.AbstractItem;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.activity.KnowItSecondActivity;
-import com.products.safetyfirst.adapters.Laws_Adapter;
 import com.products.safetyfirst.utils.JustifiedWebView;
 
 import java.util.ArrayList;
@@ -76,6 +74,19 @@ public class State_Fragment extends Fragment {
         return rootView;
     }
 
+    private static class ViewHolder extends RecyclerView.ViewHolder {
+        public TextView title;
+        public ImageView image;
+        public View mainView;
+
+        public ViewHolder(View view) {
+            super(view);
+            mainView = view.findViewById(R.id.know_it_item);
+            title = (TextView) view.findViewById(R.id.know_it_item_title);
+            image = (ImageView) view.findViewById(R.id.know_it_item_image);
+        }
+    }
+
     private class LawItem extends AbstractItem<State_Fragment.LawItem, State_Fragment.ViewHolder> {
 
         private String title;
@@ -115,19 +126,6 @@ public class State_Fragment extends Fragment {
 
             holder.title.setText(null);
             //holder.image.setImageDrawable(null);
-        }
-    }
-
-    private static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView title;
-        public ImageView image;
-        public View mainView;
-
-        public ViewHolder(View view) {
-            super(view);
-            mainView = view.findViewById(R.id.know_it_item);
-            title = (TextView) view.findViewById(R.id.know_it_item_title);
-            image = (ImageView) view.findViewById(R.id.know_it_item_image);
         }
     }
 

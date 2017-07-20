@@ -15,10 +15,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.adapters.Home_News_Adapter;
-import com.products.safetyfirst.models.News_model;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by profileconnect on 20/04/17.

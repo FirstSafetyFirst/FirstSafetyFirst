@@ -15,6 +15,31 @@ public class Discussion_model {
 
     private String authorImageUrl;
     private String uid;
+    private String author;
+    private String title;
+    private String body;
+    private String xmlBody;
+    private int starCount = 0;
+    private Map<String, Boolean> stars = new HashMap<>();
+
+    private String image;
+    private String file;
+    private String link;
+    private ArrayList<String> imageList;     // For Multiple Image Upload
+
+    public Discussion_model() {
+    }
+
+    public Discussion_model(String uid, String title, String authorImageUrl, String favicon, String body, Integer timestamp, String file, ArrayList<String> imageList) {
+        this.title = title;
+        this.authorImageUrl = authorImageUrl;
+        this.favicon = favicon;
+        this.body = body;
+        this.imageList = imageList;
+        this.file = file;
+        this.timestamp = timestamp;
+        this.uid = uid;
+    }
 
     public String getAuthorImageUrl() {
         return authorImageUrl;
@@ -72,10 +97,6 @@ public class Discussion_model {
         this.stars = stars;
     }
 
-    public void setImage(String image) {
-        this.image = image;
-    }
-
     public String getFile() {
         return file;
     }
@@ -100,31 +121,6 @@ public class Discussion_model {
         this.imageList = imageList;
     }
 
-    private String author;
-    private String title;
-    private String body;
-    private String xmlBody;
-    private int starCount = 0;
-    private Map<String, Boolean> stars = new HashMap<>();
-
-    private String image;
-    private String file;
-    private String link;
-    private ArrayList<String> imageList;     // For Multiple Image Upload
-
-    public Discussion_model(){}
-
-    public Discussion_model(String uid, String title, String authorImageUrl, String favicon, String body, Integer timestamp, String file, ArrayList<String> imageList) {
-        this.title          = title;
-        this.authorImageUrl = authorImageUrl;
-        this.favicon        = favicon;
-        this.body           = body;
-        this.imageList      = imageList;
-        this.file           = file;
-        this.timestamp      = timestamp;
-        this.uid            = uid;
-    }
-
     public String getTitle() {
         return title;
     }
@@ -145,11 +141,20 @@ public class Discussion_model {
         return body;
     }
 
-    public String getImage() {return image;}
-    public String getPostAuthorUID() {return uid;}
-
     public void setDesc(String body) {
         this.body = body;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getPostAuthorUID() {
+        return uid;
     }
 
     public Integer getTimestamp() {

@@ -1,7 +1,6 @@
 package com.products.safetyfirst.adapters;
 
 import android.content.Context;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,16 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.google.firebase.database.Query;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.customview.CustomLinearLayoutManager;
 import com.products.safetyfirst.customview.SpacesItemDecoration;
-import com.products.safetyfirst.models.News_model;
 import com.products.safetyfirst.models.Event_model;
+import com.products.safetyfirst.models.News_model;
 import com.products.safetyfirst.models.Slider_Model;
 import com.products.safetyfirst.models.Statics_model;
-import com.products.safetyfirst.recycler.home.News;
 import com.products.safetyfirst.recycler.home.Events;
+import com.products.safetyfirst.recycler.home.News;
 import com.products.safetyfirst.recycler.home.Slider;
 import com.products.safetyfirst.recycler.home.Statics;
 
@@ -31,10 +29,10 @@ import java.util.List;
 
 public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    private final int SLIDER = 0, NEWS = 1, STATICS = 2, EVENTS = 3, PROGRESS = 4;
+    Context ctx;
     // The items to display in your RecyclerView
     private List<Object> items;
-    Context ctx;
-    private final int SLIDER = 0, NEWS = 1,STATICS=2,EVENTS=3,PROGRESS=4;
 
     // Provide a suitable constructor (depends on the kind of dataset)
     public HomeAdapter(Context ctx, List<Object> items) {

@@ -1,7 +1,6 @@
 package com.products.safetyfirst.fragment;
 
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -22,7 +21,6 @@ import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter;
 import com.mikepenz.fastadapter.items.AbstractItem;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.activity.ItemTypeInfoActivity;
-import com.products.safetyfirst.fragment.ItemsFragments.TypeInfoFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,11 +30,11 @@ import java.util.List;
  */
 public class TypeFragment extends Fragment {
 
+    private static Integer tool;
     private View mainView;
     private RecyclerView typeRecycler;
     private FastItemAdapter<TypeItem> typeAdapter;
     private List<TypeItem> types;
-    private static Integer tool;
 
     public TypeFragment() {
         // Required empty public constructor
@@ -89,6 +87,19 @@ public class TypeFragment extends Fragment {
         return mainView;
     }
 
+    private static class ViewHolder extends RecyclerView.ViewHolder {
+        public TextView title;
+        public ImageView image;
+        public View mainView;
+
+        public ViewHolder(View view) {
+            super(view);
+            mainView = view.findViewById(R.id.type_item);
+            title = (TextView) view.findViewById(R.id.type_item_title);
+            image = (ImageView) view.findViewById(R.id.type_item_image);
+        }
+    }
+
     private class TypeItem extends AbstractItem<TypeItem, ViewHolder> {
 
         private String title;
@@ -127,19 +138,6 @@ public class TypeFragment extends Fragment {
 
             holder.title.setText(null);
             holder.image.setImageDrawable(null);
-        }
-    }
-
-    private static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView title;
-        public ImageView image;
-        public View mainView;
-
-        public ViewHolder(View view) {
-            super(view);
-            mainView = view.findViewById(R.id.type_item);
-            title = (TextView) view.findViewById(R.id.type_item_title);
-            image = (ImageView) view.findViewById(R.id.type_item_image);
         }
     }
 

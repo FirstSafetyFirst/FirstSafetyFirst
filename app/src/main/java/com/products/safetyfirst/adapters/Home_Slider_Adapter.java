@@ -6,9 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.models.Slider_Model;
 
@@ -22,19 +20,6 @@ public class Home_Slider_Adapter extends RecyclerView.Adapter<Home_Slider_Adapte
 
     private final Context context;
     private List<Slider_Model> horizontalList;
-
-public class MyViewHolder extends RecyclerView.ViewHolder {
-
-    public ImageView slider_image;
-
-    public MyViewHolder(View view) {
-
-        super(view);
-        slider_image = (ImageView) view.findViewById(R.id.sliders_img);
-
-    }
-}
-
 
     public Home_Slider_Adapter(Context cont, List<Slider_Model> horizontalList) {
         this.horizontalList = horizontalList;
@@ -65,5 +50,17 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
     @Override
     public int getItemCount() {
         return horizontalList.size();
+    }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+
+        public ImageView slider_image;
+
+        public MyViewHolder(View view) {
+
+            super(view);
+            slider_image = (ImageView) view.findViewById(R.id.sliders_img);
+
+        }
     }
 }

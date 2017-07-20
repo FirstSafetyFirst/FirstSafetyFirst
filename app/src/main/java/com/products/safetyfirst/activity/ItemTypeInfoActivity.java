@@ -10,7 +10,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -20,22 +19,18 @@ import com.products.safetyfirst.fragment.ItemsFragments.TypeChecklistFragment;
 import com.products.safetyfirst.fragment.ItemsFragments.TypeHowToUseFragment;
 import com.products.safetyfirst.fragment.ItemsFragments.TypeInfoFragment;
 import com.products.safetyfirst.fragment.ItemsFragments.TypeVideoFragment;
-import com.products.safetyfirst.fragment.KnowIt_Fragment;
 
 public class ItemTypeInfoActivity extends AppCompatActivity {
 
+    public static final String tool = "tool";
+    public static final String typeNumber = "typeNumber";
     private TabLayout tabs;
     private ViewPager viewPager;
     private ImageView mainImage;
     private TabLayout.OnTabSelectedListener tabSelectedListener;
     private TabLayout.TabLayoutOnPageChangeListener pageChangeListener;
-
     private int toolValue;
     private int typeValue;
-
-    public static final String tool = "tool";
-    public static final String typeNumber = "typeNumber";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

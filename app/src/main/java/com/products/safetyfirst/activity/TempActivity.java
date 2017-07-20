@@ -2,18 +2,17 @@ package com.products.safetyfirst.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
@@ -23,7 +22,6 @@ import com.products.safetyfirst.fragment.Discussion_Fragment;
 import com.products.safetyfirst.fragment.KnowIt_Fragment;
 import com.products.safetyfirst.fragment.Laws_Fragment;
 import com.products.safetyfirst.fragment.News_Events_Fragment;
-import com.products.safetyfirst.fragment.UpdateProfileFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,9 +37,9 @@ public class  TempActivity extends BaseActivity
     private static final String TAG_FRAGMENT_DISCUSSION = "tag_frag_discussion";
     private static final String TAG_FRAGMENT_LAWS = "tag_frag_laws";
     private static final String TAG_FRAGMENT_KNOWIT = "tag_frag_knowit";
-    private FirebaseUser mFirebaseUser;
-
     List<Fragment> fragments = new ArrayList<>(5);
+    private FirebaseUser mFirebaseUser;
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +48,7 @@ public class  TempActivity extends BaseActivity
 
 
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -198,4 +197,6 @@ public class  TempActivity extends BaseActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }

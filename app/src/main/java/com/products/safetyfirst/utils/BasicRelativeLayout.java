@@ -7,7 +7,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.products.safetyfirst.R;
@@ -19,12 +18,6 @@ import com.products.safetyfirst.R;
  */
 
 public class BasicRelativeLayout extends RelativeLayout {
-
-    private View mainView;
-
-    public Toolbar getToolbar() {
-        return toolbar;
-    }
 
     private Toolbar toolbar;
 
@@ -49,8 +42,12 @@ public class BasicRelativeLayout extends RelativeLayout {
         init(context);
     }
 
+    public Toolbar getToolbar() {
+        return toolbar;
+    }
+
     private void init(Context context) {
-        mainView = LayoutInflater.from(context).inflate(R.layout.basic_layout, this);
+        View mainView = LayoutInflater.from(context).inflate(R.layout.basic_layout, this);
         addView(mainView);
         setBackgroundResource(R.color.background);
         toolbar = (Toolbar)findViewById(R.id.toolbar);

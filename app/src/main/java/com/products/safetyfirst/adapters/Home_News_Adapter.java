@@ -20,7 +20,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.activity.NewsDetailActivity;
-import com.products.safetyfirst.customview.CircleTransform;
 import com.products.safetyfirst.models.News_model;
 
 import java.util.ArrayList;
@@ -28,36 +27,16 @@ import java.util.ArrayList;
 public class Home_News_Adapter extends RecyclerView.Adapter<Home_News_Adapter.NewsViewholder> {
 
     private final Context context;
+    ArrayList<News_model> getNews = new ArrayList<>();
+    ArrayList<News_model> tempNews = new ArrayList<>();
+    ArrayList<String> tempkeys = new ArrayList<>();
+    ArrayList<String> getKeys = new ArrayList<>();
     private DatabaseReference mDatabase;
     private ArrayList<News_model> newsArrayList = new ArrayList<>();
     private ArrayList<String> newsArrayKey=new ArrayList<>();
     private Query newsquery;
     private String mLastkey;
     private ProgressBar mpaginateprogbar;
-    ArrayList<News_model> getNews=new ArrayList<>();
-    ArrayList<News_model> tempNews=new ArrayList<>();
-    ArrayList<String> tempkeys=new ArrayList<>();
-    ArrayList<String> getKeys=new ArrayList<>();
-
-public class NewsViewholder extends RecyclerView.ViewHolder {
-
-    private ImageView images,favicon, bookmark;
-    private TextView title, timestamp;
-    private Button detail;
-
-    private NewsViewholder(View view) {
-
-        super(view);
-        images= (ImageView) view.findViewById(R.id.news_avtar);
-        favicon= (ImageView) view.findViewById(R.id.favicon);
-        bookmark = (ImageView) view.findViewById(R.id.bookmark);
-        title = (TextView) view.findViewById(R.id.title);
-        timestamp = (TextView) view.findViewById(R.id.dateTime);
-        detail = (Button) view.findViewById(R.id.view_details);
-
-    }
-}
-
 
     public Home_News_Adapter(Context cont, Query newsquery,DatabaseReference mDatabase, ProgressBar mpaginateprogbar ) {
         this.context=cont;
@@ -188,6 +167,25 @@ public class NewsViewholder extends RecyclerView.ViewHolder {
     @Override
     public int getItemCount() {
         return newsArrayList.size();
+    }
+
+    public class NewsViewholder extends RecyclerView.ViewHolder {
+
+        private ImageView images, favicon, bookmark;
+        private TextView title, timestamp;
+        private Button detail;
+
+        private NewsViewholder(View view) {
+
+            super(view);
+            images = (ImageView) view.findViewById(R.id.news_avtar);
+            favicon = (ImageView) view.findViewById(R.id.favicon);
+            bookmark = (ImageView) view.findViewById(R.id.bookmark);
+            title = (TextView) view.findViewById(R.id.title);
+            timestamp = (TextView) view.findViewById(R.id.dateTime);
+            detail = (Button) view.findViewById(R.id.view_details);
+
+        }
     }
 
 

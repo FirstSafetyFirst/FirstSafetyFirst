@@ -4,11 +4,10 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -27,16 +26,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.models.News_model;
-import com.products.safetyfirst.utils.Constants;
 import com.products.safetyfirst.utils.JustifiedWebView;
 
 public class NewsDetailActivity extends BaseActivity implements View.OnClickListener {
 
-    private ImageView image_scrolling_top;
-    private static final String TAG = "NewsDetailActivity";
-
     public static final String EXTRA_NEWS_KEY = "post_key";
-
+    private static final String TAG = "NewsDetailActivity";
+    private ImageView image_scrolling_top;
     private DatabaseReference mPostReference;
     private ValueEventListener mNewsListener;
     private String mPostKey;

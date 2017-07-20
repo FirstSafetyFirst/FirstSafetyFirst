@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,8 +22,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -39,25 +36,33 @@ import com.products.safetyfirst.R;
 public class SignInActivity extends BaseActivity implements GoogleApiClient.OnConnectionFailedListener,
         View.OnClickListener {
 
+    public static final String PREF_KEY_FIRST_START = "com.vikas.dtu.safetyfirst2.PREF_KEY_FIRST_START";
+    public static final int REQUEST_CODE_INTRO = 1;
     private static final String TAG = "SignInActivity";
     private static final int RC_SIGN_IN = 9001;
-    private SignInButton mGoogleSignInButton;
-    private DatabaseReference mDatabase;
+    private static final int REQUEST_CODE_GOOGLE_SIGN_IN = 1;
     public static GoogleApiClient mGoogleApiClient;
     public static FirebaseAuth mFirebaseAuth;
+    public static boolean signin = false;
+    private SignInButton mGoogleSignInButton;
+    private DatabaseReference mDatabase;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    private static final int REQUEST_CODE_GOOGLE_SIGN_IN = 1;
-
     private EditText mEmailField;
     private EditText mPasswordField;
     private Button customSigninButton;
     private TextView mSignUpText;
     private SignInButton mSignInButton;
-    public static boolean signin = false;
 
-    public static final String PREF_KEY_FIRST_START = "com.vikas.dtu.safetyfirst2.PREF_KEY_FIRST_START";
-    public static final int REQUEST_CODE_INTRO = 1;
-
+    public static boolean isNetworkStatusAvailable(Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager != null) {
+            NetworkInfo netInfos = connectivityManager.getActiveNetworkInfo();
+            if (netInfos != null)
+                if (netInfos.isConnected())
+                    return true;
+        }
+        return false;
+    }
 
     @Override
     public void onStart() {
@@ -126,9 +131,6 @@ public class SignInActivity extends BaseActivity implements GoogleApiClient.OnCo
         };
     }
 
-
-
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -148,7 +150,6 @@ public class SignInActivity extends BaseActivity implements GoogleApiClient.OnCo
                 break;
         }
     }
-
 
     private void signIn() {
         Log.d(TAG, "signIn");
@@ -176,7 +177,6 @@ public class SignInActivity extends BaseActivity implements GoogleApiClient.OnCo
                     }
                 });
     }
-
 
     private String usernameFromEmail(String email) {
         if (email.contains("@")) {
@@ -210,17 +210,6 @@ public class SignInActivity extends BaseActivity implements GoogleApiClient.OnCo
         }
 
         return result;
-    }
-    public static boolean isNetworkStatusAvailable (Context context) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connectivityManager != null)
-        {
-            NetworkInfo netInfos = connectivityManager.getActiveNetworkInfo();
-            if(netInfos != null)
-                if(netInfos.isConnected())
-                    return true;
-        }
-        return false;
     }
 
     private void googleSignIn() {
@@ -270,7 +259,7 @@ public class SignInActivity extends BaseActivity implements GoogleApiClient.OnCo
 
     @Override
     public void onBackPressed() {
-        if(signin==true)
+        if (signin)
             Toast.makeText(this, "You must sign in first",
                     Toast.LENGTH_LONG).show();
 

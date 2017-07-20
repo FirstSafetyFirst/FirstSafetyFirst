@@ -6,10 +6,7 @@ package com.products.safetyfirst.activity;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
-import java.net.URI;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Map;
 
 // [START blog_user_class]
 @IgnoreExtraProperties
@@ -28,6 +25,12 @@ public class User {
 
     public User() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
+    }
+
+    public User(String name, String email, String photoUrl) {
+        this.name = name;
+        this.email = email;
+        this.photoUrl = photoUrl;
     }
 
     public int getRank() {
@@ -109,12 +112,6 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public User(String name, String email, String photoUrl) {
-        this.name = name;
-        this.email = email;
-        this.photoUrl = photoUrl;
     }
 
 

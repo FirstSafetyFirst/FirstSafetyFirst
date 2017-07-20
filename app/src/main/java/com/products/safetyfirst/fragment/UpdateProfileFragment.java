@@ -6,13 +6,13 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.products.safetyfirst.R;
+import com.products.safetyfirst.fragment.ProfileFragment.ProjectsFragment;
 
 /**
  * A simple {@link Fragment} subclass.

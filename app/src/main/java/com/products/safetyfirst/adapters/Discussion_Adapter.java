@@ -2,6 +2,8 @@ package com.products.safetyfirst.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,19 +11,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.activity.PostDetailActivity;
+import com.products.safetyfirst.activity.ProfileActivity;
 import com.products.safetyfirst.customview.CircleTransform;
 import com.products.safetyfirst.models.Discussion_model;
 import com.products.safetyfirst.models.UserModel;
@@ -41,6 +48,7 @@ public class Discussion_Adapter extends RecyclerView.Adapter<Discussion_Adapter.
     private ArrayList<Discussion_model> postArrayList = new ArrayList<>();
     private ArrayList<String> postArrayKey = new ArrayList<>();
     private Query postQuery;
+    private String key;
     private String mLastkey;
     private ProgressBar mpaginateprogbar;
     private ArrayList<Discussion_model> getPost = new ArrayList<>();
@@ -48,33 +56,6 @@ public class Discussion_Adapter extends RecyclerView.Adapter<Discussion_Adapter.
     private ArrayList<String> tempkeys = new ArrayList<>();
     private ArrayList<String> getKeys = new ArrayList<>();
     private Map<String, UserModel> userMap = new HashMap<>();
-
-    public class DiscussionViewholder extends RecyclerView.ViewHolder {
-
-        private ImageView images, overflow, post_author_photo, likeBtn, ansBtn, bookmark;
-        private TextView post_title, dateTime, post_author, post_author_email;
-        private JustifiedWebView body;
-        private Button readMore;
-
-        private DiscussionViewholder(View view) {
-
-            super(view);
-            post_author_photo   = (ImageView) view.findViewById(R.id.post_author_photo);
-            overflow            = (ImageView) view.findViewById(R.id.overflow);
-            likeBtn             = (ImageView) view.findViewById(R.id.LikeBtn);
-            ansBtn              = (ImageView) view.findViewById(R.id.ansBtn);
-            bookmark            = (ImageView) view.findViewById(R.id.bookmark);
-            post_title          = (TextView) view.findViewById(R.id.post_title);
-            body                = (JustifiedWebView) view.findViewById(R.id.type_info);
-            dateTime            = (TextView) view.findViewById(R.id.dateTime);
-            post_author         = (TextView) view.findViewById(R.id.post_author);
-            post_author_email   = (TextView) view.findViewById(R.id.post_author_email);
-            readMore            = (Button) view.findViewById(R.id.view_details);
-
-
-        }
-    }
-
 
     public Discussion_Adapter(Context cont, Query postQuery, DatabaseReference mDatabase, ProgressBar mpaginateprogbar) {
 
@@ -177,7 +158,6 @@ public class Discussion_Adapter extends RecyclerView.Adapter<Discussion_Adapter.
 
     }
 
-
     @Override
     public DiscussionViewholder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
@@ -188,6 +168,7 @@ public class Discussion_Adapter extends RecyclerView.Adapter<Discussion_Adapter.
 
     @Override
     public void onBindViewHolder(final DiscussionViewholder holder,final int position) {
+
 
         if (postArrayList.get(position).getAuthorImageUrl() != null && postArrayList.get(position).getAuthorImageUrl() != "") {
             Glide.with(context).load(postArrayList.get(position).getAuthorImageUrl()).error(R.drawable.ic_person_black_24dp).transform(new CircleTransform(context)).into(holder.post_author_photo);
@@ -210,6 +191,14 @@ public class Discussion_Adapter extends RecyclerView.Adapter<Discussion_Adapter.
         if(postArrayList.get(position).getDesc() != null)
             holder.body.setText(postArrayList.get(position).getDesc());
 
+
+        if (postArrayList.get(position).getStars().containsKey(getUid())) {
+            holder.likeBtn.setImageResource(R.drawable.ic_thumb_up_black_24dp);
+        } else {
+            holder.likeBtn.setImageResource(R.drawable.ic_thumbs_up_down_black_24dp);
+        }
+
+
         //  holder.post_author.setText( postArrayList.get(position).getTitle() );
         holder.dateTime.setText("10 May, 2017");
         holder.readMore.setOnClickListener(new View.OnClickListener() {
@@ -222,6 +211,65 @@ public class Discussion_Adapter extends RecyclerView.Adapter<Discussion_Adapter.
             }
         });
 
+        holder.likeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (getUid() == null) {
+                    Snackbar.make(v, "Please SIGN IN to like this post", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+
+                } else {
+                    key = postArrayKey.get(position);
+                    DatabaseReference globalPostRef = mDatabase.child("posts").child(key);
+                    DatabaseReference userPostRef = mDatabase.child("user-posts").child(postArrayList.get(position).getUid()).child(key);
+
+                    // Run two transactions
+                    onLikeClicked(globalPostRef);
+                    onLikeClicked(userPostRef);
+                }
+
+            }
+        });
+
+        holder.bookmark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (getUid() == null) {
+                    Snackbar.make(v, "Please SIGN IN to bookmark this post", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                } else {
+                    key = postArrayKey.get(position);
+                    DatabaseReference globalPostRef = mDatabase.child("posts").child(key);
+                    DatabaseReference userPostRef = mDatabase.child("user-posts").child(postArrayList.get(position).getUid()).child(key);
+
+                    // Run two transactions
+                    onBookMarkClicked(globalPostRef);
+                    onBookMarkClicked(userPostRef);
+                }
+
+            }
+        });
+
+        holder.post_author_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (getUid() != null) {
+                    Snackbar.make(v, "Please SIGN IN to view this profile", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                } else {
+
+                    Intent intent = new Intent(context, ProfileActivity.class);
+                    intent.putExtra(ProfileActivity.EXTRA_PROFILE_KEY, postArrayKey.get(position));
+                    context.startActivity(intent);
+
+                }
+
+            }
+        });
+
         if (position == 0) {
             mpaginateprogbar.setVisibility(View.VISIBLE);
             getMoreData();
@@ -231,6 +279,52 @@ public class Discussion_Adapter extends RecyclerView.Adapter<Discussion_Adapter.
     @Override
     public int getItemCount() {
         return postArrayList.size();
+    }
+
+    private void onLikeClicked(DatabaseReference postRef) {
+
+
+        postRef.runTransaction(new Transaction.Handler() {
+            @Override
+            public Transaction.Result doTransaction(MutableData mutableData) {
+                Discussion_model p = mutableData.getValue(Discussion_model.class);
+                if (p == null) {
+                    return Transaction.success(mutableData);
+                }
+
+                if (p.getStars().containsKey(getUid())) {
+                    // Unstar the post and remove self from stars
+                    p.setStarCount(p.getStarCount() - 1);
+                    Map<String, Boolean> stars = p.getStars();
+                    stars.remove(getUid());
+
+                    p.setStars(stars);
+
+                } else {
+                    // Star the post and add self to stars
+                    p.setStarCount(p.getStarCount() + 1);
+                    Map<String, Boolean> stars = p.getStars();
+                    stars.put(getUid(), true);
+                    p.setStars(stars);
+
+                }
+
+                // Set value and report transaction success
+                mutableData.setValue(p);
+                return Transaction.success(mutableData);
+            }
+
+            @Override
+            public void onComplete(DatabaseError databaseError, boolean b,
+                                   DataSnapshot dataSnapshot) {
+                // Transaction completed
+                Log.d(TAG, "postTransaction:onComplete:" + databaseError);
+            }
+        });
+
+    }
+
+    private void onBookMarkClicked(DatabaseReference postRef) {
     }
 
     void addUser(final String uid, final int notifyStart, final int notifyEnd) {
@@ -249,6 +343,42 @@ public class Discussion_Adapter extends RecyclerView.Adapter<Discussion_Adapter.
 
                 }
             });
+        }
+    }
+
+    @Nullable
+    private String getUid() {
+        if (FirebaseAuth.getInstance().getCurrentUser() != null)
+            return FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        else return null;
+    }
+
+    public class DiscussionViewholder extends RecyclerView.ViewHolder {
+
+        private ImageView images, overflow, post_author_photo, likeBtn, ansBtn, bookmark;
+        private TextView post_title, dateTime, post_author, post_author_email;
+        private JustifiedWebView body;
+        private Button readMore;
+        private LinearLayout post_author_layout;
+
+        private DiscussionViewholder(View view) {
+
+            super(view);
+            post_author_photo = (ImageView) view.findViewById(R.id.post_author_photo);
+            overflow = (ImageView) view.findViewById(R.id.overflow);
+            likeBtn = (ImageView) view.findViewById(R.id.LikeBtn);
+            ansBtn = (ImageView) view.findViewById(R.id.ansBtn);
+            bookmark = (ImageView) view.findViewById(R.id.bookmark);
+            post_title = (TextView) view.findViewById(R.id.post_title);
+            body = (JustifiedWebView) view.findViewById(R.id.type_info);
+            dateTime = (TextView) view.findViewById(R.id.dateTime);
+            post_author = (TextView) view.findViewById(R.id.post_author);
+            post_author_email = (TextView) view.findViewById(R.id.post_author_email);
+            readMore = (Button) view.findViewById(R.id.view_details);
+            post_author_layout = (LinearLayout) view.findViewById(R.id.post_author_layout);
+
+
         }
     }
 }

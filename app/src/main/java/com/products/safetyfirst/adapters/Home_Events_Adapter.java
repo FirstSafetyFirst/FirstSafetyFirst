@@ -6,12 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.models.Event_model;
-import com.products.safetyfirst.models.News_model;
 
 import java.util.List;
 
@@ -23,19 +20,6 @@ public class Home_Events_Adapter extends RecyclerView.Adapter<Home_Events_Adapte
 
     private final Context context;
     private List<Event_model> horizontalList;
-
-public class MyViewHolder extends RecyclerView.ViewHolder {
-
-    public ImageView images;
-
-    public MyViewHolder(View view) {
-
-        super(view);
-        images= (ImageView) view.findViewById(R.id.event_avtar);
-
-    }
-}
-
 
     public Home_Events_Adapter(Context cont, List<Event_model> horizontalList) {
         this.horizontalList = horizontalList;
@@ -66,5 +50,17 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
     @Override
     public int getItemCount() {
         return horizontalList.size();
+    }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+
+        public ImageView images;
+
+        public MyViewHolder(View view) {
+
+            super(view);
+            images = (ImageView) view.findViewById(R.id.event_avtar);
+
+        }
     }
 }

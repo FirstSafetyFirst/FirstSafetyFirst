@@ -8,9 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.products.safetyfirst.R;
-import com.products.safetyfirst.models.Knowit_model;
 import com.products.safetyfirst.models.Law_model;
-import com.products.safetyfirst.models.News_model;
 
 import java.util.List;
 
@@ -22,19 +20,6 @@ public class Laws_Adapter extends RecyclerView.Adapter<Laws_Adapter.MyViewHolder
 
     private final Context context;
     private List<Law_model> horizontalList;
-
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-
-        public ImageView images;
-
-        public MyViewHolder(View view) {
-
-            super(view);
-            images= (ImageView) view.findViewById(R.id.know_img);
-
-        }
-    }
-
 
     public Laws_Adapter(Context cont, List<Law_model> horizontalList) {
         this.horizontalList = horizontalList;
@@ -65,5 +50,17 @@ public class Laws_Adapter extends RecyclerView.Adapter<Laws_Adapter.MyViewHolder
     @Override
     public int getItemCount() {
         return horizontalList.size();
+    }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+
+        public ImageView images;
+
+        public MyViewHolder(View view) {
+
+            super(view);
+            images = (ImageView) view.findViewById(R.id.know_img);
+
+        }
     }
 }
