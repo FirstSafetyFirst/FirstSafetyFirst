@@ -29,10 +29,10 @@ public class UpdateProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.activity_know_it_second, container, false);
+        View rootView = inflater.inflate(R.layout.activity_update_profile, container, false);
 
-        categoryTabs = (TabLayout) rootView.findViewById(R.id.category_tabs);
-        categoryView = (ViewPager) rootView.findViewById(R.id.know_it_viewpager);
+        categoryTabs = (TabLayout) rootView.findViewById(R.id.profile_tabs);
+        categoryView = (ViewPager) rootView.findViewById(R.id.profile_viewpager);
 
         setupTabs();
 

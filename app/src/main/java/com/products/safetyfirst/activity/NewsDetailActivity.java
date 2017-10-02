@@ -76,7 +76,7 @@ public class NewsDetailActivity extends BaseActivity implements View.OnClickList
         FloatingActionButton bookmark= (FloatingActionButton) findViewById(R.id.bookmark);
 
         image_scrolling_top = (ImageView) findViewById(R.id.image_scrolling_top);
-        Glide.with(this).load(R.drawable.material_design_3).fitCenter().into(image_scrolling_top);
+        Glide.with(this).load(R.mipmap.ic_launcher).fitCenter().into(image_scrolling_top);
 
         mReadMore.setOnClickListener(this);
         mShare.setOnClickListener(this);
@@ -100,8 +100,8 @@ public class NewsDetailActivity extends BaseActivity implements View.OnClickList
                 mTitleView.setText(news.getTitle());
                 mBodyView.setText(news.getBody());
                 url = news.getAuthor();
-                if(news.getImg_url()!=null){
-                    Glide.with(getApplicationContext()).load(news.getImg_url()).fitCenter().into(image_scrolling_top);
+                if(news.getImgUrl()!=null){
+                    Glide.with(getApplicationContext()).load(news.getImgUrl()).fitCenter().into(image_scrolling_top);
 
                 }
 

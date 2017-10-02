@@ -25,10 +25,9 @@
             android:layout_marginTop="10dp"
             android:layout_weight="0.35"
             android:adjustViewBounds="true"
-            android:background="@drawable/round_corner"
             android:contentDescription="@string/news_image"
-            android:scaleType="centerCrop"
-            android:src="@drawable/welcome" />
+            android:scaleType="fitXY"
+            android:src="@mipmap/ic_launcher"/>
         <View
             android:layout_width="1dp"
             android:layout_height="130dp"

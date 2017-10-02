@@ -6,13 +6,13 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     tools:context="com.products.safetyfirst.fragment.Personal_Fragment">
-
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:layout_height="wrap_content"
     android:background="@color/background"
-    android:layout_margin="@dimen/activity_horizontal_margin"
     >
 
     <android.support.v7.widget.CardView
@@ -21,9 +21,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardElevation="8dp"
-        app:contentPaddingBottom="0dp"
         app:cardCornerRadius="4dp"
-        app:cardBackgroundColor="@android:color/white">
+        app:cardBackgroundColor="@android:color/white"
+        android:layout_margin="@dimen/activity_horizontal_margin">
 
 
         <LinearLayout
@@ -33,15 +33,12 @@
             android:orientation="vertical"
             android:padding="@dimen/activity_horizontal_margin">
 
-            <android.support.design.widget.FloatingActionButton
+            <ImageView
                 android:id="@+id/camera"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center_horizontal"
                 app:layout_anchor="@id/main"
-                app:layout_anchorGravity="right|end|bottom"
-                android:background="@color/colorPrimary"
-                android:foregroundGravity="center_horizontal"
                 app:srcCompat="@drawable/ic_camera_alt_black_24dp" />
 
             <EditText
@@ -88,16 +85,15 @@
                 android:drawableTint="@color/colorPrimary"
                 android:hint="@string/designation" />
 
-            <EditText
+            <Spinner
                 android:id="@+id/type"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="45dp"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
                 android:layout_marginTop="@dimen/activity_horizontal_margin"
-                android:drawableLeft="@drawable/ic_people_black_24dp"
-                android:drawablePadding="@dimen/activity_horizontal_margin"
-                android:drawableStart="@drawable/ic_people_black_24dp"
-                android:drawableTint="@color/colorPrimary"
-                android:hint="@string/type" />
+                android:spinnerMode="dialog"
+                android:prompt="@string/select"/>
 
             <EditText
                 android:id="@+id/certificate"
@@ -122,5 +118,25 @@
                 android:hint="@string/city" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.ButtonBarLayout
+        android:layout_below="@id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:layout_gravity="bottom">
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:textAllCaps="true"
+            android:text="@string/update_profile"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:background="@color/colorAccent"
+            android:layout_height="wrap_content"
+            />
+    </android.support.v7.widget.ButtonBarLayout>
 </RelativeLayout>
+</ScrollView>
 </FrameLayout>

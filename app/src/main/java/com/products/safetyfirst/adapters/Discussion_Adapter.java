@@ -101,7 +101,7 @@ public class Discussion_Adapter extends RecyclerView.Adapter<Discussion_Adapter.
         });
     }
 
-    public void getMoreData() {
+    private void getMoreData() {
         tempkeys = postArrayKey;
         tempPost = postArrayList;
         Query Getmorenewsquery = mDatabase.child("posts").orderByKey().endAt(mLastkey).limitToLast(10);
@@ -206,6 +206,7 @@ public class Discussion_Adapter extends RecyclerView.Adapter<Discussion_Adapter.
             public void onClick(View v) {
                 Toast.makeText(context, postArrayList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(context, PostDetailActivity.class);
+                intent.putExtra(PostDetailActivity.EXTRA_POST_KEY, postArrayKey.get(position));
                 context.startActivity(intent);
                 Log.d(TAG,String.valueOf(position) + String.valueOf(postArrayList.get(position).getDesc())+String.valueOf(postArrayList.get(position).getTitle()));
             }
@@ -256,16 +257,11 @@ public class Discussion_Adapter extends RecyclerView.Adapter<Discussion_Adapter.
             @Override
             public void onClick(View v) {
 
-                if (getUid() != null) {
-                    Snackbar.make(v, "Please SIGN IN to view this profile", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                } else {
-
                     Intent intent = new Intent(context, ProfileActivity.class);
-                    intent.putExtra(ProfileActivity.EXTRA_PROFILE_KEY, postArrayKey.get(position));
+                    intent.putExtra(ProfileActivity.EXTRA_PROFILE_KEY, postArrayList.get(position).getUid());
                     context.startActivity(intent);
 
-                }
+
 
             }
         });

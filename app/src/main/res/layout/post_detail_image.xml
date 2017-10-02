@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="256dp"
+        android:cropToPadding="true"
+        tools:src="@drawable/logo"
+        android:id="@+id/post_image"
+        android:padding="@dimen/nav_header_vertical_spacing"/>
+
+</LinearLayout>

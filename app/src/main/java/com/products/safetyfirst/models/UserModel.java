@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 
 public class UserModel {
-    private String username;
+    private String name;
     private int rank;
     private String email;
     private ArrayList<String> followers;
@@ -24,32 +24,46 @@ public class UserModel {
     private String photoUrl;
     private int answers_given;
     private int questions_asked;
+    private String company;
+    private String designation;
+    private String certificate;
+    private long phone;
+    private String city;
 
     public UserModel(){}
 
 
     public UserModel(String username, String email, String photoUrl){
-        this.username = username;
+        this.name = username;
         this.email      = email;
         this.photoUrl   = photoUrl;
     }
 
-    public UserModel(String username, String email, String photoUrl, ArrayList<String> followers, ArrayList<String> following, ArrayList<String> news, ArrayList<String> topics){
-        this.username = username;
+    public UserModel(String username, String email, String photoUrl, ArrayList<String> followers,String certificate, ArrayList<String> following, ArrayList<String> news, ArrayList<String> topics){
+        this.name = username;
         this.email      = email;
         this.photoUrl   = photoUrl;
         this.followers  = followers;
         this.following  = following;
         this.news       = news;
         this.topics     = topics;
+        this.certificate = certificate;
+    }
+
+    public String getDesignation() {
+        return designation;
+    }
+
+    public void setDesignation(String designation) {
+        this.designation = designation;
     }
 
     public String getUsername() {
-        return username;
+        return name;
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.name = username;
     }
 
     public int getRank() {
@@ -59,6 +73,8 @@ public class UserModel {
     public void setRank(int rank) {
         this.rank = rank;
     }
+
+    public String getCompany(){ return company;}
 
     public String getEmail() {
         return email;
@@ -139,4 +155,17 @@ public class UserModel {
     public void setQuestions_asked(int questions_asked) {
         this.questions_asked = questions_asked;
     }
+
+    public String getCertificate() {
+        return certificate;
+    }
+
+    public long getPhone(){
+        return phone;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
 }

@@ -1,6 +1,8 @@
 package com.products.safetyfirst.activity;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -11,6 +13,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,21 +26,22 @@ import com.products.safetyfirst.fragment.Discussion_Fragment;
 import com.products.safetyfirst.fragment.KnowIt_Fragment;
 import com.products.safetyfirst.fragment.Laws_Fragment;
 import com.products.safetyfirst.fragment.News_Events_Fragment;
+import com.products.safetyfirst.fragment.ProfileFragment.AnswersFragment;
+import com.products.safetyfirst.fragment.ProfileFragment.ProjectsFragment;
+import com.products.safetyfirst.fragment.UpdateProfileFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-//import static com.products.safetyfirst.activity.SignInActivity.PREF_KEY_FIRST_START;
-//import static com.products.safetyfirst.activity.SignInActivity.REQUEST_CODE_INTRO;
-
 public class  TempActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, ProjectsFragment.OnFragmentInteractionListener {
     private static final String TAG_FRAGMENT_DASH = "tag_frag_dash";
     private static final String TAG_FRAGMENT_HOME = "tag_frag_home";
     private static final String TAG_FRAGMENT_NEWS = "tag_frag_news";
     private static final String TAG_FRAGMENT_DISCUSSION = "tag_frag_discussion";
     private static final String TAG_FRAGMENT_LAWS = "tag_frag_laws";
     private static final String TAG_FRAGMENT_KNOWIT = "tag_frag_knowit";
+    private static final String TAG_FRAGMENT_UPDATE_PROFILE = "tag_fragment_update_profile";
     List<Fragment> fragments = new ArrayList<>(5);
     private FirebaseUser mFirebaseUser;
     private FirebaseAnalytics mFirebaseAnalytics;
@@ -45,7 +50,6 @@ public class  TempActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_temp);
-
 
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
@@ -83,10 +87,9 @@ public class  TempActivity extends BaseActivity
 
             // set new title to the MenuItem
             nav_logout.setTitle("Sign In");
-            // enable signup when user is not signed in
-          //  menu.findItem(R.id.nav_signup).setEnabled(true);
 
-
+            //Disable Update Profile if not signed in
+            menu.findItem(R.id.nav_update_profile).setEnabled(false);
         }
 
     }
@@ -119,12 +122,15 @@ public class  TempActivity extends BaseActivity
         Discussion_Fragment discussionFragment = new Discussion_Fragment();
         Laws_Fragment lawsFragment = new Laws_Fragment();
         KnowIt_Fragment knowFragment = new KnowIt_Fragment();
+        UpdateProfileFragment updateProfileFragment = new UpdateProfileFragment();
 
         fragments.add(dashFragment);
         fragments.add(newsFragment);
         fragments.add(discussionFragment);
         fragments.add(lawsFragment);
         fragments.add(knowFragment);
+        fragments.add(updateProfileFragment);
+
     }
 
     @Override
@@ -172,31 +178,107 @@ public class  TempActivity extends BaseActivity
         if (id == R.id.nav_faq) {
 
         } else if (id == R.id.nav_help) {
-
+                showHelpDialog();
         } else if (id == R.id.nav_feedback) {
 
         } else if (id == R.id.nav_tnc) {
-
+                showTncDialog(getString(R.string.tnc), getString(R.string.lorem_ipsum));
         } else if (id == R.id.nav_invite) {
 
         } else if (id == R.id.nav_logout) {
             mFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
             if (mFirebaseUser == null) {
                 startActivity(new Intent(TempActivity.this,SignInActivity.class));
-
-
             }
             else
-                logout();
+                showLogoutDialog();
 
         } else if (id == R.id.nav_update_profile){
-
+            switchFragment(5, TAG_FRAGMENT_UPDATE_PROFILE);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+    
+    private void showTncDialog(String title, String body) {
+
+        final Dialog dialog = new Dialog(TempActivity.this);
+        dialog.setContentView(R.layout.dialog_tnc);
+        TextView dialogTitle = (TextView) dialog.findViewById(R.id.dialogTitle);
+        TextView dialogContent = (TextView) dialog.findViewById(R.id.content);
+
+        dialogTitle.setText(title);
+        dialogContent.setText(body);
+
+        Button btnYes = (Button) dialog.findViewById(R.id.btn_yes);
+        Button btnNo = (Button) dialog.findViewById(R.id.btn_no);
+
+        btnYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        btnNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
+    private void showHelpDialog() {
+
+        final Dialog dialog = new Dialog(TempActivity.this);
+        dialog.setContentView(R.layout.dialog_help);
+        TextView dialogTitle = (TextView) dialog.findViewById(R.id.dialogTitle);
+        TextView dialogContent = (TextView) dialog.findViewById(R.id.content);
+
+        Button btnDone = (Button) dialog.findViewById(R.id.btn_done);
+
+        btnDone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
+    private void showLogoutDialog() {
+
+        final Dialog dialog = new Dialog(TempActivity.this);
+        dialog.setContentView(R.layout.dialog_logout);
 
 
+        Button btnYes = (Button) dialog.findViewById(R.id.btn_yes);
+        Button btnNo = (Button) dialog.findViewById(R.id.btn_no);
+
+        btnYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               logout();
+            }
+        });
+
+        btnNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
 }

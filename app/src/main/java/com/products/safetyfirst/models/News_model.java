@@ -28,11 +28,11 @@ public class News_model {
         this.title = title;
     }
 
-    public String getImg_url() {
+    public String getImgUrl() {
         return imgUrl;
     }
 
-    public void setImg_url(String imgUrl) {
+    public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
     }
 

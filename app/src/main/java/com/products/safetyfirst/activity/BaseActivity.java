@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -17,9 +18,6 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.products.safetyfirst.R;
-
-
-
 
 
 public class BaseActivity extends AppCompatActivity {
@@ -43,23 +41,19 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-    public String getUid() {
+    public String getCurrentUserId() {
+        if (FirebaseAuth.getInstance().getCurrentUser() != null)
+            return FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        return user.getUid();
+        else return null;
     }
 
     public void logout() {
 
         FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(getBaseContext(),SignInActivity.class));
 
-      /* Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
-                new ResultCallback<Status>() {
-                    @Override
-                    public void onResult(@NonNull Status status) {
-                        startActivity(new Intent(getBaseContext(),SignInActivity.class));
-                    }
-                });*/
+        Toast.makeText(getBaseContext(), "You have been Logged out", Toast.LENGTH_SHORT).show();
+        //startActivity(new Intent(getBaseContext(),SignInActivity.class));
 
     }
 

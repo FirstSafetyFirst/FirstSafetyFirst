@@ -141,9 +141,9 @@ public class Home_News_Adapter extends RecyclerView.Adapter<Home_News_Adapter.Ne
     @Override
     public void onBindViewHolder(final NewsViewholder holder, final int position) {
 
-        Glide.with(context).load(newsArrayList.get(position).getImg_url()).into(holder.images);
-        if(newsArrayList.get(position).getImg_url() != null)
-        Glide.with(context).load(newsArrayList.get(position).getImg_url()).into(holder.favicon);
+      //  Glide.with(context).load(newsArrayList.get(position).getImg_url()).into(holder.images);
+        if(newsArrayList.get(position).getImgUrl() != null)
+        Glide.with(context).load(newsArrayList.get(position).getImgUrl()).into(holder.images);
 
         holder.title.setText( newsArrayList.get(position).getTitle());
         holder.timestamp.setText("10 May, 2017");

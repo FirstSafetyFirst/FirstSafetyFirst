@@ -4,11 +4,21 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.products.safetyfirst.R;
+import com.products.safetyfirst.activity.ProfileActivity;
+import com.products.safetyfirst.adapters.Discussion_Adapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +33,11 @@ public class QuestionsFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    RecyclerView home_recycler;
+
+    private DatabaseReference mDatabase;
+    private ProgressBar mpaginateprogbar;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -65,8 +80,38 @@ public class QuestionsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_questions, container, false);
+
+        View rootView = inflater.inflate(R.layout.fragment_questions, container, false);
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mpaginateprogbar=(ProgressBar) rootView.findViewById(R.id.newspaginateprogbar);
+
+
+        home_recycler=(RecyclerView)rootView.findViewById(R.id.discussion_recycler);
+        home_recycler.setHasFixedSize(true);
+        return rootView;
     }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        // Set up Layout Manager, reverse layout
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        mLayoutManager.setReverseLayout(true);
+        mLayoutManager.setStackFromEnd(true);
+
+        home_recycler.setLayoutManager(mLayoutManager);
+        home_recycler.setItemAnimator(new DefaultItemAnimator());
+        Query postQuery =  mDatabase.child("user-posts").child(ProfileActivity.getProfileKey()).orderByKey().limitToLast(10);
+        Toast.makeText(getContext(), ProfileActivity.getProfileKey(), Toast.LENGTH_SHORT).show();
+        home_recycler.setAdapter(new Discussion_Adapter(getActivity(),postQuery, mDatabase, mpaginateprogbar));
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
