@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1094015384943",
+    "firebase_url": "https://safetyfirstdebug.firebaseio.com",
+    "project_id": "safetyfirstdebug",
+    "storage_bucket": "safetyfirstdebug.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1094015384943:android:3b2a9fa8b005227e",
+        "android_client_info": {
+          "package_name": "com.products.safetyfirst"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1094015384943-4dauorjlhieuoomkuutrclqilukn5b4i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.products.safetyfirst",
+            "certificate_hash": "862cd96c3bb736f5bfbb53faec5ff0525a7dd9d4"
+          }
+        },
+        {
+          "client_id": "1094015384943-svbch91u0kv5u1d3i6avdagh5d667u6g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-JEjyx_qAWCA7gxiTu8GLJMG5AC4hvKg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1094015384943-svbch91u0kv5u1d3i6avdagh5d667u6g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

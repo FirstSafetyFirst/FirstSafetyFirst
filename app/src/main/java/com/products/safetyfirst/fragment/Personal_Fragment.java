@@ -6,70 +6,49 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.ColorStateList;
-import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Spinner;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.products.safetyfirst.R;
-import com.products.safetyfirst.activity.ProfileActivity;
-import com.products.safetyfirst.customview.CircleTransform;
-import com.products.safetyfirst.models.UserModel;
+import com.products.safetyfirst.impementations.UpdateProfilePresenterImpl;
+import com.products.safetyfirst.interfaces.UpdateProfilePresenter;
+import com.products.safetyfirst.interfaces.UpdateProfileView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import static android.app.Activity.RESULT_OK;
-import static com.google.android.gms.plus.PlusOneDummyView.TAG;
-import static com.products.safetyfirst.utils.FirebaseUtils.getCurrentUserId;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Personal_Fragment extends Fragment implements AdapterView.OnItemSelectedListener,View.OnClickListener {
+public class Personal_Fragment extends Fragment implements UpdateProfileView, View.OnClickListener {
+    static final int RESULT_GALLERY_IMAGE = 100;
+    static final int RESULT_CAMERA_IMAGE = 101;
+    private static final int REQUEST_EXTERNAL_STORAGE = 101;
     FirebaseUser user;
     Uri Imagepath=null;
     EditText mName;
@@ -77,21 +56,18 @@ public class Personal_Fragment extends Fragment implements AdapterView.OnItemSel
     EditText mCompany;
     EditText mDesignation;
     ImageView mPhoto;
-    Spinner  mJoinAs;
     EditText mCertificate;
     EditText mCity;
-    static final int RESULT_GALLERY_IMAGE=100;
-    static final int RESULT_CAMERA_IMAGE=101;
-    private static final int REQUEST_EXTERNAL_STORAGE=101;
-    private ValueEventListener mUserListener;
-    private File Imagefile;
-    private Button mSubmit;
-    private StorageReference mstorageRef;
+    ProgressBar mProgressBar;
     StorageReference profilephotoRef;
     String joinAs;
     boolean check=false;
     View mainView;
-
+    UpdateProfilePresenter presenter;
+    // private ValueEventListener mUserListener;
+    private File Imagefile;
+    private Button mSubmit;
+    private StorageReference mstorageRef;
     private DatabaseReference mProfileReference;
     private ValueEventListener mProfileListener;
 
@@ -109,51 +85,24 @@ public class Personal_Fragment extends Fragment implements AdapterView.OnItemSel
         mstorageRef= FirebaseStorage.getInstance().getReference();
 
         mPhoto = (ImageView) mainView.findViewById(R.id.camera);
-        mPhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ChangeProfilePic();
-            }
-        });
-
         mName = (EditText) mainView.findViewById(R.id.username);
         mPhone = (EditText) mainView.findViewById(R.id.phone);
         mCompany = (EditText) mainView.findViewById(R.id.company);
         mDesignation = (EditText) mainView.findViewById(R.id.designation);
-        mJoinAs = (Spinner) mainView.findViewById(R.id.type);
         mCertificate = (EditText) mainView.findViewById(R.id.certificate);
         mCity = (EditText) mainView.findViewById(R.id.city);
-
+        mProgressBar = (ProgressBar) mainView.findViewById(R.id.progressBar);
         mSubmit = (Button) mainView.findViewById(R.id.submit);
 
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        mJoinAs.setOnItemSelectedListener(this);
+        presenter = new UpdateProfilePresenterImpl(this);
 
-        // Spinner Drop down elements
-        List<String> categories = new ArrayList<String>();
-        categories.add("Contractor");
-        categories.add("Safety Officer");
-
-        // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, categories);
-
-        // Drop down layout style - list view with radio button
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // attaching data adapter to spinner
-        mJoinAs.setAdapter(dataAdapter);
+      /* user = FirebaseAuth.getInstance().getCurrentUser();
 
         String mProfileKey = user.getUid();
 
-        if (mProfileKey == null) {
-            throw new IllegalArgumentException("Profile key cannot be empty");
-        }
-
-
-       // Toast.makeText(getContext(), user.getUid(), Toast.LENGTH_SHORT).show();
-
         mProfileReference = FirebaseDatabase.getInstance().getReference()
                 .child("users").child(mProfileKey);
+*/
 
         mSubmit.setOnClickListener(this);
         return mainView;
@@ -163,7 +112,7 @@ public class Personal_Fragment extends Fragment implements AdapterView.OnItemSel
     @Override
     public void onStart() {
         super.onStart();
-        profilephotoRef = mstorageRef.child(user.getUid()+"/ProfilePhoto.jpg");
+      /* profilephotoRef = mstorageRef.child(user.getUid()+"/ProfilePhoto.jpg");
         ValueEventListener profileListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -177,15 +126,13 @@ public class Personal_Fragment extends Fragment implements AdapterView.OnItemSel
                     if(user.getCertificate() != null) mCertificate.setText(user.getCertificate());
                     if(String.valueOf(user.getPhone()) != null) mPhone.setText(String.valueOf(user.getPhone()));
                     if(user.getCity() != null) mCity.setText(user.getCity());
+                    if(user.getPhotoUrl()!=null){
+                        Glide.with(getContext()).load(user.getPhotoUrl())
+                                .error(R.drawable.ic_person_black_24dp)
+                                .transform(new CircleTransform(getContext()))
+                                .into(mPhoto);
+                    }
                 }
-
-                if(user.getPhotoUrl()!=null){
-                   Glide.with(getContext()).load(user.getPhotoUrl())
-                           .error(R.drawable.ic_person_black_24dp)
-                           .transform(new CircleTransform(getContext()))
-                           .into(mPhoto);
-                }
-
             }
 
             @Override
@@ -196,7 +143,101 @@ public class Personal_Fragment extends Fragment implements AdapterView.OnItemSel
             }
         };
         mProfileReference.addValueEventListener(profileListener);
-        mProfileListener = profileListener;
+        mProfileListener = profileListener;*/
+
+    }
+
+    @Override
+    public void onDestroy() {
+        presenter.onDestroy();
+        super.onDestroy();
+    }
+
+  /*  void updateUser(String name, String phone, String company,String designation,String certificate, String city){
+        Map<String, Object> childUpdates = new HashMap<>();
+        childUpdates.put("company", company);
+        childUpdates.put("designation", designation);
+        childUpdates.put("city", city);
+        childUpdates.put("joinAs", joinAs);
+        childUpdates.put("certificate", certificate);
+        mProfileReference.updateChildren(childUpdates);
+
+        Toast.makeText(getContext(), "Profile Updated", Toast.LENGTH_SHORT).show();
+
+
+    }
+*/
+/*
+    private boolean validateForm() {
+        boolean result = true;
+
+        if (TextUtils.isEmpty(mCompany.getText().toString())) {
+            mCompany.setError("Required");
+            result = false;
+        } else {
+            mCompany.setError(null);
+        }
+
+        if (TextUtils.isEmpty(mDesignation.getText().toString())) {
+            mDesignation.setError("Required");
+            result = false;
+        } else {
+            mDesignation.setError(null);
+        }
+        if (TextUtils.isEmpty(mCity.getText().toString())) {
+            mCity.setError("Required");
+            result = false;
+        } else {
+            mCity.setError(null);
+        }
+
+        return result;
+    }
+
+    */
+
+    @Override
+    public void showProgress() {
+        mProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgress() {
+        mProgressBar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void setUsernameError() {
+        mName.setError("Required");
+    }
+
+    @Override
+    public void setPhoneError() {
+        mPhone.setError("Required");
+    }
+
+    @Override
+    public void setCompanyError() {
+        mCompany.setError("Required");
+    }
+
+    @Override
+    public void setDesignationdError() {
+        mDesignation.setError("Required");
+    }
+
+    @Override
+    public void setCertificateError() {
+        mCertificate.setError("Required");
+    }
+
+    @Override
+    public void setCityError() {
+        mCity.setError("Required");
+    }
+
+    @Override
+    public void navigateToHome() {
 
     }
 
@@ -204,11 +245,11 @@ public class Personal_Fragment extends Fragment implements AdapterView.OnItemSel
     @Override
     public void onStop() {
         super.onStop();
-
+/*
         // Remove post value event listener
         if (mProfileListener != null) {
             mProfileReference.removeEventListener(mProfileListener);
-        }
+        }*/
 
     }
     private void ChangeProfilePic() {
@@ -300,7 +341,7 @@ public class Personal_Fragment extends Fragment implements AdapterView.OnItemSel
 
 
     private void UploadPhoto(Uri Imagepathq) {
-        profilephotoRef = mstorageRef.child(user.getUid()+"/ProfilePhoto.jpg");
+       /* profilephotoRef = mstorageRef.child(user.getUid()+"/ProfilePhoto.jpg");
 
         profilephotoRef.putFile(Imagepathq)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -317,79 +358,17 @@ public class Personal_Fragment extends Fragment implements AdapterView.OnItemSel
                         // ...
                         Toast.makeText(getContext(),"Some Error Occured..Please Try Again!",Toast.LENGTH_SHORT).show();
                     }
-                });
+                });*/
     }
     @Override
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.submit){
-            if (validateForm()) {
-                //TODO upload data
-                String name = mName.getText().toString();
-                String phone = mPhone.getText().toString();
-                String company = mCompany.getText().toString();
-                String designation = mDesignation.getText().toString();
-                String certificate = mCertificate.getText().toString();
-                String city = mCity.getText().toString();
-
-
-                updateUser(name, phone, company,designation,certificate, city);
-
-                //TODO show my profile after update
-            }
+            presenter.validateCredentials(mName.getText().toString(), mPhone.getText().toString(), mCompany.getText().toString(),
+                    mDesignation.getText().toString(), mCertificate.getText().toString(), mCity.getText().toString());
         }
-    }
-
-    void updateUser(String name, String phone, String company,String designation,String certificate, String city){
-        Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("company", company);
-        childUpdates.put("designation", designation);
-        childUpdates.put("city", city);
-        childUpdates.put("joinAs", joinAs);
-
-        mProfileReference.updateChildren(childUpdates);
-
-        Toast.makeText(getContext(), "Profile Updated", Toast.LENGTH_SHORT).show();
-
-        Intent userDetailIntent = new Intent(getActivity(), ProfileActivity.class);
-        userDetailIntent.putExtra(ProfileActivity.EXTRA_PROFILE_KEY,
-                getCurrentUserId());
-        startActivity(userDetailIntent);
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        joinAs = parent.getItemAtPosition(position).toString();
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
-    }
-
-    private boolean validateForm() {
-        boolean result = true;
-
-        if (TextUtils.isEmpty(mCompany.getText().toString())) {
-            mCompany.setError("Required");
-            result = false;
-        } else {
-            mCompany.setError(null);
+        if (i == R.id.camera) {
+            ChangeProfilePic();
         }
-
-        if (TextUtils.isEmpty(mDesignation.getText().toString())) {
-            mDesignation.setError("Required");
-            result = false;
-        } else {
-            mDesignation.setError(null);
-        }
-        if (TextUtils.isEmpty(mCity.getText().toString())) {
-            mCity.setError("Required");
-            result = false;
-        } else {
-            mCity.setError(null);
-        }
-
-        return result;
     }
 }

@@ -83,10 +83,18 @@
     <string name="done">Done</string>
     <string name="select">Select</string>
     <string name="confirm_logout">Are you sure you want to logout from this app?</string>
+    <string name="new_project">New Project</string>
+    <string name="description">Description</string>
+    <string name="attach_media">Attach Media</string>
 
     <string-array name="options">
         <item>Choose Photo From Gallery</item>
         <item>Take Photo</item>
     </string-array>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="cancel">Cancel</string>
 
 </resources>
