@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background">
+    android:background="@color/background"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/dialogTitle"
+        style="@android:style/TextAppearance.DeviceDefault.Medium"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        style="@android:style/TextAppearance.DeviceDefault.Medium"
-        android:textStyle="bold"
-        android:textColor="@android:color/white"
+        android:background="@color/colorPrimary"
         android:gravity="center"
-        android:textAllCaps="true"
         android:text="HELP"
-        android:background="@color/colorPrimaryDark"/>
+        android:textAllCaps="true"
+        android:textColor="@android:color/white"
+        android:textStyle="bold" />
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -27,25 +27,25 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="@dimen/activity_horizontal_margin">
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:orientation="horizontal">
             <TextView
                 style="@android:style/TextAppearance.DeviceDefault.Medium"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Usama"
                 android:textAllCaps="true"
                 android:textColor="@color/colorPrimaryDark"
-                android:textStyle="bold"
-                android:text="Usama"/>
+                android:textStyle="bold" />
             <TextView
                 style="@android:style/TextAppearance.DeviceDefault.Medium"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="+919940661863"
-                android:textStyle="bold"
                 android:textColor="@color/colorAccent"
+                android:textStyle="bold"
                 />
 
         </LinearLayout>
@@ -60,25 +60,25 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="@dimen/activity_horizontal_margin">
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:orientation="horizontal">
             <TextView
                 style="@android:style/TextAppearance.DeviceDefault.Medium"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Samarth"
                 android:textAllCaps="true"
                 android:textColor="@color/colorPrimaryDark"
-                android:textStyle="bold"
-                android:text="Samarth"/>
+                android:textStyle="bold" />
             <TextView
                 style="@android:style/TextAppearance.DeviceDefault.Medium"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="+919810086248"
-                android:textStyle="bold"
                 android:textColor="@color/colorAccent"
+                android:textStyle="bold"
                 />
 
         </LinearLayout>
@@ -93,25 +93,25 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_margin="@dimen/activity_horizontal_margin">
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:orientation="horizontal">
             <TextView
                 style="@android:style/TextAppearance.DeviceDefault.Medium"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Sanchit"
                 android:textAllCaps="true"
                 android:textColor="@color/colorPrimaryDark"
-                android:textStyle="bold"
-                android:text="Sanchit"/>
+                android:textStyle="bold" />
             <TextView
                 style="@android:style/TextAppearance.DeviceDefault.Medium"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="+919990180876"
-                android:textStyle="bold"
                 android:textColor="@color/colorAccent"
+                android:textStyle="bold"
                 />
 
         </LinearLayout>
@@ -120,25 +120,25 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="@dimen/activity_horizontal_margin">
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:orientation="horizontal">
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_email_black_24dp"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:tint="@color/colorPrimaryDark"/>
+            android:tint="@color/colorPrimaryDark"
+            app:srcCompat="@drawable/ic_email_black_24dp" />
         <TextView
             style="@android:style/TextAppearance.DeviceDefault.Medium"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
             android:text="dtu.safetyfirst@gmail.com"
-            android:textStyle="bold"
             android:textColor="@color/colorAccent"
+            android:textStyle="bold"
             />
 
     </LinearLayout>
@@ -147,24 +147,24 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="@dimen/activity_horizontal_margin">
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:orientation="horizontal">
         <TextView
             style="@android:style/TextAppearance.DeviceDefault.Small"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="www.firstsafetyfirst.com"
             android:textColor="@color/colorPrimaryDark"
-            android:textStyle="bold"
-            android:text="www.firstsafetyfirst.com"/>
+            android:textStyle="bold" />
         <TextView
             style="@android:style/TextAppearance.DeviceDefault.Small"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="Follow us on facebook"
-            android:textStyle="bold"
             android:textColor="@color/colorPrimaryDark"
+            android:textStyle="bold"
             />
 
     </LinearLayout>
@@ -174,18 +174,18 @@
     <android.support.v7.widget.ButtonBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
-        android:layout_gravity="bottom">
+        android:layout_gravity="bottom"
+        android:background="@color/colorAccent">
         <Button
             android:id="@+id/btn_done"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:textAllCaps="true"
+            android:background="@color/colorAccent"
             android:text="@string/done"
+            android:textAllCaps="true"
             android:textColor="@android:color/white"
             android:textStyle="bold"
-            android:background="@color/colorAccent"
-            android:layout_height="wrap_content"
             />
     </android.support.v7.widget.ButtonBarLayout>
 </LinearLayout>

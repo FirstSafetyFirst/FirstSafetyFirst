@@ -5,8 +5,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.products.safetyfirst.R;
+import com.products.safetyfirst.adapters.AddProjectsAdapter;
 import com.products.safetyfirst.impementations.AddProjectPresenterImpl;
 import com.products.safetyfirst.interfaces.AddProjectPresenter;
 import com.products.safetyfirst.interfaces.AddProjectView;
@@ -29,6 +34,9 @@ public class ProjectsFragment extends Fragment implements View.OnClickListener, 
     private ProgressBar mProgressbar;
     private boolean isFabOpen = false;
     private Animation rotate_forward, rotate_backward;
+
+    private RecyclerView mListOfProjects;
+    private AddProjectsAdapter adapter;
 
     public ProjectsFragment() {
         // Required empty public constructor
@@ -43,20 +51,59 @@ public class ProjectsFragment extends Fragment implements View.OnClickListener, 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_projects, container, false);
+        return inflater.inflate(R.layout.fragment_projects, container, false);
+    }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        createUI(view);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        fillUI();
+    }
+
+    private void fillUI() {
+        adapter = new AddProjectsAdapter(getContext());
+        adapter.request();
+        mListOfProjects.setAdapter(adapter);
+    }
+
+    private void createUI(View view) {
+        mListOfProjects = (RecyclerView) view.findViewById(R.id.recycler_view);
+        mListOfProjects.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mListOfProjects.setHasFixedSize(true);
+        mListOfProjects.setItemAnimator(new DefaultItemAnimator());
 
         mAddProjectButton = (FloatingActionButton) view.findViewById(R.id.fab);
         mProgressbar = (ProgressBar) view.findViewById(R.id.progressBar);
         rotate_forward = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_forward);
         rotate_backward = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_backward);
 
-
         presenter = new AddProjectPresenterImpl(this);
-
         mAddProjectButton.setOnClickListener(this);
 
-        return view;
+        mListOfProjects.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState > 0) {
+                    mAddProjectButton.hide();
+                } else {
+                    mAddProjectButton.show();
+                }
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
+
+
     }
 
     @Override

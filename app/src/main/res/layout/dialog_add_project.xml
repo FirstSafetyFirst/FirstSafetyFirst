@@ -10,7 +10,7 @@
         style="@android:style/TextAppearance.DeviceDefault.Medium"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/colorPrimary"
         android:gravity="center"
         android:text="@string/new_project"
         android:textAllCaps="true"

@@ -1,8 +1,13 @@
 package com.products.safetyfirst.impementations;
 
+import com.products.safetyfirst.adapters.AddProjectsAdapter;
 import com.products.safetyfirst.interfaces.AddProjectInteractor;
 import com.products.safetyfirst.interfaces.AddProjectPresenter;
 import com.products.safetyfirst.interfaces.AddProjectView;
+import com.products.safetyfirst.interfaces.AddProjectsAdapterView;
+import com.products.safetyfirst.models.Project_model;
+
+import java.util.ArrayList;
 
 /**
  * Created by vikas on 04/10/17.
@@ -13,10 +18,18 @@ public class AddProjectPresenterImpl implements AddProjectPresenter, AddProjectI
     private AddProjectView addProjectView;
     private AddProjectInteractor addProjectInteractor;
 
+    private AddProjectsAdapterView adapterView;
+
     public AddProjectPresenterImpl(AddProjectView addProjectView) {
         this.addProjectView = addProjectView;
-        this.addProjectInteractor = new AddProjectInteractorImpl();
+        this.addProjectInteractor = new AddProjectInteractorImpl(this);
     }
+
+    public AddProjectPresenterImpl(AddProjectsAdapter addProjectsAdapter) {
+        this.adapterView = addProjectsAdapter;
+        this.addProjectInteractor = new AddProjectInteractorImpl(this);
+    }
+
 
     @Override
     public void validateCredentials(String name, String company, String description) {
@@ -29,6 +42,16 @@ public class AddProjectPresenterImpl implements AddProjectPresenter, AddProjectI
     @Override
     public void onDestroy() {
         addProjectView = null;
+    }
+
+    @Override
+    public void getChildren(ArrayList<Project_model> projects) {
+        adapterView.addAll(projects);
+    }
+
+    @Override
+    public void request() {
+        addProjectInteractor.requestProjects();
     }
 
     @Override

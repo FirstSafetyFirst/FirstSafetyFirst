@@ -8,6 +8,8 @@ public interface AddProjectInteractor {
 
     void addProject(String name, String company, String designation, AddProjectInteractor.OnUpdateFinishedListener listener);
 
+    void requestProjects();
+
     interface OnUpdateFinishedListener {
 
         void onUsernameError();
