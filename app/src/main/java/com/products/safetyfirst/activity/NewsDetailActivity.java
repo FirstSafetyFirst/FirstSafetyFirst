@@ -18,8 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.impementations.NewsDetailPresenterImpl;
 import com.products.safetyfirst.interfaces.NewsDetailPresenter;
@@ -33,14 +31,11 @@ public class NewsDetailActivity extends BaseActivity implements View.OnClickList
     NewsDetailPresenter presenter;
     FloatingActionButton fab;
     private ImageView image_scrolling_top;
-    private DatabaseReference mPostReference;
-    private ValueEventListener mNewsListener;
     private String mNewsKey;
     private TextView mTitleView;
     private JustifiedWebView mBodyView;
     private Button mReadMore;
     private ImageButton mShare;
-    private ImageView mNewsImage;
     private String url;
     private String HEADLINE;
 
