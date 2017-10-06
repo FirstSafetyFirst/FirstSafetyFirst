@@ -8,7 +8,7 @@ public interface AddProjectInteractor {
 
     void addProject(String name, String company, String designation, AddProjectInteractor.OnUpdateFinishedListener listener);
 
-    void requestProjects();
+    void requestProjects(String mProfileKey);
 
     interface OnUpdateFinishedListener {
 

@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -18,13 +19,17 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.adapters.AddProjectsAdapter;
 import com.products.safetyfirst.impementations.AddProjectPresenterImpl;
 import com.products.safetyfirst.interfaces.AddProjectPresenter;
 import com.products.safetyfirst.interfaces.AddProjectView;
+
+import static com.products.safetyfirst.utils.FirebaseUtils.getCurrentUserId;
 
 public class ProjectsFragment extends Fragment implements View.OnClickListener, AddProjectView {
 
@@ -37,6 +42,8 @@ public class ProjectsFragment extends Fragment implements View.OnClickListener, 
 
     private RecyclerView mListOfProjects;
     private AddProjectsAdapter adapter;
+
+    private String mProfileKey = null;
 
     public ProjectsFragment() {
         // Required empty public constructor
@@ -51,6 +58,10 @@ public class ProjectsFragment extends Fragment implements View.OnClickListener, 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        if(this.getArguments() != null) {
+            mProfileKey = this.getArguments().getString("PROFILE_KEY");
+        }
         return inflater.inflate(R.layout.fragment_projects, container, false);
     }
 
@@ -68,7 +79,15 @@ public class ProjectsFragment extends Fragment implements View.OnClickListener, 
 
     private void fillUI() {
         adapter = new AddProjectsAdapter(getContext());
-        adapter.request();
+
+        if(mProfileKey != null){
+            adapter.request(mProfileKey);
+        }
+
+        else if(getCurrentUserId() != null){
+            adapter.request(getCurrentUserId());
+        }
+
         mListOfProjects.setAdapter(adapter);
     }
 
@@ -103,6 +122,12 @@ public class ProjectsFragment extends Fragment implements View.OnClickListener, 
             }
         });
 
+        if(this.getArguments() != null){
+
+            //Hides the fab but it reappears on scroll due to app:layout_scrollFlags="scroll|enterAlways" set
+            //in layout. Remove that attribute first programatically and then set visibility to gone.
+            mAddProjectButton.setVisibility(View.VISIBLE);
+        }
 
     }
 

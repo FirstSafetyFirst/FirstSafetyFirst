@@ -12,5 +12,5 @@ public interface AddProjectsAdapterView {
 
     void addAll(ArrayList<Project_model> projects);
 
-    void request();
+    void request(String mProfileKey);
 }

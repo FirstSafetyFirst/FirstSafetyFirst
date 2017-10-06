@@ -76,13 +76,9 @@ public class AddProjectInteractorImpl implements AddProjectInteractor {
     }
 
     @Override
-    public void requestProjects() {
+    public void requestProjects(String mProfileKey) {
         Query query;
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String mProfileKey = null;
-
-        if (user != null) {
-            mProfileKey = user.getUid();
+        if ( mProfileKey != null) {
 
             query = FirebaseDatabase.getInstance().getReference()
                     .child("users").child(mProfileKey).child("projects").orderByChild("timestamp");

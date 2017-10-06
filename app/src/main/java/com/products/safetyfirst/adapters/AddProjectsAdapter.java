@@ -63,8 +63,8 @@ public class AddProjectsAdapter extends RecyclerView.Adapter<AddProjectsAdapter.
     }
 
     @Override
-    public void request() {
-        presenter.request();
+    public void request(String mProfileKey) {
+        presenter.request(mProfileKey);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

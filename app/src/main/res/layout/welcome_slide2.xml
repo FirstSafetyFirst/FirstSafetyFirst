@@ -2,40 +2,85 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bg_screen2">
-
-    <LinearLayout
-        android:layout_width="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="112dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:background="@color/colorPrimary"
+        android:layout_alignParentRight="true" />
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
-
-        <ImageView
-            android:layout_width="@dimen/img_width_height"
-            android:layout_height="@dimen/img_width_height"
-            android:src="@drawable/ic_movie" />
-
-        <TextView
-            android:layout_width="wrap_content"
+        android:layout_margin="42dp"
+        app:cardCornerRadius="5dp"
+        app:cardElevation="10dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/slide_2_title"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/slide_title"
-            android:textStyle="bold" />
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/app_bar_height_image_view"
+                android:scaleType="fitXY"
+                android:alpha="0.5"
+                android:src="@drawable/material_design_3"/>
+            <View
+                android:id="@+id/line"
+                android:layout_below="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="12dp"
+                android:background="@color/colorAccent" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:tint="@color/white"
+                app:srcCompat="@drawable/ic_keyboard_arrow_up_black_24dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/image" />
+            <TextView
+                android:layout_below="@+id/line"
+                android:id="@+id/caption"
+                style="@style/Base.TextAppearance.AppCompat.Large"
+                android:textStyle="bold"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/news"
+                android:textColor="@color/colorPrimary"/>
+            <TextView
+                android:layout_below="@+id/caption"
+                style="@style/Base.TextAppearance.AppCompat.Small"
+                android:layout_margin="@dimen/activity_vertical_margin"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Be well informed, make no mistakes, offend no policy"
+                android:textColor="@color/colorPrimary"/>
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:paddingLeft="@dimen/desc_padding"
-            android:paddingRight="@dimen/desc_padding"
-            android:text="@string/slide_2_desc"
-            android:textAlignment="center"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/slide_desc" />
+    <View
+        android:id="@+id/design_bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="112dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:background="@color/colorAccent"
+        android:layout_alignParentRight="true" />
 
-    </LinearLayout>
-
-
+    <View
+        android:layout_above="@+id/design_bottom_sheet"
+        android:layout_marginBottom="?attr/actionBarSize"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorAccent" />
 </RelativeLayout>

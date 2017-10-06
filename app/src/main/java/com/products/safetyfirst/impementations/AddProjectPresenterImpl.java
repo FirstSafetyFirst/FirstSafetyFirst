@@ -50,8 +50,8 @@ public class AddProjectPresenterImpl implements AddProjectPresenter, AddProjectI
     }
 
     @Override
-    public void request() {
-        addProjectInteractor.requestProjects();
+    public void request(String mProfileKey) {
+        addProjectInteractor.requestProjects(mProfileKey);
     }
 
     @Override

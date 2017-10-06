@@ -33,7 +33,7 @@
     <string name="news">News</string>
     <string name="discussion">Discussion</string>
     <string name="laws">Laws</string>
-    <string name="know_it">know it</string>
+    <string name="know_it">Know it</string>
     <string name="type_item_image_description">Item Type Image</string>
     <string name="author_name">Author Name</string>
     <string name="news_image">News Image</string>
@@ -97,5 +97,7 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="cancel">Cancel</string>
+    <string name="training">Training</string>
+    <string name="not_signed_in">Please Sign In</string>
 
 </resources>

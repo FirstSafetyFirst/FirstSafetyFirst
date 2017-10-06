@@ -245,7 +245,11 @@ public class ProfileActivity extends BaseActivity
                 case 1:
                     return new AnswersFragment();
                 case 2:
-                    return new ProjectsFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("PROFILE_KEY", mProfileKey);
+                    Fragment fragment = new ProjectsFragment();
+                    fragment.setArguments(bundle);
+                    return fragment;
             }
             return null;
 

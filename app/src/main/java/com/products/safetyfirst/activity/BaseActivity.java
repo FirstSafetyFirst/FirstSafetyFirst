@@ -5,11 +5,13 @@ package com.products.safetyfirst.activity;
  */
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
@@ -80,6 +82,24 @@ public class BaseActivity extends AppCompatActivity {
             return null;
     }
 
+    public boolean isLoggedIn() {
+        return user != null;
+    }
+
+    public class MySignInListener implements View.OnClickListener{
+
+        Context context;
+
+        public MySignInListener(Context context){
+            this.context = context;
+        }
+
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(context, SignInActivity.class);
+            startActivity(intent);
+        }
+    }
 
 
     @Override

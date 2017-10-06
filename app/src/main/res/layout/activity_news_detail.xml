@@ -2,6 +2,7 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/myCoordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -48,6 +49,7 @@
         android:clickable="true"
         android:tint="@color/white"
         app:layout_anchor="@id/app_bar_scrolling"
+        app:backgroundTint="@color/colorPrimaryLight"
         app:layout_anchorGravity="bottom|right|end"
         app:srcCompat="@drawable/ic_bookmark_border_black_24dp" />
 
