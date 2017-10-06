@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.database.ChildEventListener;
@@ -150,7 +149,6 @@ public class Home_News_Adapter extends RecyclerView.Adapter<Home_News_Adapter.Ne
         holder.detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, newsArrayList.get(position).getTitle(),Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(context, NewsDetailActivity.class);
                 intent.putExtra(NewsDetailActivity.EXTRA_NEWS_KEY, newsArrayKey.get(position));
                 context.startActivity(intent);

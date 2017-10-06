@@ -1,11 +1,15 @@
 package com.products.safetyfirst.models;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by profileconnect on 24/04/17.
  */
 
 public class News_model {
 
+    public Map<String, Boolean> bookmarks = new HashMap<>();
     private String title,imgUrl,favicon, body, uid, author;
     private Integer timestamp;
 

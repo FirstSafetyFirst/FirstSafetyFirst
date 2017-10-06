@@ -131,11 +131,6 @@ public class ProjectsFragment extends Fragment implements View.OnClickListener, 
 
     @Override
     public void onClick(View view) {
-
-        mAddProjectButton.startAnimation(rotate_backward);
-        isFabOpen = false;
-
-
         int i = view.getId();
         if (i == R.id.fab) {
             mAddProjectButton.startAnimation(rotate_forward);

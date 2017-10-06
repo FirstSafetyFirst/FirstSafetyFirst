@@ -1,6 +1,8 @@
 package com.products.safetyfirst.models;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Vikas on 09-06-2017.
@@ -12,6 +14,7 @@ import java.util.ArrayList;
  */
 
 public class UserModel {
+    public Map<String, Boolean> newsBookmarks = new HashMap<>();
     private String name;
     private int rank;
     private String email;

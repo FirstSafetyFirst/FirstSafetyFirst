@@ -28,6 +28,7 @@
 
     <string name="slide_4_title">World Travel</string>
     <string name="slide_4_desc">Book tickets of any transportation and travel the world!</string>
+
     <string name="home">Home</string>
     <string name="news">News</string>
     <string name="discussion">Discussion</string>
@@ -69,7 +70,7 @@
     <string name="type">Select</string>
     <string name="certificate">Certificate Number</string>
     <string name="city">City</string>
-    <string name="interests">Select the firelds that interest you</string>
+    <string name="interests">We\'ll personalise your feed based on the interests you select here</string>
     <string name="loading">Loading</string>
     <string name="signed_out">Signed Out</string>
     <string name="emailpassword_status_fmt">Email User: %1$s (verified: %2$b)</string>
