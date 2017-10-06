@@ -153,49 +153,6 @@ public class Personal_Fragment extends Fragment implements UpdateProfileView, Vi
         super.onDestroy();
     }
 
-  /*  void updateUser(String name, String phone, String company,String designation,String certificate, String city){
-        Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("company", company);
-        childUpdates.put("designation", designation);
-        childUpdates.put("city", city);
-        childUpdates.put("joinAs", joinAs);
-        childUpdates.put("certificate", certificate);
-        mProfileReference.updateChildren(childUpdates);
-
-        Toast.makeText(getContext(), "Profile Updated", Toast.LENGTH_SHORT).show();
-
-
-    }
-*/
-/*
-    private boolean validateForm() {
-        boolean result = true;
-
-        if (TextUtils.isEmpty(mCompany.getText().toString())) {
-            mCompany.setError("Required");
-            result = false;
-        } else {
-            mCompany.setError(null);
-        }
-
-        if (TextUtils.isEmpty(mDesignation.getText().toString())) {
-            mDesignation.setError("Required");
-            result = false;
-        } else {
-            mDesignation.setError(null);
-        }
-        if (TextUtils.isEmpty(mCity.getText().toString())) {
-            mCity.setError("Required");
-            result = false;
-        } else {
-            mCity.setError(null);
-        }
-
-        return result;
-    }
-
-    */
-
     @Override
     public void showProgress() {
         mProgressBar.setVisibility(View.VISIBLE);
@@ -245,12 +202,6 @@ public class Personal_Fragment extends Fragment implements UpdateProfileView, Vi
     @Override
     public void onStop() {
         super.onStop();
-/*
-        // Remove post value event listener
-        if (mProfileListener != null) {
-            mProfileReference.removeEventListener(mProfileListener);
-        }*/
-
     }
     private void ChangeProfilePic() {
         if(android.os.Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP_MR1){

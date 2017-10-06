@@ -15,6 +15,8 @@ import com.products.safetyfirst.models.UserModel;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
+
 /**
  * Created by vikas on 04/10/17.
  */
@@ -67,7 +69,7 @@ public class UpdateProfileInteractorImpl implements UpdateProfileInteractor {
 
             if (user != null) {
                 mProfileKey = user.getUid();
-                mProfileReference = FirebaseDatabase.getInstance().getReference()
+                mProfileReference = getDatabase().getReference()
                         .child("users").child(mProfileKey);
                 mProfileReference.updateChildren(childUpdates);
             }
@@ -87,7 +89,7 @@ public class UpdateProfileInteractorImpl implements UpdateProfileInteractor {
         if (user != null) {
             mProfileKey = user.getUid();
 
-            mProfileReference = FirebaseDatabase.getInstance().getReference()
+            mProfileReference = getDatabase().getReference()
                     .child("users").child(mProfileKey);
 
             mProfileReference.addListenerForSingleValueEvent(new ValueEventListener() {

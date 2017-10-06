@@ -16,6 +16,8 @@ import com.products.safetyfirst.interfaces.NewsDetailPresenter;
 import com.products.safetyfirst.models.News_model;
 import com.products.safetyfirst.models.UserModel;
 
+import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
+
 /**
  * Created by vikas on 06/10/17.
  */
@@ -60,9 +62,9 @@ public class NewsDetailInteractorImpl implements NewsDetailInteractor {
         if (user != null) {
             mProfileKey = user.getUid();
 
-            DatabaseReference newsRef = FirebaseDatabase.getInstance().getReference()
+            DatabaseReference newsRef = getDatabase().getReference()
                     .child("news").child(mNewsKey);
-            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference()
+            DatabaseReference userRef = getDatabase().getReference()
                     .child("users").child(mProfileKey);
             addBookmarkToNews(newsRef, mProfileKey);
             addBookMarkToUser(userRef, mNewsKey);

@@ -33,7 +33,6 @@ import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.customview.CircleTransform;
@@ -41,6 +40,8 @@ import com.products.safetyfirst.fragment.ProfileFragment.AnswersFragment;
 import com.products.safetyfirst.fragment.ProfileFragment.ProjectsFragment;
 import com.products.safetyfirst.fragment.ProfileFragment.QuestionsFragment;
 import com.products.safetyfirst.models.UserModel;
+
+import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
 
 public class ProfileActivity extends BaseActivity
         implements ProjectsFragment.OnFragmentInteractionListener,
@@ -122,7 +123,7 @@ public class ProfileActivity extends BaseActivity
             throw new IllegalArgumentException("Must pass EXTRA_PROFILE_KEY");
         }
 
-        mProfileReference = FirebaseDatabase.getInstance().getReference()
+        mProfileReference = getDatabase().getReference()
                 .child("users").child(mProfileKey);
         //Toast.makeText(this, mProfileKey, Toast.LENGTH_SHORT).show();
 

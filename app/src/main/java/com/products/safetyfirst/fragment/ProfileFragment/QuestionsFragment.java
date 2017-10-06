@@ -20,6 +20,8 @@ import com.products.safetyfirst.R;
 import com.products.safetyfirst.activity.ProfileActivity;
 import com.products.safetyfirst.adapters.Discussion_Adapter;
 
+import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -82,7 +84,7 @@ public class QuestionsFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_questions, container, false);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase = getDatabase().getReference();
         mpaginateprogbar=(ProgressBar) rootView.findViewById(R.id.newspaginateprogbar);
 
 

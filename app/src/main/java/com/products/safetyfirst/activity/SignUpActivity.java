@@ -32,6 +32,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.products.safetyfirst.R;
 
+import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
+
 /**
  * Created by krishna on 30/1/17.
  */
@@ -67,7 +69,7 @@ public class SignUpActivity extends BaseActivity implements GoogleApiClient.OnCo
         tncFlag = 0;
 
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase = getDatabase().getReference();
         mFirebaseAuth = FirebaseAuth.getInstance();
 
         // Views
@@ -112,7 +114,7 @@ public class SignUpActivity extends BaseActivity implements GoogleApiClient.OnCo
     }
 
     public void clickTnc(View v){
-        startActivity(new Intent(SignUpActivity.this, TermsnCondition.class));
+      //show TNC dialog
     }
 
     private void signUp() {
@@ -254,7 +256,7 @@ public class SignUpActivity extends BaseActivity implements GoogleApiClient.OnCo
                         // [END_EXCLUDE]
                     }
                 });
-        startActivity(new Intent(SignUpActivity.this, TempActivity.class));
+        startActivity(new Intent(SignUpActivity.this, HomeActivity.class));
         // [END send_email_verification]
     }
 

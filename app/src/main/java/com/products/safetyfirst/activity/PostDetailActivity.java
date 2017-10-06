@@ -64,6 +64,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
+
 
 public class PostDetailActivity extends BaseActivity implements View.OnClickListener {
 
@@ -135,12 +137,12 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
         }
 
         // Initialize Database
-        mPostReference = FirebaseDatabase.getInstance().getReference()
+        mPostReference = getDatabase().getReference()
                 .child("posts").child(mPostKey);
-        mCommentsReference = FirebaseDatabase.getInstance().getReference()
+        mCommentsReference = getDatabase().getReference()
                 .child("post-comments").child(mPostKey);
-        mPostAttachmentsReference = FirebaseDatabase.getInstance().getReference().child("post-attachments").child(mPostKey);
-        mCommentAttachmentsReference = FirebaseDatabase.getInstance().getReference().child("comment-attachments").child(mPostKey);
+        mPostAttachmentsReference = getDatabase().getReference().child("post-attachments").child(mPostKey);
+        mCommentAttachmentsReference = getDatabase().getReference().child("comment-attachments").child(mPostKey);
 
         // Initialize Views
         mAuthorImage = (ImageView) findViewById(R.id.post_author_photo);

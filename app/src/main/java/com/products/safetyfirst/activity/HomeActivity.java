@@ -21,7 +21,6 @@ import android.widget.TextView;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.fragment.Discussion_Fragment;
 import com.products.safetyfirst.fragment.KnowIt_Fragment;
@@ -56,7 +55,6 @@ public class HomeActivity extends BaseActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
 
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

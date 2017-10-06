@@ -21,6 +21,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
+
 /**
  * Created by vikas on 04/10/17.
  */
@@ -65,7 +67,7 @@ public class AddProjectInteractorImpl implements AddProjectInteractor {
 
             if (user != null) {
                 mProfileKey = user.getUid();
-                mProjectKey = FirebaseDatabase.getInstance().getReference()
+                mProjectKey = getDatabase().getReference()
                         .child("users").child(mProfileKey).child("projects").push().getKey();
                 mProjectReference = FirebaseDatabase.getInstance().getReference()
                         .child("users").child(mProfileKey).child("projects").child(mProjectKey);
@@ -80,7 +82,7 @@ public class AddProjectInteractorImpl implements AddProjectInteractor {
         Query query;
         if ( mProfileKey != null) {
 
-            query = FirebaseDatabase.getInstance().getReference()
+            query = getDatabase().getReference()
                     .child("users").child(mProfileKey).child("projects").orderByChild("timestamp");
 
             query.addValueEventListener(new ValueEventListener() {

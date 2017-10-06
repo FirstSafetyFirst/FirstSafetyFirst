@@ -16,6 +16,8 @@ import com.google.firebase.database.Query;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.adapters.Discussion_Adapter;
 
+import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
+
 /**
  * Created by profileconnect on 20/04/17.
  */
@@ -35,7 +37,7 @@ public class Discussion_Fragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.discussion_fragment, container, false);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase = getDatabase().getReference();
         mpaginateprogbar=(ProgressBar) rootView.findViewById(R.id.newspaginateprogbar);
 
 

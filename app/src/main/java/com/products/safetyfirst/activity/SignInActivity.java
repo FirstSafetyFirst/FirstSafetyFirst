@@ -30,8 +30,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.products.safetyfirst.R;
+
+import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
 
 public class SignInActivity extends BaseActivity implements GoogleApiClient.OnConnectionFailedListener,
         View.OnClickListener {
@@ -84,7 +85,7 @@ public class SignInActivity extends BaseActivity implements GoogleApiClient.OnCo
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.login);
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase = getDatabase().getReference();
 
         // Assign fields
         mGoogleSignInButton = (SignInButton) findViewById(R.id.sign_in_button);
@@ -319,7 +320,7 @@ public class SignInActivity extends BaseActivity implements GoogleApiClient.OnCo
         writeNewUser(user.getUid(), username, user.getEmail(), user.getPhotoUrl()!= null ?user.getPhotoUrl().toString():null);
 
         // Go to DashboardnActivity
-        startActivity(new Intent(SignInActivity.this, TempActivity.class));
+        startActivity(new Intent(SignInActivity.this, HomeActivity.class));
         finish();
        // DialogUtils.dismissProgressDialog();
         hideProgressDialog();
