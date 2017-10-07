@@ -1,23 +1,38 @@
 package com.products.safetyfirst.activity;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Rect;
+import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.text.SpannableString;
+import android.text.style.StyleSpan;
+import android.text.style.UnderlineSpan;
+import android.util.Log;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.getkeepsafe.taptargetview.TapTarget;
+import com.getkeepsafe.taptargetview.TapTargetSequence;
+import com.getkeepsafe.taptargetview.TapTargetView;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -28,6 +43,7 @@ import com.products.safetyfirst.fragment.Laws_Fragment;
 import com.products.safetyfirst.fragment.News_Events_Fragment;
 import com.products.safetyfirst.fragment.ProfileFragment.ProjectsFragment;
 import com.products.safetyfirst.fragment.UpdateProfileFragment;
+import com.products.safetyfirst.utils.PrefManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,15 +61,24 @@ public class HomeActivity extends BaseActivity
     private FirebaseUser mFirebaseUser;
     private FirebaseAnalytics mFirebaseAnalytics;
     private BottomNavigationView bottomNavigationView;
+    Toolbar toolbar;
 
+    PrefManager prefManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
+
+
+        prefManager = new PrefManager(this);
+        if (prefManager.isFirstTimeLaunch()) {
+            showTutorial();
+        }
+
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
@@ -265,6 +290,102 @@ public class HomeActivity extends BaseActivity
 
     @Override
     public void onFragmentInteraction(Uri uri) {
+
+    }
+
+    void showTutorial(){
+        // We load a drawable and create a location to show a tap target here
+        // We need the display to get the width and height at this point in time
+        final Display display = getWindowManager().getDefaultDisplay();
+        // Load our little droid guy
+        final Drawable droid = ContextCompat.getDrawable(this, R.drawable.ic_camera_alt_black_24dp);
+        // Tell our droid buddy where we want him to appear
+        final Rect droidTarget = new Rect(0, 0, droid.getIntrinsicWidth() * 2, droid.getIntrinsicHeight() * 2);
+        // Using deprecated methods makes you look way cool
+        droidTarget.offset(display.getWidth() / 2, display.getHeight() / 2);
+
+        final SpannableString sassyDesc = new SpannableString("It shows some additional information");
+        sassyDesc.setSpan(new StyleSpan(Typeface.ITALIC), sassyDesc.length() - "information".length(), sassyDesc.length(), 0);
+
+        final TapTargetSequence sequence = new TapTargetSequence(this)
+                .targets(
+                        // This tap target will target the back button, we just need to pass its containing toolbar
+                        TapTarget.forToolbarNavigationIcon(toolbar, "This is the menu button", sassyDesc).id(1),
+                        // Likewise, this tap target will target the search button
+                        TapTarget.forToolbarMenuItem(toolbar, R.id.search, "This is a search icon", "As you can see, it has gotten pretty dark around here...")
+                                .dimColor(android.R.color.black)
+                                .outerCircleColor(R.color.colorAccent)
+                                .targetCircleColor(android.R.color.black)
+                                .transparentTarget(true)
+                                .textColor(android.R.color.black)
+                                .id(2),
+                        // You can also target the overflow button in your toolbar
+                        TapTarget.forToolbarOverflow(toolbar, "This will show more options", "But they're not useful :(").id(3),
+                        // This tap target will target our droid buddy at the given target rect
+                        TapTarget.forBounds(droidTarget, "Oh look!", "You can point to any part of the screen. You also can't cancel this one!")
+                                .cancelable(false)
+                                .icon(droid)
+                                .id(4)
+                )
+                .listener(new TapTargetSequence.Listener() {
+                    // This listener will tell us when interesting(tm) events happen in regards
+                    // to the sequence
+                    @Override
+                    public void onSequenceFinish() {
+                        Toast.makeText(HomeActivity.this, "You are educated now", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
+                        Log.d("TapTargetView", "Clicked on " + lastTarget.id());
+                    }
+
+                    @Override
+                    public void onSequenceCanceled(TapTarget lastTarget) {
+                        final AlertDialog dialog = new AlertDialog.Builder(HomeActivity.this)
+                                .setTitle("Uh oh")
+                                .setMessage("You canceled the sequence")
+                                .setPositiveButton("Oops", null).show();
+                        TapTargetView.showFor(dialog,
+                                TapTarget.forView(dialog.getButton(DialogInterface.BUTTON_POSITIVE), "Uh oh!", "You canceled the sequence at step " + lastTarget.id())
+                                        .cancelable(false)
+                                        .tintTarget(false), new TapTargetView.Listener() {
+                                    @Override
+                                    public void onTargetClick(TapTargetView view) {
+                                        super.onTargetClick(view);
+                                        dialog.dismiss();
+                                    }
+                                });
+                    }
+                });
+
+        // You don't always need a sequence, and for that there's a single time tap target
+        final SpannableString spannedDesc = new SpannableString("Hello There!! Welcome to Safety First");
+        spannedDesc.setSpan(new UnderlineSpan(), spannedDesc.length() - "Safety First".length(), spannedDesc.length(), 0);
+        TapTargetView.showFor(this, TapTarget.forView(findViewById(R.id.bottom_navigation), "Hello There!!", spannedDesc)
+                .cancelable(false)
+                .drawShadow(true)
+                .titleTextDimen(R.dimen.title_text_size)
+                .tintTarget(false), new TapTargetView.Listener() {
+            @Override
+            public void onTargetClick(TapTargetView view) {
+                super.onTargetClick(view);
+                // .. which evidently starts the sequence we defined earlier
+                sequence.start();
+            }
+
+            @Override
+            public void onOuterCircleClick(TapTargetView view) {
+                super.onOuterCircleClick(view);
+                Toast.makeText(view.getContext(), "You clicked the outer circle!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onTargetDismissed(TapTargetView view, boolean userInitiated) {
+                Log.d("TapTargetViewSample", "You dismissed me :(");
+            }
+        });
+
 
     }
 }

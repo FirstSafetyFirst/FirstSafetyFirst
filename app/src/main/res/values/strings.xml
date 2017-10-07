@@ -99,5 +99,6 @@
     <string name="cancel">Cancel</string>
     <string name="training">Training</string>
     <string name="not_signed_in">Please Sign In</string>
+    <string name="title_activity_test">Test</string>
 
 </resources>

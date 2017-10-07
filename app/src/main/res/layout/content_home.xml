@@ -29,6 +29,8 @@
         app:itemBackground="@color/colorAccent"
         app:itemIconTint="@color/white"
         app:itemTextColor="@color/white"
-        app:menu="@menu/bottom_navigation_main" />
+        app:menu="@menu/bottom_navigation_main"
+        />
+
 
 </RelativeLayout>

@@ -22,9 +22,8 @@
             android:name=".activity.IntroActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
-            android:name="com.products.safetyfirst.activity.SplashActivity"
+            android:name=".activity.SplashActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_splash"
             android:theme="@style/AppTheme.NoActionBar">
@@ -39,13 +38,15 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_splash"
             android:theme="@style/AppTheme.NoActionBar">
-            <!--   <intent-filter>
+
+            <!--
+               <intent-filter>
                    <action android:name="android.intent.action.MAIN" />
 
                    <category android:name="android.intent.category.LAUNCHER" />
-               </intent-filter> -->
+               </intent-filter>
+            -->
         </activity>
-
         <activity
             android:name=".activity.NewsDetailActivity"
             android:parentActivityName=".activity.TempActivity"
@@ -59,8 +60,7 @@
             android:name=".activity.ItemTypeInfoActivity"
             android:label="@string/title_activity_item_type_info"
             android:parentActivityName=".activity.KnowItSecondActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".activity.BaseActivity" />
         <activity android:name=".activity.SignUpActivity" />
         <activity android:name=".activity.SignInActivity" />

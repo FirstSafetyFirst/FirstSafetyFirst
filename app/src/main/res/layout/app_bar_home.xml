@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.products.safetyfirst.activity.HomeActivity">
+    tools:context="com.products.safetyfirst.activity.HomeActivity"
+    android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -31,6 +32,12 @@
                 android:textColor="@color/white"
                 android:layout_gravity="fill"
                 android:id="@+id/toolbar_title" />
+
+            <SearchView
+                android:id="@+id/search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="end"/>
             </android.support.v7.widget.Toolbar>
 
 
@@ -39,4 +46,4 @@
     <include layout="@layout/content_home" />
 
 
-</android.support.design.widget.CoordinatorLayout>
+</LinearLayout>
