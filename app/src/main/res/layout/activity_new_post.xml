@@ -31,16 +31,37 @@
             android:id="@+id/new_post_edit"
             android:layout_margin="12dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
-        <ImageButton
-            android:id="@+id/bold_btn"
-            app:srcCompat="@drawable/ic_bookmark_black_24dp"
-            android:background="@color/colorAccent"
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
             android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_width="48dp"
-            android:layout_height="48dp" />
+            android:background="@color/blue_grey">
+
+            <ImageButton
+                android:id="@+id/bold_btn"
+                app:srcCompat="@drawable/ic_bookmark_black_24dp"
+                android:background="@android:color/transparent"
+                android:layout_width="48dp"
+                android:layout_height="48dp" />
+
+            <ImageButton
+                android:id="@+id/italic_btn"
+                app:srcCompat="@drawable/ic_camera_alt_black_24dp"
+                android:background="@android:color/transparent"
+                android:layout_width="48dp"
+                android:layout_height="48dp" />
+
+            <ImageButton
+                android:id="@+id/underline_btn"
+                app:srcCompat="@drawable/ic_assignment"
+                android:background="@android:color/transparent"
+                android:layout_width="48dp"
+                android:layout_height="48dp" />
+
+        </LinearLayout>
 
     </RelativeLayout>
 
