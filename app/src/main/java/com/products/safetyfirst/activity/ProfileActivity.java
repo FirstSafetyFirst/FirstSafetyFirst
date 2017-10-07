@@ -1,79 +1,58 @@
 package com.products.safetyfirst.activity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.customview.CircleTransform;
 import com.products.safetyfirst.fragment.ProfileFragment.AnswersFragment;
 import com.products.safetyfirst.fragment.ProfileFragment.ProjectsFragment;
 import com.products.safetyfirst.fragment.ProfileFragment.QuestionsFragment;
+import com.products.safetyfirst.impementations.ProfileActivityPresenterImpl;
+import com.products.safetyfirst.interfaces.ProfileActivityPresenter;
+import com.products.safetyfirst.interfaces.ProfileActivityView;
 import com.products.safetyfirst.models.UserModel;
-
-import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
 
 public class ProfileActivity extends BaseActivity
         implements ProjectsFragment.OnFragmentInteractionListener,
         AnswersFragment.OnFragmentInteractionListener,
-        QuestionsFragment.OnFragmentInteractionListener {
+        QuestionsFragment.OnFragmentInteractionListener, ProfileActivityView {
 
-    private ValueEventListener mUserListener;
+    public static final String EXTRA_PROFILE_KEY = "post_key";
+    private static final String TAG = "ProfileActivity";
     private static String mProfileKey;
+    TabLayout tabLayout;
     private TextView mUserName;
     private TextView mCompany;
     private TextView mDesignation;
     private Button updateBtn;
-    private DatabaseReference mProfileReference;
-    private ValueEventListener mProfileListener;
-
+    private Switch mFollowSwitch;
     private ImageView mProfileImage;
-
-    public static final String EXTRA_PROFILE_KEY = "post_key";
-    private static final String TAG = "ProfileActivity";
-    TabLayout tabLayout;
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
+    private ProfileActivityPresenter presenter;
     private SectionsPagerAdapter mSectionsPagerAdapter;
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
     private ViewPager mViewPager;
 
     public static String getProfileKey() {
@@ -85,7 +64,7 @@ public class ProfileActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-//
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -96,13 +75,15 @@ public class ProfileActivity extends BaseActivity
         LayoutInflater inflator = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v = inflator.inflate(R.layout.custom_app_bar_profile, root);
 
+        presenter = new ProfileActivityPresenterImpl(this);
+
 
         mUserName       = (TextView) findViewById(R.id.user_name);
         mCompany        = (TextView) findViewById(R.id.company_name);
         mDesignation    = (TextView) findViewById(R.id.user_designation);
-        updateBtn        = (Button)   findViewById(R.id.update);
-        mProfileImage   = (ImageView) findViewById(R.id.profile_image);
-
+        updateBtn = (Button) findViewById(R.id.update);
+        mProfileImage = (ImageView) findViewById(R.id.profile_image);
+        mFollowSwitch = (Switch) findViewById(R.id.follow);
 
 //        Toolbar parent =(Toolbar) v.getParent();
 //        parent.setPadding(0,0,0,0);//for tab otherwise give space in tab
@@ -123,61 +104,25 @@ public class ProfileActivity extends BaseActivity
             throw new IllegalArgumentException("Must pass EXTRA_PROFILE_KEY");
         }
 
-        mProfileReference = getDatabase().getReference()
-                .child("users").child(mProfileKey);
-        //Toast.makeText(this, mProfileKey, Toast.LENGTH_SHORT).show();
+        if (getCurrentUserId() != null) {
+            if (getCurrentUserId() == mProfileKey) {
+                mFollowSwitch.setVisibility(View.GONE);
+                updateBtn.setVisibility(View.VISIBLE);
+            }
+        }
+
+        if (!isLoggedIn()) {
+            mFollowSwitch.setVisibility(View.GONE);
+            updateBtn.setVisibility(View.GONE);
+        }
+
+        presenter.requestUser(mProfileKey);
 
     }
-
-
 
     @Override
     public void onStart() {
         super.onStart();
-
-        // Add value event listener to the news
-        // [START news_value_event_listener]
-        ValueEventListener newsListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // Get News object and use the values to update the UI
-                UserModel user  = dataSnapshot.getValue(UserModel.class);
-                // [START_EXCLUDE]
-              if(user != null) {
-                  mUserName.setText(user.getUsername());
-
-                  if(user.getCompany() != null) mCompany.setText(user.getCompany());
-                  if(user.getDesignation() != null) mDesignation.setText(user.getDesignation());
-
-              }
-
-
-                if(user.getPhotoUrl()!=null){
-                   // Glide.with(ProfileActivity.this).load(user.getPhotoUrl()).fitCenter().into(mProfileImage);
-
-                    Glide.with(ProfileActivity.this).load(user.getPhotoUrl()).error(R.drawable.ic_person_black_24dp).transform(new CircleTransform(ProfileActivity.this)).into(mProfileImage);
-
-
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // Getting News failed, log a message
-                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-                // [START_EXCLUDE]
-                Toast.makeText(ProfileActivity.this, "Failed to load profile.",
-                        Toast.LENGTH_SHORT).show();
-                // [END_EXCLUDE]
-            }
-        };
-        mProfileReference.addValueEventListener(newsListener);
-        // [END news_value_event_listener]
-
-        // Keep copy of post listener so we can remove it when app stops
-        mProfileListener = newsListener;
-
     }
 
     @Override
@@ -197,11 +142,6 @@ public class ProfileActivity extends BaseActivity
     @Override
     public void onStop() {
         super.onStop();
-
-        // Remove post value event listener
-        if (mProfileListener != null) {
-            mProfileReference.removeEventListener(mProfileListener);
-        }
 
     }
 
@@ -226,10 +166,53 @@ public class ProfileActivity extends BaseActivity
 
     }
 
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
+    @Override
+    public void setViewWithUser(UserModel user) {
+
+        if (user != null) {
+            //Toast.makeText(this, "Going to set user", Toast.LENGTH_SHORT).show();
+            mUserName.setText(user.getUsername());
+
+            if (user.getCompany() != null) mCompany.setText(user.getCompany());
+            if (user.getDesignation() != null) mDesignation.setText(user.getDesignation());
+            if (user.getPhotoUrl() != null) {
+                Glide.with(ProfileActivity.this).load(user.getPhotoUrl())
+                        .error(R.drawable.ic_person_black_24dp)
+                        .transform(new CircleTransform(ProfileActivity.this))
+                        .into(mProfileImage);
+            }
+
+        } else {
+            Toast.makeText(this, "Fetching user info failed", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    @Override
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
+
+    }
+
+    @Override
+    public void navigateToHome() {
+
+    }
+
+    @Override
+    public void onFollowError() {
+        Toast.makeText(this, "Could not follow this user", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onSuccess() {
+
+    }
+
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {

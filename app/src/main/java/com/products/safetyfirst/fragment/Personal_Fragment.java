@@ -25,15 +25,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import com.products.safetyfirst.R;
+import com.products.safetyfirst.customview.CircleTransform;
 import com.products.safetyfirst.impementations.UpdateProfilePresenterImpl;
 import com.products.safetyfirst.interfaces.UpdateProfilePresenter;
 import com.products.safetyfirst.interfaces.UpdateProfileView;
+import com.products.safetyfirst.models.UserModel;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -42,15 +41,12 @@ import java.io.InputStream;
 
 import static android.app.Activity.RESULT_OK;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class Personal_Fragment extends Fragment implements UpdateProfileView, View.OnClickListener {
     static final int RESULT_GALLERY_IMAGE = 100;
     static final int RESULT_CAMERA_IMAGE = 101;
     private static final int REQUEST_EXTERNAL_STORAGE = 101;
     FirebaseUser user;
-    Uri Imagepath=null;
+    Uri Imagepath = null;
     EditText mName;
     TextView mPhone;
     EditText mCompany;
@@ -59,17 +55,13 @@ public class Personal_Fragment extends Fragment implements UpdateProfileView, Vi
     EditText mCertificate;
     EditText mCity;
     ProgressBar mProgressBar;
-    StorageReference profilephotoRef;
-    String joinAs;
-    boolean check=false;
+
+    boolean check = false;
     View mainView;
     UpdateProfilePresenter presenter;
-    // private ValueEventListener mUserListener;
     private File Imagefile;
     private Button mSubmit;
-    private StorageReference mstorageRef;
-    private DatabaseReference mProfileReference;
-    private ValueEventListener mProfileListener;
+
 
     public Personal_Fragment() {
         // Required empty public constructor
@@ -82,7 +74,6 @@ public class Personal_Fragment extends Fragment implements UpdateProfileView, Vi
         // Inflate the layout for this fragment
         mainView = inflater.inflate(R.layout.fragment_personal, container, false);
 
-        mstorageRef= FirebaseStorage.getInstance().getReference();
 
         mPhoto = (ImageView) mainView.findViewById(R.id.camera);
         mName = (EditText) mainView.findViewById(R.id.username);
@@ -95,56 +86,15 @@ public class Personal_Fragment extends Fragment implements UpdateProfileView, Vi
         mSubmit = (Button) mainView.findViewById(R.id.submit);
 
         presenter = new UpdateProfilePresenterImpl(this);
-
-      /* user = FirebaseAuth.getInstance().getCurrentUser();
-
-        String mProfileKey = user.getUid();
-
-        mProfileReference = FirebaseDatabase.getInstance().getReference()
-                .child("users").child(mProfileKey);
-*/
-
+        presenter.requestCurrentDetails();
         mSubmit.setOnClickListener(this);
+        mPhoto.setOnClickListener(this);
         return mainView;
-
     }
 
     @Override
     public void onStart() {
         super.onStart();
-      /* profilephotoRef = mstorageRef.child(user.getUid()+"/ProfilePhoto.jpg");
-        ValueEventListener profileListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // Get News object and use the values to update the UI
-                UserModel user  = dataSnapshot.getValue(UserModel.class);
-                // [START_EXCLUDE]
-                if(user != null) {
-                    mName.setText(user.getUsername());
-                    if(user.getCompany() != null) mCompany.setText(user.getCompany());
-                    if(user.getDesignation() != null) mDesignation.setText(user.getDesignation());
-                    if(user.getCertificate() != null) mCertificate.setText(user.getCertificate());
-                    if(String.valueOf(user.getPhone()) != null) mPhone.setText(String.valueOf(user.getPhone()));
-                    if(user.getCity() != null) mCity.setText(user.getCity());
-                    if(user.getPhotoUrl()!=null){
-                        Glide.with(getContext()).load(user.getPhotoUrl())
-                                .error(R.drawable.ic_person_black_24dp)
-                                .transform(new CircleTransform(getContext()))
-                                .into(mPhoto);
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
-                Toast.makeText(getContext(), "Failed to load profile.",
-                        Toast.LENGTH_SHORT).show();
-            }
-        };
-        mProfileReference.addValueEventListener(profileListener);
-        mProfileListener = profileListener;*/
-
     }
 
     @Override
@@ -195,7 +145,31 @@ public class Personal_Fragment extends Fragment implements UpdateProfileView, Vi
 
     @Override
     public void navigateToHome() {
+        presenter.requestCurrentDetails();
+    }
 
+    @Override
+    public void setUser(UserModel user) {
+        mName.setText(user.getUsername());
+        mPhone.setText(String.valueOf(user.getPhone()));
+        mCompany.setText(user.getCompany());
+        mDesignation.setText(user.getDesignation());
+        mCertificate.setText(String.valueOf(user.getCertificate()));
+        mCity.setText(user.getCity());
+        Glide.with(getContext()).load(user.getPhotoUrl())
+                .error(R.drawable.ic_person_black_24dp)
+                .transform(new CircleTransform(getContext()))
+                .into(mPhoto);
+    }
+
+    @Override
+    public void onSuccess() {
+        Toast.makeText(getContext(), "Updated", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onError() {
+        Toast.makeText(getContext(), "Update Failed", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -203,8 +177,10 @@ public class Personal_Fragment extends Fragment implements UpdateProfileView, Vi
     public void onStop() {
         super.onStop();
     }
+
     private void ChangeProfilePic() {
-        if(android.os.Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP_MR1){
+
+        if (android.os.Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP_MR1) {
             TakePhoto();
         } else {
             if (ContextCompat.checkSelfPermission(getContext(),
@@ -215,7 +191,7 @@ public class Personal_Fragment extends Fragment implements UpdateProfileView, Vi
                 if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                     Toast.makeText(getContext(), "External Storage and Camera permission is required to read images from device", Toast.LENGTH_SHORT).show();
                 }
-                requestPermissions(new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
                                 Manifest.permission.CAMERA},
                         REQUEST_EXTERNAL_STORAGE);
             }
@@ -223,21 +199,22 @@ public class Personal_Fragment extends Fragment implements UpdateProfileView, Vi
 
     }
 
-    private void TakePhoto(){
-        AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
+    private void TakePhoto() {
+        Toast.makeText(getContext(), "Going to change pic", Toast.LENGTH_SHORT).show();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
         builder.setItems(R.array.options, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if(which==0){
-                    Intent galleryintent=new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(galleryintent,RESULT_GALLERY_IMAGE);
-                }
-                else if(which==1){
-                    Intent cameraintent=new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (which == 0) {
+                    Intent galleryintent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(galleryintent, RESULT_GALLERY_IMAGE);
+                } else if (which == 1) {
+                    Intent cameraintent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-                    if(cameraintent.resolveActivity(getActivity().getPackageManager())!=null){
-                        startActivityForResult(cameraintent,RESULT_CAMERA_IMAGE);
+                    if (cameraintent.resolveActivity(getActivity().getPackageManager()) != null) {
+                        startActivityForResult(cameraintent, RESULT_CAMERA_IMAGE);
                     }
                 }
             }
@@ -254,15 +231,15 @@ public class Personal_Fragment extends Fragment implements UpdateProfileView, Vi
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        check=true;
-        if(requestCode==RESULT_GALLERY_IMAGE&&resultCode==RESULT_OK&&data!=null&&data.getData()!=null){
+        check = true;
+        if (requestCode == RESULT_GALLERY_IMAGE && resultCode == RESULT_OK && data != null && data.getData() != null) {
 
-            Imagepath=data.getData();
+            Imagepath = data.getData();
             InputStream inputstream;
             try {
-                inputstream=getActivity().getContentResolver().openInputStream(Imagepath);
-                Bitmap bitmap= BitmapFactory.decodeStream(inputstream);
-                bitmap=Bitmap.createScaledBitmap(bitmap,710,710,true);
+                inputstream = getActivity().getContentResolver().openInputStream(Imagepath);
+                Bitmap bitmap = BitmapFactory.decodeStream(inputstream);
+                bitmap = Bitmap.createScaledBitmap(bitmap, 710, 710, true);
                 mPhoto.setImageBitmap(bitmap);
                 UploadPhoto(Imagepath);
             } catch (FileNotFoundException e) {
@@ -270,14 +247,13 @@ public class Personal_Fragment extends Fragment implements UpdateProfileView, Vi
             }
 
 
-        }
-        else if(requestCode==RESULT_CAMERA_IMAGE&&resultCode==RESULT_OK){
+        } else if (requestCode == RESULT_CAMERA_IMAGE && resultCode == RESULT_OK) {
 
             Bitmap bitmap;
-            bitmap=(Bitmap)data.getExtras().get("data");
-            bitmap=Bitmap.createScaledBitmap(bitmap,710,710,true);
+            bitmap = (Bitmap) data.getExtras().get("data");
+            bitmap = Bitmap.createScaledBitmap(bitmap, 710, 710, true);
             mPhoto.setImageBitmap(bitmap);
-            Imagepath=getImageUri(getContext(),bitmap);
+            Imagepath = getImageUri(getContext(), bitmap);
             UploadPhoto(Imagepath);
         }
 
@@ -292,29 +268,14 @@ public class Personal_Fragment extends Fragment implements UpdateProfileView, Vi
 
 
     private void UploadPhoto(Uri Imagepathq) {
-       /* profilephotoRef = mstorageRef.child(user.getUid()+"/ProfilePhoto.jpg");
 
-        profilephotoRef.putFile(Imagepathq)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        // Get a URL to the uploaded content
-
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception exception) {
-                        // Handle unsuccessful uploads
-                        // ...
-                        Toast.makeText(getContext(),"Some Error Occured..Please Try Again!",Toast.LENGTH_SHORT).show();
-                    }
-                });*/
+        presenter.updatePhoto(Imagepathq);
     }
+
     @Override
     public void onClick(View v) {
         int i = v.getId();
-        if (i == R.id.submit){
+        if (i == R.id.submit) {
             presenter.validateCredentials(mName.getText().toString(), mPhone.getText().toString(), mCompany.getText().toString(),
                     mDesignation.getText().toString(), mCertificate.getText().toString(), mCity.getText().toString());
         }

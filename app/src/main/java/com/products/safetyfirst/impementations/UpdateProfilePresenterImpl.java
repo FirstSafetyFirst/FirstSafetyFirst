@@ -1,8 +1,11 @@
 package com.products.safetyfirst.impementations;
 
+import android.net.Uri;
+
 import com.products.safetyfirst.interfaces.UpdateProfileInteractor;
 import com.products.safetyfirst.interfaces.UpdateProfilePresenter;
 import com.products.safetyfirst.interfaces.UpdateProfileView;
+import com.products.safetyfirst.models.UserModel;
 
 /**
  * Created by vikas on 04/10/17.
@@ -15,7 +18,7 @@ public class UpdateProfilePresenterImpl implements UpdateProfilePresenter, Updat
 
     public UpdateProfilePresenterImpl(UpdateProfileView updateProfileView) {
         this.updateProfileView = updateProfileView;
-        this.updateProfileInteractor = new UpdateProfileInteractorImpl();
+        this.updateProfileInteractor = new UpdateProfileInteractorImpl(this);
     }
 
     @Override
@@ -27,8 +30,23 @@ public class UpdateProfilePresenterImpl implements UpdateProfilePresenter, Updat
     }
 
     @Override
+    public void getProfile(UserModel user) {
+        updateProfileView.setUser(user);
+    }
+
+    @Override
+    public void requestCurrentDetails() {
+        updateProfileInteractor.getProfile();
+    }
+
+    @Override
     public void onDestroy() {
         updateProfileView = null;
+    }
+
+    @Override
+    public void updatePhoto(Uri imagePath) {
+        updateProfileInteractor.changeProfilePic(imagePath, this);
     }
 
     @Override
@@ -83,7 +101,15 @@ public class UpdateProfilePresenterImpl implements UpdateProfilePresenter, Updat
     public void onSuccess() {
         if (updateProfileView != null) {
             updateProfileView.hideProgress();
-            updateProfileView.navigateToHome();
+            updateProfileView.onSuccess();
+        }
+    }
+
+    @Override
+    public void onError() {
+        if (updateProfileView != null) {
+            updateProfileView.hideProgress();
+            updateProfileView.onError();
         }
     }
 }

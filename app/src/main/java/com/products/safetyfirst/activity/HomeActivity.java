@@ -58,12 +58,28 @@ public class HomeActivity extends BaseActivity
     private static final String TAG_FRAGMENT_KNOWIT = "tag_frag_knowit";
     private static final String TAG_FRAGMENT_UPDATE_PROFILE = "tag_fragment_update_profile";
     List<Fragment> fragments = new ArrayList<>(5);
+    Toolbar toolbar;
+    NavigationView navigationView;
+    PrefManager prefManager;
     private FirebaseUser mFirebaseUser;
     private FirebaseAnalytics mFirebaseAnalytics;
     private BottomNavigationView bottomNavigationView;
-    Toolbar toolbar;
 
-    PrefManager prefManager;
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (!isLoggedIn()) {
+            Menu menuNav = navigationView.getMenu();
+            MenuItem nav_item2 = menuNav.findItem(R.id.nav_update_profile);
+            nav_item2.setEnabled(false);
+        } else {
+            Menu menuNav = navigationView.getMenu();
+            MenuItem nav_item2 = menuNav.findItem(R.id.nav_update_profile);
+            nav_item2.setEnabled(true);
+        }
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,7 +104,7 @@ public class HomeActivity extends BaseActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
