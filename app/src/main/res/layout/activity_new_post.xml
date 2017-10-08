@@ -61,11 +61,22 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp" />
 
+            <ImageButton
+                android:id="@+id/pick_img_btn"
+                app:srcCompat="@drawable/ic_chat_black_24dp"
+                android:background="@android:color/transparent"
+                android:layout_width="48dp"
+                android:layout_height="48dp" />
+
         </LinearLayout>
 
     </RelativeLayout>
 
-    <View
+    <Button
+        android:id="@+id/post_btn"
+        android:text="POST"
+        android:textSize="18sp"
+        android:textColor="@color/white"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
