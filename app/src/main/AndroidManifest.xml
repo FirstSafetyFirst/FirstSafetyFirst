@@ -71,7 +71,9 @@
             android:label="@string/title_activity_post_detail"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.ProfileActivity" />
-        <activity android:name=".activity.NewPostActivity"></activity>
+        <activity
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:name=".activity.NewPostActivity"/>
     </application>
 
 </manifest>
