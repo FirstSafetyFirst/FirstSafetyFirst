@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Build;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,8 +15,7 @@ import android.widget.ImageButton;
 
 import com.products.safetyfirst.R;
 
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,17 +81,22 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
 
     void pickImage(){
         if (Build.VERSION.SDK_INT >= 23) {
-            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-
-                Intent getIntent = new Intent(Intent.ACTION_GET_CONTENT);
-                getIntent.setType("image/*");
-
-                startActivityForResult(getIntent, PICK_IMAGE);
-
+            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+                pickImageMain();
             } else {
                 requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_READ);
+                pickImageMain();
             }
+        } else {
+            pickImageMain();
         }
+    }
+
+    void pickImageMain() {
+        Intent getIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        getIntent.setType("image/*");
+
+        startActivityForResult(Intent.createChooser(getIntent, "Select Picture"), PICK_IMAGE);
     }
 
     @Override
@@ -99,9 +104,12 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
         //super.onActivityResult(requestCode, resultCode, data);
         Log.e("Image", "Received");
         if(requestCode == PICK_IMAGE && resultCode == RESULT_OK) {
-            Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
-            images.add(imageBitmap);
+            try {
+                Bitmap imageBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), data.getData());
+                images.add(imageBitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
