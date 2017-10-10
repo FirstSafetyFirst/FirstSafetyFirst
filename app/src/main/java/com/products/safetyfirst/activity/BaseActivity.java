@@ -46,16 +46,13 @@ public class BaseActivity extends AppCompatActivity {
     public String getCurrentUserId() {
         if (FirebaseAuth.getInstance().getCurrentUser() != null)
             return FirebaseAuth.getInstance().getCurrentUser().getUid();
-
         else return null;
     }
 
     public void logout() {
 
         FirebaseAuth.getInstance().signOut();
-
         Toast.makeText(getBaseContext(), "You have been Logged out", Toast.LENGTH_SHORT).show();
-        //startActivity(new Intent(getBaseContext(),SignInActivity.class));
 
     }
 

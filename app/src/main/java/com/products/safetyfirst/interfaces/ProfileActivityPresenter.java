@@ -8,12 +8,16 @@ import com.products.safetyfirst.models.UserModel;
 
 public interface ProfileActivityPresenter {
 
-    void validateFollower(ProfileActivityView profileActivityView, String followerUserId, String FollowedUserId);
+    void addFollower(String currentUserId, String FollowedUserId);
 
     void onDestroy();
 
     void getRequestedUser(UserModel user);
 
     void requestUser(String mProfileKey);
+
+    void onFollowError();
+
+    void onFollowSuccess();
 
 }

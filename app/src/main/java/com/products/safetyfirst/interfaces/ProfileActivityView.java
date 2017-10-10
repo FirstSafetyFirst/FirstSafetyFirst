@@ -20,5 +20,7 @@ public interface ProfileActivityView {
 
     void onSuccess();
 
+    void onFollowSuccess();
+
 
 }

@@ -8,6 +8,7 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -21,7 +22,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,14 +32,15 @@ import com.products.safetyfirst.fragment.ProfileFragment.AnswersFragment;
 import com.products.safetyfirst.fragment.ProfileFragment.ProjectsFragment;
 import com.products.safetyfirst.fragment.ProfileFragment.QuestionsFragment;
 import com.products.safetyfirst.impementations.ProfileActivityPresenterImpl;
-import com.products.safetyfirst.interfaces.ProfileActivityPresenter;
 import com.products.safetyfirst.interfaces.ProfileActivityView;
 import com.products.safetyfirst.models.UserModel;
+
+import java.util.Objects;
 
 public class ProfileActivity extends BaseActivity
         implements ProjectsFragment.OnFragmentInteractionListener,
         AnswersFragment.OnFragmentInteractionListener,
-        QuestionsFragment.OnFragmentInteractionListener, ProfileActivityView {
+        QuestionsFragment.OnFragmentInteractionListener, ProfileActivityView,View.OnClickListener {
 
     public static final String EXTRA_PROFILE_KEY = "post_key";
     private static final String TAG = "ProfileActivity";
@@ -49,9 +50,9 @@ public class ProfileActivity extends BaseActivity
     private TextView mCompany;
     private TextView mDesignation;
     private Button updateBtn;
-    private Switch mFollowSwitch;
+    private Button mFollowSwitch;
     private ImageView mProfileImage;
-    private ProfileActivityPresenter presenter;
+    private ProfileActivityPresenterImpl presenter;
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
 
@@ -75,15 +76,12 @@ public class ProfileActivity extends BaseActivity
         LayoutInflater inflator = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v = inflator.inflate(R.layout.custom_app_bar_profile, root);
 
-        presenter = new ProfileActivityPresenterImpl(this);
-
-
         mUserName       = (TextView) findViewById(R.id.user_name);
         mCompany        = (TextView) findViewById(R.id.company_name);
         mDesignation    = (TextView) findViewById(R.id.user_designation);
         updateBtn = (Button) findViewById(R.id.update);
         mProfileImage = (ImageView) findViewById(R.id.profile_image);
-        mFollowSwitch = (Switch) findViewById(R.id.follow);
+        mFollowSwitch = (Button) findViewById(R.id.follow);
 
 //        Toolbar parent =(Toolbar) v.getParent();
 //        parent.setPadding(0,0,0,0);//for tab otherwise give space in tab
@@ -105,18 +103,21 @@ public class ProfileActivity extends BaseActivity
         }
 
         if (getCurrentUserId() != null) {
-            if (getCurrentUserId() == mProfileKey) {
+            if (Objects.equals(getCurrentUserId(), mProfileKey)) {
                 mFollowSwitch.setVisibility(View.GONE);
                 updateBtn.setVisibility(View.VISIBLE);
             }
         }
 
         if (!isLoggedIn()) {
-            mFollowSwitch.setVisibility(View.GONE);
             updateBtn.setVisibility(View.GONE);
         }
 
+        presenter = new ProfileActivityPresenterImpl(this);
         presenter.requestUser(mProfileKey);
+
+        mFollowSwitch.setOnClickListener(this);
+
 
     }
 
@@ -182,6 +183,12 @@ public class ProfileActivity extends BaseActivity
                         .into(mProfileImage);
             }
 
+            if(user.getFollowing() != null && user.getFollowing().containsKey(getCurrentUserId())){
+                    mFollowSwitch.setText("Unfollow");
+            }else {
+                    mFollowSwitch.setText("Follow");
+            }
+
         } else {
             Toast.makeText(this, "Fetching user info failed", Toast.LENGTH_SHORT).show();
         }
@@ -210,6 +217,25 @@ public class ProfileActivity extends BaseActivity
 
     @Override
     public void onSuccess() {
+
+    }
+
+    @Override
+    public void onFollowSuccess() {
+
+    }
+
+    @Override
+    public void onClick(View view) {
+        int i = view.getId();
+        if (i == R.id.follow) {
+            if (getCurrentUserId() == null) {
+                Snackbar.make( findViewById(R.id.layout), R.string.not_signed_in, Snackbar.LENGTH_SHORT);
+            }
+            else{
+                presenter.addFollower( getCurrentUserId(), mProfileKey);
+            }
+        }
 
     }
 

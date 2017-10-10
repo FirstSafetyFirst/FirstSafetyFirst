@@ -22,14 +22,6 @@ import com.products.safetyfirst.adapters.Discussion_Adapter;
 
 import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link QuestionsFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link QuestionsFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class QuestionsFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
@@ -50,14 +42,6 @@ public class QuestionsFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment QuestionsFragment.
-     */
     // TODO: Rename and change types and number of parameters
     public static QuestionsFragment newInstance(String param1, String param2) {
         QuestionsFragment fragment = new QuestionsFragment();
@@ -139,7 +123,6 @@ public class QuestionsFragment extends Fragment {
     }
 
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }

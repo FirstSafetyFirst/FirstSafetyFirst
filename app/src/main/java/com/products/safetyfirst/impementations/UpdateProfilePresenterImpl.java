@@ -49,6 +49,7 @@ public class UpdateProfilePresenterImpl implements UpdateProfilePresenter, Updat
         updateProfileInteractor.changeProfilePic(imagePath, this);
     }
 
+
     @Override
     public void onUsernameError() {
         if (updateProfileView != null) {

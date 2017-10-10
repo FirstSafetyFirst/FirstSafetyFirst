@@ -20,4 +20,5 @@ public interface UpdateProfilePresenter {
 
     void updatePhoto(Uri imagePath);
 
+
 }

@@ -18,8 +18,7 @@ public class UserModel {
     private String name;
     private int rank;
     private String email;
-    private ArrayList<String> followers;
-    private ArrayList<String> following;
+    private Map<String, Object> following;
     private ArrayList<String> news;
     private ArrayList<String> topics;
     private boolean notGoodUser;
@@ -31,6 +30,7 @@ public class UserModel {
     private String designation;
     private String certificate;
     private long phone;
+    private Map<String, Boolean> posts;
     private String city;
 
     public UserModel(){}
@@ -42,12 +42,10 @@ public class UserModel {
         this.photoUrl   = photoUrl;
     }
 
-    public UserModel(String username, String email, String photoUrl, ArrayList<String> followers,String certificate, ArrayList<String> following, ArrayList<String> news, ArrayList<String> topics){
+    public UserModel(String username, String email, String photoUrl,String certificate, ArrayList<String> news, ArrayList<String> topics){
         this.name = username;
         this.email      = email;
         this.photoUrl   = photoUrl;
-        this.followers  = followers;
-        this.following  = following;
         this.news       = news;
         this.topics     = topics;
         this.certificate = certificate;
@@ -87,20 +85,12 @@ public class UserModel {
         this.email = email;
     }
 
-    public ArrayList<String> getFollowers() {
-        return followers;
-    }
-
-    public void setFollowers(ArrayList<String> followers) {
-        this.followers = followers;
-    }
-
-    public ArrayList<String> getFollowing() {
+    public Map<String, Object> getFollowing() {
         return following;
     }
 
-    public void setFollowing(ArrayList<String> following) {
-        this.following = following;
+    public Map<String, Boolean> getPosts() {
+        return posts;
     }
 
     public ArrayList<String> getNews() {

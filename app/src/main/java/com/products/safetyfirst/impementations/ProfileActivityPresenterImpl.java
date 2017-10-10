@@ -11,20 +11,21 @@ import com.products.safetyfirst.models.UserModel;
 
 public class ProfileActivityPresenterImpl implements ProfileActivityPresenter, ProfileActivityInteractor.OnUpdateFinishedListener {
 
-    ProfileActivityView profileActivityView;
-    ProfileActivityInteractor profileActivityInteractor;
-    String currentUserId, followedUserId;
+    private ProfileActivityView profileActivityView;
+    private ProfileActivityInteractor profileActivityInteractor;
+    private String currentUserId, followedUserId;
 
     public ProfileActivityPresenterImpl(ProfileActivityView profileActivityView) {
         this.profileActivityView = profileActivityView;
+        this.profileActivityInteractor = new ProfileActivityInteractorImpl(this);
     }
 
     @Override
-    public void validateFollower(ProfileActivityView profileActivityView, String currentUserId, String followedUserId) {
+    public void addFollower(String currentUserId, String followedUserId) {
         this.currentUserId = currentUserId;
         this.followedUserId = followedUserId;
-        this.profileActivityView = profileActivityView;
-        this.profileActivityInteractor = new ProfileActivityInteractorImpl(this);
+        profileActivityInteractor.addFollower(currentUserId, followedUserId, this);
+
     }
 
     @Override
@@ -45,6 +46,11 @@ public class ProfileActivityPresenterImpl implements ProfileActivityPresenter, P
     @Override
     public void onFollowError() {
         profileActivityView.onFollowError();
+    }
+
+    @Override
+    public void onFollowSuccess() {
+        profileActivityView.onFollowSuccess();
     }
 
     @Override
