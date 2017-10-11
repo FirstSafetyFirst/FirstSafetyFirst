@@ -145,10 +145,9 @@ public class NewsDetailActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void readMore() {
-        Toast.makeText(NewsDetailActivity.this, url, Toast.LENGTH_SHORT).show();
-        //   Intent intent = new Intent(this, WebViewActivity.class);
-        //  intent.putExtra("Url", url);
-        //  startActivity(intent);
+          Intent intent = new Intent(this, WebViewActivity.class);
+          intent.putExtra("Url", url);
+          startActivity(intent);
     }
 
     @Override

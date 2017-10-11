@@ -79,74 +79,6 @@
                     app:srcCompat="@drawable/ic_turned_in_not_black_24dp" />
             </LinearLayout>
 
-            <RelativeLayout
-                android:id="@+id/menus"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/titles"
-                android:layout_margin="10dp"
-                android:orientation="horizontal"
-                android:visibility="gone">
-
-                <ImageView
-                    android:id="@+id/favicon"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitXY"
-                    android:src="@color/blue" />
-
-                <TextView
-                    android:id="@+id/organizer_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_toRightOf="@+id/favicon"
-                    android:text="TOI"
-                    android:textSize="@dimen/date_time"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/organizer_image"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_toRightOf="@+id/favicon"
-                    android:text="01:00AM"
-                    android:textSize="@dimen/date_time" />
-
-
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:orientation="horizontal"
-                    android:visibility="gone">
-
-                    <android.support.design.widget.CheckableImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="#00000000"
-                        app:srcCompat="@drawable/ic_turned_in_not_black_24dp" />
-
-                    <android.support.design.widget.CheckableImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="#00000000"
-                        app:srcCompat="@drawable/ic_share_black_24dp" />
-
-                    <android.support.design.widget.CheckableImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="#00000000"
-                        app:srcCompat="@drawable/ic_more_vert_black_24dp" />
-                </LinearLayout>
-
-
-            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -156,6 +88,7 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/going"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -166,6 +99,7 @@
                     android:textSize="10sp" />
 
                 <TextView
+                    android:id="@+id/maybe"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -177,6 +111,7 @@
                     android:textSize="10sp" />
 
                 <TextView
+                    android:id="@+id/not_going"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

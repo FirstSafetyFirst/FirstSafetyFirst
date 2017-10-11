@@ -60,7 +60,7 @@
             android:name=".activity.ItemTypeInfoActivity"
             android:label="@string/title_activity_item_type_info"
             android:parentActivityName=".activity.KnowItSecondActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.BaseActivity" />
         <activity android:name=".activity.SignUpActivity" />
         <activity android:name=".activity.SignInActivity" />
@@ -70,6 +70,7 @@
             android:label="@string/title_activity_post_detail"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.ProfileActivity" />
+        <activity android:name=".activity.WebViewActivity"></activity>
     </application>
 
 </manifest>

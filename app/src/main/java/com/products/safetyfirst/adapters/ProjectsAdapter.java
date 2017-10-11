@@ -20,26 +20,26 @@ import java.util.ArrayList;
  * Created by vikas on 05/10/17.
  */
 
-public class AddProjectsAdapter extends RecyclerView.Adapter<AddProjectsAdapter.ViewHolder> implements AddProjectsAdapterView {
+public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.ViewHolder> implements AddProjectsAdapterView {
 
     private final ArrayList<Project_model> mProjectsList = new ArrayList<>();
     private final AddProjectPresenterImpl presenter;
     private Context context;
 
-    public AddProjectsAdapter(Context context) {
+    public ProjectsAdapter(Context context) {
         this.presenter = new AddProjectPresenterImpl(this);
         this.context = context;
     }
 
 
     @Override
-    public AddProjectsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ProjectsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.project_item, parent, false);
         return new ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(AddProjectsAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(ProjectsAdapter.ViewHolder holder, int position) {
 
         Animation animation = AnimationUtils.loadAnimation(context, R.anim.anim_recycler_item_show);
         holder.mView.startAnimation(animation);

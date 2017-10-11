@@ -1,13 +1,20 @@
 package com.products.safetyfirst.models;
 
+import java.util.Map;
+
 /**
  * Created by profileconnect on 24/04/17.
  */
 
 public class Event_model {
 
-    String url,title,desc,favicon_url,organizer;
-    Integer timestamp;
+    private String url,title,desc,favicon_url,organizer;
+    private Object timestamp;
+    private Map<String, Object> action;
+
+    public Event_model(){
+
+    }
 
     public Event_model(String url, String title, String desc, String favicon_url, String organizer) {
         this.url = url;
@@ -57,11 +64,12 @@ public class Event_model {
         this.organizer = organizer;
     }
 
-    public Integer getTimestamp() {
+    public Object getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Integer timestamp) {
-        this.timestamp = timestamp;
+
+    public Map<String, Object> getActions() {
+        return action;
     }
 }

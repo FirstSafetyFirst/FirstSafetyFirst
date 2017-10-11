@@ -27,13 +27,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:background="@color/colorAccent"
-        android:layout_alignParentRight="true" />
     <android.support.v7.widget.RecyclerView
         android:layout_marginLeft="@dimen/activity_vertical_margin"
         android:layout_marginRight="@dimen/activity_vertical_margin"

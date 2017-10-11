@@ -1,6 +1,6 @@
 package com.products.safetyfirst.impementations;
 
-import com.products.safetyfirst.adapters.AddProjectsAdapter;
+import com.products.safetyfirst.adapters.ProjectsAdapter;
 import com.products.safetyfirst.interfaces.AddProjectInteractor;
 import com.products.safetyfirst.interfaces.AddProjectPresenter;
 import com.products.safetyfirst.interfaces.AddProjectView;
@@ -25,8 +25,8 @@ public class AddProjectPresenterImpl implements AddProjectPresenter, AddProjectI
         this.addProjectInteractor = new AddProjectInteractorImpl(this);
     }
 
-    public AddProjectPresenterImpl(AddProjectsAdapter addProjectsAdapter) {
-        this.adapterView = addProjectsAdapter;
+    public AddProjectPresenterImpl(ProjectsAdapter projectsAdapter) {
+        this.adapterView = projectsAdapter;
         this.addProjectInteractor = new AddProjectInteractorImpl(this);
     }
 

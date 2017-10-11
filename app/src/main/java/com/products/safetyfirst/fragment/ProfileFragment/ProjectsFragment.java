@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -19,12 +18,10 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.products.safetyfirst.R;
-import com.products.safetyfirst.adapters.AddProjectsAdapter;
+import com.products.safetyfirst.adapters.ProjectsAdapter;
 import com.products.safetyfirst.impementations.AddProjectPresenterImpl;
 import com.products.safetyfirst.interfaces.AddProjectPresenter;
 import com.products.safetyfirst.interfaces.AddProjectView;
@@ -41,7 +38,7 @@ public class ProjectsFragment extends Fragment implements View.OnClickListener, 
     private Animation rotate_forward, rotate_backward;
 
     private RecyclerView mListOfProjects;
-    private AddProjectsAdapter adapter;
+    private ProjectsAdapter adapter;
 
     private String mProfileKey = null;
 
@@ -78,7 +75,7 @@ public class ProjectsFragment extends Fragment implements View.OnClickListener, 
     }
 
     private void fillUI() {
-        adapter = new AddProjectsAdapter(getContext());
+        adapter = new ProjectsAdapter(getContext());
 
         if(mProfileKey != null){
             adapter.request(mProfileKey);

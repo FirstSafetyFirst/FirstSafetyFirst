@@ -23,7 +23,7 @@ import com.products.safetyfirst.models.News_model;
 
 import java.util.ArrayList;
 
-public class Home_News_Adapter extends RecyclerView.Adapter<Home_News_Adapter.NewsViewholder> {
+public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewholder> {
 
     private final Context context;
     ArrayList<News_model> getNews = new ArrayList<>();
@@ -37,7 +37,7 @@ public class Home_News_Adapter extends RecyclerView.Adapter<Home_News_Adapter.Ne
     private String mLastkey;
     private ProgressBar mpaginateprogbar;
 
-    public Home_News_Adapter(Context cont, Query newsquery,DatabaseReference mDatabase, ProgressBar mpaginateprogbar ) {
+    public NewsAdapter(Context cont, Query newsquery, DatabaseReference mDatabase, ProgressBar mpaginateprogbar ) {
         this.context=cont;
         this.newsquery = newsquery;
         this.mDatabase = mDatabase;

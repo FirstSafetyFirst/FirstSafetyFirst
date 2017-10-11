@@ -1,6 +1,8 @@
 package com.products.safetyfirst.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,43 +10,105 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.widget.ProgressBar;
 
 import com.products.safetyfirst.R;
-import com.products.safetyfirst.adapters.Home_Events_Adapter;
+import com.products.safetyfirst.adapters.EventsAdapter;
+import com.products.safetyfirst.adapters.ProjectsAdapter;
+import com.products.safetyfirst.impementations.AddProjectPresenterImpl;
+import com.products.safetyfirst.impementations.EventsPresenterImpl;
+import com.products.safetyfirst.interfaces.EventsPresenter;
+import com.products.safetyfirst.interfaces.EventsView;
 import com.products.safetyfirst.models.Event_model;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.products.safetyfirst.utils.FirebaseUtils.getCurrentUserId;
+
 /**
  * Created by profileconnect on 20/04/17.
  */
 
-public class Events_Fragment extends Fragment {
+public class Events_Fragment extends Fragment implements EventsView {
     public static final String ARG_TITLE = "arg_title";
-RecyclerView home_recycler;
 
+    private EventsPresenter presenter;
+    private ProgressBar mProgressbar;
+    private RecyclerView recycler;
+    private EventsAdapter adapter;
 
+    public Events_Fragment(){
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {  View rootView = inflater.inflate(R.layout.news_fragment, container, false);
-
-        List<Event_model> data=new ArrayList<>();
-        data.add(new Event_model("Fu-5 things for Monday, April 24,North korea, Trump,Afganistan","vbb","cc","ddd","TOI"));
-        data.add(new Event_model("Fu-5 things for Monday, April 24,North korea, Trump,Afganistan","vbb","cc","ddd","TOI"));
-        data.add(new Event_model("Fu-5 things for Monday, April 24,North korea, Trump,Afganistan","vbb","cc","ddd","TOI"));
-        data.add(new Event_model("Fu-5 things for Monday, April 24,North korea, Trump,Afganistan","vbb","cc","ddd","TOI"));
-        data.add(new Event_model("Fu-5 things for Monday, April 24,North korea, Trump,Afganistan","vbb","cc","ddd","TOI"));
-        data.add(new Event_model("Fu-5 things for Monday, April 24,North korea, Trump,Afganistan","vbb","cc","ddd","TOI"));
-
-        home_recycler=(RecyclerView)rootView.findViewById(R.id.news_recycler);
-        home_recycler.setHasFixedSize(true);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-        home_recycler.setLayoutManager(mLayoutManager);
-        home_recycler.setItemAnimator(new DefaultItemAnimator());
-        home_recycler.setAdapter(new Home_Events_Adapter(getActivity(),data));
-        return rootView;
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        return inflater.inflate(R.layout.news_fragment, container, false);
+
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        createUI(view);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        fillUI();
+    }
+
+    private void fillUI() {
+        adapter = new EventsAdapter(getContext(), getCurrentUserId());
+
+
+            adapter.request();
+
+        recycler.setAdapter(adapter);
+    }
+
+    private void createUI(View view) {
+        recycler = (RecyclerView) view.findViewById(R.id.news_recycler);
+        recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recycler.setHasFixedSize(true);
+        recycler.setItemAnimator(new DefaultItemAnimator());
+
+        mProgressbar = (ProgressBar) view.findViewById(R.id.newspaginateprogbar);
+
+        presenter = new EventsPresenterImpl(this);
+
+    }
+    @Override
+    public void onError(String message) {
+
+    }
+
+    @Override
+    public void onSuccess(String message) {
+
+    }
+
+    @Override
+    public void showProgress() {
+        mProgressbar.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideProgress() {
+        mProgressbar.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void navigateToHome() {
+
+    }
 }

@@ -141,7 +141,7 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         vh2.getNews().setNestedScrollingEnabled(false);
         CustomLinearLayoutManager mLayoutManager = new CustomLinearLayoutManager(ctx,LinearLayoutManager.VERTICAL,false);
         vh2.getNews().setLayoutManager(mLayoutManager);
-        Home_News_Adapter adapter=new Home_News_Adapter(ctx, (Query) data);
+        NewsAdapter adapter=new NewsAdapter(ctx, (Query) data);
         vh2.getNews().setAdapter(adapter);
         adapter.notifyDataSetChanged();*/
 
@@ -169,9 +169,9 @@ public class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         vh3.getEvents().setNestedScrollingEnabled(false);
         CustomLinearLayoutManager mLayoutManager = new CustomLinearLayoutManager(ctx,LinearLayoutManager.VERTICAL,false);
         vh3.getEvents().setLayoutManager(mLayoutManager);
-        Home_Events_Adapter adapter =new Home_Events_Adapter(ctx, data);
-        vh3.getEvents().setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+       // EventsAdapter adapter =new EventsAdapter(ctx, data);
+       // vh3.getEvents().setAdapter(adapter);
+       // adapter.notifyDataSetChanged();
 
 
     }

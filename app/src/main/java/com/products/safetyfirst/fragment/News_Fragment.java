@@ -11,10 +11,9 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.products.safetyfirst.R;
-import com.products.safetyfirst.adapters.Home_News_Adapter;
+import com.products.safetyfirst.adapters.NewsAdapter;
 
 import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
 
@@ -58,7 +57,7 @@ public class News_Fragment extends Fragment {
         news_recycler.setItemAnimator(new DefaultItemAnimator());
 
         Query newsQuery =  mDatabase.child("news").orderByKey().limitToLast(10);
-        news_recycler.setAdapter(new Home_News_Adapter(getActivity(),newsQuery, mDatabase, mpaginateprogbar));
+        news_recycler.setAdapter(new NewsAdapter(getActivity(),newsQuery, mDatabase, mpaginateprogbar));
     }
 
     @Override
