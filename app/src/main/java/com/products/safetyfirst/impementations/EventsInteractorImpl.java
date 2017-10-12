@@ -44,11 +44,13 @@ public class EventsInteractorImpl implements EventsInteractor {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     ArrayList<Event_model> mListOfEvents = new ArrayList<>();
-
+                    ArrayList<String> eventsArrayKey = new ArrayList<>();
                     for (DataSnapshot x : dataSnapshot.getChildren()) {
                         mListOfEvents.add(x.getValue(Event_model.class));
+                        eventsArrayKey.add(x.getKey());
                     }
                     presenter.getChildren(mListOfEvents);
+                    presenter.getKeys(eventsArrayKey);
                 }
 
                 @Override

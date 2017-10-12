@@ -10,7 +10,9 @@ import java.util.ArrayList;
 
 public interface EventsAdapterView {
 
-    void addAll(ArrayList<Event_model> events);
+    void addAllEvents(ArrayList<Event_model> events);
+
+    void addAllKeys(ArrayList<String> keys);
 
     void request();
 

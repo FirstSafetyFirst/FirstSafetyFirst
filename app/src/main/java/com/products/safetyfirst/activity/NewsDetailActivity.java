@@ -16,7 +16,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.products.safetyfirst.R;
@@ -46,8 +45,8 @@ public class NewsDetailActivity extends BaseActivity implements View.OnClickList
         setContentView(R.layout.activity_news_detail);
 
 
-        mBodyView = (JustifiedWebView) findViewById(R.id.news_body);
-        mTitleView = (TextView) findViewById(R.id.news_title);
+        mBodyView = (JustifiedWebView) findViewById(R.id.body);
+        mTitleView = (TextView) findViewById(R.id.title);
         mReadMore = (Button) findViewById(R.id.read_more);
         mShare =(ImageButton) findViewById(R.id.share);
 
@@ -168,4 +167,6 @@ public class NewsDetailActivity extends BaseActivity implements View.OnClickList
 
         }
     }
+
+
 }

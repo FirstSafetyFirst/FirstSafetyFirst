@@ -43,7 +43,7 @@ public class EventsPresenterImpl implements EventsPresenter, EventsInteractor.On
 
     @Override
     public void getChildren(ArrayList<Event_model> events) {
-        eventsAdapterView.addAll(events);
+        eventsAdapterView.addAllEvents(events);
     }
 
     @Override
@@ -66,6 +66,11 @@ public class EventsPresenterImpl implements EventsPresenter, EventsInteractor.On
         if (eventsView != null) {
             eventsView.hideProgress();
         }
+    }
+
+    @Override
+    public void getKeys(ArrayList<String> eventsArrayKey) {
+        eventsAdapterView.addAllKeys(eventsArrayKey);
     }
 
     @Override

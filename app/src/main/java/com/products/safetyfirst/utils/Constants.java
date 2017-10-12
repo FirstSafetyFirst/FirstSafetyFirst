@@ -11,8 +11,7 @@ public class Constants {
     public static final String FIREBASE_URL_USERS = FIREBASE_URL + "/" + FIREBASE_LOCATION_USERS;
     public static final String FIREBASE_PROPERTY_TIMESTAMP = "timestamp";
     public static String SHARE_CONTENT = "Download from playstore:\n";
-    public static  int GOING = 2;
-    public static int INTERESTED = 1;
-    public static  int NOT_GOING = 0;
+    public static  int GOING = 1;
+    public static  int INTERESTED = 0;
 
 }

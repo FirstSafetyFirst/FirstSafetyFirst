@@ -13,7 +13,7 @@
 
 
     <TextView
-        android:id="@+id/news_title"
+        android:id="@+id/title"
         style="@style/Base.TextAppearance.AppCompat.Medium"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
@@ -28,7 +28,7 @@
         />
 
     <com.products.safetyfirst.utils.JustifiedWebView
-        android:id="@+id/news_body"
+        android:id="@+id/body"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/activity_vertical_margin"

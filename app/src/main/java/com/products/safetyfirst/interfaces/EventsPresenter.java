@@ -21,4 +21,6 @@ public interface EventsPresenter {
     void onActionError(String message);
 
     void onActionSuccess(String message);
+
+    void getKeys(ArrayList<String> eventsArrayKey);
 }

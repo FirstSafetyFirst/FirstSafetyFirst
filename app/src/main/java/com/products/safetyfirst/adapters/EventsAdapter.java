@@ -1,6 +1,7 @@
 package com.products.safetyfirst.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
@@ -8,10 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.products.safetyfirst.R;
+import com.products.safetyfirst.activity.EventsDetailActivity;
+import com.products.safetyfirst.activity.NewsDetailActivity;
 import com.products.safetyfirst.impementations.EventsPresenterImpl;
 import com.products.safetyfirst.interfaces.EventsAdapterView;
 import com.products.safetyfirst.interfaces.EventsPresenter;
@@ -26,6 +30,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
 
     private final ArrayList<Event_model> mEventsList = new ArrayList<>();
+    private final ArrayList<String> mKeysList = new ArrayList<>();
     private final EventsPresenter presenter;
     private Context context;
     private String mUserId;
@@ -59,28 +64,34 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
                     (long) event.getTimestamp()).toString());
         }
 
+
+
         if(event.getActions() != null && event.getActions().containsKey(mUserId)){
             switch (String.valueOf(event.getActions().get(mUserId))){
+                case "1": //going
+                    holder.going.setText("Maybe you will go");
+                    break;
                 case "0": //not going
-                    holder.going.setText("You are going");
-                    break;
-
-                case "1": //maybe
-                    holder.maybe.setText("Maybe you will go");
-                    break;
-                case "2": //going
                     holder.notGoing.setText("You are not going");
                     break;
                 default:
                     holder.going.setText("Going");
-                    holder.maybe.setText("Maybe");
                     holder.notGoing.setText("Not Going");
                     break;
             }
         }
 
+        holder.details.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, EventsDetailActivity.class);
+                intent.putExtra(EventsDetailActivity.EXTRA_EVENT_KEY, mKeysList.get(position));
+                context.startActivity(intent);
 
-       // holder.bookmark.setImageDrawable();
+            }
+        });
+
+
     }
 
     @Override
@@ -89,10 +100,16 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
     }
 
     @Override
-    public void addAll(ArrayList<Event_model> events) {
+    public void addAllEvents(ArrayList<Event_model> events) {
         mEventsList.clear();
         mEventsList.addAll(events);
         notifyDataSetChanged();
+    }
+
+    @Override
+    public void addAllKeys(ArrayList<String> keys) {
+        mKeysList.clear();
+        mKeysList.addAll(keys);
     }
 
     @Override
@@ -108,8 +125,8 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         public TextView dateTime;
         public ImageView bookmark;
         public TextView going;
-        public TextView maybe;
         public TextView notGoing;
+        public Button details;
 
 
         public ViewHolder(View view) {
@@ -122,8 +139,8 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
             bookmark = (ImageView) view.findViewById(R.id.bookmark);
 
             going = (TextView) view.findViewById(R.id.going);
-            maybe = (TextView) view.findViewById(R.id.maybe);
-            notGoing = (TextView) view.findViewById(R.id.not_going);
+
+            details = (Button) view.findViewById(R.id.view_details);
 
         }
     }
