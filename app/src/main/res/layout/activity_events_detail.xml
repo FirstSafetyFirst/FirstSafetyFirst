@@ -72,12 +72,11 @@
     <android.support.v7.widget.ButtonBarLayout
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
-        android:layout_gravity="bottom"
-        android:background="@color/colorAccent">
+        android:layout_gravity="bottom">
         <ImageButton
             android:id="@+id/bookmark"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="0.5"
             android:background="@color/colorAccent"
@@ -87,7 +86,7 @@
         <ImageButton
             android:id="@+id/share"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
             android:layout_weight="0.5"
             android:background="@color/colorAccent"

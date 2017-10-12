@@ -91,9 +91,11 @@ public class HomeActivity extends BaseActivity
 
 
         prefManager = new PrefManager(this);
-        if (prefManager.isFirstTimeLaunch()) {
+        if (prefManager.isFirstHomeLaunch()) {
             showTutorial();
         }
+
+        prefManager.setFirstHomeLaunch(false);
 
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
@@ -341,7 +343,7 @@ public class HomeActivity extends BaseActivity
                         // This tap target will target our droid buddy at the given target rect
                         TapTarget.forBounds(droidTarget, "Oh look!", "You can point to any part of the screen. You also can't cancel this one!")
                                 .cancelable(false)
-                                .icon(droid)
+                               // .icon(droid)
                                 .id(4)
                 )
                 .listener(new TapTargetSequence.Listener() {
