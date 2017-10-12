@@ -48,9 +48,21 @@ public class EventsDetailPresenterImpl implements EventsDetailPresenter, EventsD
     }
 
     @Override
+    public void onActionError(String message) {
+        if(eventDetailView!=null)
+            eventDetailView.onError(message);
+    }
+
+    @Override
+    public void onActionSuccess() {
+        if(eventDetailView!=null)
+            eventDetailView.onSuccess();
+    }
+
+    @Override
     public void onError(String message) {
         if(eventDetailView!=null)
-            eventDetailView.onError();
+            eventDetailView.onError(message);
     }
 
     @Override

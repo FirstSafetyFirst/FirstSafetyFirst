@@ -66,17 +66,17 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
 
 
 
-        if(event.getActions() != null && event.getActions().containsKey(mUserId)){
-            switch (String.valueOf(event.getActions().get(mUserId))){
+        if(event.action != null && event.action.containsKey(mUserId)){
+            switch (String.valueOf(event.action.get(mUserId))){
                 case "1": //going
                     holder.going.setText("Maybe you will go");
                     break;
                 case "0": //not going
-                    holder.notGoing.setText("You are not going");
+                    holder.maybe.setText("You are not going");
                     break;
                 default:
                     holder.going.setText("Going");
-                    holder.notGoing.setText("Not Going");
+                    holder.maybe.setText("Not Going");
                     break;
             }
         }
@@ -125,7 +125,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         public TextView dateTime;
         public ImageView bookmark;
         public TextView going;
-        public TextView notGoing;
+        public TextView maybe;
         public Button details;
 
 
@@ -139,7 +139,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
             bookmark = (ImageView) view.findViewById(R.id.bookmark);
 
             going = (TextView) view.findViewById(R.id.going);
-
+            maybe = (TextView) view.findViewById(R.id.interested);
             details = (Button) view.findViewById(R.id.view_details);
 
         }

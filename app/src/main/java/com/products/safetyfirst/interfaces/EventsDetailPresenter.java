@@ -18,4 +18,8 @@ public interface EventsDetailPresenter {
     void setBookMark(String mEventKey);
 
     void setAction(int action);
+
+    void onActionError(String message);
+
+    void  onActionSuccess();
 }

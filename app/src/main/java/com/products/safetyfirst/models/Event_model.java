@@ -10,7 +10,8 @@ public class Event_model {
 
     private String url,title,desc,favicon_url,organizer;
     private Object timestamp;
-    private Map<String, Object> action;
+    public Map<String, Object> action;
+    public Map<String, Object> bookmarks;
 
     public Event_model(){
 
@@ -68,8 +69,4 @@ public class Event_model {
         return timestamp;
     }
 
-
-    public Map<String, Object> getActions() {
-        return action;
-    }
 }

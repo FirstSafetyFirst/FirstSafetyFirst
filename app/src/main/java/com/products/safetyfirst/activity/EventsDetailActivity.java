@@ -1,16 +1,19 @@
 package com.products.safetyfirst.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.products.safetyfirst.R;
@@ -141,16 +144,63 @@ public class EventsDetailActivity extends BaseActivity implements View.OnClickLi
        if(event.getTitle() != null) mTitleView.setText(event.getTitle());
        if(event.getDesc() != null ) mBodyView.setText(event.getDesc());
        if(event.getUrl() != null ) Glide.with(getApplicationContext()).load(event.getUrl()).fitCenter().into(image_scrolling_top);
+
+        if(event.bookmarks != null){
+            if(event.bookmarks.containsKey(getCurrentUserId()))
+                mBookmark.setImageResource(R.drawable.ic_bookmark_black_24dp);
+
+            else
+                mBookmark.setImageResource(R.drawable.ic_bookmark_border_black_24dp);
+        }
+
+
+        if(event.action != null){
+            if (event.action.containsKey(getCurrentUserId())) {
+
+                long a = (long) event.action.get(getCurrentUserId());
+
+                if(a==1){
+                    fab.setImageResource(R.drawable.ic_event_available_black_24dp);
+                    fab.setColorFilter(Color.argb(255, 255, 127, 80));
+
+                    fab1.setImageResource(R.drawable.ic_check_box_outline_blank_black_24dp);
+                    fab1.setColorFilter(Color.argb(255, 255, 255, 255));
+                }
+
+                if(a==0){
+                    fab.setImageResource(R.drawable.ic_today_black_24dp);
+                    fab.setColorFilter(Color.argb(255, 255, 255, 255));
+
+                    fab1.setImageResource(R.drawable.ic_event_black_24dp);
+                    fab1.setColorFilter(Color.argb(255, 255, 127, 80));
+                }
+
+
+            } else {
+                fab.setImageResource(R.drawable.ic_today_black_24dp);
+                fab1.setImageResource(R.drawable.ic_check_box_outline_blank_black_24dp);
+
+                fab.setColorFilter(Color.argb(255, 255, 255, 255));
+                fab1.setColorFilter(Color.argb(255, 255, 255, 255));
+            }
+        }else{
+            fab.setImageResource(R.drawable.ic_today_black_24dp);
+            fab1.setImageResource(R.drawable.ic_check_box_outline_blank_black_24dp);
+
+            fab.setColorFilter(Color.argb(255, 255, 255, 255));
+            fab1.setColorFilter(Color.argb(255, 255, 255, 255));
+        }
+
     }
 
     @Override
-    public void onError() {
-
+    public void onError(String string) {
+        //Toast.makeText(this, string, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onSuccess() {
-
+        //Toast.makeText(this, "Going", Toast.LENGTH_SHORT).show();
     }
 
     @Override

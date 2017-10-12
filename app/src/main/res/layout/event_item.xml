@@ -100,6 +100,7 @@
                     android:layout_weight="1"
                     android:drawableTop="@drawable/ic_event_available_black_24dp"
                     android:gravity="center"
+                    android:visibility="invisible"
                     android:text="Going"
                     android:textSize="10sp" />
 
@@ -112,6 +113,7 @@
                     android:layout_weight="1"
                     android:drawableTop="@drawable/ic_event_black_24dp"
                     android:gravity="center"
+                    android:visibility="invisible"
                     android:text="Maybe"
                     android:textSize="10sp" />
                 <Button

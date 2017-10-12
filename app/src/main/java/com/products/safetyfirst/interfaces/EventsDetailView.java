@@ -17,7 +17,7 @@ public interface EventsDetailView {
 
     void setEvent(Event_model event);
 
-    void onError();
+    void onError(String message);
 
     void onSuccess();
 }
