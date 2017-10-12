@@ -8,10 +8,17 @@ import android.os.Build;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.products.safetyfirst.R;
 
@@ -30,13 +37,17 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
     private ImageButton underlineBtn;
     private ImageButton pickImgBtn;
     private Button createPostBtn;
+    private RecyclerView imgView;
+
+    /* Recycler view Adapter */
+    private ImageAdapter imgAdapter;
 
     /* Constants */
     private static final int PICK_IMAGE = 233;
     private static final int REQUEST_READ = 12;
 
     /* Variables used */
-    private List<Bitmap> images = new ArrayList<>();
+    private List<Bitmap> imageList = new ArrayList<>();
 
 
     @Override
@@ -50,8 +61,10 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
         underlineBtn = (ImageButton) findViewById(R.id.underline_btn);
         pickImgBtn = (ImageButton) findViewById(R.id.pick_img_btn);
         createPostBtn = (Button) findViewById(R.id.post_btn);
+        imgView = (RecyclerView) findViewById(R.id.images_list_view);
 
         initEditor();
+        initImgRecycler();
     }
 
     void initEditor() {
@@ -66,6 +79,15 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
         createPostBtn.setOnClickListener(this);
     }
 
+    void initImgRecycler() {
+        imgAdapter = new ImageAdapter(imageList);
+        // RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 4);
+        imgView.setLayoutManager(mLayoutManager);
+        imgView.setItemAnimator(new DefaultItemAnimator());
+        imgView.setAdapter(imgAdapter);
+    }
+
     @Override
     public void onClick(View view) {
         int id = view.getId();
@@ -75,7 +97,6 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.italic_btn: editor.setItalic(); break;
             case R.id.underline_btn: editor.setUnderline(); break;
             case R.id.pick_img_btn: pickImage(); break;
-            //case R.id.post_btn: createPost(); break;
         }
     }
 
@@ -106,9 +127,45 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
         if(requestCode == PICK_IMAGE && resultCode == RESULT_OK) {
             try {
                 Bitmap imageBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), data.getData());
-                images.add(imageBitmap);
+                imageList.add(imageBitmap);
+                imgAdapter.notifyDataSetChanged();
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+        }
+    }
+
+    private class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHolder> {
+
+        private List<Bitmap> thumbList;
+
+        public ImageAdapter(List<Bitmap> thumbList) {
+            this.thumbList = thumbList;
+        }
+
+        @Override
+        public ImageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.new_post_image_thumb, parent, false);
+            return new ImageViewHolder(itemView);
+        }
+
+        @Override
+        public void onBindViewHolder(ImageViewHolder holder, int position) {
+            Bitmap thumb = thumbList.get(position);
+            holder.thumbImg.setImageBitmap(thumb);
+        }
+
+        @Override
+        public int getItemCount() {
+            return thumbList.size();
+        }
+
+        public class ImageViewHolder extends RecyclerView.ViewHolder {
+
+            private ImageView thumbImg;
+            private ImageViewHolder(View itemView) {
+                super(itemView);
+                thumbImg = (ImageView) itemView.findViewById(R.id.new_post_img);
             }
         }
     }
