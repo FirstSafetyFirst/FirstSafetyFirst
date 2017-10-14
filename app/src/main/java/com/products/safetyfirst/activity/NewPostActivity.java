@@ -6,12 +6,10 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.provider.MediaStore;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -113,6 +111,7 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.italic_btn: editor.setItalic(); break;
             case R.id.underline_btn: editor.setUnderline(); break;
             case R.id.pick_img_btn: pickImage(); break;
+            case R.id.post_btn: createNewPost(); break;
         }
     }
 
@@ -148,6 +147,19 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    public void createNewPost() {
+        if(!titleText.getText().toString().trim().equals("") && !editor.getHtml().trim().equals("")) {
+            final String postKey = postHelper.createPostKey();
+            List<String> imageUrls = new ArrayList<>();
+            postHelper.createImageUrls(postKey, imageList, imageUrls, 0, new PostHelper.FinalCallback() {
+                @Override
+                public void onComplete(List<String> imageList) {
+                    postHelper.createNewPost(postKey, titleText.getText().toString(), editor.getHtml(), null, imageList);
+                }
+            });
         }
     }
 
