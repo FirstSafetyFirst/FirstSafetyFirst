@@ -3,6 +3,7 @@
     package="com.products.safetyfirst">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <!--
@@ -70,8 +71,13 @@
             android:label="@string/title_activity_post_detail"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.ProfileActivity" />
+
         <activity android:name=".activity.WebViewActivity" />
         <activity android:name=".activity.EventsDetailActivity"></activity>
+        <activity
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:name=".activity.NewPostActivity"/>
+
     </application>
 
 </manifest>
