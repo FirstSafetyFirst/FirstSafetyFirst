@@ -1,7 +1,11 @@
 package com.products.safetyfirst.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.ShareCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,7 +18,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.products.safetyfirst.R;
+import com.products.safetyfirst.activity.NewPostActivity;
 import com.products.safetyfirst.adapters.Discussion_Adapter;
+import com.products.safetyfirst.modelhelper.UserHelper;
 
 import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
 
@@ -28,6 +34,9 @@ public class Discussion_Fragment extends Fragment {
 
     private DatabaseReference mDatabase;
     private ProgressBar mpaginateprogbar;
+    private FloatingActionButton mFab;
+
+    private UserHelper user;
 
     public Discussion_Fragment(){}
 
@@ -39,10 +48,13 @@ public class Discussion_Fragment extends Fragment {
 
         mDatabase = getDatabase().getReference();
         mpaginateprogbar=(ProgressBar) rootView.findViewById(R.id.newspaginateprogbar);
+        mFab = (FloatingActionButton) rootView.findViewById(R.id.new_post);
 
 
         home_recycler=(RecyclerView)rootView.findViewById(R.id.discussion_recycler);
         home_recycler.setHasFixedSize(true);
+
+        user = new UserHelper();
         return rootView;
     }
 
@@ -59,6 +71,18 @@ public class Discussion_Fragment extends Fragment {
 
         Query postQuery =  mDatabase.child("posts").orderByKey().limitToLast(10);
         home_recycler.setAdapter(new Discussion_Adapter(getActivity(),postQuery, mDatabase, mpaginateprogbar));
+
+        mFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+            if(user.isSignedIn()) {
+                Intent intent = new Intent(getContext(), NewPostActivity.class);
+                startActivity(intent);
+            } else {
+                Snackbar.make(getView(), "Sign In first", Snackbar.LENGTH_LONG).show();
+            }
+            }
+        });
     }
 
     @Override

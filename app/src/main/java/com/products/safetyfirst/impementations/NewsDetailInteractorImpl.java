@@ -2,8 +2,7 @@ package com.products.safetyfirst.impementations;
 
 import android.util.Log;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -13,6 +12,7 @@ import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 import com.products.safetyfirst.interfaces.NewsDetailInteractor;
 import com.products.safetyfirst.interfaces.NewsDetailPresenter;
+import com.products.safetyfirst.modelhelper.UserHelper;
 import com.products.safetyfirst.models.News_model;
 import com.products.safetyfirst.models.UserModel;
 
@@ -25,9 +25,11 @@ import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
 public class NewsDetailInteractorImpl implements NewsDetailInteractor {
 
     private NewsDetailPresenter newsDetailPresenter;
+    private UserHelper user;
 
     public NewsDetailInteractorImpl(NewsDetailPresenterImpl newsDetailPresenter) {
         this.newsDetailPresenter = newsDetailPresenter;
+        this.user = new UserHelper();
     }
 
     @Override
@@ -56,17 +58,12 @@ public class NewsDetailInteractorImpl implements NewsDetailInteractor {
     @Override
     public void setBookMark(String mNewsKey) {
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String mProfileKey = null;
-
-        if (user != null) {
-            mProfileKey = user.getUid();
-
+        if (user.isSignedIn()) {
             DatabaseReference newsRef = getDatabase().getReference()
                     .child("news").child(mNewsKey);
             DatabaseReference userRef = getDatabase().getReference()
-                    .child("users").child(mProfileKey);
-            addBookmarkToNews(newsRef, mProfileKey);
+                    .child("users").child(user.getUserId());
+            addBookmarkToNews(newsRef, user.getUserId());
             addBookMarkToUser(userRef, mNewsKey);
         }
 

@@ -2,6 +2,7 @@ package com.products.safetyfirst.models;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -25,15 +26,14 @@ public class Discussion_model {
     private String image;
     private String file;
     private String link;
-    private ArrayList<String> imageList;     // For Multiple Image Upload
+    private List<String> imageList;     // For Multiple Image Upload
 
     public Discussion_model() {
     }
 
-    public Discussion_model(String uid, String title, String authorImageUrl, String favicon, String body, Integer timestamp, String file, ArrayList<String> imageList) {
+    public Discussion_model(String uid, String title, String authorImageUrl, String body, Integer timestamp, String file, List<String> imageList) {
         this.title = title;
         this.authorImageUrl = authorImageUrl;
-        this.favicon = favicon;
         this.body = body;
         this.imageList = imageList;
         this.file = file;
@@ -113,7 +113,7 @@ public class Discussion_model {
         this.link = link;
     }
 
-    public ArrayList<String> getImageList() {
+    public List<String> getImageList() {
         return imageList;
     }
 
