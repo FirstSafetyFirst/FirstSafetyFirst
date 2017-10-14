@@ -27,11 +27,18 @@
         android:layout_marginRight="12dp"
         android:layout_marginLeft="12dp">
 
+        <EditText
+            android:id="@+id/new_post_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Title of post"/>
+
         <jp.wasabeef.richeditor.RichEditor
             android:id="@+id/new_post_edit"
             android:layout_margin="12dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_below="@id/new_post_title"/>
 
         <LinearLayout
             android:layout_width="wrap_content"

@@ -17,10 +17,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.products.safetyfirst.R;
+import com.products.safetyfirst.modelhelper.PostHelper;
+import com.products.safetyfirst.modelhelper.UserHelper;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,6 +41,7 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
     private ImageButton pickImgBtn;
     private Button createPostBtn;
     private RecyclerView imgView;
+    private EditText titleText;
 
     /* Recycler view Adapter */
     private ImageAdapter imgAdapter;
@@ -49,11 +53,18 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
     /* Variables used */
     private List<Bitmap> imageList = new ArrayList<>();
 
+    /* Helper class instances */
+    private UserHelper user;
+    private PostHelper postHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_post);
+        /* CHeck for sign in */
+        if(!user.isSignedIn()) {
+            /*Todo: show error and return */
+        }
 
         editor = (RichEditor) findViewById(R.id.new_post_edit);
         boldBtn = (ImageButton) findViewById(R.id.bold_btn);
@@ -62,6 +73,10 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
         pickImgBtn = (ImageButton) findViewById(R.id.pick_img_btn);
         createPostBtn = (Button) findViewById(R.id.post_btn);
         imgView = (RecyclerView) findViewById(R.id.images_list_view);
+        titleText = (EditText) findViewById(R.id.new_post_title);
+
+        user = new UserHelper();
+        postHelper = new PostHelper();
 
         initEditor();
         initImgRecycler();
