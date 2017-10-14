@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1094015384943-l6fide0ii03g90jel2ij26987802t0l4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.products.safetyfirst",
+            "certificate_hash": "b73c9e4a3b70a231e32e608d46c67c91288ac661"
+          }
+        },
+        {
           "client_id": "1094015384943-08nomvoej2h601e02q2rbu02c8ab645m.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -27,6 +35,50 @@
           "client_type": 1,
           "android_info": {
             "package_name": "com.products.safetyfirst",
+            "certificate_hash": "862cd96c3bb736f5bfbb53faec5ff0525a7dd9d4"
+          }
+        },
+        {
+          "client_id": "1094015384943-svbch91u0kv5u1d3i6avdagh5d667u6g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-JEjyx_qAWCA7gxiTu8GLJMG5AC4hvKg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1094015384943-svbch91u0kv5u1d3i6avdagh5d667u6g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1094015384943:android:4c85419890a90207",
+        "android_client_info": {
+          "package_name": "com.primum.salutem.safetyfirstbackend"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1094015384943-7ahej3l4delbhbkv8gpkmamqj8ggu113.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.primum.salutem.safetyfirstbackend",
             "certificate_hash": "862cd96c3bb736f5bfbb53faec5ff0525a7dd9d4"
           }
         },

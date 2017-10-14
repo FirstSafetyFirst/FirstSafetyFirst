@@ -197,7 +197,7 @@ public class HomeActivity extends BaseActivity
                                 default:
                                     break;
                             }
-                           // Toast.makeText(HomeActivity.this, item + " " + key , Toast.LENGTH_SHORT).show();
+
                         } else {
                             Log.d("HomeActivity", "getDynamicLink: no link found");
                         }
