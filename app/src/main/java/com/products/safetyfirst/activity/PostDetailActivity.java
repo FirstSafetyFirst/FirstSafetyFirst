@@ -112,7 +112,7 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
     private LinearLayoutManager mManager;
 
     private LinearLayoutManager mImageManager;
-    private ArrayList<String> imageList;
+    private List<String> imageList;
     private RecyclerView mImageRecycler;
     public ImageView rightArrow;
     public ImageView leftArrow;
@@ -937,9 +937,9 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
     private class ImagesAdapter extends RecyclerView.Adapter<ImageViewHolder> {
 
         private Context mContext;
-        private ArrayList<String> imageList;
+        private List<String> imageList;
 
-        public ImagesAdapter(final Context context, ArrayList<String> imageList) {
+        public ImagesAdapter(final Context context, List<String> imageList) {
             mContext = context;
             this.imageList = imageList;
         }

@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.provider.MediaStore;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -63,7 +64,7 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_new_post);
         /* CHeck for sign in */
         if(!user.isSignedIn()) {
-            /*Todo: show error and return */
+            finish();
         }
 
         editor = (RichEditor) findViewById(R.id.new_post_edit);
