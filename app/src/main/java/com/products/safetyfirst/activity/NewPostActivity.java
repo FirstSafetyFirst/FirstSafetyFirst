@@ -60,6 +60,10 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_post);
+
+        user = new UserHelper();
+        postHelper = new PostHelper();
+
         /* CHeck for sign in */
         if(!user.isSignedIn()) {
             finish();
@@ -74,8 +78,7 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
         imgView = (RecyclerView) findViewById(R.id.images_list_view);
         titleText = (EditText) findViewById(R.id.new_post_title);
 
-        user = new UserHelper();
-        postHelper = new PostHelper();
+
 
         initEditor();
         initImgRecycler();

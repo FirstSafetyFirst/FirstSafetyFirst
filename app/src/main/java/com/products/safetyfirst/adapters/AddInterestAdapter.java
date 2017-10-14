@@ -12,8 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.products.safetyfirst.R;
-import com.products.safetyfirst.impementations.AddInterestPresenterImpl;
-import com.products.safetyfirst.interfaces.AddInterestAdapterView;
+import com.products.safetyfirst.impementations.presenter.AddInterestPresenterImpl;
+import com.products.safetyfirst.interfaces.adapter.AddInterestAdapterView;
 import com.products.safetyfirst.models.Interest_model;
 
 import java.util.ArrayList;

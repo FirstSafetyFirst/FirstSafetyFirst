@@ -15,10 +15,9 @@ import android.widget.TextView;
 
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.activity.EventsDetailActivity;
-import com.products.safetyfirst.activity.NewsDetailActivity;
-import com.products.safetyfirst.impementations.EventsPresenterImpl;
-import com.products.safetyfirst.interfaces.EventsAdapterView;
-import com.products.safetyfirst.interfaces.EventsPresenter;
+import com.products.safetyfirst.impementations.presenter.EventsPresenterImpl;
+import com.products.safetyfirst.interfaces.adapter.EventsAdapterView;
+import com.products.safetyfirst.interfaces.presenter.EventsPresenter;
 import com.products.safetyfirst.models.Event_model;
 import java.util.ArrayList;
 

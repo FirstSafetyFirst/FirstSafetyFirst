@@ -22,9 +22,9 @@ import android.widget.ProgressBar;
 
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.adapters.ProjectsAdapter;
-import com.products.safetyfirst.impementations.AddProjectPresenterImpl;
-import com.products.safetyfirst.interfaces.AddProjectPresenter;
-import com.products.safetyfirst.interfaces.AddProjectView;
+import com.products.safetyfirst.impementations.presenter.AddProjectPresenterImpl;
+import com.products.safetyfirst.interfaces.presenter.AddProjectPresenter;
+import com.products.safetyfirst.interfaces.view.AddProjectView;
 
 import static com.products.safetyfirst.utils.FirebaseUtils.getCurrentUserId;
 

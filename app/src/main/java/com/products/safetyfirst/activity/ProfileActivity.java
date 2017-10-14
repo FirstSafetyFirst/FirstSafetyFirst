@@ -31,8 +31,8 @@ import com.products.safetyfirst.customview.CircleTransform;
 import com.products.safetyfirst.fragment.ProfileFragment.AnswersFragment;
 import com.products.safetyfirst.fragment.ProfileFragment.ProjectsFragment;
 import com.products.safetyfirst.fragment.ProfileFragment.QuestionsFragment;
-import com.products.safetyfirst.impementations.ProfileActivityPresenterImpl;
-import com.products.safetyfirst.interfaces.ProfileActivityView;
+import com.products.safetyfirst.impementations.presenter.ProfileActivityPresenterImpl;
+import com.products.safetyfirst.interfaces.view.ProfileActivityView;
 import com.products.safetyfirst.models.UserModel;
 
 import java.util.Objects;

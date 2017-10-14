@@ -29,9 +29,9 @@ import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseUser;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.customview.CircleTransform;
-import com.products.safetyfirst.impementations.UpdateProfilePresenterImpl;
-import com.products.safetyfirst.interfaces.UpdateProfilePresenter;
-import com.products.safetyfirst.interfaces.UpdateProfileView;
+import com.products.safetyfirst.impementations.presenter.UpdateProfilePresenterImpl;
+import com.products.safetyfirst.interfaces.presenter.UpdateProfilePresenter;
+import com.products.safetyfirst.interfaces.view.UpdateProfileView;
 import com.products.safetyfirst.models.UserModel;
 
 import java.io.ByteArrayOutputStream;

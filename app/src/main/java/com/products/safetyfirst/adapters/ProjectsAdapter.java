@@ -10,8 +10,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import com.products.safetyfirst.R;
-import com.products.safetyfirst.impementations.AddProjectPresenterImpl;
-import com.products.safetyfirst.interfaces.AddProjectsAdapterView;
+import com.products.safetyfirst.impementations.presenter.AddProjectPresenterImpl;
+import com.products.safetyfirst.interfaces.adapter.AddProjectsAdapterView;
 import com.products.safetyfirst.models.Project_model;
 
 import java.util.ArrayList;

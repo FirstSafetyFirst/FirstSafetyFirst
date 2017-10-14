@@ -2,7 +2,6 @@ package com.products.safetyfirst.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,20 +9,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.widget.ProgressBar;
 
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.adapters.EventsAdapter;
-import com.products.safetyfirst.adapters.ProjectsAdapter;
-import com.products.safetyfirst.impementations.AddProjectPresenterImpl;
-import com.products.safetyfirst.impementations.EventsPresenterImpl;
-import com.products.safetyfirst.interfaces.EventsPresenter;
-import com.products.safetyfirst.interfaces.EventsView;
-import com.products.safetyfirst.models.Event_model;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.products.safetyfirst.impementations.presenter.EventsPresenterImpl;
+import com.products.safetyfirst.interfaces.presenter.EventsPresenter;
+import com.products.safetyfirst.interfaces.view.EventsView;
 
 import static com.products.safetyfirst.utils.FirebaseUtils.getCurrentUserId;
 

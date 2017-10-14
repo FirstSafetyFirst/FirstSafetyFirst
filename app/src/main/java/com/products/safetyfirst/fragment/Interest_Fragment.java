@@ -14,9 +14,9 @@ import android.widget.Button;
 
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.adapters.AddInterestAdapter;
-import com.products.safetyfirst.impementations.AddInterestPresenterImpl;
-import com.products.safetyfirst.interfaces.AddInterestPresenter;
-import com.products.safetyfirst.interfaces.AddInterestView;
+import com.products.safetyfirst.impementations.presenter.AddInterestPresenterImpl;
+import com.products.safetyfirst.interfaces.presenter.AddInterestPresenter;
+import com.products.safetyfirst.interfaces.view.AddInterestView;
 
 /**
  * A simple {@link Fragment} subclass.
