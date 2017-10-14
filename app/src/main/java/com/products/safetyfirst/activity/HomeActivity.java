@@ -9,8 +9,10 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.VisibleForTesting;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
@@ -33,9 +35,17 @@ import android.widget.Toast;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 import com.getkeepsafe.taptargetview.TapTargetView;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.dynamiclinks.DynamicLink;
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
+import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
+import com.google.firebase.dynamiclinks.ShortDynamicLink;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.fragment.Discussion_Fragment;
 import com.products.safetyfirst.fragment.KnowIt_Fragment;
@@ -43,6 +53,7 @@ import com.products.safetyfirst.fragment.Laws_Fragment;
 import com.products.safetyfirst.fragment.News_Events_Fragment;
 import com.products.safetyfirst.fragment.ProfileFragment.ProjectsFragment;
 import com.products.safetyfirst.fragment.UpdateProfileFragment;
+import com.products.safetyfirst.utils.Constants;
 import com.products.safetyfirst.utils.PrefManager;
 
 import java.util.ArrayList;
@@ -57,6 +68,9 @@ public class HomeActivity extends BaseActivity
     private static final String TAG_FRAGMENT_LAWS = "tag_frag_laws";
     private static final String TAG_FRAGMENT_KNOWIT = "tag_frag_knowit";
     private static final String TAG_FRAGMENT_UPDATE_PROFILE = "tag_fragment_update_profile";
+
+    private static final String DEEP_LINK_URL = Constants.DEEP_LINK_URL;
+
     List<Fragment> fragments = new ArrayList<>(5);
     Toolbar toolbar;
     NavigationView navigationView;
@@ -70,10 +84,18 @@ public class HomeActivity extends BaseActivity
         super.onResume();
         if (!isLoggedIn()) {
             Menu menuNav = navigationView.getMenu();
+
+            MenuItem nav_item1 = menuNav.findItem(R.id.nav_logout);
+            nav_item1.setTitle("Sign In");
+
             MenuItem nav_item2 = menuNav.findItem(R.id.nav_update_profile);
             nav_item2.setEnabled(false);
         } else {
             Menu menuNav = navigationView.getMenu();
+
+            MenuItem nav_item1 = menuNav.findItem(R.id.nav_logout);
+            nav_item1.setTitle("Logout");
+
             MenuItem nav_item2 = menuNav.findItem(R.id.nav_update_profile);
             nav_item2.setEnabled(true);
         }
@@ -137,9 +159,57 @@ public class HomeActivity extends BaseActivity
 
         buildFragmentsList();
 
-        // Set the 1st Fragment to be displayed by default.
         switchFragment(1, TAG_FRAGMENT_DISCUSSION);
         navigationView.getMenu().getItem(1).setChecked(true);
+
+        FirebaseDynamicLinks.getInstance()
+                .getDynamicLink(getIntent())
+                .addOnSuccessListener(this, new OnSuccessListener<PendingDynamicLinkData>() {
+                    @Override
+                    public void onSuccess(PendingDynamicLinkData pendingDynamicLinkData) {
+                        // Get deep link from result (may be null if no link is found)
+                        Uri deepLink = null;
+                        if (pendingDynamicLinkData != null) {
+                            deepLink = pendingDynamicLinkData.getLink();
+                        }
+
+                        // Display deep link in the UI
+                        if (deepLink != null) {
+                            Snackbar.make(findViewById(android.R.id.content),
+                                    "Found deep link!", Snackbar.LENGTH_LONG).show();
+
+                            String[] data = deepLink.toString().split("/");
+
+
+                            String item = data[data.length-2];
+                            String key = data[data.length-1];
+
+                            switch (item){
+                                case "news":
+                                    Intent intent = new Intent(HomeActivity.this, NewsDetailActivity.class);
+                                    intent.putExtra(NewsDetailActivity.EXTRA_NEWS_KEY, key);
+                                    startActivity(intent);
+                                    break;
+                                case "event":
+                                    break;
+                                case "post":
+                                    break;
+                                default:
+                                    break;
+                            }
+                           // Toast.makeText(HomeActivity.this, item + " " + key , Toast.LENGTH_SHORT).show();
+                        } else {
+                            Log.d("HomeActivity", "getDynamicLink: no link found");
+                        }
+
+                    }
+                })
+                .addOnFailureListener(this, new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("HomeActivity", "getDynamicLink:onFailure", e);
+                    }
+                });
     }
 
 
@@ -213,7 +283,7 @@ public class HomeActivity extends BaseActivity
         } else if (id == R.id.nav_tnc) {
             showTncDialog(getString(R.string.tnc), getString(R.string.lorem_ipsum));
         } else if (id == R.id.nav_invite) {
-
+                sendInvite();
         } else if (id == R.id.nav_logout) {
             mFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
             if (mFirebaseUser == null) {
@@ -307,9 +377,93 @@ public class HomeActivity extends BaseActivity
         dialog.show();
     }
 
+    private void sendInvite(){
+        validateAppCode();
+
+        final Uri deepLink = buildDeepLink(Uri.parse(DEEP_LINK_URL), 0);
+
+
+        // Share button click listener
+        shareDeepLink(deepLink.toString());
+    }
+
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    @VisibleForTesting
+    public Uri buildDeepLink(@NonNull Uri deepLink, int minVersion) {
+        String domain = getString(R.string.app_code) + ".app.goo.gl";
+
+        // Set dynamic link parameters:
+        //  * Domain (required)
+        //  * Android Parameters (required)
+        //  * Deep link
+        // [START build_dynamic_link]
+        DynamicLink.Builder builder = FirebaseDynamicLinks.getInstance()
+                .createDynamicLink()
+                .setDynamicLinkDomain(domain)
+                .setAndroidParameters(new DynamicLink.AndroidParameters.Builder()
+                        .setMinimumVersion(minVersion)
+                        .build())
+                .setLink(deepLink);
+
+        // Build the dynamic link
+        DynamicLink link = builder.buildDynamicLink();
+        // [END build_dynamic_link]
+
+        // Return the dynamic link as a URI
+        return link.getUri();
+    }
+
+    private void shareDeepLink(String deepLink) {
+
+
+
+
+
+
+
+        Task<ShortDynamicLink> shortLinkTask = FirebaseDynamicLinks.getInstance().createDynamicLink()
+                .setLongLink(Uri.parse(deepLink))
+                .buildShortDynamicLink()
+                .addOnCompleteListener(this, new OnCompleteListener<ShortDynamicLink>() {
+                    @Override
+                    public void onComplete(@NonNull Task<ShortDynamicLink> task) {
+                        if (task.isSuccessful()) {
+                            // Short link created
+                            Uri shortLink = task.getResult().getShortLink();
+                            Uri flowchartLink = task.getResult().getPreviewLink();
+
+                            Intent intent = new Intent(Intent.ACTION_SEND);
+                            intent.setType("text/html");
+                            intent.putExtra(Intent.EXTRA_SUBJECT, "Firebase Deep Link");
+                            intent.putExtra(Intent.EXTRA_TEXT,shortLink.toString());
+                            startActivity(intent);
+
+                        } else {
+                            // Error
+                            // ...
+                        }
+                    }
+                });
+
+
+
+
+
+    }
+
+    private void validateAppCode() {
+        String appCode = getString(R.string.app_code);
+        if (appCode.contains("YOUR_APP_CODE")) {
+            new AlertDialog.Builder(this)
+                    .setTitle("Invalid Configuration")
+                    .setMessage("Please set your app code in app/build.gradle")
+                    .setPositiveButton(android.R.string.ok, null)
+                    .create().show();
+        }
     }
 
     void showTutorial(){

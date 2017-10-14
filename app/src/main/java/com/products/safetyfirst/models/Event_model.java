@@ -10,6 +10,10 @@ public class Event_model {
 
     private String url,title,desc,favicon_url,organizer;
     private Object timestamp;
+    private String deeplink;
+    private long numShares;
+    private long numViews;
+
     public Map<String, Object> action;
     public Map<String, Object> bookmarks;
 

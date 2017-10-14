@@ -13,5 +13,6 @@ public class Constants {
     public static String SHARE_CONTENT = "Download from playstore:\n";
     public static  int GOING = 1;
     public static  int INTERESTED = 0;
+    public static final String DEEP_LINK_URL = "https://x2e8v.app.goo.gl";
 
 }

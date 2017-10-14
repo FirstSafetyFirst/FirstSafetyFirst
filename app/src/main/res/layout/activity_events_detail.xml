@@ -58,13 +58,12 @@
         android:id="@+id/interested"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="80dp"
         android:clickable="true"
         android:tint="@color/white"
-        android:layout_marginStart="85dp"
         app:layout_anchor="@id/app_bar_scrolling"
         app:backgroundTint="@color/colorPrimaryLight"
-        app:layout_anchorGravity="right"
+        app:layout_anchorGravity="right|bottom"
         app:srcCompat="@drawable/ic_check_box_outline_blank_black_24dp" />
 
 

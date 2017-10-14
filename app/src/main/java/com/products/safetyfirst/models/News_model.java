@@ -12,6 +12,22 @@ public class News_model {
     public Map<String, Boolean> bookmarks = new HashMap<>();
     private String title,imgUrl,favicon, body, uid, author;
     private Integer timestamp;
+    private String deeplink;
+
+    public String getDeeplink() {
+        return deeplink;
+    }
+
+    public long getNumShares() {
+        return numShares;
+    }
+
+    public long getNumViews() {
+        return numViews;
+    }
+
+    private long numShares;
+    private long numViews;
 
     public News_model(){}
 

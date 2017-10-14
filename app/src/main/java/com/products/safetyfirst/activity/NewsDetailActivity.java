@@ -53,6 +53,7 @@ public class NewsDetailActivity extends BaseActivity implements View.OnClickList
     private Button mReadMore;
     private ImageButton mShare;
     private String url;
+    private String deepLink = null;
     private String HEADLINE;
 
     @Override
@@ -160,10 +161,19 @@ public class NewsDetailActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void share() {
-        Intent intent = new Intent(Intent.ACTION_SEND);
+     /*   Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
         intent.putExtra(android.content.Intent.EXTRA_TEXT, url + "\nShared via:Safety First\nhttps://play.google.com/store/apps/details?id=com.vikas.dtu.safetyfirst2");
-        startActivity(intent);
+        startActivity(intent);*/
+        if (deepLink != null) {
+            Intent intent = new Intent();
+            String msg = "Hey see this News: " + deepLink;
+            intent.setAction(Intent.ACTION_SEND);
+            intent.putExtra(Intent.EXTRA_TEXT, msg);
+            intent.setType("text/plain");
+            startActivity(intent);
+
+        }
     }
 
     @Override
@@ -179,6 +189,7 @@ public class NewsDetailActivity extends BaseActivity implements View.OnClickList
         mTitleView.setText(news.getTitle());
         mBodyView.setText(news.getBody());
         url = news.getAuthor();
+        deepLink = news.getDeeplink();
 
         if (news.bookmarks.containsKey(getCurrentUserId())) {
             fab.setImageResource(R.drawable.ic_bookmark_black_24dp);
