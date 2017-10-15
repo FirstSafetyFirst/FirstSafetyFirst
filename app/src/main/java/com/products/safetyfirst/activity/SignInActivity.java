@@ -31,6 +31,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.products.safetyfirst.R;
+import com.products.safetyfirst.models.UserModel;
 
 import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
 
@@ -304,7 +305,7 @@ public class SignInActivity extends BaseActivity implements GoogleApiClient.OnCo
         Toast.makeText(this, "Google Play Services error.", Toast.LENGTH_SHORT).show();
     }
     private void writeNewUser(String userId, String name, String email, String image) {
-        User user = new User(name, email, image);
+        UserModel user = new UserModel(name, email, image);
 
         mDatabase.child("users").child(userId).setValue(user);
     }

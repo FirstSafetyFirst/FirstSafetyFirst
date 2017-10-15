@@ -2,7 +2,9 @@ package com.products.safetyfirst.activity;
 
 /**
  * Created by krishna on 6/6/17.
- */import android.content.Intent;
+ */
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
@@ -29,8 +31,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.products.safetyfirst.R;
+import com.products.safetyfirst.models.UserModel;
 
 import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
 
@@ -222,7 +224,7 @@ public class SignUpActivity extends BaseActivity implements GoogleApiClient.OnCo
 
     // [START basic_write]
     private void writeNewUser(String userId, String name, String email, String image) {
-        User user = new User(name, email, image);
+        UserModel user = new UserModel(name, email, image);
 
         mDatabase.child("users").child(userId).setValue(user);
     }
