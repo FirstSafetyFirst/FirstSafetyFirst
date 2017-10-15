@@ -32,4 +32,6 @@ android:
 - sys-img-armeabi-v7a-android-$ANDROID_API_LEVEL_22
 
 notifications:
-  slack: 'firstsafetyfirst:xoxp-248911325856-250649292103-256633168789-c3659a5f1980c0bd87dd7617f735ecf3#coding'
+  email:
+      - dtu.safetyfirst@gmail.com
+      - vikasmahato0@gmail.com
