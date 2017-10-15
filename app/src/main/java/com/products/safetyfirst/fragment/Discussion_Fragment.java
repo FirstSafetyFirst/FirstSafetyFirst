@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.ShareCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.activity.NewPostActivity;
@@ -53,6 +51,21 @@ public class Discussion_Fragment extends Fragment {
 
         home_recycler=(RecyclerView)rootView.findViewById(R.id.discussion_recycler);
         home_recycler.setHasFixedSize(true);
+
+        //setting detection of scrolling
+        home_recycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                switch(newState){
+                    case RecyclerView.SCROLL_STATE_DRAGGING:
+                        mFab.setVisibility(View.GONE);
+                        break;
+                    default:
+                        mFab.setVisibility(View.VISIBLE);
+                }
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+        });
 
         user = new UserHelper();
         return rootView;
