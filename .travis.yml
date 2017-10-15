@@ -1,0 +1,35 @@
+language: android
+
+env:
+  global:
+    - ANDROID_API_LEVEL=25
+    - ANDROID_API_LEVEL_22=22
+    - ANDROID_BUILD_TOOLS_VERSION=25.0.2
+    - ANDROID_ABI=armeabi-v7a
+    - ANDROID_TAG=google_apis
+    - ANDROID_TARGET=android-25
+    - ADB_INSTALL_TIMEOUT=20 # minutes (2 minutes by default)
+
+android:
+  update_sdk: true
+  components:
+    - tools
+    - platform-tools
+    - build-tools-$ANDROID_BUILD_TOOLS_VERSION
+    - android-$ANDROID_API_LEVEL
+    - android-$ANDROID_API_LEVEL_22
+    # For Google APIs
+    - addon-$ANDROID_TAG-google-$ANDROID_API_LEVEL
+    # Google Play Services
+    - extra-google-google_play_services
+    # Support library
+    - extra-android-support
+    # Latest artifacts in local repository
+    - extra-google-m2repository
+    - extra-android-m2repository
+
+    # Specify at least one system image
+- sys-img-armeabi-v7a-android-$ANDROID_API_LEVEL_22
+
+notifications:
+  slack: 'firstsafetyfirst:xoxp-248911325856-250649292103-256633168789-c3659a5f1980c0bd87dd7617f735ecf3#coding'
