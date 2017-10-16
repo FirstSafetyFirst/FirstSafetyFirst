@@ -21,6 +21,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.products.safetyfirst.R;
+import com.products.safetyfirst.impementations.NotificationHelper;
+import com.products.safetyfirst.interfaces.view.SimpleNotification;
 import com.products.safetyfirst.modelhelper.PostHelper;
 import com.products.safetyfirst.modelhelper.UserHelper;
 
@@ -55,6 +57,7 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
     /* Helper class instances */
     private UserHelper user;
     private PostHelper postHelper;
+    private SimpleNotification notifHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,7 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
 
         user = new UserHelper();
         postHelper = new PostHelper();
+        notifHelper = NotificationHelper.getInstance();
 
         /* CHeck for sign in */
         if(!user.isSignedIn()) {
@@ -161,6 +165,8 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
                 @Override
                 public void onComplete(List<String> imageList) {
                     postHelper.createNewPost(postKey, titleText.getText().toString(), editor.getHtml(), null, imageList);
+                    int notificationId = notifHelper.createNotif(NewPostActivity.this, "Created new post", titleText.getText().toString());
+                    finish();
                 }
             });
         }

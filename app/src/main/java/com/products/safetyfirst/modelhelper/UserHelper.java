@@ -28,6 +28,9 @@ public class UserHelper {
     }
 
     public String getUserImgUrl() {
-        return auth.getCurrentUser().getPhotoUrl().toString();
+        if(auth.getCurrentUser().getPhotoUrl() != null) {
+            return auth.getCurrentUser().getPhotoUrl().toString();
+        }
+        return "";  // return empty non-null string to prevent error
     }
 }
