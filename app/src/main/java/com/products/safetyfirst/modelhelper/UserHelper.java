@@ -2,10 +2,6 @@ package com.products.safetyfirst.modelhelper;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.ValueEventListener;
-import com.products.safetyfirst.models.UserModel;
 
 /**
  * Created by rishabh on 14/10/17.
