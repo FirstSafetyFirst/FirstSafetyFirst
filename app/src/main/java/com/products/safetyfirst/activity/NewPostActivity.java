@@ -69,7 +69,6 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
         user = new UserHelper();
         postHelper = new PostHelper();
         notifHelper = NotificationHelper.getInstance();
-        imageSelectionHelper = ImageSelectionHelper.getInstance();
 
         /* CHeck for sign in */
         if(!user.isSignedIn()) {
@@ -139,27 +138,16 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     void pickImageMain() {
-        imageSelectionHelper.pickMultipleImages(this, new ImageSelectionHelper.MultipleImageResultCallback() {
-            @Override
-            public void onImageResult(List<Bitmap> imageList) {
-                NewPostActivity.this.imageList.addAll(imageList);
-                NewPostActivity.this.imgAdapter.notifyDataSetChanged();
-            }
-        });
+        imageSelectionHelper = new ImageSelectionHelper(this);
+        imageSelectionHelper.pickMultipleImages();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //super.onActivityResult(requestCode, resultCode, data);
-        Log.e("Image", "Received");
-        if(requestCode == PICK_IMAGE && resultCode == RESULT_OK) {
-            try {
-                Bitmap imageBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), data.getData());
-                imageList.add(imageBitmap);
-                imgAdapter.notifyDataSetChanged();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        if(imageSelectionHelper != null){
+            imageList.addAll(imageSelectionHelper.onReceiveResult(requestCode, resultCode, data));
+            imgAdapter.notifyDataSetChanged();
         }
     }
 

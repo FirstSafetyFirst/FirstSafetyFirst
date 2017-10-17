@@ -15,27 +15,26 @@ import java.util.Random;
 /**
  * Created by rishabh on 17/10/17.
  *
- * Singleton for selecting images
+ * Selecting multiple images from gallery
+ *
+ * Usage :  1. create an object of ImageSelectionHelper
+ *          2. call "pickMultipleImage"
+ *          3. call onReceiveResult from onActivityResult and give the parameters as it is
  */
 
 public class ImageSelectionHelper {
 
-    private static final ImageSelectionHelper instance = new ImageSelectionHelper();
+    private Activity activity;
+    private int PICK_IMAGE;
+    private List<Bitmap> imageList;
 
-    public static ImageSelectionHelper getInstance() {
-        return instance;
+    public ImageSelectionHelper(Activity activity) {
+        this.activity = activity;
+        this.imageList = new ArrayList<>();
+        this.PICK_IMAGE = (new Random()).nextInt(1000) + 100;
     }
 
-    private ImageSelectionHelper() {
-
-    }
-
-
-    public void pickMultipleImages(Activity userAct, MultipleImageResultCallback callback) {
-        int PICK_IMAGE = (new Random()).nextInt(1000) + 100;
-        ImageSelectionActivity activity = (ImageSelectionActivity) userAct;
-
-        activity.assignData(PICK_IMAGE, callback);
+    public void pickMultipleImages() {
 
         Intent getIntent = new Intent(Intent.ACTION_GET_CONTENT);
         getIntent.setType("image/*");
@@ -43,52 +42,34 @@ public class ImageSelectionHelper {
         activity.startActivityForResult(Intent.createChooser(getIntent, "Select Picture"), PICK_IMAGE);
     }
 
-    private class ImageSelectionActivity extends Activity {
-
-        private int PICK_IMAGE;
-        private List<Bitmap> imageList;
-        private MultipleImageResultCallback callback;
-
-        void assignData(int PICK_IMAGE, MultipleImageResultCallback callback) {
-            this.PICK_IMAGE = PICK_IMAGE;
-            this.imageList = new ArrayList<>();
-            this.callback = callback;
-        }
-
-        @Override
-        protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-            super.onActivityResult(requestCode, resultCode, data);
-            if(requestCode == PICK_IMAGE && resultCode == RESULT_OK) {
-                try {
+    public List<Bitmap> onReceiveResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == PICK_IMAGE && resultCode == Activity.RESULT_OK) {
+            try {
                     /* Retrieve data from intent */
-                    ClipData clipData = data.getClipData();
-                    List<Uri> uriList = new ArrayList<>();
-                    if(clipData == null) {
-                        uriList.add(data.getData());
-                    } else {
-                        for(int i=0; i<clipData.getItemCount(); i++){
-                            ClipData.Item item = clipData.getItemAt(i);
-                            uriList.add(item.getUri());
-                        }
+                ClipData clipData = data.getClipData();
+                List<Uri> uriList = new ArrayList<>();
+                if(clipData == null) {
+                    uriList.add(data.getData());
+                } else {
+                    for(int i=0; i<clipData.getItemCount(); i++){
+                        ClipData.Item item = clipData.getItemAt(i);
+                        uriList.add(item.getUri());
                     }
+                }
 
                     /* Get bitmap from uri */
-                    for (Uri uri: uriList) {
-                        Bitmap imageBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
-                        imageList.add(imageBitmap);
-                    }
-
-                    callback.onImageResult(imageList);
-
-                } catch (IOException e) {
-                    e.printStackTrace();
+                for (Uri uri: uriList) {
+                    Bitmap imageBitmap = MediaStore.Images.Media.getBitmap(activity.getContentResolver(), uri);
+                    imageList.add(imageBitmap);
                 }
+
+                return imageList;
+
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
-    }
-
-    public interface MultipleImageResultCallback {
-        void onImageResult(List<Bitmap> imageList);
+        return new ArrayList<>();
     }
 
 }
