@@ -21,7 +21,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.products.safetyfirst.R;
-import com.products.safetyfirst.impementations.NotificationHelper;
+import com.products.safetyfirst.androidhelpers.ImageSelectionHelper;
+import com.products.safetyfirst.androidhelpers.NotificationHelper;
 import com.products.safetyfirst.interfaces.view.SimpleNotification;
 import com.products.safetyfirst.modelhelper.PostHelper;
 import com.products.safetyfirst.modelhelper.UserHelper;
@@ -58,6 +59,7 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
     private UserHelper user;
     private PostHelper postHelper;
     private SimpleNotification notifHelper;
+    private ImageSelectionHelper imageSelectionHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,24 +138,16 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     void pickImageMain() {
-        Intent getIntent = new Intent(Intent.ACTION_GET_CONTENT);
-        getIntent.setType("image/*");
-
-        startActivityForResult(Intent.createChooser(getIntent, "Select Picture"), PICK_IMAGE);
+        imageSelectionHelper = new ImageSelectionHelper(this);
+        imageSelectionHelper.pickMultipleImages();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //super.onActivityResult(requestCode, resultCode, data);
-        Log.e("Image", "Received");
-        if(requestCode == PICK_IMAGE && resultCode == RESULT_OK) {
-            try {
-                Bitmap imageBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), data.getData());
-                imageList.add(imageBitmap);
-                imgAdapter.notifyDataSetChanged();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        if(imageSelectionHelper != null){
+            imageList.addAll(imageSelectionHelper.onReceiveResult(requestCode, resultCode, data));
+            imgAdapter.notifyDataSetChanged();
         }
     }
 

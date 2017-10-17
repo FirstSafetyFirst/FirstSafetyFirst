@@ -1,4 +1,4 @@
-package com.products.safetyfirst.impementations;
+package com.products.safetyfirst.androidhelpers;
 
 import android.app.NotificationManager;
 import android.content.Context;
@@ -28,7 +28,7 @@ public class NotificationHelper implements SimpleNotification {
      * @param context
      * @param title
      * @param text
-     * @return Notification Id which can later be used
+     * @return Notification Id which can later be used to retrieve notification
      */
     @Override
     public int createNotif(Context context, String title, String text) {
