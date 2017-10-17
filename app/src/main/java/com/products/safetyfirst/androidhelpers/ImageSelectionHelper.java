@@ -35,10 +35,15 @@ public class ImageSelectionHelper {
     }
 
     public void pickMultipleImages() {
-
         Intent getIntent = new Intent(Intent.ACTION_GET_CONTENT);
         getIntent.setType("image/*");
         getIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+        activity.startActivityForResult(Intent.createChooser(getIntent, "Select Picture"), PICK_IMAGE);
+    }
+
+    public void pickSingleImage() {
+        Intent getIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        getIntent.setType("image/*");
         activity.startActivityForResult(Intent.createChooser(getIntent, "Select Picture"), PICK_IMAGE);
     }
 
