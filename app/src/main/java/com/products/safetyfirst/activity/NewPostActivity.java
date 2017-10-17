@@ -21,7 +21,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.products.safetyfirst.R;
-import com.products.safetyfirst.impementations.NotificationHelper;
+import com.products.safetyfirst.androidhelpers.ImageSelectionHelper;
+import com.products.safetyfirst.androidhelpers.NotificationHelper;
 import com.products.safetyfirst.interfaces.view.SimpleNotification;
 import com.products.safetyfirst.modelhelper.PostHelper;
 import com.products.safetyfirst.modelhelper.UserHelper;
@@ -58,6 +59,7 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
     private UserHelper user;
     private PostHelper postHelper;
     private SimpleNotification notifHelper;
+    private ImageSelectionHelper imageSelectionHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +69,7 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
         user = new UserHelper();
         postHelper = new PostHelper();
         notifHelper = NotificationHelper.getInstance();
+        imageSelectionHelper = ImageSelectionHelper.getInstance();
 
         /* CHeck for sign in */
         if(!user.isSignedIn()) {
@@ -136,10 +139,13 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     void pickImageMain() {
-        Intent getIntent = new Intent(Intent.ACTION_GET_CONTENT);
-        getIntent.setType("image/*");
-
-        startActivityForResult(Intent.createChooser(getIntent, "Select Picture"), PICK_IMAGE);
+        imageSelectionHelper.pickMultipleImages(this, new ImageSelectionHelper.MultipleImageResultCallback() {
+            @Override
+            public void onImageResult(List<Bitmap> imageList) {
+                NewPostActivity.this.imageList.addAll(imageList);
+                NewPostActivity.this.imgAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
