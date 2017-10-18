@@ -54,6 +54,7 @@ public class SignInActivity extends BaseActivity implements GoogleApiClient.OnCo
     private Button customSigninButton;
     private TextView mSignUpText;
     private SignInButton mSignInButton;
+    private Button mSkipButton;
 
     public static boolean isNetworkStatusAvailable(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -94,6 +95,7 @@ public class SignInActivity extends BaseActivity implements GoogleApiClient.OnCo
         mEmailField = (EditText) findViewById(R.id.field_email);
         mPasswordField = (EditText) findViewById(R.id.field_password);
         customSigninButton = (Button) findViewById(R.id.button_sign_in);
+        mSkipButton = (Button) findViewById(R.id.button_skip);
         //  mSignUpButton = (Button) findViewById(R.id.button_sign_up);
 
       //  mSignUpText = (TextView) findViewById(R.id.create_account);
@@ -102,6 +104,7 @@ public class SignInActivity extends BaseActivity implements GoogleApiClient.OnCo
 
         // Click listeners
         customSigninButton.setOnClickListener(this);
+        mSkipButton.setOnClickListener(this);
        // mSignUpText.setOnClickListener(this);
         // Set click listeners
 
@@ -146,6 +149,12 @@ public class SignInActivity extends BaseActivity implements GoogleApiClient.OnCo
 
                 break;
 
+            case R.id.button_skip:
+               // Toast.makeText(this, "Skip", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(SignInActivity.this, HomeActivity.class));
+
+                finish();
+                break;
 
             case R.id.button_sign_in:
                 signIn();

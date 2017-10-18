@@ -20,6 +20,10 @@ android:
     - extra-google-m2repository
     - extra-android-m2repository
 
+licenses:
+  - android-sdk-license-.+
+  - '.+'
+
 before_install:
     - chmod +x gradlew
     - mkdir "$ANDROID_HOME/licenses" || true
