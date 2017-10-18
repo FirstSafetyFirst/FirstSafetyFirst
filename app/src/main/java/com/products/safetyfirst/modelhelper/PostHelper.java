@@ -58,6 +58,7 @@ public class PostHelper {
         }, new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+                uploadCallbacks.onFail(e);
                 imageList.clear();
             }
         });
@@ -93,6 +94,8 @@ public class PostHelper {
         void onStartUpload();
 
         void onProgress(int progress, int total);
+
+        void onFail(Exception e);
     }
 
 }

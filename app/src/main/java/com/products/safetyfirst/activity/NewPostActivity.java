@@ -1,10 +1,7 @@
 package com.products.safetyfirst.activity;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -17,8 +14,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.products.safetyfirst.R;
+import com.products.safetyfirst.androidhelpers.ImageHelper;
 import com.products.safetyfirst.androidhelpers.ImageSelectionHelper;
 import com.products.safetyfirst.androidhelpers.NotificationHelper;
 import com.products.safetyfirst.interfaces.view.SimpleNotification;
@@ -46,7 +45,6 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
     private ImageAdapter imgAdapter;
 
     /* Constants */
-    private static final int PICK_IMAGE = 233;
     private static final int REQUEST_READ = 12;
 
     /* Variables used */
@@ -57,6 +55,7 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
     private PostHelper postHelper;
     private SimpleNotification notifHelper;
     private ImageSelectionHelper imageSelectionHelper;
+    private ImageHelper imageHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +65,7 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
         user = new UserHelper();
         postHelper = new PostHelper();
         notifHelper = NotificationHelper.getInstance();
+        imageHelper = ImageHelper.getInstance();
 
         /* CHeck for sign in */
         if(!user.isSignedIn()) {
@@ -121,20 +121,7 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    void pickImage(){
-        if (Build.VERSION.SDK_INT >= 23) {
-            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                pickImageMain();
-            } else {
-                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_READ);
-                pickImageMain();
-            }
-        } else {
-            pickImageMain();
-        }
-    }
-
-    void pickImageMain() {
+    void pickImage() {
         imageSelectionHelper = new ImageSelectionHelper(this);
         imageSelectionHelper.pickMultipleImages();
     }
@@ -145,6 +132,9 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
         if(imageSelectionHelper != null){
             imageList.addAll(imageSelectionHelper.onReceiveResult(requestCode, resultCode, data));
             imgAdapter.notifyDataSetChanged();
+        }
+        for (int x=0; x < imageList.size(); x++) {
+            imageList.set(x, imageHelper.downScale(imageList.get(x)));
         }
     }
 
@@ -169,12 +159,23 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
                 @Override
                 public void onStartUpload() {
                     progressNotification = notifHelper.createProgressNotif(NewPostActivity.this, "Uploading Images", "Image upload progress");
+                    Toast.makeText(NewPostActivity.this, "Images uploading check notification", Toast.LENGTH_LONG).show();
                     finish();
                 }
 
                 @Override
                 public void onProgress(int progress, int total) {
                     progressNotification.onProgress(progress, total);
+                }
+
+                @Override
+                public void onFail(Exception e) {
+                    if(progressNotification != null) {
+                        progressNotification.onCompleteProgress("Image Upload error");
+                    } else {
+                        int notificationId = notifHelper.createNotif(NewPostActivity.this, "Post creation failed", titleText.getText().toString());
+                        finish();
+                    }
                 }
             });
         }
