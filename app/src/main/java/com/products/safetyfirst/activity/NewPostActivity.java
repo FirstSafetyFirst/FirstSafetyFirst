@@ -5,13 +5,11 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Build;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +25,6 @@ import com.products.safetyfirst.interfaces.view.SimpleNotification;
 import com.products.safetyfirst.modelhelper.PostHelper;
 import com.products.safetyfirst.modelhelper.UserHelper;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -155,12 +152,29 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
         if(!titleText.getText().toString().trim().equals("") && !editor.getHtml().trim().equals("")) {
             final String postKey = postHelper.createPostKey();
             List<String> imageUrls = new ArrayList<>();
-            postHelper.createImageUrls(postKey, imageList, imageUrls, 0, new PostHelper.FinalCallback() {
+            postHelper.createImageUrls(postKey, imageList, imageUrls, 0, new PostHelper.UploadCallbacks() {
+                NotificationHelper.ProgressNotification progressNotification;
+
                 @Override
                 public void onComplete(List<String> imageList) {
                     postHelper.createNewPost(postKey, titleText.getText().toString(), editor.getHtml(), null, imageList);
                     int notificationId = notifHelper.createNotif(NewPostActivity.this, "Created new post", titleText.getText().toString());
+                    if(progressNotification != null) {
+                        progressNotification.onCompleteProgress("Image upload complete");
+                    } else {
+                        finish();
+                    }
+                }
+
+                @Override
+                public void onStartUpload() {
+                    progressNotification = notifHelper.createProgressNotif(NewPostActivity.this, "Uploading Images", "Image upload progress");
                     finish();
+                }
+
+                @Override
+                public void onProgress(int progress, int total) {
+                    progressNotification.onProgress(progress, total);
                 }
             });
         }

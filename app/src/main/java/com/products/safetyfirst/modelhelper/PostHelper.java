@@ -1,7 +1,6 @@
 package com.products.safetyfirst.modelhelper;
 
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.support.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -9,11 +8,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.products.safetyfirst.androidhelpers.NotificationHelper;
 import com.products.safetyfirst.models.Discussion_model;
 import com.products.safetyfirst.utils.DatabaseUtil;
 
 import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -40,17 +39,21 @@ public class PostHelper {
         return db.getDatabase().getReference().child("posts").push().getKey();
     }
 
-    public void createImageUrls(final String postKey, final List<Bitmap> images, final List<String> imageList, final int position, final FinalCallback finalCallback){
+    public void createImageUrls(final String postKey, final List<Bitmap> images, final List<String> imageList, final int position, final UploadCallbacks uploadCallbacks){
         if(position == images.size()){
-            finalCallback.onComplete(imageList);
+            uploadCallbacks.onComplete(imageList);
             return;
+        }
+        if(position == 0) {
+            uploadCallbacks.onStartUpload();
         }
         uploadImage(images.get(position), postKey, new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 String downloadUrl = taskSnapshot.getDownloadUrl().toString();
                 imageList.add(downloadUrl);
-                createImageUrls(postKey, images, imageList, position+1, finalCallback);
+                uploadCallbacks.onProgress(position+1, images.size());
+                createImageUrls(postKey, images, imageList, position+1, uploadCallbacks);
             }
         }, new OnFailureListener() {
             @Override
@@ -83,8 +86,13 @@ public class PostHelper {
         return randomStringBuilder.toString()+".jpg";
     }
 
-    public interface FinalCallback {
-        public void onComplete(List<String> imageList);
+    public interface UploadCallbacks {
+
+        void onComplete(List<String> imageList);
+
+        void onStartUpload();
+
+        void onProgress(int progress, int total);
     }
 
 }
