@@ -20,6 +20,7 @@ import com.products.safetyfirst.activity.NewPostActivity;
 import com.products.safetyfirst.adapters.Discussion_Adapter;
 import com.products.safetyfirst.modelhelper.UserHelper;
 
+import static com.products.safetyfirst.activity.HomeActivity.bottomNavigationView;
 import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
 
 /**
@@ -37,7 +38,6 @@ public class Discussion_Fragment extends Fragment {
     private UserHelper user;
 
     public Discussion_Fragment(){}
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,7 +66,7 @@ public class Discussion_Fragment extends Fragment {
                 super.onScrollStateChanged(recyclerView, newState);
             }
         });
-
+        bottomNavigationView.setVisibility(View.VISIBLE);
         user = new UserHelper();
         return rootView;
     }
