@@ -210,6 +210,8 @@ public class HomeActivity extends BaseActivity
                         Log.w("HomeActivity", "getDynamicLink:onFailure", e);
                     }
                 });
+
+
     }
 
 
@@ -279,7 +281,7 @@ public class HomeActivity extends BaseActivity
         } else if (id == R.id.nav_help) {
             showHelpDialog();
         } else if (id == R.id.nav_feedback) {
-
+            rateMe();
         } else if (id == R.id.nav_tnc) {
             showTncDialog(getString(R.string.tnc), getString(R.string.lorem_ipsum));
         } else if (id == R.id.nav_invite) {
@@ -387,6 +389,16 @@ public class HomeActivity extends BaseActivity
         shareDeepLink(deepLink.toString());
     }
 
+    private void rateMe() {
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("market://details?id=" + "com.vikas.dtu.safetyfirst2")));
+        } catch (android.content.ActivityNotFoundException e) {
+            startActivity(new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("http://play.google.com/store/apps/details?id=" + "com.vikas.dtu.safetyfirst2")));
+        }
+    }
+
     @Override
     public void onFragmentInteraction(Uri uri) {
 
@@ -418,11 +430,6 @@ public class HomeActivity extends BaseActivity
     }
 
     private void shareDeepLink(String deepLink) {
-
-
-
-
-
 
 
         Task<ShortDynamicLink> shortLinkTask = FirebaseDynamicLinks.getInstance().createDynamicLink()
