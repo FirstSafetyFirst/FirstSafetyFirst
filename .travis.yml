@@ -20,10 +20,6 @@ android:
     - extra-google-m2repository
     - extra-android-m2repository
 
-script:
-   - ./gradlew build connectedCheck
-
-
 language: android
 
 after_failure: "cat $TRAVIS_BUILD_DIR/app/build/outputs/lint-results-debug.xml"
