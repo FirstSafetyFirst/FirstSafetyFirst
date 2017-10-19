@@ -73,12 +73,11 @@ public class HomeActivity extends BaseActivity
 
     List<Fragment> fragments = new ArrayList<>(5);
     Toolbar toolbar;
-    NavigationView navigationView;
+    public static NavigationView navigationView;
     PrefManager prefManager;
     private FirebaseUser mFirebaseUser;
     private FirebaseAnalytics mFirebaseAnalytics;
-    private BottomNavigationView bottomNavigationView;
-
+    public static BottomNavigationView bottomNavigationView;
     @Override
     protected void onResume() {
         super.onResume();

@@ -37,6 +37,8 @@ import com.products.safetyfirst.models.UserModel;
 
 import java.util.Objects;
 
+import static com.products.safetyfirst.activity.HomeActivity.navigationView;
+
 public class ProfileActivity extends BaseActivity
         implements ProjectsFragment.OnFragmentInteractionListener,
         AnswersFragment.OnFragmentInteractionListener,
@@ -72,6 +74,8 @@ public class ProfileActivity extends BaseActivity
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setDisplayShowCustomEnabled(true);
+        navigationView.setVisibility(View.GONE);
+        actionBar.setDisplayHomeAsUpEnabled(true);
         ViewGroup root = (ViewGroup) findViewById(R.id.toolbar);
         LayoutInflater inflator = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v = inflator.inflate(R.layout.custom_app_bar_profile, root);

@@ -50,6 +50,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="32dp"
-        android:layout_marginRight="12dp"/>
+        android:layout_marginRight="12dp"
+        app:srcCompat="@drawable/post_icon_for_fab"
+        android:tint="@color/white"/>
 
 </RelativeLayout>

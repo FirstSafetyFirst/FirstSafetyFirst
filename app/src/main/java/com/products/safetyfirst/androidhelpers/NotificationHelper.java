@@ -46,4 +46,54 @@ public class NotificationHelper implements SimpleNotification {
 
         return mNotificationId;
     }
+
+    @Override
+    public ProgressNotification createProgressNotif(Context context, String title, String text) {
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle(title)
+                .setContentText(text);
+        NotificationManager mNotificationManager =
+                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        Random random = new Random();
+        int mNotificationId = random.nextInt(1000) + 100;
+
+        mBuilder.setProgress(100, 0, false);
+        mNotificationManager.notify(mNotificationId, mBuilder.build());
+
+        return new ProgressNotification(mNotificationId, mBuilder, mNotificationManager);
+    }
+
+    public class ProgressNotification {
+
+        private int notifId;
+        private NotificationCompat.Builder mBuilder;
+        private NotificationManager mNotificationManager;
+
+        public ProgressNotification (int notifId, NotificationCompat.Builder mBuilder, NotificationManager mNotificationManager) {
+            this.notifId = notifId;
+            this.mBuilder = mBuilder;
+            this.mNotificationManager = mNotificationManager;
+        }
+
+        public void onProgress(int progress, int total) {
+            mBuilder.setProgress(total, progress, false);
+            mNotificationManager.notify(notifId, mBuilder.build());
+        }
+
+        public void onCompleteProgress(String title, String text) {
+            mBuilder.setContentTitle(title)
+                    .setContentText(text)
+                    .setProgress(0,0,false);
+            mNotificationManager.notify(notifId, mBuilder.build());
+        }
+
+        public void onCompleteProgress(String text) {
+            mBuilder.setContentText(text)
+                    .setProgress(0,0,false);
+            mNotificationManager.notify(notifId, mBuilder.build());
+        }
+    }
+
 }

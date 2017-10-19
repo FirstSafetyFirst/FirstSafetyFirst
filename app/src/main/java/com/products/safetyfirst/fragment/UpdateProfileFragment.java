@@ -14,6 +14,8 @@ import android.widget.TextView;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.fragment.ProfileFragment.ProjectsFragment;
 
+import static com.products.safetyfirst.activity.HomeActivity.bottomNavigationView;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -35,7 +37,7 @@ public class UpdateProfileFragment extends Fragment {
         categoryView = (ViewPager) rootView.findViewById(R.id.profile_viewpager);
 
         setupTabs();
-
+        bottomNavigationView.setVisibility(View.GONE);
         return rootView;
     }
 
