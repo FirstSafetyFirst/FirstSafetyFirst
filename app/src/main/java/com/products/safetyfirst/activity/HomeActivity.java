@@ -175,8 +175,8 @@ public class HomeActivity extends BaseActivity
 
                         // Display deep link in the UI
                         if (deepLink != null) {
-                            Snackbar.make(findViewById(android.R.id.content),
-                                    "Found deep link!", Snackbar.LENGTH_LONG).show();
+                        //    Snackbar.make(findViewById(android.R.id.content),
+                          //          "Found deep link!", Snackbar.LENGTH_LONG).show();
 
                             String[] data = deepLink.toString().split("/");
 
@@ -191,6 +191,9 @@ public class HomeActivity extends BaseActivity
                                     startActivity(intent);
                                     break;
                                 case "event":
+                                    Intent eventIntent = new Intent(HomeActivity.this, NewsDetailActivity.class);
+                                    eventIntent.putExtra(EventsDetailActivity.EXTRA_EVENT_KEY, key);
+                                    startActivity(eventIntent);
                                     break;
                                 case "post":
                                     break;
