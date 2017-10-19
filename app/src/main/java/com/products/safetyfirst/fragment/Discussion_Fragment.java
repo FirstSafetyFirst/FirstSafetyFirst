@@ -56,14 +56,12 @@ public class Discussion_Fragment extends Fragment {
         home_recycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                switch(newState){
-                    case RecyclerView.SCROLL_STATE_DRAGGING:
-                        mFab.setVisibility(View.GONE);
-                        break;
-                    default:
-                        mFab.setVisibility(View.VISIBLE);
-                }
                 super.onScrollStateChanged(recyclerView, newState);
+                if (newState > 0) {
+                    mFab.hide();
+                } else {
+                    mFab.show();
+                }
             }
         });
         bottomNavigationView.setVisibility(View.VISIBLE);
