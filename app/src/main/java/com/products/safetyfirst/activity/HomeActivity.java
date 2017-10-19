@@ -159,7 +159,7 @@ public class HomeActivity extends BaseActivity
         buildFragmentsList();
 
         switchFragment(1, TAG_FRAGMENT_DISCUSSION);
-        navigationView.getMenu().getItem(1).setChecked(true);
+        bottomNavigationView.setSelectedItemId(R.id.discussion);
 
         FirebaseDynamicLinks.getInstance()
                 .getDynamicLink(getIntent())
