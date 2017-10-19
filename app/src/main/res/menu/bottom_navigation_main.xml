@@ -16,10 +16,10 @@
         android:title="@string/discussion"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/laws"
+        android:id="@+id/training"
         android:enabled="true"
         android:icon="@drawable/ic_gavel_black_24dp"
-        android:title="@string/laws"
+        android:title="@string/training"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/know_it"

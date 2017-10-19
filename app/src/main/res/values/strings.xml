@@ -80,7 +80,7 @@
     <string name="firebase_status_fmt">Firebase User: %s</string>
     <string name="google_status_fmt">Google User: %s</string>
     <string name="title_activity_post_detail">PostDetailActivity</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_maps">Training Centers</string>
     <string name="update_profile">Update Profile</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
@@ -103,5 +103,10 @@
     <string name="training">Training</string>
     <string name="not_signed_in">Please Sign In</string>
     <string name="title_activity_test">Test</string>
+    <string name="view_on_map">View on Map</string>
+    <string name="default_info_title">Default Location</string>
+    <string name="default_info_snippet">No places found, because location permission is disabled.</string>
+    <string name="option_get_place">Get place</string>
+    <string name="pick_place">Choose a place</string>
 
 </resources>
