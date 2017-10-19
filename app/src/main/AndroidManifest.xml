@@ -70,7 +70,9 @@
             android:name=".activity.PostDetailActivity"
             android:label="@string/title_activity_post_detail"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.ProfileActivity" />
+        <activity
+            android:name=".activity.ProfileActivity"
+            android:parentActivityName=".activity.HomeActivity"/>
 
         <activity android:name=".activity.WebViewActivity" />
         <activity android:name=".activity.EventsDetailActivity"></activity>
