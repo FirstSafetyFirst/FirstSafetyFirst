@@ -30,7 +30,7 @@ import com.products.safetyfirst.R;
 import com.products.safetyfirst.activity.PostDetailActivity;
 import com.products.safetyfirst.activity.ProfileActivity;
 import com.products.safetyfirst.customview.CircleTransform;
-import com.products.safetyfirst.models.Discussion_model;
+import com.products.safetyfirst.models.PostModel;
 import com.products.safetyfirst.models.UserModel;
 import com.products.safetyfirst.utils.JustifiedWebView;
 
@@ -45,14 +45,14 @@ public class Discussion_Adapter extends RecyclerView.Adapter<Discussion_Adapter.
 
     private final Context context;
     private DatabaseReference mDatabase;
-    private ArrayList<Discussion_model> postArrayList = new ArrayList<>();
+    private ArrayList<PostModel> postArrayList = new ArrayList<>();
     private ArrayList<String> postArrayKey = new ArrayList<>();
     private Query postQuery;
     private String key;
     private String mLastkey;
     private ProgressBar mpaginateprogbar;
-    private ArrayList<Discussion_model> getPost = new ArrayList<>();
-    private ArrayList<Discussion_model> tempPost = new ArrayList<>();
+    private ArrayList<PostModel> getPost = new ArrayList<>();
+    private ArrayList<PostModel> tempPost = new ArrayList<>();
     private ArrayList<String> tempkeys = new ArrayList<>();
     private ArrayList<String> getKeys = new ArrayList<>();
     private Map<String, UserModel> userMap = new HashMap<>();
@@ -67,10 +67,10 @@ public class Discussion_Adapter extends RecyclerView.Adapter<Discussion_Adapter.
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 postArrayKey.add(dataSnapshot.getKey());
-                postArrayList.add(dataSnapshot.getValue(Discussion_model.class));
+                postArrayList.add(dataSnapshot.getValue(PostModel.class));
 
                 /* add user */
-                addUser(dataSnapshot.getValue(Discussion_model.class).getUid(), postArrayList.size() - 1, postArrayList.size() - 1);
+                addUser(dataSnapshot.getValue(PostModel.class).getUid(), postArrayList.size() - 1, postArrayList.size() - 1);
 
                 notifyItemInserted(postArrayList.size() - 1);
                 if (postArrayList.size() == 1) {
@@ -108,11 +108,11 @@ public class Discussion_Adapter extends RecyclerView.Adapter<Discussion_Adapter.
         Getmorenewsquery.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                getPost.add(dataSnapshot.getValue(Discussion_model.class));
+                getPost.add(dataSnapshot.getValue(PostModel.class));
                 getKeys.add(dataSnapshot.getKey());
 
                 /* add user */
-                addUser(dataSnapshot.getValue(Discussion_model.class).getUid(), 0, 9);
+                addUser(dataSnapshot.getValue(PostModel.class).getUid(), 0, 9);
 
                 if (getPost.size() == 10) {
                     getPost.remove(9);
@@ -283,7 +283,7 @@ public class Discussion_Adapter extends RecyclerView.Adapter<Discussion_Adapter.
         postRef.runTransaction(new Transaction.Handler() {
             @Override
             public Transaction.Result doTransaction(MutableData mutableData) {
-                Discussion_model p = mutableData.getValue(Discussion_model.class);
+                PostModel p = mutableData.getValue(PostModel.class);
                 if (p == null) {
                     return Transaction.success(mutableData);
                 }

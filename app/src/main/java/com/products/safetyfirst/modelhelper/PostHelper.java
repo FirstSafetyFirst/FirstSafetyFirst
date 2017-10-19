@@ -8,9 +8,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.products.safetyfirst.androidhelpers.NotificationHelper;
-import com.products.safetyfirst.models.Discussion_model;
+import com.products.safetyfirst.models.PostModel;
 import com.products.safetyfirst.utils.DatabaseUtil;
+import com.products.safetyfirst.utils.StringHelper;
 
 import java.io.ByteArrayOutputStream;
 import java.util.List;
@@ -22,12 +22,14 @@ import java.util.Random;
 
 public class PostHelper {
 
-    private UserHelper userhelper = new UserHelper();
+    private UserHelper userhelper = UserHelper.getInstance();
+    private StringHelper stringHelper = StringHelper.getInstance();
 
     public void createNewPost(String postKey, String title, String body, String file,  List<String> imageList ) {
         int time = (int) System.currentTimeMillis();
-        Discussion_model post = new Discussion_model(
-                userhelper.getUserId(), title, userhelper.getUserImgUrl(), body, time, file, imageList
+        String mainBody = stringHelper.addHref(body);
+        PostModel post = new PostModel(
+                userhelper.getUserId(), title, userhelper.getUserImgUrl(), mainBody, time, file, imageList
         );
         DatabaseUtil db = new DatabaseUtil();
         db.getDatabase().getReference().child("posts").child(postKey).setValue(post);  // Create post in /posts/

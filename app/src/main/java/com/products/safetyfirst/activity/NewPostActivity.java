@@ -62,7 +62,7 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_post);
 
-        user = new UserHelper();
+        user = UserHelper.getInstance();
         postHelper = new PostHelper();
         notifHelper = NotificationHelper.getInstance();
         imageHelper = ImageHelper.getInstance();
@@ -80,8 +80,6 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
         createPostBtn = (Button) findViewById(R.id.post_btn);
         imgView = (RecyclerView) findViewById(R.id.images_list_view);
         titleText = (EditText) findViewById(R.id.new_post_title);
-
-
 
         initEditor();
         initImgRecycler();

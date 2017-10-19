@@ -9,7 +9,7 @@ import java.util.Map;
  * Created by vikas on 24/04/17.
  */
 
-public class Discussion_model {
+public class PostModel {
 
     private String favicon;
     private Integer timestamp;
@@ -28,10 +28,10 @@ public class Discussion_model {
     private String link;
     private List<String> imageList;     // For Multiple Image Upload
 
-    public Discussion_model() {
+    public PostModel() {
     }
 
-    public Discussion_model(String uid, String title, String authorImageUrl, String body, Integer timestamp, String file, List<String> imageList) {
+    public PostModel(String uid, String title, String authorImageUrl, String body, Integer timestamp, String file, List<String> imageList) {
         this.title = title;
         this.authorImageUrl = authorImageUrl;
         this.body = body;
