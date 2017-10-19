@@ -27,6 +27,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -34,8 +35,13 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.products.safetyfirst.R;
+import com.products.safetyfirst.impementations.presenter.TrainingMapPresenterImpl;
+import com.products.safetyfirst.interfaces.view.TrainingMapView;
+import com.products.safetyfirst.models.TrainingCenterModel;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+import java.util.ArrayList;
+
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, TrainingMapView {
 
     private static final String TAG = MapsActivity.class.getSimpleName();
     private GoogleMap mMap;
@@ -70,6 +76,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private String[] mLikelyPlaceAttributions;
     private LatLng[] mLikelyPlaceLatLngs;
 
+    //Presenter for this view
+    private TrainingMapPresenterImpl presenter;
+
 
 
     @Override
@@ -97,6 +106,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        //Create an instance of the presenter
+        presenter = new TrainingMapPresenterImpl(this);
+
+
     }
 
     /**
@@ -177,6 +191,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Get the current location of the device and set the position of the map.
         getDeviceLocation();
+
+        // Get List of training Centers and set the positions on map.
+        presenter.request();
+    }
+
+    @Override
+    protected void onStop() {
+        if(presenter != null)
+           presenter.onDestroy();
+        super.onStop();
     }
 
     /**
@@ -388,5 +412,46 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         } catch (SecurityException e)  {
             Log.e("Exception: %s", e.getMessage());
         }
+    }
+
+    @Override
+    public void onError(String message) {
+
+    }
+
+    @Override
+    public void onSuccess(ArrayList<TrainingCenterModel> trainingCenterModels) {
+
+        //Set the training Centers on Map
+
+        for(int i = 0 ; i < trainingCenterModels.size() ; i++ ) {
+
+            createMarker(trainingCenterModels.get(i).getLat(), trainingCenterModels.get(i).getLng(), trainingCenterModels.get(i).getName(), trainingCenterModels.get(i).getSnippet());
+        }
+
+    }
+
+    protected Marker createMarker(double latitude, double longitude, String title, String snippet) {
+
+        return mMap.addMarker(new MarkerOptions()
+                .title(title)
+                .anchor(0.5f, 0.5f)
+                .position(new LatLng(latitude, longitude))
+                .snippet(snippet));
+    }
+
+    @Override
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
+
+    }
+
+    @Override
+    public void navigateToHome() {
+
     }
 }
