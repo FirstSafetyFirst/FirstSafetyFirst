@@ -65,7 +65,7 @@ public class Discussion_Fragment extends Fragment {
             }
         });
         bottomNavigationView.setVisibility(View.VISIBLE);
-        user = new UserHelper();
+        user = UserHelper.getInstance();
         return rootView;
     }
 
