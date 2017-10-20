@@ -32,7 +32,7 @@ public class EventsDetailInteractorImpl implements EventsDetailInteractor {
 
     @Override
     public void requestEvent(String mEventKey) {
-        DatabaseReference mPostReference = FirebaseDatabase.getInstance().getReference()
+        DatabaseReference mPostReference = getDatabase().getReference()
                 .child("events").child(mEventKey);
 
         mPostReference.addValueEventListener(new ValueEventListener() {

@@ -52,6 +52,7 @@ import com.products.safetyfirst.fragment.KnowIt_Fragment;
 import com.products.safetyfirst.fragment.Laws_Fragment;
 import com.products.safetyfirst.fragment.News_Events_Fragment;
 import com.products.safetyfirst.fragment.ProfileFragment.ProjectsFragment;
+import com.products.safetyfirst.fragment.TrainingFragment;
 import com.products.safetyfirst.fragment.UpdateProfileFragment;
 import com.products.safetyfirst.utils.Constants;
 import com.products.safetyfirst.utils.PrefManager;
@@ -60,12 +61,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener, ProjectsFragment.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, ProjectsFragment.OnFragmentInteractionListener, TrainingFragment.OnFragmentInteractionListener {
 
     //private static final String TAG_FRAGMENT_HOME = "tag_frag_home";
     private static final String TAG_FRAGMENT_NEWS = "tag_frag_news";
     private static final String TAG_FRAGMENT_DISCUSSION = "tag_frag_discussion";
     private static final String TAG_FRAGMENT_LAWS = "tag_frag_laws";
+    private static final String TAG_FRAGMENT_TRAINING = "tag_frag_training";
     private static final String TAG_FRAGMENT_KNOWIT = "tag_frag_knowit";
     private static final String TAG_FRAGMENT_UPDATE_PROFILE = "tag_fragment_update_profile";
 
@@ -145,8 +147,8 @@ public class HomeActivity extends BaseActivity
                             case R.id.discussion:
                                 switchFragment(1, TAG_FRAGMENT_DISCUSSION);
                                 return true;
-                            case R.id.laws:
-                                switchFragment(2, TAG_FRAGMENT_LAWS);
+                            case R.id.training:
+                                switchFragment(2, TAG_FRAGMENT_TRAINING);
                                 return true;
                             case R.id.know_it:
                                 switchFragment(3, TAG_FRAGMENT_KNOWIT);
@@ -229,14 +231,14 @@ public class HomeActivity extends BaseActivity
         // Home_Fragment homeFragment = new Home_Fragment();
         News_Events_Fragment newsFragment = new News_Events_Fragment();
         Discussion_Fragment discussionFragment = new Discussion_Fragment();
-        Laws_Fragment lawsFragment = new Laws_Fragment();
+        TrainingFragment trainingFragment = new TrainingFragment();
         KnowIt_Fragment knowFragment = new KnowIt_Fragment();
         UpdateProfileFragment updateProfileFragment = new UpdateProfileFragment();
 
         // fragments.add(homeFragment);
         fragments.add(newsFragment);
         fragments.add(discussionFragment);
-        fragments.add(lawsFragment);
+        fragments.add(trainingFragment);
         fragments.add(knowFragment);
         fragments.add(updateProfileFragment);
     }
