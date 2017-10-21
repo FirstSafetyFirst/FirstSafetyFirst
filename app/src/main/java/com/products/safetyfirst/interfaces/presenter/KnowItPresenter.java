@@ -14,5 +14,9 @@ public interface KnowItPresenter {
 
     void getChildren(ArrayList<KnowItItem> items);
 
+    void OnSuccess();
 
+    void OnError();
+
+    void request();
 }

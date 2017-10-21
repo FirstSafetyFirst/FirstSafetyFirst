@@ -19,6 +19,8 @@ import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter;
 import com.mikepenz.fastadapter.items.AbstractItem;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.activity.KnowItSecondActivity;
+import com.products.safetyfirst.adapters.KnowItAdapter;
+import com.products.safetyfirst.impementations.presenter.KnowItPresenterImpl;
 import com.products.safetyfirst.interfaces.presenter.KnowItPresenter;
 import com.products.safetyfirst.interfaces.view.KnowItView;
 
@@ -33,24 +35,16 @@ public class KnowIt_Fragment extends Fragment implements KnowItView{
     private FastItemAdapter itemsAdapter;
     private List<knowititem> items;
     private KnowItPresenter presenter;
+    private KnowItAdapter knowItAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        presenter= new KnowItPresenter() {
-            @Override
-            public void onDestroy() {
-
-            }
-
-            @Override
-            public void getChildren(ArrayList<com.products.safetyfirst.models.KnowItItem> items) {
-
-            }
-        };
-
+        presenter= new KnowItPresenterImpl(this);
+        knowItAdapter= new KnowItAdapter(getContext());
+        knowItAdapter.request();
         View rootView = inflater.inflate(R.layout.activity_know_it, container, false);
        /* setSupportActionBar((Toolbar) rootView.findViewById(R.id.toolbar));
         ActionBar actionBar = getSupportActionBar();

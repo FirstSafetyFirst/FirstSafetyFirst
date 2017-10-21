@@ -12,5 +12,5 @@ public interface KnowItAdapterView {
 
     void addAllItems(ArrayList<KnowItItem> items);
 
-    void request(String mProfileKey);
+    void request();
 }

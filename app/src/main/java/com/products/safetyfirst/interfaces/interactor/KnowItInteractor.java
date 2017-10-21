@@ -6,7 +6,7 @@ package com.products.safetyfirst.interfaces.interactor;
 
 public interface KnowItInteractor {
 
-    public void getKnowit();
+    void getKnowit();
 
-    public void getKnowitItem(int position);
+    void getKnowitItem(int position);
 }

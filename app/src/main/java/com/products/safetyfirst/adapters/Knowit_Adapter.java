@@ -21,8 +21,7 @@ public class Knowit_Adapter extends RecyclerView.Adapter<Knowit_Adapter.MyViewHo
     private final Context context;
     private List<Knowit_model> horizontalList;
 
-    public Knowit_Adapter(Context cont, List<Knowit_model> horizontalList) {
-        this.horizontalList = horizontalList;
+    public Knowit_Adapter(Context cont) {
         this.context=cont;
     }
 
