@@ -13,6 +13,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.products.safetyfirst.models.PostModel;
+import com.products.safetyfirst.utils.Constants;
 import com.products.safetyfirst.utils.DatabaseUtil;
 import com.products.safetyfirst.utils.StringHelper;
 
@@ -37,8 +38,10 @@ public class PostHelper {
                 PostModel post = new PostModel(
                         title, body, userhelper.getUserId(), imageList, fileList, time, key
                 );
-                DatabaseUtil.getDatabase().getReference().child("posts").child(postKey).setValue(post);  // Create post in /posts/
-                DatabaseUtil.getDatabase().getReference().child("user-posts").child(userhelper.getUserId()).child(postKey).setValue(true);  // push post key in /user-posts/
+                DatabaseUtil.getDatabase().getReference().child(Constants.POSTS_LINK).child(postKey).setValue(post);  // Create post in /posts/
+                DatabaseUtil.getDatabase().getReference().child(Constants.USERS_POSTS_LINK).child(userhelper.getUserId()).child(postKey).setValue(true);  // push post key in /user-posts/
+                DatabaseUtil.getDatabase().getReference().child(Constants.POSTS_STARS_LINK).child(postKey).setValue(0);
+                DatabaseUtil.getDatabase().getReference().child(Constants.POSTS_VIEWS_LINK).child(postKey).setValue(0);
             }
         });
     }
