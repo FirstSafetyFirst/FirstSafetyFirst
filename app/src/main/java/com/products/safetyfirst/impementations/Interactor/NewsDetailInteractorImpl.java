@@ -30,7 +30,7 @@ public class NewsDetailInteractorImpl implements NewsDetailInteractor {
 
     public NewsDetailInteractorImpl(NewsDetailPresenterImpl newsDetailPresenter) {
         this.newsDetailPresenter = newsDetailPresenter;
-        this.user = new UserHelper();
+        this.user = UserHelper.getInstance();
     }
 
     @Override

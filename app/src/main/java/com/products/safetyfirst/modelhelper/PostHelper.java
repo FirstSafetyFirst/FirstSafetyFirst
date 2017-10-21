@@ -14,6 +14,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.products.safetyfirst.models.PostModel;
 import com.products.safetyfirst.utils.DatabaseUtil;
+import com.products.safetyfirst.utils.StringHelper;
 
 import java.io.ByteArrayOutputStream;
 import java.util.List;
@@ -25,7 +26,8 @@ import java.util.Random;
 
 public class PostHelper {
 
-    private UserHelper userhelper = new UserHelper();
+    private UserHelper userhelper = UserHelper.getInstance();
+    private StringHelper stringHelper = StringHelper.getInstance();
 
     public void createNewPost(final String postKey, final String title, final String body, final List<String> fileList, final List<String> imageList ) {
         final int time = (int) System.currentTimeMillis();

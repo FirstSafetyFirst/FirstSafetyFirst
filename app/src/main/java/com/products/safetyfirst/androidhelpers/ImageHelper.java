@@ -19,19 +19,6 @@ public class ImageHelper {
     }
 
     public Bitmap downScale(Bitmap bitmap) {
-//        int width = bitmap.getWidth(), height = bitmap.getHeight();
-//        Bitmap newImg = bitmap;
-//        if(width < height && width > 768 && height > 1024) {
-//            float ratio = width / 768f;
-//            height = Math.round(height / ratio);
-//            newImg = Bitmap.createScaledBitmap(bitmap, 768, height, false);
-//        } else if (width > height && width > 1024 && height > 768) {
-//            float ratio = width / 1024f;
-//            height = Math.round(height / ratio);
-//            newImg = Bitmap.createScaledBitmap(bitmap, 1024, height, false);
-//        }
-//        Log.e("Image", bitmap.getByteCount() + " : " + newImg.getByteCount());
-//        return newImg;
         Bitmap newImg;
         int size = bitmap.getByteCount();
         int maxSize = 50000;
