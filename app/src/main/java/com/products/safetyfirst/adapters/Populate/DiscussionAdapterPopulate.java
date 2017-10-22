@@ -24,7 +24,7 @@ public class DiscussionAdapterPopulate implements DiscussionAdapter.DiscussionCa
     @Override
     public void updateData(final List<Pair<String, PostModel>> postList, final DiscussionAdapter adapter) {
         Single<String> subs;  // A dummy single
-        if(postList == null) {
+        if(postList == null || postList.size() == 0) {
             subs = postHelper.getLatestPost();
         } else {
             subs = Single.just(postList.get(postList.size() - 1).first);

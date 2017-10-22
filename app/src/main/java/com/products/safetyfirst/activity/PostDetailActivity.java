@@ -218,32 +218,32 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
                             .show();
                     return;
                 }
-
+                // TODO: Rewrite post detail impl
                 // [START_EXCLUDE]
-                if (post.getImage() == null) {
-                    mAuthorImage.setImageDrawable(ContextCompat.getDrawable(getBaseContext(),
-                            R.drawable.logo));
-                } else {
-                    Glide.with(getBaseContext())
-                            .load(post.getImage())
-                            .into(mAuthorImage);
-                }
-
-                if (post.getImage() != null) {
-                    Glide.with(getBaseContext())
-                            .load(post.getImage())
-                            .into(mImageView);
-                    mImageView.setVisibility(View.VISIBLE);
-                } else {
-                    mImageView.setVisibility(View.GONE);
-                }
-                mAuthorView.setText(post.getAuthor());
+//                if (post.getImage() == null) {
+//                    mAuthorImage.setImageDrawable(ContextCompat.getDrawable(getBaseContext(),
+//                            R.drawable.logo));
+//                } else {
+//                    Glide.with(getBaseContext())
+//                            .load(post.getImage())
+//                            .into(mAuthorImage);
+//                }
+//
+//                if (post.getImage() != null) {
+//                    Glide.with(getBaseContext())
+//                            .load(post.getImage())
+//                            .into(mImageView);
+//                    mImageView.setVisibility(View.VISIBLE);
+//                } else {
+//                    mImageView.setVisibility(View.GONE);
+//                }
+                //mAuthorView.setText(post.getAuthor());
                 mTitleView.setText(post.getTitle());
                 // mBodyView.setText(post.body); //Replaced by hyperlink text method in line below.
-                if(post.getXmlBody() == null)
+                if(post.getBody() == null)
                     setHyperlinkText(mBodyView, post.getBody());
                 else
-                    setHyperlinkText(mBodyView, post.getXmlBody());
+                    setHyperlinkText(mBodyView, post.getBody());
 
                 postLoaded = true;
                 onCreateOptionsMenu(mMenu);

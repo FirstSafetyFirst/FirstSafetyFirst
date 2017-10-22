@@ -133,7 +133,7 @@ public class PostHelper {
                         .addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                emitter.onSuccess(dataSnapshot.getValue(PostModel.class));
+                                emitter.onSuccess(dataSnapshot.getValue(PostModel.class)); // TODO: improve null ?
                             }
                             @Override
                             public void onCancelled(DatabaseError databaseError) {
