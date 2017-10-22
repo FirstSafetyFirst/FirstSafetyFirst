@@ -17,7 +17,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.activity.NewPostActivity;
-import com.products.safetyfirst.adapters.PostAdapter;
+import com.products.safetyfirst.adapters.DiscussionAdapter;
+import com.products.safetyfirst.impementations.Interactor.DiscussionAdapterPopulate;
+import com.products.safetyfirst.modelhelper.PostHelper;
 import com.products.safetyfirst.modelhelper.UserHelper;
 
 import static com.products.safetyfirst.activity.HomeActivity.bottomNavigationView;
@@ -36,6 +38,7 @@ public class DiscussionFragment extends Fragment {
     private FloatingActionButton mFab;
 
     private UserHelper user;
+    private PostHelper postHelper;
 
     public DiscussionFragment(){}
 
@@ -43,6 +46,9 @@ public class DiscussionFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.discussion_fragment, container, false);
+
+        user = UserHelper.getInstance();
+        postHelper = PostHelper.getInstance();
 
         mDatabase = getDatabase().getReference();
         mpaginateprogbar=(ProgressBar) rootView.findViewById(R.id.newspaginateprogbar);
@@ -65,7 +71,6 @@ public class DiscussionFragment extends Fragment {
             }
         });
         bottomNavigationView.setVisibility(View.VISIBLE);
-        user = UserHelper.getInstance();
         return rootView;
     }
 
@@ -81,7 +86,8 @@ public class DiscussionFragment extends Fragment {
         home_recycler.setItemAnimator(new DefaultItemAnimator());
 
         Query postQuery =  mDatabase.child("posts").orderByKey().limitToLast(10);
-        home_recycler.setAdapter(new PostAdapter(getActivity(),postQuery, mDatabase, mpaginateprogbar));
+//        home_recycler.setAdapter(new PostAdapter(getActivity(),postQuery, mDatabase, mpaginateprogbar));
+        home_recycler.setAdapter(new DiscussionAdapter(new DiscussionAdapterPopulate()));
 
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -19,11 +19,15 @@ import com.products.safetyfirst.modelhelper.PostHelper;
 import com.products.safetyfirst.models.PostModel;
 import com.products.safetyfirst.utils.JustifiedWebView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import io.reactivex.SingleSource;
 import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Function;
 
@@ -34,6 +38,7 @@ import io.reactivex.functions.Function;
 public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.PostViewHolder> {
 
     private List<Pair<String, PostModel>> posts;
+    private DiscussionCallbacks discussionCallbacks;
 
     /* Helpers */
     AuthorHelper authorHelper = AuthorHelper.getInstance();
@@ -41,6 +46,7 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.Po
 
     public DiscussionAdapter(DiscussionCallbacks discussionCallbacks) {
         posts = new ArrayList<>();
+        this.discussionCallbacks = discussionCallbacks;
         discussionCallbacks.updateData(posts, this);
     }
 
@@ -59,7 +65,7 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.Po
 
         postDiscussionData.setFromPostModel(post);
 
-        authorHelper.getPeerName(post.getUid()).flatMap(new Function<String, SingleSource<String>>() {
+        Disposable subs = authorHelper.getPeerName(post.getUid()).flatMap(new Function<String, SingleSource<String>>() {
             @Override
             public SingleSource<String> apply(@NonNull String name) throws Exception {
                 postDiscussionData.author = name;
@@ -88,7 +94,11 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.Po
             public void run() throws Exception {
                 holder.setData(postDiscussionData);
             }
-        });
+        }).subscribe();
+
+        if(position+2 == posts.size()){
+            discussionCallbacks.updateData(posts, this);
+        }
     }
 
     @Override
@@ -129,6 +139,9 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.Po
             post_author.setText(postData.author);
             post_author_email.setText(postData.authorEmail);
             Glide.with(context).load(postData.authorPhoto).error(R.drawable.ic_person_black_24dp).transform(new CircleTransform(context)).into(post_author_photo);
+            Date date = new Date(postData.timestamp * 1000);
+            SimpleDateFormat sDate = new SimpleDateFormat("dd MM yyyy", new Locale("hi", "IN"));
+            dateTime.setText(sDate.format(date));
         }
     }
 

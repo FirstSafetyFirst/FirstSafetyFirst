@@ -21,12 +21,14 @@ import java.io.ByteArrayOutputStream;
 import java.util.List;
 import java.util.Random;
 
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Single;
 import io.reactivex.SingleEmitter;
 import io.reactivex.SingleOnSubscribe;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
+import io.reactivex.internal.observers.ConsumerSingleObserver;
 
 /**
  * Created by rishabh on 12/10/17.
@@ -48,9 +50,10 @@ public class PostHelper {
 
     public void createNewPost(final String postKey, final String title, final String body, final List<String> fileList, final List<String> imageList ) {
         final int time = (int) System.currentTimeMillis();
-        latestPost(new OnRetrievePost() {
+
+        Disposable subs = getLatestPost().subscribe(new Consumer<String>() {
             @Override
-            public void onComplete(String key) {
+            public void accept(String key) throws Exception {
                 PostModel post = new PostModel(
                         title, body, userhelper.getUserId(), imageList, fileList, time, key
                 );
@@ -102,22 +105,6 @@ public class PostHelper {
         uploadTask.addOnFailureListener(fail).addOnSuccessListener(success);
     }
 
-    public void latestPost(final OnRetrievePost onRetrievePost) {
-        Query ref = DatabaseUtil.getDatabase().getReference("posts").orderByKey().limitToFirst(1);
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String key = dataSnapshot.getKey();
-                onRetrievePost.onComplete(key);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                /* Maybe Later */
-            }
-        });
-    }
-
     public Single<Integer> getStarCount(final String pid) {
         return Single.create(new SingleOnSubscribe<Integer>() {
             @Override
@@ -134,6 +121,46 @@ public class PostHelper {
 
                             }
                         });
+            }
+        });
+    }
+
+    public Single<PostModel> getPost(final String key){
+        return Single.create(new SingleOnSubscribe<PostModel>() {
+            @Override
+            public void subscribe(@io.reactivex.annotations.NonNull final SingleEmitter<PostModel> emitter) throws Exception {
+                DatabaseUtil.getDatabase().getReference().child(Constants.POSTS_LINK).child(key)
+                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                emitter.onSuccess(dataSnapshot.getValue(PostModel.class));
+                            }
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+            }
+        });
+    }
+
+    public Single<String> getLatestPost() {
+        return Single.create(new SingleOnSubscribe<String>() {
+            @Override
+            public void subscribe(@io.reactivex.annotations.NonNull final SingleEmitter<String> emitter) throws Exception {
+                Query ref = DatabaseUtil.getDatabase().getReference("posts").orderByKey().limitToFirst(1);
+                ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String key = dataSnapshot.getKey();
+                        emitter.onSuccess(key);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                /* Maybe Later */
+                    }
+                });
             }
         });
     }
@@ -159,10 +186,6 @@ public class PostHelper {
         void onProgress(int progress, int total);
 
         void onFail(Exception e);
-    }
-
-    public interface OnRetrievePost {
-        void onComplete(String key);
     }
 
 }
