@@ -1,4 +1,4 @@
-package com.products.safetyfirst.impementations.Interactor;
+package com.products.safetyfirst.adapters.Populate;
 
 import android.util.Pair;
 

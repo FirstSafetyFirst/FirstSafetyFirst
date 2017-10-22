@@ -17,7 +17,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.activity.ProfileActivity;
-import com.products.safetyfirst.adapters.PostAdapter;
+import com.products.safetyfirst.adapters.DiscussionAdapter;
+import com.products.safetyfirst.adapters.Populate.PeerPostPopulate;
 
 import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
 
@@ -86,9 +87,7 @@ public class QuestionsFragment extends Fragment {
 
         home_recycler.setLayoutManager(mLayoutManager);
         home_recycler.setItemAnimator(new DefaultItemAnimator());
-        Query postQuery =  mDatabase.child("user-posts").child(ProfileActivity.getProfileKey()).orderByKey().limitToLast(10);
-        Toast.makeText(getContext(), ProfileActivity.getProfileKey(), Toast.LENGTH_SHORT).show();
-        home_recycler.setAdapter(new PostAdapter(getActivity(),postQuery, mDatabase, mpaginateprogbar));
+        home_recycler.setAdapter(new DiscussionAdapter(new PeerPostPopulate(ProfileActivity.getProfileKey())));
     }
 
     @Override

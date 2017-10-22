@@ -18,7 +18,7 @@ import com.google.firebase.database.Query;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.activity.NewPostActivity;
 import com.products.safetyfirst.adapters.DiscussionAdapter;
-import com.products.safetyfirst.impementations.Interactor.DiscussionAdapterPopulate;
+import com.products.safetyfirst.adapters.Populate.DiscussionAdapterPopulate;
 import com.products.safetyfirst.modelhelper.PostHelper;
 import com.products.safetyfirst.modelhelper.UserHelper;
 
@@ -85,8 +85,6 @@ public class DiscussionFragment extends Fragment {
         home_recycler.setLayoutManager(mLayoutManager);
         home_recycler.setItemAnimator(new DefaultItemAnimator());
 
-        Query postQuery =  mDatabase.child("posts").orderByKey().limitToLast(10);
-//        home_recycler.setAdapter(new PostAdapter(getActivity(),postQuery, mDatabase, mpaginateprogbar));
         home_recycler.setAdapter(new DiscussionAdapter(new DiscussionAdapterPopulate()));
 
         mFab.setOnClickListener(new View.OnClickListener() {
