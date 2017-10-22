@@ -45,7 +45,7 @@ public class DiscussionAdapterPopulate implements DiscussionAdapter.DiscussionCa
                 Pair<String, PostModel> pair = new Pair<>(key, postModel);
                 postList.add(pair);
                 adapter.notifyDataSetChanged();
-                if (count < 10) {
+                if (count < 10 && postModel.getPreviousPost() == null) {
                     recursePostLinkedList(postModel.getPreviousPost(), count+1, postList, adapter);
                 }
             }
