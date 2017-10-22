@@ -12,7 +12,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
@@ -47,9 +46,8 @@ import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 import com.google.firebase.dynamiclinks.ShortDynamicLink;
 import com.products.safetyfirst.R;
-import com.products.safetyfirst.fragment.Discussion_Fragment;
+import com.products.safetyfirst.fragment.DiscussionFragment;
 import com.products.safetyfirst.fragment.KnowIt_Fragment;
-import com.products.safetyfirst.fragment.Laws_Fragment;
 import com.products.safetyfirst.fragment.News_Events_Fragment;
 import com.products.safetyfirst.fragment.ProfileFragment.ProjectsFragment;
 import com.products.safetyfirst.fragment.TrainingFragment;
@@ -230,7 +228,7 @@ public class HomeActivity extends BaseActivity
     private void buildFragmentsList() {
         // Home_Fragment homeFragment = new Home_Fragment();
         News_Events_Fragment newsFragment = new News_Events_Fragment();
-        Discussion_Fragment discussionFragment = new Discussion_Fragment();
+        DiscussionFragment discussionFragment = new DiscussionFragment();
         TrainingFragment trainingFragment = new TrainingFragment();
         KnowIt_Fragment knowFragment = new KnowIt_Fragment();
         UpdateProfileFragment updateProfileFragment = new UpdateProfileFragment();

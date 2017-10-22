@@ -65,7 +65,7 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_new_post);
 
         user = UserHelper.getInstance();
-        postHelper = new PostHelper();
+        postHelper = PostHelper.getInstance();
         notifHelper = NotificationHelper.getInstance();
         imageHelper = ImageHelper.getInstance();
 

@@ -79,6 +79,9 @@ dependencies {
     compile 'com.mikepenz:fastadapter-commons:2.5.0@aar'
     compile 'com.github.bumptech.glide:glide:3.7.0'
 
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    compile 'io.reactivex.rxjava2:rxjava:2.1.5'
+
     testCompile 'junit:junit:4.12'
 }
 apply plugin: 'com.google.gms.google-services'

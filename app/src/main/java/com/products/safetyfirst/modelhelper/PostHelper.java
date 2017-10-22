@@ -21,11 +21,27 @@ import java.io.ByteArrayOutputStream;
 import java.util.List;
 import java.util.Random;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Single;
+import io.reactivex.SingleEmitter;
+import io.reactivex.SingleOnSubscribe;
+
 /**
  * Created by rishabh on 12/10/17.
  */
 
 public class PostHelper {
+
+    private static PostHelper instance = new PostHelper();
+
+    private PostHelper() {
+    }
+
+    public static PostHelper getInstance() {
+        return instance;
+    }
 
     private UserHelper userhelper = UserHelper.getInstance();
     private StringHelper stringHelper = StringHelper.getInstance();
@@ -98,6 +114,26 @@ public class PostHelper {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 /* Maybe Later */
+            }
+        });
+    }
+
+    public Single<Integer> getStarCount(final String pid) {
+        return Single.create(new SingleOnSubscribe<Integer>() {
+            @Override
+            public void subscribe(@io.reactivex.annotations.NonNull final SingleEmitter<Integer> emitter) throws Exception {
+                DatabaseUtil.getDatabase().getReference().child(Constants.POSTS_STARS_LINK).child(pid)
+                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                emitter.onSuccess(dataSnapshot.getValue(Integer.class));
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
             }
         });
     }

@@ -32,6 +32,7 @@ import com.products.safetyfirst.activity.ProfileActivity;
 import com.products.safetyfirst.customview.CircleTransform;
 import com.products.safetyfirst.models.PostModel;
 import com.products.safetyfirst.models.UserModel;
+import com.products.safetyfirst.utils.Constants;
 import com.products.safetyfirst.utils.JustifiedWebView;
 
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class PostAdapter extends RecyclerView.Adapter<PostAdapter.DiscussionViewholder> {
+public class PostAdapter extends RecyclerView.Adapter<PostAdapter.DiscussionViewHolder> {
 
     private static final String TAG = "DISCUSSION_MODEL";
 
@@ -159,15 +160,15 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.DiscussionView
     }
 
     @Override
-    public DiscussionViewholder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public DiscussionViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.discussion_item, parent, false);
 
-        return new DiscussionViewholder(itemView);
+        return new DiscussionViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(final DiscussionViewholder holder,final int position) {
+    public void onBindViewHolder(final DiscussionViewHolder holder, final int position) {
 
 
         if (postArrayList.get(position).getAuthorImageUrl() != null && postArrayList.get(position).getAuthorImageUrl() != "") {
@@ -242,8 +243,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.DiscussionView
                             .setAction("Action", null).show();
                 } else {
                     key = postArrayKey.get(position);
-                    DatabaseReference globalPostRef = mDatabase.child("posts").child(key);
-                    DatabaseReference userPostRef = mDatabase.child("user-posts").child(postArrayList.get(position).getUid()).child(key);
+                    DatabaseReference globalPostRef = mDatabase.child(Constants.POSTS_LINK).child(key);
+                    DatabaseReference userPostRef = mDatabase.child(Constants.USERS_POSTS_LINK).child(postArrayList.get(position).getUid()).child(key);
 
                     // Run two transactions
                     onBookMarkClicked(globalPostRef);
@@ -350,7 +351,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.DiscussionView
         else return null;
     }
 
-    public class DiscussionViewholder extends RecyclerView.ViewHolder {
+    public class DiscussionViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView images, overflow, post_author_photo, likeBtn, ansBtn, bookmark;
         private TextView post_title, dateTime, post_author, post_author_email;
@@ -358,7 +359,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.DiscussionView
         private Button readMore;
         private LinearLayout post_author_layout;
 
-        private DiscussionViewholder(View view) {
+        private DiscussionViewHolder(View view) {
 
             super(view);
             post_author_photo = (ImageView) view.findViewById(R.id.post_author_photo);

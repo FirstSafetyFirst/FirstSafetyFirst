@@ -27,7 +27,7 @@ import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
  * Created by profileconnect on 20/04/17.
  */
 
-public class Discussion_Fragment extends Fragment {
+public class DiscussionFragment extends Fragment {
     public static final String ARG_TITLE = "arg_title";
     RecyclerView home_recycler;
 
@@ -37,7 +37,7 @@ public class Discussion_Fragment extends Fragment {
 
     private UserHelper user;
 
-    public Discussion_Fragment(){}
+    public DiscussionFragment(){}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
