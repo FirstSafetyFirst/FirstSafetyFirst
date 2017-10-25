@@ -1,39 +1,30 @@
 package com.products.safetyfirst.fragment;
 
-import android.content.Intent;
-import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.mikepenz.fastadapter.FastAdapter;
-import com.mikepenz.fastadapter.IAdapter;
-import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter;
-import com.mikepenz.fastadapter.items.AbstractItem;
 import com.products.safetyfirst.R;
-import com.products.safetyfirst.activity.KnowItSecondActivity;
 import com.products.safetyfirst.adapters.KnowItAdapter;
 import com.products.safetyfirst.impementations.presenter.KnowItPresenterImpl;
 import com.products.safetyfirst.interfaces.presenter.KnowItPresenter;
 import com.products.safetyfirst.interfaces.view.KnowItView;
+import com.products.safetyfirst.models.KnowItItem;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class KnowIt_Fragment extends Fragment implements KnowItView{
 
     public final static String tool = "tool";
 
     private RecyclerView itemsRecycler;
-    private FastItemAdapter itemsAdapter;
-    private List<knowititem> items;
+    //private FastItemAdapter itemsAdapter;
+    private ArrayList<KnowItItem> items;
     private KnowItPresenter presenter;
     private KnowItAdapter knowItAdapter;
 
@@ -54,31 +45,20 @@ public class KnowIt_Fragment extends Fragment implements KnowItView{
         }*/
 
         itemsRecycler = (RecyclerView) rootView.findViewById(R.id.know_it_recycler);
-        itemsAdapter = new FastItemAdapter();
+        //itemsAdapter = new FastItemAdapter();
         items = new ArrayList<>();
-
         itemsRecycler.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        itemsRecycler.setAdapter(itemsAdapter);
+        //itemsRecycler.setAdapter(itemsAdapter);
+        itemsRecycler.setAdapter(knowItAdapter);
 
-        String[] titles = getResources().getStringArray(R.array.item_title);
+        /**String[] titles = getResources().getStringArray(R.array.item_title);
         TypedArray images = getResources().obtainTypedArray(R.array.item_picture);
         for(int i = 0; i < titles.length; i++) {
             items.add(new knowititem(titles[i], images.getDrawable(i)));
         }
         images.recycle();
-
-        itemsAdapter.add(items);
-
-        itemsAdapter.withSelectable(true);
-        itemsAdapter.withOnClickListener(new FastAdapter.OnClickListener<knowititem>() {
-            @Override
-            public boolean onClick(View v, IAdapter<knowititem> adapter, knowititem item, int position) {
-                Intent intent = new Intent(getContext(), KnowItSecondActivity.class);
-                intent.putExtra(KnowIt_Fragment.tool, position);
-                startActivity(intent);
-                return true;
-            }
-        });
+         **/
+        knowItAdapter.addAllItems(items);
 
         return rootView;
     }
@@ -105,10 +85,10 @@ public class KnowIt_Fragment extends Fragment implements KnowItView{
 
     @Override
     public void onError() {
-
+        Log.e("Know_itFragment","Error populating views");
     }
 
-    private class knowititem extends AbstractItem<knowititem, ViewHolder> {
+    /**private class knowititem extends AbstractItem<knowititem, ViewHolder> {
 
         private String title;
         private Drawable image;
@@ -149,7 +129,6 @@ public class KnowIt_Fragment extends Fragment implements KnowItView{
             holder.image.setImageDrawable(null);
         }
     }
-
     private static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView title;
         public ImageView image;
@@ -162,4 +141,5 @@ public class KnowIt_Fragment extends Fragment implements KnowItView{
             image = (ImageView) view.findViewById(R.id.know_it_item_image);
         }
     }
+        **/
 }

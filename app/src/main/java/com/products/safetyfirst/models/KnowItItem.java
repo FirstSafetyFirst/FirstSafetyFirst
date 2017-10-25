@@ -2,10 +2,7 @@ package com.products.safetyfirst.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.HashMap;
 
 /**
@@ -13,31 +10,27 @@ import java.util.HashMap;
  */
 
 public class KnowItItem implements Parcelable{
+    private static String info;
     private static String item_name;
-    private static URL thumb_url;
-    private static String item_info;
-    private static URL safety_checklist;
-    private static HashMap<String,KnowItItemType> knowItItemTypeMap;
+    private static String safety_checklist;
+    private static String thumb_url;
+    private static HashMap<String,KnowItItemType> types;
     public KnowItItem(){
 
     }
-    public KnowItItem(String name, URL url,String info,URL checklist,HashMap<String,KnowItItemType> list){
+    public KnowItItem(String name,String url,String info,String checklist,HashMap<String,KnowItItemType> list){
         item_name=name;
         thumb_url=url;
-        item_info=info;
+        this.info =info;
         safety_checklist=checklist;
-        knowItItemTypeMap=list;
+        types =list;
     }
     public KnowItItem(Parcel p){
         item_name= p.readString();
-        item_info=p.readString();
-        try {
-            thumb_url= new URL(p.readString());
-            safety_checklist= new URL(p.readString());
-        } catch (MalformedURLException e) {
-            Log.e("KnowItItem","MalformedURLException");
-        }
-        p.readMap(knowItItemTypeMap,KnowItItemType.class.getClassLoader());
+        info =p.readString();
+        thumb_url= p.readString();
+        safety_checklist= p.readString();
+        p.readMap(types,KnowItItemType.class.getClassLoader());
     }
     public static final Creator<KnowItItem> CREATOR = new Creator<KnowItItem>() {
         @Override
@@ -54,13 +47,17 @@ public class KnowItItem implements Parcelable{
     public String getItem_name(){
         return item_name;
     }
-    public  URL getThumb_url(){
+    public  String getThumb_url(){
         return thumb_url;
     }
-    public  String getItem_info(){ return item_info;}
-    public  URL getSafety_checklist(){ return safety_checklist;}
-    public  HashMap<String,KnowItItemType> getKnow_it_item_types(){ return knowItItemTypeMap;}
-
+    public  String getItem_info(){ return info;}
+    public  String getSafety_checklist(){ return safety_checklist;}
+    public  HashMap<String,KnowItItemType> getKnow_it_item_types(){ return types;}
+    public void setItem_name(String s){ item_name=s;}
+    public void setThumb_url(String s){thumb_url=s;}
+    public void setItem_info(String s){
+        info =s;}
+    public void setSafety_checklist(String s){safety_checklist=s;}
 
     @Override
     public int describeContents() {
@@ -70,9 +67,13 @@ public class KnowItItem implements Parcelable{
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(item_name);
-        dest.writeString(item_info);
-        dest.writeString(thumb_url.toString());
-        dest.writeString(safety_checklist.toString());
-        dest.writeMap(knowItItemTypeMap);
+        dest.writeString(info);
+        dest.writeString(thumb_url);
+        dest.writeString(safety_checklist);
+        dest.writeMap(types);
+    }
+
+    public void setItemTypes(HashMap<String,KnowItItemType> itemTypes) {
+        types = itemTypes;
     }
 }

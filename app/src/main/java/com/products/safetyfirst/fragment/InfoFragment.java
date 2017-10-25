@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.products.safetyfirst.R;
+import com.products.safetyfirst.models.KnowItItem;
 import com.products.safetyfirst.utils.JustifiedWebView;
 
 /**
@@ -21,7 +22,7 @@ public class InfoFragment extends Fragment {
     private JustifiedWebView infoTextView;  // Use setInfoText() to set Text. Using WebView for justify text
     private JustifiedWebView checklistView;
     private int position;
-
+    private KnowItItem knowItItem;
     public InfoFragment() {
         // Required empty public constructor
     }
@@ -37,9 +38,9 @@ public class InfoFragment extends Fragment {
         position = getArguments().getInt(KnowIt_Fragment.tool, 0);
 
         Resources res = getResources();
-
-        infoTextView.setText(res.getStringArray(R.array.second_desc)[position]);
-        checklistView.setText(res.getStringArray(R.array.second_safety_rules)[position],
+        knowItItem= savedInstanceState.getParcelable(KnowItItem.class.toString());
+        infoTextView.setText(knowItItem.getItem_info());
+        checklistView.setText(knowItItem.getSafety_checklist(),
                 "<p style=\" color: #f1551a; font-size: 20px; \">"
                         + "Safety Checklist"
                         + "</p>");

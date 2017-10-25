@@ -1,36 +1,68 @@
 package com.products.safetyfirst.models;
 
-import java.net.URL;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * Created by ishita sharma on 10/19/2017.
  */
 
-public class KnowItItemType {
+public class KnowItItemType implements Parcelable{
 
-    private static String item_info,how_to_use;
-    private static URL item_thumb_url,checkList,video_url;
+    private  String item_info,how_to_use,item_thumb_url, checklist,video_url;
 
     public KnowItItemType(){}
 
-    public KnowItItemType(String info, String use,URL thumb_url,URL checklist, URL videoUrl ){
+    public KnowItItemType(String info, String use,String thumb_url,String checklist, String videoUrl ){
         //item_type_name=item_type;
         item_info=info;
         how_to_use=use;
         item_thumb_url=thumb_url;
-        checkList=checklist;
+        this.checklist =checklist;
         video_url=videoUrl;
     }
     //public static String getItem_type_name(){ return item_type_name;}
 
-    public static String getItem_info(){ return item_info;}
+    public KnowItItemType(Parcel in) {
+        item_info = in.readString();
+        how_to_use = in.readString();
+        item_thumb_url = in.readString();
+        checklist = in.readString();
+        video_url = in.readString();
+    }
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(item_info);
+        dest.writeString(how_to_use);
+        dest.writeString(item_thumb_url);
+        dest.writeString(checklist);
+        dest.writeString(video_url);
+    }
+    public static final Creator<KnowItItemType> CREATOR = new Creator<KnowItItemType>() {
+        @Override
+        public KnowItItemType createFromParcel(Parcel in) {
+            return new KnowItItemType(in);
+        }
 
-    public static String getHow_to_use(){ return how_to_use;}
+        @Override
+        public KnowItItemType[] newArray(int size) {
+            return new KnowItItemType[size];
+        }
+    };
 
-    public static URL getItem_thumb_url(){ return item_thumb_url;}
+    public String getItem_info(){ return item_info;}
 
-    public static URL getCheckList(){ return checkList;}
+    public String getHow_to_use(){ return how_to_use;}
 
-    public static URL getVideo_url(){ return video_url;}
+    public String getItem_thumb_url(){ return item_thumb_url;}
+
+    public String getChecklist(){ return checklist;}
+
+    public String getVideo_url(){ return video_url;}
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
 }
-

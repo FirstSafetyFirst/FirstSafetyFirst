@@ -14,5 +14,9 @@ public class Constants {
     public static  int GOING = 1;
     public static  int INTERESTED = 0;
     public static final String DEEP_LINK_URL = "https://x2e8v.app.goo.gl";
+    public static final String knowit="knowIt";
+    public static final String[] knowItItem ={"info","safety_checklist","thumb_url","types"};
+    public static final String[] knowItItemType={"checklist","how_to_use","item_info","item_thumb_url","video_url"};
+
 
 }

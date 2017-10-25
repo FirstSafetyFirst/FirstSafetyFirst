@@ -11,7 +11,6 @@ import com.products.safetyfirst.interfaces.presenter.KnowItPresenter;
 import com.products.safetyfirst.models.KnowItItem;
 import com.products.safetyfirst.models.KnowItItemType;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -24,10 +23,10 @@ import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
 public class KnowItInteractorImpl implements KnowItInteractor {
 
     private KnowItPresenter presenter;
-    private static ArrayList<KnowItItem> mListOfItems;
-    private static String item_name,info;
-    private static URL safety_checklist,thumb_url;
+    private static ArrayList<KnowItItem> mListOfItems= new ArrayList<>();
+    private static String item_name,info,safety_checklist,thumb_url;
     private static HashMap<String,KnowItItemType> mItemtypeMap;
+    private ArrayList<String> itemNames= new ArrayList<>();
 
     public KnowItInteractorImpl(KnowItPresenter presenter){
         this.presenter= presenter;
@@ -35,14 +34,20 @@ public class KnowItInteractorImpl implements KnowItInteractor {
 
     @Override
     public void getKnowit() {
-        Query query = getDatabase().getReference().child("knowIt").orderByChild("timestamp");
+        final Query query = getDatabase().getReference().child("knowIt").orderByChild("timestamp");
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot d :dataSnapshot.getChildren()){
-                    mListOfItems.add(d.getValue(KnowItItem.class));
+                    KnowItItem k= d.getValue(KnowItItem.class);
+                    k.setItem_name(d.getKey());
+                    mListOfItems.add(k);
                 }
                 presenter.getChildren(mListOfItems);
+                Log.e("testing",mListOfItems.get(0).getItem_info()+" "+
+                mListOfItems.get(0).getItem_name()+" "+
+                mListOfItems.get(0).getSafety_checklist()+" "+
+                mListOfItems.get(0).getKnow_it_item_types());
             }
 
             @Override

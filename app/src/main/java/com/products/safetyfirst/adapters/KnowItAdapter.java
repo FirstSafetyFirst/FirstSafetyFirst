@@ -3,6 +3,7 @@ package com.products.safetyfirst.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,8 @@ import com.products.safetyfirst.interfaces.adapter.KnowItAdapterView;
 import com.products.safetyfirst.interfaces.presenter.KnowItPresenter;
 import com.products.safetyfirst.models.KnowItItem;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -26,7 +29,7 @@ import java.util.ArrayList;
 public class KnowItAdapter extends RecyclerView.Adapter<KnowItAdapter.ViewHolder> implements KnowItAdapterView{
 
     private Context context;
-    private ArrayList<KnowItItem> knowItItemArrayList;
+    private ArrayList<KnowItItem> knowItItemArrayList=new ArrayList<>();
     private KnowItPresenter presenter;
     private KnowItItem knowItItem;
 
@@ -45,11 +48,19 @@ public class KnowItAdapter extends RecyclerView.Adapter<KnowItAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        URL url=null;
         knowItItem = knowItItemArrayList.get(position);
         if(knowItItem.getItem_name()!=null)
             holder.title.setText(knowItItem.getItem_name());
-        if(knowItItem.getThumb_url()!=null)
-            Glide.with(context).load(knowItItem.getThumb_url()).into(holder.imageView);
+        if(knowItItem.getThumb_url()!=null) {
+            try {
+                url= new URL(knowItItem.getThumb_url());
+            } catch (MalformedURLException e){
+                Log.e("KnowItAdapter","Error in url");
+            }
+            Glide.with(context).load(url).into(holder.imageView);
+        }
+        holder.mView.isClickable();
 
     }
 
@@ -60,6 +71,7 @@ public class KnowItAdapter extends RecyclerView.Adapter<KnowItAdapter.ViewHolder
 
     @Override
     public void addAllItems(ArrayList<KnowItItem> items) {
+        if(knowItItemArrayList!=null)
           knowItItemArrayList.clear();
         knowItItemArrayList.addAll(items);
     }

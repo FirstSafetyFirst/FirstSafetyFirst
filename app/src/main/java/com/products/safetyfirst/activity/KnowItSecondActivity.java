@@ -13,28 +13,28 @@ import android.widget.TextView;
 
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.fragment.InfoFragment;
-import com.products.safetyfirst.fragment.KnowIt_Fragment;
 import com.products.safetyfirst.fragment.TypeFragment;
+import com.products.safetyfirst.models.KnowItItem;
 
 public class KnowItSecondActivity extends AppCompatActivity {
 
     private TabLayout categoryTabs;
     private ViewPager categoryView;
-    private int tool;
+   // private int tool;
     private TabLayout.OnTabSelectedListener tabSelectedListener;
     private TabLayout.TabLayoutOnPageChangeListener pageChangeListener;
-
+    private KnowItItem knowItItem;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_know_it_second);
         setSupportActionBar((Toolbar) findViewById(R.id.know_it_toolbar));
-        tool = getIntent().getIntExtra("tool", 0);
-
+        //tool = getIntent().getIntExtra("tool", 0);
+        knowItItem= getIntent().getExtras().getParcelable("KnowItItem");
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle(getResources().getStringArray(R.array.item_title)[tool]);
+            actionBar.setTitle(knowItItem.getItem_name());
         }
 
 
@@ -52,12 +52,14 @@ public class KnowItSecondActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 categoryView.setCurrentItem(tab.getPosition(), true);
-                ((TextView)tab.getCustomView().findViewById(R.id.tab_text)).setTextColor(getResources().getColor(R.color.colorAccent));
+                ((TextView)tab.getCustomView().findViewById(R.id.tab_text)).
+                        setTextColor(getResources().getColor(R.color.colorAccent));
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-                ((TextView)tab.getCustomView().findViewById(R.id.tab_text)).setTextColor(getResources().getColor(R.color.white));
+                ((TextView)tab.getCustomView().findViewById(R.id.tab_text)).
+                        setTextColor(getResources().getColor(R.color.white));
             }
 
             @Override
@@ -83,7 +85,7 @@ public class KnowItSecondActivity extends AppCompatActivity {
         categoryTabs.addTab(categoryTabs.newTab().setCustomView(tab2));
 
         final Bundle args = new Bundle();
-        args.putInt(KnowIt_Fragment.tool, tool);
+        args.putParcelable("KnowItItem",knowItItem);
 
         FragmentPagerAdapter categoryAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             Fragment fragments[] = {new InfoFragment(), new TypeFragment()};
@@ -102,7 +104,7 @@ public class KnowItSecondActivity extends AppCompatActivity {
 
             @Override
             public CharSequence getPageTitle(int position) {
-                return titles[position];
+                return knowItItem.getItem_name();
             }
 
         };

@@ -55,7 +55,7 @@ public class EventsInteractorImpl implements EventsInteractor {
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-                    Log.e("Evetns Interacter", "Could not fetch events");
+                    Log.e("Events Interacter", "Could not fetch events");
                 }
             });
 
