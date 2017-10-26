@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.products.safetyfirst.R;
 
 
+
 public class BaseActivity extends AppCompatActivity {
     public static GoogleApiClient mGoogleApiClient;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
