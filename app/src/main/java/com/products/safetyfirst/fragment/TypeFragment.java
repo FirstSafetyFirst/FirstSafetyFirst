@@ -2,27 +2,30 @@ package com.products.safetyfirst.fragment;
 
 
 import android.content.Intent;
-import android.content.res.Resources;
-import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.IAdapter;
 import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter;
 import com.mikepenz.fastadapter.items.AbstractItem;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.activity.ItemTypeInfoActivity;
+import com.products.safetyfirst.activity.KnowItSecondActivity;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -30,12 +33,12 @@ import java.util.List;
  */
 public class TypeFragment extends Fragment {
 
-    private static Integer tool;
+    //private static Integer tool;
     private View mainView;
     private RecyclerView typeRecycler;
     private FastItemAdapter<TypeItem> typeAdapter;
     private List<TypeItem> types;
-
+    private HashMap<String,String> knowItItemTypes;
     public TypeFragment() {
         // Required empty public constructor
     }
@@ -46,7 +49,6 @@ public class TypeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mainView = inflater.inflate(R.layout.fragment_type, container, false);
-        tool = getArguments().getInt(KnowIt_Fragment.tool);
         typeRecycler = (RecyclerView) mainView.findViewById(R.id.type_recycler);
 
         typeAdapter = new FastItemAdapter();
@@ -55,31 +57,22 @@ public class TypeFragment extends Fragment {
         typeRecycler.setLayoutManager(new GridLayoutManager(getContext(), 2));
         typeRecycler.setAdapter(typeAdapter);
 
-        Resources res = getResources();
-        TypedArray titleArray = res.obtainTypedArray(R.array.third_title);
-        int titleId = titleArray.getResourceId(tool,0);
-        String[] titles = res.getStringArray(titleId);
 
-        TypedArray descArray = res.obtainTypedArray(R.array.third_description);
-        int descId =descArray.getResourceId(tool,0);
-        String[] descriptions = res.getStringArray(descId);
+        knowItItemTypes = ((KnowItSecondActivity) this.getActivity()).getTypes();
 
-        TypedArray imageArray = res.obtainTypedArray(R.array.third_image);
-        int imageId = imageArray.getResourceId(tool,0);
-        TypedArray images = res.obtainTypedArray(imageId);
 
-        for(int i = 0; i < titles.length; i++) {
-            types.add(new TypeFragment.TypeItem(titles[i], images.getDrawable(i)));
+        for(HashMap.Entry<String, String> entry : knowItItemTypes.entrySet()){
+            types.add(new TypeFragment.TypeItem(entry.getKey(), entry.getValue()));
         }
-        images.recycle();
+        //images.recycle();
         typeAdapter.add(types);
 
+        //final String[] finalTitles = titles;
         typeAdapter.withOnClickListener(new FastAdapter.OnClickListener<TypeItem>() {
             @Override
             public boolean onClick(View v, IAdapter<TypeItem> adapter, TypeItem item, int position) {
                 Intent intent = new Intent(getContext(), ItemTypeInfoActivity.class);
-                intent.putExtra(ItemTypeInfoActivity.typeNumber, position);
-                intent.putExtra(ItemTypeInfoActivity.tool, TypeFragment.tool);
+                intent.putExtra("KnowItitemType", item.getTitle());
                 startActivity(intent);
                 return true;
             }
@@ -103,9 +96,9 @@ public class TypeFragment extends Fragment {
     private class TypeItem extends AbstractItem<TypeItem, ViewHolder> {
 
         private String title;
-        private Drawable image;
+        private String image;
 
-        TypeItem(String title, Drawable image){
+        TypeItem(String title, String image) {
             this.title = title;
             this.image = image;
         }
@@ -129,7 +122,15 @@ public class TypeFragment extends Fragment {
         public void bindView(TypeFragment.ViewHolder holder, List<Object> payloads) {
             super.bindView(holder, payloads);
             holder.title.setText(title);
-            holder.image.setImageDrawable(image);
+            try {
+                Glide.with(getContext()).load(new URL(image)).into(holder.image);
+            } catch (MalformedURLException e) {
+                Log.e("Typefragment","Error loading image");
+            }
+        }
+
+        public String getTitle(){
+            return this.title;
         }
 
         @Override
@@ -140,5 +141,4 @@ public class TypeFragment extends Fragment {
             holder.image.setImageDrawable(null);
         }
     }
-
 }

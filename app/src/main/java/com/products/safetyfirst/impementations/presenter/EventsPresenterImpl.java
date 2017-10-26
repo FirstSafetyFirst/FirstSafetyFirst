@@ -71,7 +71,9 @@ public class EventsPresenterImpl implements EventsPresenter, EventsInteractor.On
 
     @Override
     public void getKeys(ArrayList<String> eventsArrayKey) {
-        eventsAdapterView.addAllKeys(eventsArrayKey);
+        if(eventsAdapterView != null){
+            eventsAdapterView.addAllKeys(eventsArrayKey);
+        }
     }
 
     @Override

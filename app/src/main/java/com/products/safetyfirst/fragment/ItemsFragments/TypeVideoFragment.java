@@ -1,7 +1,6 @@
 package com.products.safetyfirst.fragment.ItemsFragments;
 
 
-import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -14,7 +13,7 @@ import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import com.products.safetyfirst.R;
-import com.products.safetyfirst.activity.ItemTypeInfoActivity;
+import com.products.safetyfirst.models.KnowItItemType;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,11 +37,12 @@ public class TypeVideoFragment extends Fragment {
         WebView webView = (WebView) mainView.findViewById(R.id.webview);
         TextView notAvailable = (TextView) mainView.findViewById(R.id.not_available);
 
-        int toolValue = getArguments().getInt(ItemTypeInfoActivity.tool, 0);
-        int typeValue = getArguments().getInt(ItemTypeInfoActivity.typeNumber, 0);
+        //int toolValue = getArguments().getInt(ItemTypeInfoActivity.tool, 0);
+        //int typeValue = getArguments().getInt(ItemTypeInfoActivity.typeNumber, 0);
 
-        TypedArray ta = getResources().obtainTypedArray(R.array.youtubeEmbed);
-        String url = getResources().getStringArray(ta.getResourceId(toolValue, 0))[typeValue];
+        KnowItItemType knowItItemType = getArguments().getParcelable("KnowItItemType");
+        //TypedArray ta = getResources().obtainTypedArray(R.array.youtubeEmbed);
+        String url = knowItItemType.getVideo_url();
 
         if(url.equals("no")) {
             notAvailable.setVisibility(View.VISIBLE);
@@ -51,7 +51,7 @@ public class TypeVideoFragment extends Fragment {
             return mainView;
         }
 
-        String frameVideo = "<html><body><iframe width=\"100%\" height=\"312px\" src=\""+url+"\" frameborder=\"0\" allowfullscreen onload=\"this.width=screen.width-20\"></iframe></body></html>";
+        String frameVideo = "<html><body><iframe width=\"100%\" height=\"312px\" src=\""+url+"\" frameborder=\"0\" " + "allowfullscreen onload=\"this.width=screen.width-20\"></iframe></body></html>";
 
         //   wv.loadUrl(url);
         webView.setWebViewClient(new WebViewClient() {

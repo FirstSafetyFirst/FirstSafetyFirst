@@ -1,7 +1,5 @@
 package com.products.safetyfirst.activity;
 
-import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -10,15 +8,21 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.fragment.ItemsFragments.TypeChecklistFragment;
 import com.products.safetyfirst.fragment.ItemsFragments.TypeHowToUseFragment;
 import com.products.safetyfirst.fragment.ItemsFragments.TypeInfoFragment;
 import com.products.safetyfirst.fragment.ItemsFragments.TypeVideoFragment;
+import com.products.safetyfirst.models.KnowItItemType;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class ItemTypeInfoActivity extends AppCompatActivity {
 
@@ -29,8 +33,9 @@ public class ItemTypeInfoActivity extends AppCompatActivity {
     private ImageView mainImage;
     private TabLayout.OnTabSelectedListener tabSelectedListener;
     private TabLayout.TabLayoutOnPageChangeListener pageChangeListener;
-    private int toolValue;
-    private int typeValue;
+    //private int toolValue;
+    //private int typeValue;
+    private KnowItItemType knowItItemType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,17 +49,15 @@ public class ItemTypeInfoActivity extends AppCompatActivity {
         actionBar.setTitle("Detail");
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        toolValue = getIntent().getIntExtra(tool, 0);
-        typeValue = getIntent().getIntExtra(typeNumber, 0);
+        //toolValue = getIntent().getIntExtra(tool, 0);
+        //typeValue = getIntent().getIntExtra(typeNumber, 0);
+        knowItItemType= getIntent().getExtras().getParcelable("KnowItItemType");
 
-        TypedArray imageArray = getResources().obtainTypedArray(R.array.third_image);
-        int imageId = imageArray.getResourceId(toolValue,0);
-        TypedArray a = getResources().obtainTypedArray(imageId);
-        Drawable image = a.getDrawable(typeValue);
-        mainImage.setImageDrawable(image);
-
-        a.recycle();
-        imageArray.recycle();
+        try {
+            Glide.with(getApplicationContext()).load(new URL(knowItItemType.getItem_thumb_url())).into(mainImage);
+        } catch (MalformedURLException e) {
+            Log.e("ItemTypeIngoActivity","Error loading main image");
+        }
 
         //((NestedScrollView) findViewById(R.id.nestedScroll)).setFillViewport(true);
         tabs = (TabLayout) findViewById(R.id.tabs);
@@ -104,8 +107,7 @@ public class ItemTypeInfoActivity extends AppCompatActivity {
         }
 
         final Bundle args = new Bundle();
-        args.putInt(tool, toolValue);
-        args.putInt(typeNumber, typeValue);
+        args.putParcelable("KnowItItemType",knowItItemType);
         final Fragment fragments[] = {new TypeInfoFragment(),
                 new TypeHowToUseFragment(),
                 new TypeChecklistFragment(),

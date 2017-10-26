@@ -44,6 +44,7 @@ import java.util.ArrayList;
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, TrainingMapView {
 
     private static final String TAG = MapsActivity.class.getSimpleName();
+    public static final String EXTRA_CENTER_KEY = "type";
     private GoogleMap mMap;
     private CameraPosition mCameraPosition;
 
@@ -79,6 +80,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     //Presenter for this view
     private TrainingMapPresenterImpl presenter;
 
+    private String mTrainingCenterType;
+
 
 
     @Override
@@ -92,6 +95,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // Retrieve the content view that renders the map.
         setContentView(R.layout.activity_maps);
+
+        mTrainingCenterType = getIntent().getStringExtra(EXTRA_CENTER_KEY);
+        if (mTrainingCenterType == null) {
+            throw new IllegalArgumentException("Must pass EXTRA_EVENT_KEY");
+        }
 
         // Construct a GeoDataClient.
         mGeoDataClient = Places.getGeoDataClient(this, null);
@@ -193,7 +201,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         getDeviceLocation();
 
         // Get List of training Centers and set the positions on map.
-        presenter.request();
+        presenter.request(mTrainingCenterType);
     }
 
     @Override

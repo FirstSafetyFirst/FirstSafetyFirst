@@ -28,10 +28,10 @@ public class TrainingMapInteractorImpl implements TrainingMapInteractor {
     }
 
     @Override
-    public void requestTrainingCenters() {
+    public void requestTrainingCenters(String mTrainingCenterType) {
 
           Query query = getDatabase().getReference()
-                    .child("training").orderByChild("rating");
+                    .child("training").child(mTrainingCenterType);
 
             query.addValueEventListener(new ValueEventListener() {
                 @Override
