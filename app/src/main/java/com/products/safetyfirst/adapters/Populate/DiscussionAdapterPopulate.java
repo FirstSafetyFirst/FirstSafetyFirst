@@ -1,5 +1,6 @@
 package com.products.safetyfirst.adapters.Populate;
 
+import android.util.Log;
 import android.util.Pair;
 
 import com.products.safetyfirst.adapters.DiscussionAdapter;
@@ -45,7 +46,8 @@ public class DiscussionAdapterPopulate implements DiscussionAdapter.DiscussionCa
                 Pair<String, PostModel> pair = new Pair<>(key, postModel);
                 postList.add(pair);
                 adapter.notifyDataSetChanged();
-                if (count < 10 && postModel.getPreviousPost() == null) {
+                Log.e("DiscusAdapterPopulate", postModel.toString());
+                if (count < 10 && postModel.getPreviousPost() != null) {
                     recursePostLinkedList(postModel.getPreviousPost(), count+1, postList, adapter);
                 }
             }

@@ -2,6 +2,7 @@ package com.products.safetyfirst.modelhelper;
 
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -54,6 +55,7 @@ public class PostHelper {
         Disposable subs = getLatestPost().subscribe(new Consumer<String>() {
             @Override
             public void accept(String key) throws Exception {
+
                 PostModel post = new PostModel(
                         title, body, userhelper.getUserId(), imageList, fileList, time, key
                 );
@@ -109,11 +111,13 @@ public class PostHelper {
         return Single.create(new SingleOnSubscribe<Integer>() {
             @Override
             public void subscribe(@io.reactivex.annotations.NonNull final SingleEmitter<Integer> emitter) throws Exception {
+                emitter.onSuccess(0);
                 DatabaseUtil.getDatabase().getReference().child(Constants.POSTS_STARS_LINK).child(pid)
                         .addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                emitter.onSuccess(dataSnapshot.getValue(Integer.class));
+                                Integer star = 0;
+                                emitter.onSuccess(star);
                             }
 
                             @Override
@@ -133,6 +137,8 @@ public class PostHelper {
                         .addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
+                                DataSnapshot data = dataSnapshot;
+                                Log.e("Data Received", data.toString());
                                 emitter.onSuccess(dataSnapshot.getValue(PostModel.class)); // TODO: improve null ?
                             }
                             @Override
@@ -148,11 +154,14 @@ public class PostHelper {
         return Single.create(new SingleOnSubscribe<String>() {
             @Override
             public void subscribe(@io.reactivex.annotations.NonNull final SingleEmitter<String> emitter) throws Exception {
-                Query ref = DatabaseUtil.getDatabase().getReference("posts").orderByKey().limitToFirst(1);
+                Query ref = DatabaseUtil.getDatabase().getReference("posts").orderByKey().limitToLast(1);
                 ref.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        String key = dataSnapshot.getKey();
+                        String key = null;
+                        for(DataSnapshot data: dataSnapshot.getChildren()) {
+                            key = data.getKey();
+                        }
                         emitter.onSuccess(key);
                     }
 

@@ -87,7 +87,7 @@ public class QuestionsFragment extends Fragment {
 
         home_recycler.setLayoutManager(mLayoutManager);
         home_recycler.setItemAnimator(new DefaultItemAnimator());
-        home_recycler.setAdapter(new DiscussionAdapter(new PeerPostPopulate(ProfileActivity.getProfileKey())));
+        home_recycler.setAdapter(new DiscussionAdapter(mLayoutManager, new PeerPostPopulate(ProfileActivity.getProfileKey())));
     }
 
     @Override

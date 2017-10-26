@@ -79,13 +79,13 @@ public class DiscussionFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         // Set up Layout Manager, reverse layout
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-        mLayoutManager.setReverseLayout(true);
+        //mLayoutManager.setReverseLayout(true);
         mLayoutManager.setStackFromEnd(true);
 
         home_recycler.setLayoutManager(mLayoutManager);
         home_recycler.setItemAnimator(new DefaultItemAnimator());
 
-        home_recycler.setAdapter(new DiscussionAdapter(new DiscussionAdapterPopulate()));
+        home_recycler.setAdapter(new DiscussionAdapter(mLayoutManager, new DiscussionAdapterPopulate())); // DiscussionAdapterPopulate implements interface
 
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override

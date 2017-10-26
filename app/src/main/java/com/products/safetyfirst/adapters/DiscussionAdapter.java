@@ -1,6 +1,7 @@
 package com.products.safetyfirst.adapters;
 
 import android.content.Context;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -25,13 +26,17 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import io.reactivex.Single;
 import io.reactivex.SingleSource;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 
 /**
+ *
  * Created by rishabh on 21/10/17.
  */
 
@@ -39,15 +44,18 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.Po
 
     private List<Pair<String, PostModel>> posts;
     private DiscussionCallbacks discussionCallbacks;
+    private LinearLayoutManager layoutManager;
 
     /* Helpers */
     AuthorHelper authorHelper = AuthorHelper.getInstance();
     PostHelper postHelper = PostHelper.getInstance();
 
-    public DiscussionAdapter(DiscussionCallbacks discussionCallbacks) {
+    public DiscussionAdapter(LinearLayoutManager layoutManager, DiscussionCallbacks discussionCallbacks) {
         posts = new ArrayList<>();
+        this.layoutManager = layoutManager;
         this.discussionCallbacks = discussionCallbacks;
         discussionCallbacks.updateData(posts, this);
+
     }
 
     @Override
@@ -57,15 +65,26 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.Po
         return new PostViewHolder(itemView);
     }
 
+    public void notifyScrollUp(){
+        this.notifyDataSetChanged();
+        layoutManager.scrollToPosition(0);
+    }
+
     @Override
-    public void onBindViewHolder(final PostViewHolder holder, int position) {
+    public void onBindViewHolder(final PostViewHolder holder, int pos) {
+        //int position = posts.size() - pos - 1;
+        int position = pos;
         final PostDiscussionModel postDiscussionData = new PostDiscussionModel();
         final PostModel post = posts.get(position).second;
         final String postKey = posts.get(position).first;
 
         postDiscussionData.setFromPostModel(post);
 
-        Disposable subs = authorHelper.getPeerName(post.getUid()).flatMap(new Function<String, SingleSource<String>>() {
+        Disposable subs = authorHelper.getPeerName(post.getUid()).observeOn(
+                AndroidSchedulers.mainThread()
+        ).subscribeOn(
+                Schedulers.io()
+        ).flatMap(new Function<String, SingleSource<String>>() {
             @Override
             public SingleSource<String> apply(@NonNull String name) throws Exception {
                 postDiscussionData.author = name;
@@ -87,19 +106,21 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.Po
             @Override
             public Object apply(@NonNull Integer starCount) throws Exception {
                 postDiscussionData.starCount = starCount;
-                return null;
+                return Single.just(1);
             }
-        }).doFinally(new Action() {
+        }).doAfterSuccess(new Consumer<Object>() {
             @Override
-            public void run() throws Exception {
+            public void accept(Object o) throws Exception {
                 holder.setData(postDiscussionData);
             }
         }).subscribe();
 
         if(position+2 == posts.size()){
-            discussionCallbacks.updateData(posts, this);
+            //discussionCallbacks.updateData(posts, this);
         }
     }
+
+
 
     @Override
     public int getItemCount() {

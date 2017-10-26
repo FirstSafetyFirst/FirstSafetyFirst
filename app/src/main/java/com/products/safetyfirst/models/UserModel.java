@@ -35,7 +35,7 @@ public class UserModel {
 
     public static final String USER_LINK = "users";
     public static final String USER_PHOTO_LINK = "photoUrl";
-    public static final String USER_NAME_LINK = "name";
+    public static final String USER_NAME_LINK = "username";
     public static final String USER_EMAIL_LINK = "email";
     public static final String USER_POSTS_LINK = "user-posts";
 
