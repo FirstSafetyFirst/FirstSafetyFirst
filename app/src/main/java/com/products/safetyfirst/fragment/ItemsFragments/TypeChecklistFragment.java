@@ -3,7 +3,6 @@ package com.products.safetyfirst.fragment.ItemsFragments;
 
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.content.res.TypedArray;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -16,7 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.products.safetyfirst.R;
-import com.products.safetyfirst.activity.ItemTypeInfoActivity;
+import com.products.safetyfirst.models.KnowItItemType;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -91,12 +90,11 @@ public class TypeChecklistFragment extends Fragment {
     private void openPdf(){
         final String url;
 
-        int toolValue = getArguments().getInt(ItemTypeInfoActivity.tool, 0);
-        int typeValue = getArguments().getInt(ItemTypeInfoActivity.typeNumber, 0);
-
-        TypedArray ta = getResources().obtainTypedArray(R.array.checklist_embed);
-        url = getResources().getStringArray(ta.getResourceId(toolValue, 0))[typeValue];
-        ta.recycle();
+        //int toolValue = getArguments().getInt(ItemTypeInfoActivity.tool, 0);
+        //int typeValue = getArguments().getInt(ItemTypeInfoActivity.typeNumber, 0);
+        KnowItItemType knowItItemType = getArguments().getParcelable("KnowItItemType");
+        //TypedArray ta = getResources().obtainTypedArray(R.array.checklist_embed);
+        url = knowItItemType.getChecklist();
 
         File dir = getContext().getCacheDir();
         String[] fileNameSplit = url.split("/");
