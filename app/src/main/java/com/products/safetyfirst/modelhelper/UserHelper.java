@@ -9,6 +9,15 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class UserHelper {
 
+    private static UserHelper instance = new UserHelper();
+
+    public static UserHelper getInstance() {
+        return instance;
+    }
+
+    private UserHelper() {
+    }
+
     private FirebaseAuth auth = FirebaseAuth.getInstance();
 
     public boolean isSignedIn() {

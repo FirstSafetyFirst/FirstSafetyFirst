@@ -22,15 +22,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/new_post_toolbar"
+        android:background="@color/white"
         android:layout_marginBottom="64dp"
-        android:background="@drawable/new_post_edit_corner"
         android:layout_marginRight="12dp"
         android:layout_marginLeft="12dp">
+
+        <!-- android:background="@drawable/new_post_edit_corner" -->
 
         <EditText
             android:id="@+id/new_post_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="52dp"
             android:hint="Title of post"/>
 
         <jp.wasabeef.richeditor.RichEditor
@@ -47,30 +53,36 @@
             android:layout_alignParentRight="true"
             android:background="@color/blue_grey">
 
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/new_post_bold_corner">
             <ImageButton
                 android:id="@+id/bold_btn"
-                app:srcCompat="@drawable/ic_bookmark_black_24dp"
+                android:src="@drawable/ic_format_bold"
                 android:background="@android:color/transparent"
-                android:layout_width="48dp"
-                android:layout_height="48dp" />
+                android:layout_margin="4dp"
+                android:layout_width="44dp"
+                android:layout_height="44dp" />
+            </FrameLayout>
 
             <ImageButton
                 android:id="@+id/italic_btn"
-                app:srcCompat="@drawable/ic_camera_alt_black_24dp"
+                android:src="@drawable/ic_italic"
                 android:background="@android:color/transparent"
                 android:layout_width="48dp"
                 android:layout_height="48dp" />
 
             <ImageButton
                 android:id="@+id/underline_btn"
-                app:srcCompat="@drawable/ic_assignment"
+                app:srcCompat="@drawable/ic_format_underlined"
                 android:background="@android:color/transparent"
                 android:layout_width="48dp"
                 android:layout_height="48dp" />
 
             <ImageButton
                 android:id="@+id/pick_img_btn"
-                app:srcCompat="@drawable/ic_chat_black_24dp"
+                app:srcCompat="@drawable/ic_image"
                 android:background="@android:color/transparent"
                 android:layout_width="48dp"
                 android:layout_height="48dp" />

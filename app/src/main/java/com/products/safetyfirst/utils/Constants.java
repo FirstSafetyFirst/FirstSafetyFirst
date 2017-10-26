@@ -15,4 +15,10 @@ public class Constants {
     public static  int INTERESTED = 0;
     public static final String DEEP_LINK_URL = "https://x2e8v.app.goo.gl";
 
+    public static final String POSTS_LINK = "posts";
+    public static final String USERS_POSTS_LINK = "user-posts";
+    public static final String POSTS_STARS_LINK = "post-stars";
+    public static final String POSTS_VIEWS_LINK = "post-views";
+
+
 }

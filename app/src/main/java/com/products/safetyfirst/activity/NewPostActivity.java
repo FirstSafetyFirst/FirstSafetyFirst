@@ -29,6 +29,8 @@ import java.util.List;
 
 import jp.wasabeef.richeditor.RichEditor;
 
+import static jp.wasabeef.richeditor.RichEditor.Type.BOLD;
+
 public class NewPostActivity extends AppCompatActivity implements View.OnClickListener {
 
     /* Views */
@@ -62,8 +64,8 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_post);
 
-        user = new UserHelper();
-        postHelper = new PostHelper();
+        user = UserHelper.getInstance();
+        postHelper = PostHelper.getInstance();
         notifHelper = NotificationHelper.getInstance();
         imageHelper = ImageHelper.getInstance();
 
@@ -81,8 +83,6 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
         imgView = (RecyclerView) findViewById(R.id.images_list_view);
         titleText = (EditText) findViewById(R.id.new_post_title);
 
-
-
         initEditor();
         initImgRecycler();
     }
@@ -91,6 +91,14 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
         editor.setEditorHeight(400);
         editor.setPadding(10, 10, 50, 10);
         editor.setPlaceholder("Type question...");
+//        editor.setOnDecorationChangeListener(new RichEditor.OnDecorationStateListener() {
+//            @Override
+//            public void onStateChangeListener(String text, List<RichEditor.Type> types) {
+//                if(types.contains(RichEditor.Type.BOLD)) {
+//                    Toast.makeText(NewPostActivity.this, "Bold Press", Toast.LENGTH_LONG).show();
+//                }
+//            }
+//        });
 
         boldBtn.setOnClickListener(this);
         italicBtn.setOnClickListener(this);

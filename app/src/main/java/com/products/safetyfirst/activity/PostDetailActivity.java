@@ -11,7 +11,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -30,8 +29,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -39,18 +36,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.models.Comment;
-import com.products.safetyfirst.models.Discussion_model;
+import com.products.safetyfirst.models.PostModel;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -117,7 +112,7 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
     public ImageView rightArrow;
     public ImageView leftArrow;
 
-    private Discussion_model post;
+    private PostModel post;
 
     private FloatingActionButton fab;
 
@@ -209,7 +204,7 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
-                post = dataSnapshot.getValue(Discussion_model.class);
+                post = dataSnapshot.getValue(PostModel.class);
 
                 if(post == null){
                     new AlertDialog.Builder(PostDetailActivity.this)
@@ -223,32 +218,32 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
                             .show();
                     return;
                 }
-
+                // TODO: Rewrite post detail impl
                 // [START_EXCLUDE]
-                if (post.getImage() == null) {
-                    mAuthorImage.setImageDrawable(ContextCompat.getDrawable(getBaseContext(),
-                            R.drawable.logo));
-                } else {
-                    Glide.with(getBaseContext())
-                            .load(post.getImage())
-                            .into(mAuthorImage);
-                }
-
-                if (post.getImage() != null) {
-                    Glide.with(getBaseContext())
-                            .load(post.getImage())
-                            .into(mImageView);
-                    mImageView.setVisibility(View.VISIBLE);
-                } else {
-                    mImageView.setVisibility(View.GONE);
-                }
-                mAuthorView.setText(post.getAuthor());
+//                if (post.getImage() == null) {
+//                    mAuthorImage.setImageDrawable(ContextCompat.getDrawable(getBaseContext(),
+//                            R.drawable.logo));
+//                } else {
+//                    Glide.with(getBaseContext())
+//                            .load(post.getImage())
+//                            .into(mAuthorImage);
+//                }
+//
+//                if (post.getImage() != null) {
+//                    Glide.with(getBaseContext())
+//                            .load(post.getImage())
+//                            .into(mImageView);
+//                    mImageView.setVisibility(View.VISIBLE);
+//                } else {
+//                    mImageView.setVisibility(View.GONE);
+//                }
+                //mAuthorView.setText(post.getAuthor());
                 mTitleView.setText(post.getTitle());
                 // mBodyView.setText(post.body); //Replaced by hyperlink text method in line below.
-                if(post.getXmlBody() == null)
+                if(post.getBody() == null)
                     setHyperlinkText(mBodyView, post.getBody());
                 else
-                    setHyperlinkText(mBodyView, post.getXmlBody());
+                    setHyperlinkText(mBodyView, post.getBody());
 
                 postLoaded = true;
                 onCreateOptionsMenu(mMenu);

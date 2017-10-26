@@ -17,7 +17,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.activity.NewPostActivity;
-import com.products.safetyfirst.adapters.Discussion_Adapter;
+import com.products.safetyfirst.adapters.DiscussionAdapter;
+import com.products.safetyfirst.adapters.Populate.DiscussionAdapterPopulate;
+import com.products.safetyfirst.modelhelper.PostHelper;
 import com.products.safetyfirst.modelhelper.UserHelper;
 
 import static com.products.safetyfirst.activity.HomeActivity.bottomNavigationView;
@@ -27,7 +29,7 @@ import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
  * Created by profileconnect on 20/04/17.
  */
 
-public class Discussion_Fragment extends Fragment {
+public class DiscussionFragment extends Fragment {
     public static final String ARG_TITLE = "arg_title";
     RecyclerView home_recycler;
 
@@ -36,13 +38,17 @@ public class Discussion_Fragment extends Fragment {
     private FloatingActionButton mFab;
 
     private UserHelper user;
+    private PostHelper postHelper;
 
-    public Discussion_Fragment(){}
+    public DiscussionFragment(){}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.discussion_fragment, container, false);
+
+        user = UserHelper.getInstance();
+        postHelper = PostHelper.getInstance();
 
         mDatabase = getDatabase().getReference();
         mpaginateprogbar=(ProgressBar) rootView.findViewById(R.id.newspaginateprogbar);
@@ -65,7 +71,6 @@ public class Discussion_Fragment extends Fragment {
             }
         });
         bottomNavigationView.setVisibility(View.VISIBLE);
-        user = new UserHelper();
         return rootView;
     }
 
@@ -80,8 +85,7 @@ public class Discussion_Fragment extends Fragment {
         home_recycler.setLayoutManager(mLayoutManager);
         home_recycler.setItemAnimator(new DefaultItemAnimator());
 
-        Query postQuery =  mDatabase.child("posts").orderByKey().limitToLast(10);
-        home_recycler.setAdapter(new Discussion_Adapter(getActivity(),postQuery, mDatabase, mpaginateprogbar));
+        home_recycler.setAdapter(new DiscussionAdapter(new DiscussionAdapterPopulate()));
 
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
