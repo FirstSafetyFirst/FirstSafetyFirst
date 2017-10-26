@@ -28,8 +28,8 @@ public class TrainingMapPresenterImpl implements TrainingMapPresenter, TrainingM
     }
 
     @Override
-    public void request() {
-        trainingMapInteractor.requestTrainingCenters();
+    public void request(String mTrainingCenterType) {
+        trainingMapInteractor.requestTrainingCenters(mTrainingCenterType);
     }
 
     @Override

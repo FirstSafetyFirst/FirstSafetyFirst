@@ -12,7 +12,7 @@ public interface TrainingMapPresenter {
 
     void onDestroy();
 
-    void request();
+    void request(String mTrainingCenterType);
 
     void getTrainingCenters(ArrayList<TrainingCenterModel> trainingCenterModels);
 

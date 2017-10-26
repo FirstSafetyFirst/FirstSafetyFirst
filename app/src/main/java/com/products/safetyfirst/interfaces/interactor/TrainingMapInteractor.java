@@ -6,7 +6,7 @@ package com.products.safetyfirst.interfaces.interactor;
 
 public interface TrainingMapInteractor {
 
-    void requestTrainingCenters();
+    void requestTrainingCenters(String mTrainingCenterType);
 
     void getContact(String TrainingCenterId);
 
