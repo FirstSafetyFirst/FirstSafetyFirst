@@ -1,7 +1,6 @@
 package com.products.safetyfirst.fragment;
 
 
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.products.safetyfirst.R;
-import com.products.safetyfirst.models.KnowItItem;
+import com.products.safetyfirst.activity.KnowItSecondActivity;
 import com.products.safetyfirst.utils.JustifiedWebView;
 
 /**
@@ -21,8 +20,6 @@ public class InfoFragment extends Fragment {
     private View mainView;
     private JustifiedWebView infoTextView;  // Use setInfoText() to set Text. Using WebView for justify text
     private JustifiedWebView checklistView;
-    private int position;
-    private KnowItItem knowItItem;
     public InfoFragment() {
         // Required empty public constructor
     }
@@ -35,12 +32,9 @@ public class InfoFragment extends Fragment {
         mainView = inflater.inflate(R.layout.fragment_info, container, false);
         infoTextView = (JustifiedWebView) mainView.findViewById(R.id.info_main_text);
         checklistView = (JustifiedWebView) mainView.findViewById(R.id.info_checklist_text);
-        position = getArguments().getInt(KnowIt_Fragment.tool, 0);
 
-        Resources res = getResources();
-        knowItItem= savedInstanceState.getParcelable(KnowItItem.class.toString());
-        infoTextView.setText(knowItItem.getItem_info());
-        checklistView.setText(knowItItem.getSafety_checklist(),
+        infoTextView.setText(((KnowItSecondActivity) this.getActivity()).getInfo());
+        checklistView.setText(((KnowItSecondActivity) this.getActivity()).getChecklist(),
                 "<p style=\" color: #f1551a; font-size: 20px; \">"
                         + "Safety Checklist"
                         + "</p>");

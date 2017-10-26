@@ -46,6 +46,7 @@ import com.google.firebase.dynamiclinks.DynamicLink;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 import com.google.firebase.dynamiclinks.ShortDynamicLink;
+import com.products.safetyfirst.BuildConfig;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.fragment.Discussion_Fragment;
 import com.products.safetyfirst.fragment.KnowIt_Fragment;
@@ -105,7 +106,8 @@ public class HomeActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
+        int i=BuildConfig.VERSION_CODE;
+        Log.e("App version",Integer.toString(i));
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");

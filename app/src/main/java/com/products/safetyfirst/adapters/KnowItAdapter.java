@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.products.safetyfirst.R;
@@ -47,7 +48,7 @@ public class KnowItAdapter extends RecyclerView.Adapter<KnowItAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         URL url=null;
         knowItItem = knowItItemArrayList.get(position);
         if(knowItItem.getItem_name()!=null)
@@ -62,6 +63,22 @@ public class KnowItAdapter extends RecyclerView.Adapter<KnowItAdapter.ViewHolder
         }
         holder.mView.isClickable();
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(context, KnowItSecondActivity.class);
+
+                intent.putExtra("Name", knowItItem.getItem_name());
+                intent.putExtra("Info", knowItItem.getItem_info());
+                intent.putExtra("Checklist", knowItItem.getSafety_checklist());
+                intent.putExtra("KnowItItemList",knowItItem.getTypes());
+
+                context.startActivity(intent);
+            }
+        });
+
+
+
     }
 
     @Override
@@ -71,9 +88,9 @@ public class KnowItAdapter extends RecyclerView.Adapter<KnowItAdapter.ViewHolder
 
     @Override
     public void addAllItems(ArrayList<KnowItItem> items) {
-        if(knowItItemArrayList!=null)
-          knowItItemArrayList.clear();
+        knowItItemArrayList.clear();
         knowItItemArrayList.addAll(items);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -92,14 +109,7 @@ public class KnowItAdapter extends RecyclerView.Adapter<KnowItAdapter.ViewHolder
             mView=itemView;
             title= (TextView) itemView.findViewById(R.id.know_it_item_title);
             imageView= (ImageView) itemView.findViewById(R.id.know_it_item_image);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent= new Intent(context, KnowItSecondActivity.class);
-                       intent.putExtra("KnowItItem",knowItItem);
-                    context.startActivity(intent);
-                }
-            });
+
         }
     }
 }

@@ -20,8 +20,7 @@ import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter;
 import com.mikepenz.fastadapter.items.AbstractItem;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.activity.ItemTypeInfoActivity;
-import com.products.safetyfirst.models.KnowItItem;
-import com.products.safetyfirst.models.KnowItItemType;
+import com.products.safetyfirst.activity.KnowItSecondActivity;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -39,8 +38,7 @@ public class TypeFragment extends Fragment {
     private RecyclerView typeRecycler;
     private FastItemAdapter<TypeItem> typeAdapter;
     private List<TypeItem> types;
-    private KnowItItem knowItItem;
-    private HashMap<String,KnowItItemType> knowItItemTypeHashMap;
+    private HashMap<String,String> knowItItemTypes;
     public TypeFragment() {
         // Required empty public constructor
     }
@@ -51,9 +49,6 @@ public class TypeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mainView = inflater.inflate(R.layout.fragment_type, container, false);
-        //tool = getArguments().getInt(KnowIt_Fragment.tool);
-        knowItItem= getArguments().getParcelable("KnowItItem");
-        knowItItemTypeHashMap= knowItItem.getKnow_it_item_types();
         typeRecycler = (RecyclerView) mainView.findViewById(R.id.type_recycler);
 
         typeAdapter = new FastItemAdapter();
@@ -62,38 +57,22 @@ public class TypeFragment extends Fragment {
         typeRecycler.setLayoutManager(new GridLayoutManager(getContext(), 2));
         typeRecycler.setAdapter(typeAdapter);
 
-        //Resources res = getResources();
-        //TypedArray titleArray = res.obtainTypedArray(R.array.third_title);
-        //int titleId = titleArray.getResourceId(tool, 0);
-        //String[] titles = res.getStringArray(titleId);
 
-        String titles[] = new String[knowItItemTypeHashMap.size()];
-        for(int i=0;i<knowItItemTypeHashMap.size();i++){
-            titles=(String[]) (knowItItemTypeHashMap.keySet().toArray());
-        }
+        knowItItemTypes = ((KnowItSecondActivity) this.getActivity()).getTypes();
 
-       /** TypedArray descArray = res.obtainTypedArray(R.array.third_description);
-        int descId = descArray.getResourceId(tool, 0);
-        String[] descriptions = res.getStringArray(descId);
 
-        TypedArray imageArray = res.obtainTypedArray(R.array.third_image);
-        int imageId = imageArray.getResourceId(tool, 0);
-        TypedArray images = res.obtainTypedArray(imageId);
-        **/
-       KnowItItemType knowItItemType;
-        for (int i = 0; i < titles.length; i++) {
-            knowItItemType= knowItItemTypeHashMap.get(titles[i]);
-            types.add(new TypeFragment.TypeItem(titles[i],knowItItemType.getItem_thumb_url() ));
+        for(HashMap.Entry<String, String> entry : knowItItemTypes.entrySet()){
+            types.add(new TypeFragment.TypeItem(entry.getKey(), entry.getValue()));
         }
         //images.recycle();
         typeAdapter.add(types);
 
-        final String[] finalTitles = titles;
+        //final String[] finalTitles = titles;
         typeAdapter.withOnClickListener(new FastAdapter.OnClickListener<TypeItem>() {
             @Override
             public boolean onClick(View v, IAdapter<TypeItem> adapter, TypeItem item, int position) {
                 Intent intent = new Intent(getContext(), ItemTypeInfoActivity.class);
-               intent.putExtra("KnowItitemType",knowItItemTypeHashMap.get(finalTitles[position]));
+                intent.putExtra("KnowItitemType", item.getTitle());
                 startActivity(intent);
                 return true;
             }
@@ -148,6 +127,10 @@ public class TypeFragment extends Fragment {
             } catch (MalformedURLException e) {
                 Log.e("Typefragment","Error loading image");
             }
+        }
+
+        public String getTitle(){
+            return this.title;
         }
 
         @Override

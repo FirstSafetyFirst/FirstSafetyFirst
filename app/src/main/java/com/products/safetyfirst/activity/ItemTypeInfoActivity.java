@@ -52,13 +52,7 @@ public class ItemTypeInfoActivity extends AppCompatActivity {
         //toolValue = getIntent().getIntExtra(tool, 0);
         //typeValue = getIntent().getIntExtra(typeNumber, 0);
         knowItItemType= getIntent().getExtras().getParcelable("KnowItItemType");
-        /**
-        TypedArray imageArray = getResources().obtainTypedArray(R.array.third_image);
-        int imageId = imageArray.getResourceId(toolValue,0);
-        TypedArray a = getResources().obtainTypedArray(imageId);
-        Drawable image = a.getDrawable(typeValue);
-        mainImage.setImageDrawable(image);
-         **/
+
         try {
             Glide.with(getApplicationContext()).load(new URL(knowItItemType.getItem_thumb_url())).into(mainImage);
         } catch (MalformedURLException e) {

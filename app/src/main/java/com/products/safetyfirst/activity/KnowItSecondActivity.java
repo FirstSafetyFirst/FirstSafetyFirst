@@ -14,27 +14,37 @@ import android.widget.TextView;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.fragment.InfoFragment;
 import com.products.safetyfirst.fragment.TypeFragment;
-import com.products.safetyfirst.models.KnowItItem;
+
+import java.util.HashMap;
 
 public class KnowItSecondActivity extends AppCompatActivity {
 
     private TabLayout categoryTabs;
     private ViewPager categoryView;
-   // private int tool;
     private TabLayout.OnTabSelectedListener tabSelectedListener;
     private TabLayout.TabLayoutOnPageChangeListener pageChangeListener;
-    private KnowItItem knowItItem;
+    private String mName;
+    private String mInfo;
+    private String mChecklist;
+    private HashMap<String, String> mTypes;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_know_it_second);
         setSupportActionBar((Toolbar) findViewById(R.id.know_it_toolbar));
-        //tool = getIntent().getIntExtra("tool", 0);
-        knowItItem= getIntent().getExtras().getParcelable("KnowItItem");
+
+        Bundle bundle = getIntent().getExtras();
+
+        mName = bundle.getString("Name");
+        mInfo = bundle.getString("Info");
+        mChecklist = bundle.getString("Checklist");
+        mTypes = (HashMap<String, String>) bundle.getSerializable("KnowItItemList");
+
         ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
             actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle(knowItItem.getItem_name());
+            actionBar.setTitle(mName);
         }
 
 
@@ -84,16 +94,11 @@ public class KnowItSecondActivity extends AppCompatActivity {
         categoryTabs.addTab(categoryTabs.newTab().setCustomView(tab1));
         categoryTabs.addTab(categoryTabs.newTab().setCustomView(tab2));
 
-        final Bundle args = new Bundle();
-        args.putParcelable("KnowItItem",knowItItem);
-
         FragmentPagerAdapter categoryAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             Fragment fragments[] = {new InfoFragment(), new TypeFragment()};
             String titles[] = {"Info", "Types"};
             @Override
             public Fragment getItem(int position) {
-                fragments[1].setArguments(args);
-                fragments[0].setArguments(args);
                 return fragments[position];
             }
 
@@ -104,7 +109,7 @@ public class KnowItSecondActivity extends AppCompatActivity {
 
             @Override
             public CharSequence getPageTitle(int position) {
-                return knowItItem.getItem_name();
+                return mName;
             }
 
         };
@@ -122,4 +127,22 @@ public class KnowItSecondActivity extends AppCompatActivity {
         categoryTabs.removeOnTabSelectedListener(tabSelectedListener);
         categoryView.removeOnPageChangeListener(pageChangeListener);
     }
+
+
+    public String getName(){
+        return this.mName;
+    }
+
+    public String getInfo(){
+        return this.mInfo;
+    }
+
+    public String getChecklist(){
+        return this.mChecklist;
+    }
+
+    public HashMap<String, String> getTypes(){
+        return this.mTypes;
+    }
+
 }
