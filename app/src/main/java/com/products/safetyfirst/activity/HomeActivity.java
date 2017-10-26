@@ -42,6 +42,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.dynamiclinks.DynamicLink;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
@@ -59,6 +63,8 @@ import com.products.safetyfirst.utils.PrefManager;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
 
 public class HomeActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, ProjectsFragment.OnFragmentInteractionListener {
@@ -106,8 +112,27 @@ public class HomeActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        int i=BuildConfig.VERSION_CODE;
-        Log.e("App version",Integer.toString(i));
+
+        final int versionCode= BuildConfig.VERSION_CODE;
+        Query query= getDatabase().getReference().child("current version");
+        final long[] version = new long[1];
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                version[0] =(long)dataSnapshot.getValue();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("HomeActivity","Can't get current version");
+            }
+        });
+
+        if(versionCode!=version[0]){
+            showUpdateDialog("Update App","A newer version of this app is available on PlayStore. You will get to have a smoother user experience. We have fixed the bugs too. \nSo, Let's try it out.");
+
+        }
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
@@ -212,7 +237,41 @@ public class HomeActivity extends BaseActivity
                     }
                 });
     }
+    private void showUpdateDialog(String title, String body) {
 
+        final Dialog dialog = new Dialog(HomeActivity.this);
+        dialog.setContentView(R.layout.dialog_tnc);
+        TextView dialogTitle = (TextView) dialog.findViewById(R.id.dialogTitle);
+        TextView dialogContent = (TextView) dialog.findViewById(R.id.content);
+
+        dialogTitle.setText(title);
+        dialogContent.setText(body);
+
+        Button btnDismiss = (Button) dialog.findViewById(R.id.btn_yes);
+        Button btnUpdate = (Button) dialog.findViewById(R.id.btn_no);
+
+        btnDismiss.setText("Dismiss");
+        btnUpdate.setText("Update");
+
+        btnDismiss.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("market://details?id=com.vikas.dtu.safetyfirst2"));
+                startActivity(intent);
+            }
+        });
+
+        dialog.show();
+    }
 
     private void switchFragment(int pos, String tag) {
         getSupportFragmentManager()
