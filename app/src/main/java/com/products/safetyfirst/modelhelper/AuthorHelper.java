@@ -1,6 +1,8 @@
 package com.products.safetyfirst.modelhelper;
 
 
+import android.util.Log;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -53,6 +55,7 @@ public class AuthorHelper {
         return Single.create(new SingleOnSubscribe<String>() {
             @Override
             public void subscribe(@NonNull final SingleEmitter<String> emitter) throws Exception {
+                emitter.onSuccess("https://68.media.tumblr.com/avatar_f305ac67e02c_128.png");
                 DatabaseUtil.getDatabase().getReference().child(UserModel.USER_LINK).child(uid).child(UserModel.USER_PHOTO_LINK)
                     .addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -71,15 +74,20 @@ public class AuthorHelper {
     }
 
     public Single<String> getPeerName(final String uid) {
+        Log.e("AuthorHelper", uid);
         return Single.create(new SingleOnSubscribe<String>() {
             @Override
             public void subscribe(@NonNull final SingleEmitter<String> emitter) throws Exception {
+                emitter.onSuccess("Doge the Lord");
                 DatabaseUtil.getDatabase().getReference().child(UserModel.USER_LINK).child(uid).child(UserModel.USER_NAME_LINK)
                         .addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 String user = dataSnapshot.getValue(String.class);
-                                emitter.onSuccess(user);
+                                if(user != null)
+                                    emitter.onSuccess(user);
+                                else
+                                    emitter.onSuccess("null");
                             }
 
                             @Override
@@ -95,6 +103,7 @@ public class AuthorHelper {
         return Single.create(new SingleOnSubscribe<String>() {
             @Override
             public void subscribe(@NonNull final SingleEmitter<String> emitter) throws Exception {
+                emitter.onSuccess("very_wow@gmail.com");
                 DatabaseUtil.getDatabase().getReference().child(UserModel.USER_LINK).child(uid).child(UserModel.USER_EMAIL_LINK)
                         .addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override

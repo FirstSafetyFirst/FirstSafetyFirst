@@ -25,11 +25,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import io.reactivex.Single;
 import io.reactivex.SingleSource;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by rishabh on 21/10/17.
@@ -65,7 +69,11 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.Po
 
         postDiscussionData.setFromPostModel(post);
 
-        Disposable subs = authorHelper.getPeerName(post.getUid()).flatMap(new Function<String, SingleSource<String>>() {
+        Disposable subs = authorHelper.getPeerName(post.getUid()).observeOn(
+                AndroidSchedulers.mainThread()
+        ).subscribeOn(
+                Schedulers.io()
+        ).flatMap(new Function<String, SingleSource<String>>() {
             @Override
             public SingleSource<String> apply(@NonNull String name) throws Exception {
                 postDiscussionData.author = name;
@@ -87,11 +95,11 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.Po
             @Override
             public Object apply(@NonNull Integer starCount) throws Exception {
                 postDiscussionData.starCount = starCount;
-                return null;
+                return Single.just(1);
             }
-        }).doFinally(new Action() {
+        }).doAfterSuccess(new Consumer<Object>() {
             @Override
-            public void run() throws Exception {
+            public void accept(Object o) throws Exception {
                 holder.setData(postDiscussionData);
             }
         }).subscribe();
