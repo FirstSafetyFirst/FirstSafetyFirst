@@ -55,6 +55,7 @@ public class PostHelper {
         Disposable subs = getLatestPost().subscribe(new Consumer<String>() {
             @Override
             public void accept(String key) throws Exception {
+
                 PostModel post = new PostModel(
                         title, body, userhelper.getUserId(), imageList, fileList, time, key
                 );
@@ -153,7 +154,7 @@ public class PostHelper {
         return Single.create(new SingleOnSubscribe<String>() {
             @Override
             public void subscribe(@io.reactivex.annotations.NonNull final SingleEmitter<String> emitter) throws Exception {
-                Query ref = DatabaseUtil.getDatabase().getReference("posts").orderByKey().limitToFirst(1);
+                Query ref = DatabaseUtil.getDatabase().getReference("posts").orderByKey().limitToLast(1);
                 ref.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {

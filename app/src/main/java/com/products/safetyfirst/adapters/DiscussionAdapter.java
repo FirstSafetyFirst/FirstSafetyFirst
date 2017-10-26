@@ -1,6 +1,7 @@
 package com.products.safetyfirst.adapters;
 
 import android.content.Context;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -30,12 +31,12 @@ import io.reactivex.SingleSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 /**
+ *
  * Created by rishabh on 21/10/17.
  */
 
@@ -43,15 +44,18 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.Po
 
     private List<Pair<String, PostModel>> posts;
     private DiscussionCallbacks discussionCallbacks;
+    private LinearLayoutManager layoutManager;
 
     /* Helpers */
     AuthorHelper authorHelper = AuthorHelper.getInstance();
     PostHelper postHelper = PostHelper.getInstance();
 
-    public DiscussionAdapter(DiscussionCallbacks discussionCallbacks) {
+    public DiscussionAdapter(LinearLayoutManager layoutManager, DiscussionCallbacks discussionCallbacks) {
         posts = new ArrayList<>();
+        this.layoutManager = layoutManager;
         this.discussionCallbacks = discussionCallbacks;
         discussionCallbacks.updateData(posts, this);
+
     }
 
     @Override
@@ -61,8 +65,15 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.Po
         return new PostViewHolder(itemView);
     }
 
+    public void notifyScrollUp(){
+        this.notifyDataSetChanged();
+        layoutManager.scrollToPosition(0);
+    }
+
     @Override
-    public void onBindViewHolder(final PostViewHolder holder, int position) {
+    public void onBindViewHolder(final PostViewHolder holder, int pos) {
+        //int position = posts.size() - pos - 1;
+        int position = pos;
         final PostDiscussionModel postDiscussionData = new PostDiscussionModel();
         final PostModel post = posts.get(position).second;
         final String postKey = posts.get(position).first;
@@ -105,9 +116,11 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.Po
         }).subscribe();
 
         if(position+2 == posts.size()){
-            discussionCallbacks.updateData(posts, this);
+            //discussionCallbacks.updateData(posts, this);
         }
     }
+
+
 
     @Override
     public int getItemCount() {
