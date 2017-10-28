@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.products.safetyfirst.R;
+import com.products.safetyfirst.activity.ItemTypeInfoActivity;
 import com.products.safetyfirst.models.KnowItItemType;
 import com.products.safetyfirst.utils.JustifiedWebView;
 
@@ -33,15 +34,20 @@ public class TypeInfoFragment extends Fragment {
         mainView = inflater.inflate(R.layout.fragment_type_info, container, false);
         informationView = (JustifiedWebView) mainView.findViewById(R.id.type_info);
 
+        String info = ((ItemTypeInfoActivity) getActivity()).getKnowItItemInfo();
 
-        knowItItemType= getArguments().getParcelable("KnowItItemType");
+        if(info!=null) {
 
-        //TypedArray ta = getResources().obtainTypedArray(R.array.third_description);
-
-        informationView.setText(knowItItemType.getItem_info(),
-                "<span style=\" color: #f1551a; font-size: 20px; \">"
-                        + "INFORMATION"
-                        + "</span><hr>");
+            informationView.setText(info,
+                    "<span style=\" color: #f1551a; font-size: 20px; \">"
+                            + "INFORMATION"
+                            + "</span><hr>");
+        } else {
+            informationView.setText("Information Not Available",
+                    "<span style=\" color: #f1551a; font-size: 20px; \">"
+                            + "INFORMATION"
+                            + "</span><hr>");
+        }
 
         return mainView;
     }

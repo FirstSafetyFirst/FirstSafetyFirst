@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.products.safetyfirst.R;
@@ -19,23 +20,25 @@ import com.products.safetyfirst.fragment.ItemsFragments.TypeChecklistFragment;
 import com.products.safetyfirst.fragment.ItemsFragments.TypeHowToUseFragment;
 import com.products.safetyfirst.fragment.ItemsFragments.TypeInfoFragment;
 import com.products.safetyfirst.fragment.ItemsFragments.TypeVideoFragment;
+import com.products.safetyfirst.impementations.presenter.KnowItPresenterImpl;
+import com.products.safetyfirst.interfaces.presenter.KnowItPresenter;
+import com.products.safetyfirst.interfaces.view.KnowItView;
 import com.products.safetyfirst.models.KnowItItemType;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class ItemTypeInfoActivity extends AppCompatActivity {
+public class ItemTypeInfoActivity extends AppCompatActivity implements KnowItView {
 
-    public static final String tool = "tool";
-    public static final String typeNumber = "typeNumber";
+    public static final String EXTRA_ITEM_NAME = "item_name";
     private TabLayout tabs;
     private ViewPager viewPager;
     private ImageView mainImage;
     private TabLayout.OnTabSelectedListener tabSelectedListener;
     private TabLayout.TabLayoutOnPageChangeListener pageChangeListener;
-    //private int toolValue;
-    //private int typeValue;
-    private KnowItItemType knowItItemType;
+    private KnowItItemType knowItItemType = null;
+
+    private KnowItPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,15 +52,15 @@ public class ItemTypeInfoActivity extends AppCompatActivity {
         actionBar.setTitle("Detail");
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        //toolValue = getIntent().getIntExtra(tool, 0);
-        //typeValue = getIntent().getIntExtra(typeNumber, 0);
-        knowItItemType= getIntent().getExtras().getParcelable("KnowItItemType");
 
-        try {
-            Glide.with(getApplicationContext()).load(new URL(knowItItemType.getItem_thumb_url())).into(mainImage);
-        } catch (MalformedURLException e) {
-            Log.e("ItemTypeIngoActivity","Error loading main image");
+        String mItemName = getIntent().getStringExtra(EXTRA_ITEM_NAME);
+        if (mItemName == null) {
+            throw new IllegalArgumentException("Must pass EXTRA_ITEM_NAME");
         }
+
+
+        presenter = new KnowItPresenterImpl(this);
+        presenter.requestSpecificItem(mItemName);
 
         //((NestedScrollView) findViewById(R.id.nestedScroll)).setFillViewport(true);
         tabs = (TabLayout) findViewById(R.id.tabs);
@@ -147,5 +150,63 @@ public class ItemTypeInfoActivity extends AppCompatActivity {
         super.onDestroy();
         viewPager.removeOnPageChangeListener(pageChangeListener);
         tabs.removeOnTabSelectedListener(tabSelectedListener);
+    }
+
+    @Override
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
+
+    }
+
+    @Override
+    public void navigateToHome() {
+
+    }
+
+    @Override
+    public void onSuccess() {
+
+    }
+
+    @Override
+    public void onError() {
+
+    }
+
+    @Override
+    public void setViewWithSpecificItem(KnowItItemType knowItItemType) {
+
+        this.knowItItemType = knowItItemType;
+
+        try {
+            Glide.with(getApplicationContext()).load(new URL(knowItItemType.getItem_thumb_url())).into(mainImage);
+        } catch (MalformedURLException e) {
+            Log.e("ItemTypeIngoActivity","Error loading main image");
+        }
+
+    }
+
+    public String getKnowItItemInfo(){
+        if(knowItItemType != null) return knowItItemType.getItem_info();
+        return null;
+    }
+
+    public String getKnowItItemHowtoUse(){
+        if(knowItItemType != null) return knowItItemType.getHow_to_use();
+        return null;
+    }
+
+    public String getKnowItItemCheckList(){
+        if(knowItItemType != null) return knowItItemType.getChecklist();
+        return null;
+    }
+
+    public String getKnowItItemVideo(){
+        if(knowItItemType != null) return knowItItemType.getVideo_url();
+        return null;
     }
 }

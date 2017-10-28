@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.products.safetyfirst.R;
+import com.products.safetyfirst.activity.ItemTypeInfoActivity;
 import com.products.safetyfirst.models.KnowItItemType;
 
 import java.io.DataInputStream;
@@ -88,13 +89,10 @@ public class TypeChecklistFragment extends Fragment {
     }
 
     private void openPdf(){
-        final String url;
 
-        //int toolValue = getArguments().getInt(ItemTypeInfoActivity.tool, 0);
-        //int typeValue = getArguments().getInt(ItemTypeInfoActivity.typeNumber, 0);
-        KnowItItemType knowItItemType = getArguments().getParcelable("KnowItItemType");
-        //TypedArray ta = getResources().obtainTypedArray(R.array.checklist_embed);
-        url = knowItItemType.getChecklist();
+       final  String url  = ((ItemTypeInfoActivity) getActivity()).getKnowItItemCheckList();
+
+        if (url==null) return ;
 
         File dir = getContext().getCacheDir();
         String[] fileNameSplit = url.split("/");
@@ -131,9 +129,6 @@ public class TypeChecklistFragment extends Fragment {
             }
         }).start();
 
-//        Intent intent = new Intent(Intent.ACTION_VIEW);
-//        intent.setDataAndType(Uri.parse(url), "application/pdf");
-//        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
     }
 
     public void copy(File src, File dst) throws IOException {

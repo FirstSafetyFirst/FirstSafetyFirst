@@ -68,9 +68,9 @@ public class AddProjectInteractorImpl implements AddProjectInteractor {
             if (user != null) {
                 mProfileKey = user.getUid();
                 mProjectKey = getDatabase().getReference()
-                        .child("users").child(mProfileKey).child("projects").push().getKey();
+                        .child("user-projects").child(mProfileKey).push().getKey();
                 mProjectReference = FirebaseDatabase.getInstance().getReference()
-                        .child("users").child(mProfileKey).child("projects").child(mProjectKey);
+                        .child("user-projects").child(mProfileKey).child(mProjectKey);
                 mProjectReference.updateChildren(childUpdates);
             }
             listener.onSuccess();
@@ -83,7 +83,7 @@ public class AddProjectInteractorImpl implements AddProjectInteractor {
         if ( mProfileKey != null) {
 
             query = getDatabase().getReference()
-                    .child("users").child(mProfileKey).child("projects").orderByChild("timestamp");
+                    .child("user-projects").child(mProfileKey).orderByChild("timestamp");
 
             query.addValueEventListener(new ValueEventListener() {
                 @Override
