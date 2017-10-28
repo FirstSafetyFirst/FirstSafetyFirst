@@ -78,7 +78,6 @@ public class AddInterestInteractorImpl implements AddInterestInteractor {
 
                     for (DataSnapshot x : dataSnapshot.getChildren()) {
                         mListOfInterests.add(new Interest_model(x.getKey(), (Boolean) x.getValue()));
-//                        mListOfInterests.add(x.getValue(Interest_model.class));
                     }
                     presenter.getChildren(mListOfInterests);
                 }

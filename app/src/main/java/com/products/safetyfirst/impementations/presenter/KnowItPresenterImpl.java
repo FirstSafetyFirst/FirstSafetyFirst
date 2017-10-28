@@ -9,6 +9,7 @@ import com.products.safetyfirst.interfaces.interactor.KnowItInteractor;
 import com.products.safetyfirst.interfaces.presenter.KnowItPresenter;
 import com.products.safetyfirst.interfaces.view.KnowItView;
 import com.products.safetyfirst.models.KnowItItem;
+import com.products.safetyfirst.models.KnowItItemType;
 
 import java.util.ArrayList;
 
@@ -54,5 +55,18 @@ public class KnowItPresenterImpl implements KnowItPresenter{
     public void request() {
         knowItInteractor.getKnowit();
     }
+
+    @Override
+    public void requestSpecificItem(String itemName) {
+        knowItInteractor.getKnowitItem(itemName);
+    }
+
+    @Override
+    public void setSpecificItem(KnowItItemType knowItItemType) {
+        if(knowItView != null){
+            knowItView.setViewWithSpecificItem(knowItItemType);
+        }
+    }
+
 
 }
