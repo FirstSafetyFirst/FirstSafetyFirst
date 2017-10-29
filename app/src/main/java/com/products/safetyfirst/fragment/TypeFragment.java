@@ -21,6 +21,7 @@ import com.mikepenz.fastadapter.items.AbstractItem;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.activity.ItemTypeInfoActivity;
 import com.products.safetyfirst.activity.KnowItSecondActivity;
+import com.products.safetyfirst.utils.Analytics;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -73,6 +74,7 @@ public class TypeFragment extends Fragment {
             public boolean onClick(View v, IAdapter<TypeItem> adapter, TypeItem item, int position) {
                 Intent intent = new Intent(getContext(), ItemTypeInfoActivity.class);
                 intent.putExtra("KnowItitemType", item.getTitle());
+                Analytics.logEventViewItem(getContext(),"know_it_item_type"+position,item.getTitle(),"know it item type");
                 startActivity(intent);
                 return true;
             }

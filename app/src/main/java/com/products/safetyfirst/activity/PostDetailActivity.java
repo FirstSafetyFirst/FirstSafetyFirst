@@ -11,7 +11,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -30,8 +29,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -39,18 +36,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.MutableData;
-import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.models.Comment;
 import com.products.safetyfirst.models.Discussion_model;
+import com.products.safetyfirst.utils.Analytics;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -131,6 +127,7 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
         // Enable the Up round_blue_dark
         //  ab.setDisplayHomeAsUpEnabled(true);
         // Get post key from intent
+
         mPostKey = getIntent().getStringExtra(EXTRA_POST_KEY);
         if (mPostKey == null) {
             throw new IllegalArgumentException("Must pass EXTRA_POST_KEY");
@@ -249,6 +246,9 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
                     setHyperlinkText(mBodyView, post.getBody());
                 else
                     setHyperlinkText(mBodyView, post.getXmlBody());
+
+                //log the event that user has read some post
+                Analytics.logEventViewItem(getApplicationContext(),mPostKey,post.getTitle(),"post");
 
                 postLoaded = true;
                 onCreateOptionsMenu(mMenu);

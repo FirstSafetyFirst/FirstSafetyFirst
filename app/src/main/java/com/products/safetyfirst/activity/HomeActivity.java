@@ -29,6 +29,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,7 +40,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -80,10 +80,10 @@ public class HomeActivity extends BaseActivity
 
     List<Fragment> fragments = new ArrayList<>(5);
     Toolbar toolbar;
+    public static SearchView searchView;
     public static NavigationView navigationView;
     PrefManager prefManager;
     private FirebaseUser mFirebaseUser;
-    private FirebaseAnalytics mFirebaseAnalytics;
     public static BottomNavigationView bottomNavigationView;
     @Override
     protected void onResume() {
@@ -113,6 +113,19 @@ public class HomeActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        searchView=(SearchView) findViewById(R.id.search);
+        /**
+        searchView.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(searchView.getQuery()!=null){
+                    searchView.setSubmitButtonEnabled(true);
+                    Analytics.logEventSearch(getApplicationContext(), ""+searchView.getQuery());
+                }
+
+            }
+        });
+         **/
         final int versionCode= BuildConfig.VERSION_CODE;
         Query query= getDatabase().getReference().child("current version");
         final long[] version = new long[1];
@@ -144,9 +157,6 @@ public class HomeActivity extends BaseActivity
         }
 
         prefManager.setFirstHomeLaunch(false);
-
-
-        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -477,13 +487,7 @@ public class HomeActivity extends BaseActivity
         return link.getUri();
     }
 
-    private void shareDeepLink(String deepLink) {
-
-
-
-
-
-
+    private void shareDeepLink(String deepLink){
 
         Task<ShortDynamicLink> shortLinkTask = FirebaseDynamicLinks.getInstance().createDynamicLink()
                 .setLongLink(Uri.parse(deepLink))

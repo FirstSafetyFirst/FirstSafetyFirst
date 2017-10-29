@@ -33,6 +33,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.models.UserModel;
+import com.products.safetyfirst.utils.Analytics;
 
 import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
 
@@ -159,6 +160,7 @@ public class SignUpActivity extends BaseActivity implements GoogleApiClient.OnCo
 
     private void onAuthSuccess(FirebaseUser user) {
 
+        Analytics.logEventSetSignUp(getApplicationContext(),"SignUp by Email");
         String username;
         if(user.getDisplayName()==null){
             username = usernameFromEmail(user.getEmail());
@@ -300,6 +302,7 @@ public class SignUpActivity extends BaseActivity implements GoogleApiClient.OnCo
             if (result.isSuccess()) {
                 // Google Sign In was successful, authenticate with Firebase
                 Log.d("google sign in", "successful");
+                Analytics.logEventSetSignUp(getApplicationContext(),"SignUp by Google");
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
             } else {

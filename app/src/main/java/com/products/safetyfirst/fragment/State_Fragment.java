@@ -18,6 +18,7 @@ import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter;
 import com.mikepenz.fastadapter.items.AbstractItem;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.activity.KnowItSecondActivity;
+import com.products.safetyfirst.utils.Analytics;
 import com.products.safetyfirst.utils.JustifiedWebView;
 
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ public class State_Fragment extends Fragment {
         JustifiedWebView laws_info = (JustifiedWebView) rootView.findViewById(R.id.law_info);
         RecyclerView stateLawsRecycler = (RecyclerView) rootView.findViewById(R.id.state_laws_recycler);
         FastItemAdapter lawsAdapter = new FastItemAdapter();
-        List<LawItem> laws = new ArrayList<>();
+        final List<LawItem> laws = new ArrayList<>();
 
         /*Set Laws Text*/
         laws_info.setText(getResources().getString(R.string.lorem_ipsum),  // Change here with text fetched from database
@@ -64,6 +65,7 @@ public class State_Fragment extends Fragment {
         lawsAdapter.withOnClickListener(new FastAdapter.OnClickListener<State_Fragment.LawItem>() {
             @Override
             public boolean onClick(View v, IAdapter<State_Fragment.LawItem> adapter, State_Fragment.LawItem item, int position) {
+                Analytics.logEventViewItem(getContext(),"state-law"+position,laws.get(position).title,"state_law");
                 Intent intent = new Intent(getContext(), KnowItSecondActivity.class);
                 intent.putExtra(KnowIt_Fragment.tool, position);
                 startActivity(intent);

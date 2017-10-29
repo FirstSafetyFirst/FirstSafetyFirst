@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.modelhelper.PostHelper;
 import com.products.safetyfirst.modelhelper.UserHelper;
+import com.products.safetyfirst.utils.Analytics;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -156,6 +157,7 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
     public void createNewPost() {
         if(!titleText.getText().toString().trim().equals("") && !editor.getHtml().trim().equals("")) {
             final String postKey = postHelper.createPostKey();
+            Analytics.logEventShare(getApplicationContext(),titleText.getText().toString(),postKey);
             List<String> imageUrls = new ArrayList<>();
             postHelper.createImageUrls(postKey, imageList, imageUrls, 0, new PostHelper.FinalCallback() {
                 @Override

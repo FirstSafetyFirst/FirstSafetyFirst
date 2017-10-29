@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.products.safetyfirst.R;
@@ -18,6 +17,7 @@ import com.products.safetyfirst.impementations.presenter.KnowItPresenterImpl;
 import com.products.safetyfirst.interfaces.adapter.KnowItAdapterView;
 import com.products.safetyfirst.interfaces.presenter.KnowItPresenter;
 import com.products.safetyfirst.models.KnowItItem;
+import com.products.safetyfirst.utils.Analytics;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -48,7 +48,7 @@ public class KnowItAdapter extends RecyclerView.Adapter<KnowItAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         URL url=null;
         knowItItem = knowItItemArrayList.get(position);
         if(knowItItem.getItem_name()!=null)
@@ -72,7 +72,7 @@ public class KnowItAdapter extends RecyclerView.Adapter<KnowItAdapter.ViewHolder
                 intent.putExtra("Info", knowItItem.getItem_info());
                 intent.putExtra("Checklist", knowItItem.getSafety_checklist());
                 intent.putExtra("KnowItItemList",knowItItem.getTypes());
-
+                Analytics.logEventViewItem(context,Long.toString(holder.getItemId()),knowItItem.getItem_name(),"know_it_item");
                 context.startActivity(intent);
             }
         });
