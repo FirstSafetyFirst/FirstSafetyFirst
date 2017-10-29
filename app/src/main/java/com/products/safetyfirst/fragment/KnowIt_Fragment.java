@@ -16,6 +16,7 @@ import com.products.safetyfirst.adapters.KnowItAdapter;
 import com.products.safetyfirst.impementations.presenter.KnowItPresenterImpl;
 import com.products.safetyfirst.interfaces.presenter.KnowItPresenter;
 import com.products.safetyfirst.interfaces.view.KnowItView;
+import com.products.safetyfirst.models.KnowItItemType;
 
 public class KnowIt_Fragment extends Fragment implements KnowItView{
 
@@ -94,6 +95,11 @@ public class KnowIt_Fragment extends Fragment implements KnowItView{
     @Override
     public void onError() {
         Log.e("Know_itFragment","Error populating views");
+    }
+
+    @Override
+    public void setViewWithSpecificItem(KnowItItemType knowItItemType) {
+        
     }
 
 }

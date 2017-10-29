@@ -36,7 +36,7 @@ public class NewsDetailInteractorImpl implements NewsDetailInteractor {
     @Override
     public void requestNews(String mPostKey) {
 
-        DatabaseReference mPostReference = FirebaseDatabase.getInstance().getReference()
+        DatabaseReference mPostReference =getDatabase().getReference()
                 .child("news").child(mPostKey);
 
         mPostReference.addValueEventListener(new ValueEventListener() {

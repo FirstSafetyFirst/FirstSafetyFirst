@@ -30,9 +30,17 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.products.safetyfirst.R;
+import com.products.safetyfirst.models.Interest_model;
 import com.products.safetyfirst.models.UserModel;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
 
@@ -166,7 +174,7 @@ public class SignUpActivity extends BaseActivity implements GoogleApiClient.OnCo
         else username = user.getDisplayName();
         // String username = mNameField.getText().toString();
         // Write new user
-        writeNewUser(user.getUid(), username, user.getEmail(), user.getPhotoUrl()!= null ?user.getPhotoUrl().toString():null);
+        isNewUser(user.getUid(), user.getDisplayName(), user.getEmail(), String.valueOf(user.getPhotoUrl()));
 
 
         // Go to DashboardActivityM
@@ -222,11 +230,51 @@ public class SignUpActivity extends BaseActivity implements GoogleApiClient.OnCo
         return result;
     }
 
+    private void isNewUser(final String userId, final String name, final String email, final String image){
+
+        DatabaseReference userRef = getDatabase().getReference().child("users").child(userId);
+
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    // TODO: handle the case where the data already exists
+                    Toast.makeText(SignUpActivity.this, "Welcome Back", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    // TODO: handle the case where the data does not yet exist
+                    writeNewUser(userId, name, email, image);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+
+        });
+    }
+
     // [START basic_write]
     private void writeNewUser(String userId, String name, String email, String image) {
+
         UserModel user = new UserModel(name, email, image);
 
+        HashMap<String, Boolean> mListOfInterests = new HashMap<>();
+
+        mListOfInterests.put("PPE", false);
+        mListOfInterests.put("Fire Safety", false);
+        mListOfInterests.put("Ladder Safety", false);
+        mListOfInterests.put("Health Safety", false);
+        mListOfInterests.put("Chemical", false);
+        mListOfInterests.put("Others", false);
+
         mDatabase.child("users").child(userId).setValue(user);
+        mDatabase.child("user-interests").child(userId).setValue(mListOfInterests);
+
+
     }
 
     private void sendEmailVerification() {

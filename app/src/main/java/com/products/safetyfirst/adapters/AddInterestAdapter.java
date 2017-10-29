@@ -10,6 +10,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.impementations.presenter.AddInterestPresenterImpl;
@@ -41,12 +42,19 @@ public class AddInterestAdapter extends RecyclerView.Adapter<AddInterestAdapter.
 
     @Override
     public void onBindViewHolder(AddInterestAdapter.ViewHolder holder, int position) {
-        Animation animation = AnimationUtils.loadAnimation(context, R.anim.anim_recycler_item_show);
-        holder.mView.startAnimation(animation);
+       // Animation animation = AnimationUtils.loadAnimation(context, R.anim.anim_recycler_item_show);
+       // holder.mView.startAnimation(animation);
 
-        Interest_model current = mInterestList.get(position);
+        final Interest_model current = mInterestList.get(position);
         holder.mInterest.setText(current.getInterest());
         holder.mCheck.setChecked(current.getLiked());
+
+        holder.mCheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                presenter.validateInterest(new Interest_model(current.getInterest(), !current.getLiked()));
+            }
+        });
         // holder.mIcon.setImageDrawable(current.getDrawable());
     }
 

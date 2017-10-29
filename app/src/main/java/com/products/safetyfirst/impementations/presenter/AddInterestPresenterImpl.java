@@ -32,7 +32,7 @@ public class AddInterestPresenterImpl implements AddInterestPresenter, AddIntere
     }
 
     @Override
-    public void validateInterest(ArrayList<Interest_model> interest) {
+    public void validateInterest(Interest_model interest) {
         if (addInterestView != null) {
             addInterestView.showProgress();
         }

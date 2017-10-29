@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public interface AddInterestInteractor {
 
-    void addInterest(ArrayList<Interest_model> interests, AddInterestInteractor.OnUpdateFinishedListener listener);
+    void addInterest(Interest_model interests, AddInterestInteractor.OnUpdateFinishedListener listener);
 
     void requestInterest();
 

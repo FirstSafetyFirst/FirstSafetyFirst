@@ -4,11 +4,13 @@ import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.products.safetyfirst.interfaces.interactor.KnowItInteractor;
 import com.products.safetyfirst.interfaces.presenter.KnowItPresenter;
 import com.products.safetyfirst.models.KnowItItem;
+import com.products.safetyfirst.models.KnowItItemType;
 
 import java.util.ArrayList;
 
@@ -38,12 +40,6 @@ public class KnowItInteractorImpl implements KnowItInteractor {
                     mListOfItems.add(x.getValue(KnowItItem.class));
                 }
                 presenter.getChildren(mListOfItems);
-                /**
-                Log.e("testing",mListOfItems.get(0).getItem_info()+" "+
-                        mListOfItems.get(0).getItem_name()+" "+
-                        mListOfItems.get(0).getSafety_checklist());
-
-                 **/
             }
 
             @Override
@@ -55,9 +51,26 @@ public class KnowItInteractorImpl implements KnowItInteractor {
     }
 
     @Override
-    public void getKnowitItem(int position) {
+    public void getKnowitItem(String itemName) {
+        DatabaseReference mPostReference = getDatabase().getReference()
+                .child("knowitTypes").child(itemName);
+
+        mPostReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                KnowItItemType knowItItemType= dataSnapshot.getValue(KnowItItemType.class);
+                presenter.setSpecificItem(knowItItemType);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w("NewsDetailInteractor", "loadPost:onCancelled", databaseError.toException());
+
+            }
+        });
 
     }
+
 
 
 }
