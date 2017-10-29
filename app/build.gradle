@@ -2,7 +2,8 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "25.0.2"
+    buildToolsVersion '26.0.2'
+    flavorDimensions "default"
     defaultConfig {
         applicationId "com.products.safetyfirst"
         minSdkVersion 19

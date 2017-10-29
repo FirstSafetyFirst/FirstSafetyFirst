@@ -48,9 +48,10 @@ public class UserModel {
         this.photoUrl   = photoUrl;
     }
 
-    public UserModel(String username, String email, String photoUrl,String certificate, ArrayList<String> news, ArrayList<String> topics){
+    public UserModel(String username, String email, String phone,String photoUrl,String certificate, ArrayList<String> news, ArrayList<String> topics){
         this.name = username;
         this.email      = email;
+        this.phone= Long.parseLong(phone);
         this.photoUrl   = photoUrl;
         this.news       = news;
         this.topics     = topics;
@@ -63,6 +64,10 @@ public class UserModel {
 
     public void setDesignation(String designation) {
         this.designation = designation;
+    }
+
+    public void setPhone(String phoneNo){
+        phone= Long.parseLong(phoneNo);
     }
 
     public String getUsername() {
@@ -159,8 +164,10 @@ public class UserModel {
         return certificate;
     }
 
-    public long getPhone(){
-        return phone;
+    public String getPhone(){
+
+        return String.valueOf(phone);
+
     }
 
     public String getCity() {
