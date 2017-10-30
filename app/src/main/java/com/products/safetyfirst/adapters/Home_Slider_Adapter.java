@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.products.safetyfirst.R;
-import com.products.safetyfirst.models.Slider_Model;
+import com.products.safetyfirst.models.SliderModel;
 
 import java.util.List;
 
@@ -19,9 +19,9 @@ import java.util.List;
 public class Home_Slider_Adapter extends RecyclerView.Adapter<Home_Slider_Adapter.MyViewHolder> {
 
     private final Context context;
-    private List<Slider_Model> horizontalList;
+    private List<SliderModel> horizontalList;
 
-    public Home_Slider_Adapter(Context cont, List<Slider_Model> horizontalList) {
+    public Home_Slider_Adapter(Context cont, List<SliderModel> horizontalList) {
         this.horizontalList = horizontalList;
         this.context=cont;
     }

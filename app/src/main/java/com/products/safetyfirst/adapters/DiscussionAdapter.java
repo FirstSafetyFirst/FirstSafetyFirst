@@ -1,6 +1,7 @@
 package com.products.safetyfirst.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Pair;
@@ -11,9 +12,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.products.safetyfirst.R;
+import com.products.safetyfirst.activity.PostDetailActivity;
 import com.products.safetyfirst.customview.CircleTransform;
 import com.products.safetyfirst.modelhelper.AuthorHelper;
 import com.products.safetyfirst.modelhelper.PostHelper;
@@ -111,6 +114,7 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.Po
         }).doAfterSuccess(new Consumer<Object>() {
             @Override
             public void accept(Object o) throws Exception {
+                postDiscussionData.key = postKey;
                 holder.setData(postDiscussionData);
             }
         }).subscribe();
@@ -145,7 +149,7 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.Po
             ansBtn = (ImageView) itemView.findViewById(R.id.ansBtn);
             bookmark = (ImageView) itemView.findViewById(R.id.bookmark);
             post_title = (TextView) itemView.findViewById(R.id.post_title);
-            body = (JustifiedWebView) itemView.findViewById(R.id.type_info);
+            body = (JustifiedWebView) itemView.findViewById(R.id.post_body);
             dateTime = (TextView) itemView.findViewById(R.id.dateTime);
             post_author = (TextView) itemView.findViewById(R.id.post_author);
             post_author_email = (TextView) itemView.findViewById(R.id.post_author_email);
@@ -154,7 +158,7 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.Po
             context = itemView.getContext();
         }
 
-        public void setData(PostDiscussionModel postData) {
+        public void setData(final PostDiscussionModel postData) {
             post_title.setText(postData.title);
             body.setText(postData.body);
             post_author.setText(postData.author);
@@ -163,10 +167,23 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.Po
             Date date = new Date(postData.timestamp * 1000);
             SimpleDateFormat sDate = new SimpleDateFormat("dd MM yyyy", new Locale("hi", "IN"));
             dateTime.setText(sDate.format(date));
+
+            readMore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    Intent intent = new Intent(context, PostDetailActivity.class);
+                    intent.putExtra(PostDetailActivity.EXTRA_POST_KEY, postData.key);
+                    Toast.makeText(context, postData.key , Toast.LENGTH_SHORT).show();
+                    context.startActivity(intent);
+
+                }
+            });
         }
     }
 
     public class PostDiscussionModel {
+        public String key;
         public String title;
         public String body;
         public String author;

@@ -287,14 +287,12 @@ public class HomeActivity extends BaseActivity
 
 
     private void buildFragmentsList() {
-        // Home_Fragment homeFragment = new Home_Fragment();
         News_Events_Fragment newsFragment = new News_Events_Fragment();
         DiscussionFragment discussionFragment = new DiscussionFragment();
         TrainingFragment trainingFragment = new TrainingFragment();
         KnowIt_Fragment knowFragment = new KnowIt_Fragment();
         UpdateProfileFragment updateProfileFragment = new UpdateProfileFragment();
 
-        // fragments.add(homeFragment);
         fragments.add(newsFragment);
         fragments.add(discussionFragment);
         fragments.add(trainingFragment);

@@ -4,11 +4,11 @@ package com.products.safetyfirst.models;
  * Created by profileconnect on 24/04/17.
  */
 
-public class Slider_Model {
+public class SliderModel {
 
     String img_url,title,desc;
 
-    public Slider_Model(String img_url, String title, String desc) {
+    public SliderModel(String img_url, String title, String desc) {
         this.img_url = img_url;
         this.title = title;
         this.desc = desc;

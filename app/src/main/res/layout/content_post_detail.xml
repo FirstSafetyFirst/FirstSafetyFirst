@@ -1,87 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.products.safetyfirst.activity.PostDetailActivity"
-    tools:showIn="@layout/activity_post_detail">
-     <LinearLayout
-            android:layout_width="368dp"
-            android:layout_height="495dp"
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin"
-            android:orientation="vertical"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            tools:layout_editor_absoluteY="8dp"
-            tools:layout_editor_absoluteX="8dp">
+    <android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:padding="@dimen/activity_horizontal_margin"
+        card_view:cardCornerRadius="4dp"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="8dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context="com.products.safetyfirst.activity.PostDetailActivity"
+        tools:showIn="@layout/activity_post_detail">
 
-            <TextView
-                android:id="@+id/post_title"
-                android:textColor="@color/colorPrimary"
-                style="@style/TextAppearance.AppCompat.Medium"
-                android:textAllCaps="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textIsSelectable="true"
-                tools:text="My First Post" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <include
-                android:id="@+id/post_author_layout"
-                layout="@layout/post_author"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/post_body"
+                layout="@layout/post_header"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:textIsSelectable="true"
-                tools:text="@string/lorem_ipsum" />
+                android:layout_height="wrap_content"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/darker_gray"
+                />
+            <include
+
+                layout="@layout/post_author"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
-                <ImageView
-                    android:id="@+id/post_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="256dp"
-                    android:cropToPadding="true"
-                    tools:src="@drawable/logo"/>
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycler_images"
+                    android:id="@+id/recycler_view"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    tools:listitem="@layout/item_comment"
-                    android:visibility="gone"/>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_keyboard_arrow_right"
-                    android:id="@+id/right_arrow"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
-                    android:visibility="gone"/>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_keyboard_arrow_left"
-                    android:id="@+id/left_arrow"
-                    android:layout_centerVertical="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:visibility="gone"/>
+                    android:layout_height="210dp"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginStart="@dimen/recycler_view_left_offset"
+                    android:clipChildren="false"
+                    android:overScrollMode="never"
+                    app:viewUpdater="com.ramotion.cardslider.examples.simple.cards.CardsUpdater"/>
             </RelativeLayout>
+
+            <include
+
+                layout="@layout/post_body"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
             <android.support.v7.widget.ButtonBarLayout
                 android:layout_width="wrap_content"
@@ -120,25 +98,12 @@
 
             </android.support.v7.widget.ButtonBarLayout>
 
-            <LinearLayout
-                android:id="@+id/comment_form"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:weightSum="1.0"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true">
-
-            </LinearLayout>
-
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_comments"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:listitem="@layout/item_comment"
-                android:layout_above="@+id/comment_form"
-                android:layout_below="@+id/post_text_layout" />
+                tools:listitem="@layout/item_comment" />
 
         </LinearLayout>
-</android.support.constraint.ConstraintLayout>
+
+    </android.support.v7.widget.CardView>
