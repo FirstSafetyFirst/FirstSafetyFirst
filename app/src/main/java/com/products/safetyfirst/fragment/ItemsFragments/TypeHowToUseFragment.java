@@ -32,7 +32,7 @@ public class TypeHowToUseFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mainView = inflater.inflate(R.layout.fragment_type_info, container, false);
-        informationView = (JustifiedWebView) mainView.findViewById(R.id.type_info);
+        informationView = (JustifiedWebView) mainView.findViewById(R.id.post_body);
 
         //toolValue = getArguments().getInt(ItemTypeInfoActivity.tool, 0);
         // typeValue = getArguments().getInt(ItemTypeInfoActivity.typeNumber, 0);

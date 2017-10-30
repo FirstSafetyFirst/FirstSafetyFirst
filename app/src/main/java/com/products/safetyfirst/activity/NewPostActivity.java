@@ -23,6 +23,7 @@ import com.products.safetyfirst.androidhelpers.NotificationHelper;
 import com.products.safetyfirst.interfaces.view.SimpleNotification;
 import com.products.safetyfirst.modelhelper.PostHelper;
 import com.products.safetyfirst.modelhelper.UserHelper;
+import com.products.safetyfirst.utils.Analytics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -149,6 +150,7 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
     public void createNewPost() {
         if(!titleText.getText().toString().trim().equals("") && !editor.getHtml().trim().equals("")) {
             final String postKey = postHelper.createPostKey();
+            Analytics.logEventShare(getApplicationContext(),titleText.getText().toString(),postKey);
             List<String> imageUrls = new ArrayList<>();
             postHelper.createImageUrls(postKey, imageList, imageUrls, 0, new PostHelper.UploadCallbacks() {
                 NotificationHelper.ProgressNotification progressNotification;

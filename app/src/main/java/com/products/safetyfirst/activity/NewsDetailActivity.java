@@ -37,6 +37,7 @@ import com.products.safetyfirst.impementations.presenter.NewsDetailPresenterImpl
 import com.products.safetyfirst.interfaces.presenter.NewsDetailPresenter;
 import com.products.safetyfirst.interfaces.view.NewsDetailView;
 import com.products.safetyfirst.models.News_model;
+import com.products.safetyfirst.utils.Analytics;
 import com.products.safetyfirst.utils.JustifiedWebView;
 import com.products.safetyfirst.utils.PrefManager;
 
@@ -189,6 +190,7 @@ public class NewsDetailActivity extends BaseActivity implements View.OnClickList
         mBodyView.setText(news.getBody());
         url = news.getAuthor();
         deepLink = news.getDeeplink();
+        Analytics.logEventViewItem(getApplicationContext(),mTitleView.getText().toString(),HEADLINE,"news");
 
         if (news.bookmarks.containsKey(getCurrentUserId())) {
             fab.setImageResource(R.drawable.ic_bookmark_black_24dp);

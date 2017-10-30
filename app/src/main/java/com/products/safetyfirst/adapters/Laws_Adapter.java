@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.models.Law_model;
+import com.products.safetyfirst.utils.Analytics;
 
 import java.util.List;
 
@@ -45,6 +46,7 @@ public class Laws_Adapter extends RecyclerView.Adapter<Laws_Adapter.MyViewHolder
 //                Toast.makeText(context, horizontalList.get(position).getTitle(),Toast.LENGTH_SHORT).show();
 //            }
 //        });
+        Analytics.logEventViewItem(context,Long.toString(holder.getItemId()),"national law"+position,"national law");
     }
 
     @Override
