@@ -1,6 +1,7 @@
 package com.products.safetyfirst.interfaces.presenter;
 
 import com.products.safetyfirst.models.KnowItItem;
+import com.products.safetyfirst.models.KnowItItemType;
 
 import java.util.ArrayList;
 
@@ -19,4 +20,8 @@ public interface KnowItPresenter {
     void OnError();
 
     void request();
+
+    void requestSpecificItem(String itemName);
+
+    void setSpecificItem(KnowItItemType knowItItemType);
 }

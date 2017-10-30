@@ -19,4 +19,10 @@ public class Constants {
     public static final String[] knowItItemType={"checklist","how_to_use","item_info","item_thumb_url","video_url"};
 
 
+    public static final String POSTS_LINK = "posts";
+    public static final String USERS_POSTS_LINK = "user-posts";
+    public static final String POSTS_STARS_LINK = "post-stars";
+    public static final String POSTS_VIEWS_LINK = "post-views";
+
+
 }

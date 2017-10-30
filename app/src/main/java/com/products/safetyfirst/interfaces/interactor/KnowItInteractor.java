@@ -8,5 +8,5 @@ public interface KnowItInteractor {
 
     void getKnowit();
 
-    void getKnowitItem(int position);
+    void getKnowitItem(String itemName);
 }

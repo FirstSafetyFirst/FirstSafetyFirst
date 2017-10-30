@@ -122,11 +122,18 @@ public class IntroActivity extends AppCompatActivity {
                     // move to next screen
                     viewPager.setCurrentItem(current);
                 } else {
-                    launchHomeScreen();
+                    launchSignInScreen();
                 }
             }
         });
 
+    }
+
+    private void launchSignInScreen() {
+        prefManager.setFirstTimeLaunch(false);
+        startActivity(new Intent(IntroActivity.this, SignInActivity.class));
+
+        finish();
     }
 
     private void addBottomDots(int currentPage) {

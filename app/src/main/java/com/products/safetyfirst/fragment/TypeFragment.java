@@ -73,8 +73,8 @@ public class TypeFragment extends Fragment {
             @Override
             public boolean onClick(View v, IAdapter<TypeItem> adapter, TypeItem item, int position) {
                 Intent intent = new Intent(getContext(), ItemTypeInfoActivity.class);
-                intent.putExtra("KnowItitemType", item.getTitle());
                 Analytics.logEventViewItem(getContext(),"know_it_item_type"+position,item.getTitle(),"know it item type");
+                intent.putExtra(ItemTypeInfoActivity.EXTRA_ITEM_NAME, item.getTitle());
                 startActivity(intent);
                 return true;
             }

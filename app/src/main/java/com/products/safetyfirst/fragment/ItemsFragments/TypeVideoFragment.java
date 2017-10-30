@@ -13,6 +13,7 @@ import android.webkit.WebViewClient;
 import android.widget.TextView;
 
 import com.products.safetyfirst.R;
+import com.products.safetyfirst.activity.ItemTypeInfoActivity;
 import com.products.safetyfirst.models.KnowItItemType;
 import com.products.safetyfirst.utils.Analytics;
 
@@ -38,14 +39,12 @@ public class TypeVideoFragment extends Fragment {
         WebView webView = (WebView) mainView.findViewById(R.id.webview);
         TextView notAvailable = (TextView) mainView.findViewById(R.id.not_available);
 
-        //int toolValue = getArguments().getInt(ItemTypeInfoActivity.tool, 0);
-        //int typeValue = getArguments().getInt(ItemTypeInfoActivity.typeNumber, 0);
 
-        KnowItItemType knowItItemType = getArguments().getParcelable("KnowItItemType");
-        //TypedArray ta = getResources().obtainTypedArray(R.array.youtubeEmbed);
-        String url = knowItItemType.getVideo_url();
+        String url =  ((ItemTypeInfoActivity) getActivity()).getKnowItItemVideo();
 
-        if(url.equals("no")) {
+
+
+        if(url.equals("no") || url == null) {
             notAvailable.setVisibility(View.VISIBLE);
             webView.setVisibility(View.GONE);
             Log.e("Video", "Not Available");

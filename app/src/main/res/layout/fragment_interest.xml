@@ -16,6 +16,7 @@
             style="@style/Base.TextAppearance.AppCompat.Medium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
             android:layout_marginLeft="@dimen/activity_vertical_margin"
             android:layout_marginRight="@dimen/activity_vertical_margin"
             android:text="@string/interests"
@@ -56,25 +57,17 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/update"
-                    style="@style/Widget.AppCompat.Button.Borderless"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.5"
-                    android:background="@color/colorAccent"
-                    android:clickable="true"
-                    android:text="UPDATE"
-                    android:textColor="@color/white" />
 
                 <Button
+                    android:id="@+id/btn_done"
                     style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.5"
-                    android:background="@color/colorAccent"
+                    android:background="?attr/selectableItemBackground"
                     android:clickable="true"
-                    android:text="SKIP"
+                    android:text="@string/done"
+                    android:textStyle="bold"
                     android:textColor="@color/white" />
 
             </LinearLayout>

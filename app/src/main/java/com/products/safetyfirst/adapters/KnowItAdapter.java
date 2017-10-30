@@ -32,7 +32,7 @@ public class KnowItAdapter extends RecyclerView.Adapter<KnowItAdapter.ViewHolder
     private Context context;
     private ArrayList<KnowItItem> knowItItemArrayList=new ArrayList<>();
     private KnowItPresenter presenter;
-    private KnowItItem knowItItem;
+
 
     public KnowItAdapter(Context context){
         this.context=context;
@@ -50,7 +50,7 @@ public class KnowItAdapter extends RecyclerView.Adapter<KnowItAdapter.ViewHolder
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         URL url=null;
-        knowItItem = knowItItemArrayList.get(position);
+        final KnowItItem knowItItem = knowItItemArrayList.get(position);
         if(knowItItem.getItem_name()!=null)
             holder.title.setText(knowItItem.getItem_name());
         if(knowItItem.getThumb_url()!=null) {

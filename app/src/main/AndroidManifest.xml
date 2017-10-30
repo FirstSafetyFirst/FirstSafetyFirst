@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -50,10 +51,15 @@
         </activity>
         <activity
             android:name=".activity.NewsDetailActivity"
-            android:parentActivityName=".activity.TempActivity"
+            android:parentActivityName=".activity.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.KnowItSecondActivity"
+            android:launchMode="singleTop"
+            android:parentActivityName=".activity.HomeActivity"
+            android:theme="@style/NoActionBar" />
+        <activity
+            android:name=".activity.DetailsActivity"
             android:launchMode="singleTop"
             android:parentActivityName=".activity.HomeActivity"
             android:theme="@style/NoActionBar" />
@@ -72,14 +78,28 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.ProfileActivity"
-            android:parentActivityName=".activity.HomeActivity"/>
-
+            android:parentActivityName=".activity.HomeActivity" />
         <activity android:name=".activity.WebViewActivity" />
-        <activity android:name=".activity.EventsDetailActivity"></activity>
+        <activity android:name=".activity.EventsDetailActivity" />
         <activity
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:name=".activity.NewPostActivity"/>
+            android:name=".activity.NewPostActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
 
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/. 
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".activity.MapsActivity"
+            android:label="@string/title_activity_maps"></activity>
     </application>
 
 </manifest>

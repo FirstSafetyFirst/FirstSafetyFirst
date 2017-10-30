@@ -25,7 +25,7 @@ public class Interest_Fragment extends Fragment implements View.OnClickListener,
     private RecyclerView recyclerView;
     private AddInterestAdapter adapter;
     private AddInterestPresenter presenter;
-    private Button mUpdateBtn;
+    private Button mDoneBtn;
     public Interest_Fragment() {
         // Required empty public constructor
     }
@@ -61,14 +61,14 @@ public class Interest_Fragment extends Fragment implements View.OnClickListener,
     }
 
     private void createUI(View view) {
-        mUpdateBtn = (Button) view.findViewById(R.id.update);
+
+        mDoneBtn = (Button) view.findViewById(R.id.btn_done);
         recyclerView = (RecyclerView) view.findViewById(R.id.interest_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         presenter = new AddInterestPresenterImpl(this);
 
-        mUpdateBtn.setOnClickListener(this);
 
     }
 
@@ -81,8 +81,8 @@ public class Interest_Fragment extends Fragment implements View.OnClickListener,
     @Override
     public void onClick(View view) {
         int i = view.getId();
-        if (i == R.id.update) {
-            //  presenter.validateInterest();
+        if (i == R.id.btn_done) {
+            //Start Home activity and finish profile activity preferably call a function in Profile activity to do so.
         }
     }
 

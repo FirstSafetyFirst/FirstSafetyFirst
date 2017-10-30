@@ -12,7 +12,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
@@ -52,11 +51,11 @@ import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 import com.google.firebase.dynamiclinks.ShortDynamicLink;
 import com.products.safetyfirst.BuildConfig;
 import com.products.safetyfirst.R;
-import com.products.safetyfirst.fragment.Discussion_Fragment;
+import com.products.safetyfirst.fragment.DiscussionFragment;
 import com.products.safetyfirst.fragment.KnowIt_Fragment;
-import com.products.safetyfirst.fragment.Laws_Fragment;
 import com.products.safetyfirst.fragment.News_Events_Fragment;
 import com.products.safetyfirst.fragment.ProfileFragment.ProjectsFragment;
+import com.products.safetyfirst.fragment.TrainingFragment;
 import com.products.safetyfirst.fragment.UpdateProfileFragment;
 import com.products.safetyfirst.utils.Constants;
 import com.products.safetyfirst.utils.PrefManager;
@@ -67,12 +66,13 @@ import java.util.List;
 import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
 
 public class HomeActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener, ProjectsFragment.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, ProjectsFragment.OnFragmentInteractionListener, TrainingFragment.OnFragmentInteractionListener {
 
     //private static final String TAG_FRAGMENT_HOME = "tag_frag_home";
     private static final String TAG_FRAGMENT_NEWS = "tag_frag_news";
     private static final String TAG_FRAGMENT_DISCUSSION = "tag_frag_discussion";
     private static final String TAG_FRAGMENT_LAWS = "tag_frag_laws";
+    private static final String TAG_FRAGMENT_TRAINING = "tag_frag_training";
     private static final String TAG_FRAGMENT_KNOWIT = "tag_frag_knowit";
     private static final String TAG_FRAGMENT_UPDATE_PROFILE = "tag_fragment_update_profile";
 
@@ -182,8 +182,8 @@ public class HomeActivity extends BaseActivity
                             case R.id.discussion:
                                 switchFragment(1, TAG_FRAGMENT_DISCUSSION);
                                 return true;
-                            case R.id.laws:
-                                switchFragment(2, TAG_FRAGMENT_LAWS);
+                            case R.id.training:
+                                switchFragment(2, TAG_FRAGMENT_TRAINING);
                                 return true;
                             case R.id.know_it:
                                 switchFragment(3, TAG_FRAGMENT_KNOWIT);
@@ -196,7 +196,7 @@ public class HomeActivity extends BaseActivity
         buildFragmentsList();
 
         switchFragment(1, TAG_FRAGMENT_DISCUSSION);
-        navigationView.getMenu().getItem(1).setChecked(true);
+        bottomNavigationView.setSelectedItemId(R.id.discussion);
 
         FirebaseDynamicLinks.getInstance()
                 .getDynamicLink(getIntent())
@@ -211,8 +211,8 @@ public class HomeActivity extends BaseActivity
 
                         // Display deep link in the UI
                         if (deepLink != null) {
-                            Snackbar.make(findViewById(android.R.id.content),
-                                    "Found deep link!", Snackbar.LENGTH_LONG).show();
+                        //    Snackbar.make(findViewById(android.R.id.content),
+                          //          "Found deep link!", Snackbar.LENGTH_LONG).show();
 
                             String[] data = deepLink.toString().split("/");
 
@@ -227,6 +227,9 @@ public class HomeActivity extends BaseActivity
                                     startActivity(intent);
                                     break;
                                 case "event":
+                                    Intent eventIntent = new Intent(HomeActivity.this, NewsDetailActivity.class);
+                                    eventIntent.putExtra(EventsDetailActivity.EXTRA_EVENT_KEY, key);
+                                    startActivity(eventIntent);
                                     break;
                                 case "post":
                                     break;
@@ -246,6 +249,8 @@ public class HomeActivity extends BaseActivity
                         Log.w("HomeActivity", "getDynamicLink:onFailure", e);
                     }
                 });
+
+
     }
     private void showUpdateDialog(String title, String body) {
 
@@ -292,17 +297,15 @@ public class HomeActivity extends BaseActivity
 
 
     private void buildFragmentsList() {
-        // Home_Fragment homeFragment = new Home_Fragment();
         News_Events_Fragment newsFragment = new News_Events_Fragment();
-        Discussion_Fragment discussionFragment = new Discussion_Fragment();
-        Laws_Fragment lawsFragment = new Laws_Fragment();
+        DiscussionFragment discussionFragment = new DiscussionFragment();
+        TrainingFragment trainingFragment = new TrainingFragment();
         KnowIt_Fragment knowFragment = new KnowIt_Fragment();
         UpdateProfileFragment updateProfileFragment = new UpdateProfileFragment();
 
-        // fragments.add(homeFragment);
         fragments.add(newsFragment);
         fragments.add(discussionFragment);
-        fragments.add(lawsFragment);
+        fragments.add(trainingFragment);
         fragments.add(knowFragment);
         fragments.add(updateProfileFragment);
     }
@@ -349,7 +352,7 @@ public class HomeActivity extends BaseActivity
         } else if (id == R.id.nav_help) {
             showHelpDialog();
         } else if (id == R.id.nav_feedback) {
-
+            rateMe();
         } else if (id == R.id.nav_tnc) {
             showTncDialog(getString(R.string.tnc), getString(R.string.lorem_ipsum));
         } else if (id == R.id.nav_invite) {
@@ -457,6 +460,16 @@ public class HomeActivity extends BaseActivity
         shareDeepLink(deepLink.toString());
     }
 
+    private void rateMe() {
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("market://details?id=" + "com.vikas.dtu.safetyfirst2")));
+        } catch (android.content.ActivityNotFoundException e) {
+            startActivity(new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("http://play.google.com/store/apps/details?id=" + "com.vikas.dtu.safetyfirst2")));
+        }
+    }
+
     @Override
     public void onFragmentInteraction(Uri uri) {
 
@@ -487,7 +500,7 @@ public class HomeActivity extends BaseActivity
         return link.getUri();
     }
 
-    private void shareDeepLink(String deepLink){
+    private void shareDeepLink(String deepLink) {
 
         Task<ShortDynamicLink> shortLinkTask = FirebaseDynamicLinks.getInstance().createDynamicLink()
                 .setLongLink(Uri.parse(deepLink))

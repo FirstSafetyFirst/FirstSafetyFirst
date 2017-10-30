@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public interface AddInterestPresenter {
 
-    void validateInterest(ArrayList<Interest_model> interest);
+    void validateInterest(Interest_model interest);
 
     void onDestroy();
 

@@ -31,16 +31,9 @@ public class InfoFragment extends Fragment {
         // Inflate the layout for this fragment
         mainView = inflater.inflate(R.layout.fragment_info, container, false);
         infoTextView = (JustifiedWebView) mainView.findViewById(R.id.info_main_text);
-        checklistView = (JustifiedWebView) mainView.findViewById(R.id.info_checklist_text);
-
         infoTextView.setText(((KnowItSecondActivity) this.getActivity()).getInfo());
-        checklistView.setText(((KnowItSecondActivity) this.getActivity()).getChecklist(),
-                "<p style=\" color: #f1551a; font-size: 20px; \">"
-                        + "Safety Checklist"
-                        + "</p>");
-
         infoTextView.setVerticalScrollBarEnabled(false);
-        checklistView.setVerticalScrollBarEnabled(false);
+
         return mainView;
     }
 }

@@ -1,17 +1,12 @@
 package com.products.safetyfirst.activity;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.os.Build;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,17 +14,23 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.products.safetyfirst.R;
+import com.products.safetyfirst.androidhelpers.ImageHelper;
+import com.products.safetyfirst.androidhelpers.ImageSelectionHelper;
+import com.products.safetyfirst.androidhelpers.NotificationHelper;
+import com.products.safetyfirst.interfaces.view.SimpleNotification;
 import com.products.safetyfirst.modelhelper.PostHelper;
 import com.products.safetyfirst.modelhelper.UserHelper;
 import com.products.safetyfirst.utils.Analytics;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import jp.wasabeef.richeditor.RichEditor;
+
+import static jp.wasabeef.richeditor.RichEditor.Type.BOLD;
 
 public class NewPostActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -47,7 +48,6 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
     private ImageAdapter imgAdapter;
 
     /* Constants */
-    private static final int PICK_IMAGE = 233;
     private static final int REQUEST_READ = 12;
 
     /* Variables used */
@@ -56,14 +56,19 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
     /* Helper class instances */
     private UserHelper user;
     private PostHelper postHelper;
+    private SimpleNotification notifHelper;
+    private ImageSelectionHelper imageSelectionHelper;
+    private ImageHelper imageHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_post);
 
-        user = new UserHelper();
-        postHelper = new PostHelper();
+        user = UserHelper.getInstance();
+        postHelper = PostHelper.getInstance();
+        notifHelper = NotificationHelper.getInstance();
+        imageHelper = ImageHelper.getInstance();
 
         /* CHeck for sign in */
         if(!user.isSignedIn()) {
@@ -79,8 +84,6 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
         imgView = (RecyclerView) findViewById(R.id.images_list_view);
         titleText = (EditText) findViewById(R.id.new_post_title);
 
-
-
         initEditor();
         initImgRecycler();
     }
@@ -89,6 +92,14 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
         editor.setEditorHeight(400);
         editor.setPadding(10, 10, 50, 10);
         editor.setPlaceholder("Type question...");
+//        editor.setOnDecorationChangeListener(new RichEditor.OnDecorationStateListener() {
+//            @Override
+//            public void onStateChangeListener(String text, List<RichEditor.Type> types) {
+//                if(types.contains(RichEditor.Type.BOLD)) {
+//                    Toast.makeText(NewPostActivity.this, "Bold Press", Toast.LENGTH_LONG).show();
+//                }
+//            }
+//        });
 
         boldBtn.setOnClickListener(this);
         italicBtn.setOnClickListener(this);
@@ -119,38 +130,20 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    void pickImage(){
-        if (Build.VERSION.SDK_INT >= 23) {
-            if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                pickImageMain();
-            } else {
-                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_READ);
-                pickImageMain();
-            }
-        } else {
-            pickImageMain();
-        }
-    }
-
-    void pickImageMain() {
-        Intent getIntent = new Intent(Intent.ACTION_GET_CONTENT);
-        getIntent.setType("image/*");
-
-        startActivityForResult(Intent.createChooser(getIntent, "Select Picture"), PICK_IMAGE);
+    void pickImage() {
+        imageSelectionHelper = new ImageSelectionHelper(this);
+        imageSelectionHelper.pickMultipleImages();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //super.onActivityResult(requestCode, resultCode, data);
-        Log.e("Image", "Received");
-        if(requestCode == PICK_IMAGE && resultCode == RESULT_OK) {
-            try {
-                Bitmap imageBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), data.getData());
-                imageList.add(imageBitmap);
-                imgAdapter.notifyDataSetChanged();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        if(imageSelectionHelper != null){
+            imageList.addAll(imageSelectionHelper.onReceiveResult(requestCode, resultCode, data));
+            imgAdapter.notifyDataSetChanged();
+        }
+        for (int x=0; x < imageList.size(); x++) {
+            imageList.set(x, imageHelper.downScale(imageList.get(x)));
         }
     }
 
@@ -159,10 +152,40 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
             final String postKey = postHelper.createPostKey();
             Analytics.logEventShare(getApplicationContext(),titleText.getText().toString(),postKey);
             List<String> imageUrls = new ArrayList<>();
-            postHelper.createImageUrls(postKey, imageList, imageUrls, 0, new PostHelper.FinalCallback() {
+            postHelper.createImageUrls(postKey, imageList, imageUrls, 0, new PostHelper.UploadCallbacks() {
+                NotificationHelper.ProgressNotification progressNotification;
+
                 @Override
                 public void onComplete(List<String> imageList) {
                     postHelper.createNewPost(postKey, titleText.getText().toString(), editor.getHtml(), null, imageList);
+                    int notificationId = notifHelper.createNotif(NewPostActivity.this, "Created new post", titleText.getText().toString());
+                    if(progressNotification != null) {
+                        progressNotification.onCompleteProgress("Image upload complete");
+                    } else {
+                        finish();
+                    }
+                }
+
+                @Override
+                public void onStartUpload() {
+                    progressNotification = notifHelper.createProgressNotif(NewPostActivity.this, "Uploading Images", "Image upload progress");
+                    Toast.makeText(NewPostActivity.this, "Images uploading check notification", Toast.LENGTH_LONG).show();
+                    finish();
+                }
+
+                @Override
+                public void onProgress(int progress, int total) {
+                    progressNotification.onProgress(progress, total);
+                }
+
+                @Override
+                public void onFail(Exception e) {
+                    if(progressNotification != null) {
+                        progressNotification.onCompleteProgress("Image Upload error");
+                    } else {
+                        int notificationId = notifHelper.createNotif(NewPostActivity.this, "Post creation failed", titleText.getText().toString());
+                        finish();
+                    }
                 }
             });
         }
