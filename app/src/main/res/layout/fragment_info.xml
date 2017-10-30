@@ -42,20 +42,6 @@
                     android:isScrollContainer="false" />
             </android.support.v7.widget.CardView>
 
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/info_main_text_container"
-                android:layout_margin="12dp"
-                app:cardCornerRadius="4dp"
-                app:cardElevation="0dp">
-
-                <com.products.safetyfirst.utils.JustifiedWebView
-                    android:id="@+id/info_checklist_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:isScrollContainer="false" />
-            </android.support.v7.widget.CardView>
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>

@@ -78,6 +78,7 @@ dependencies {
     compile 'com.github.florent37:diagonallayout:1.0.4'
     compile 'com.mikepenz:fastadapter-commons:2.5.0@aar'
     compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.ramotion.cardslider:card-slider:0.1.0'
 
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     compile 'io.reactivex.rxjava2:rxjava:2.1.5'
