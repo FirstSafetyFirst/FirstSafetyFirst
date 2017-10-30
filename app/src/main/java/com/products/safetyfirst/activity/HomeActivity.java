@@ -146,7 +146,12 @@ public class HomeActivity extends BaseActivity
 
         }
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //log events
+        Bundle bundle= new Bundle();
+
+        //bundle.putString(FirebaseAnalytics.Param.);
+
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
 

@@ -79,6 +79,7 @@ public class UpdateProfileInteractorImpl implements UpdateProfileInteractor {
             childUpdates.put("designation", designation);
             childUpdates.put("city", city);
             childUpdates.put("certificate", certificate);
+            childUpdates.put("phone",phone.toString());
             DatabaseReference mProfileReference;
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             String mProfileKey = null;
