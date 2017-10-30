@@ -33,6 +33,7 @@ import com.products.safetyfirst.impementations.presenter.EventsDetailPresenterIm
 import com.products.safetyfirst.interfaces.presenter.EventsDetailPresenter;
 import com.products.safetyfirst.interfaces.view.EventsDetailView;
 import com.products.safetyfirst.models.Event_model;
+import com.products.safetyfirst.utils.Analytics;
 import com.products.safetyfirst.utils.JustifiedWebView;
 import com.products.safetyfirst.utils.PrefManager;
 
@@ -173,7 +174,7 @@ public class EventsDetailActivity extends BaseActivity implements View.OnClickLi
                 mBookmark.setImageResource(R.drawable.ic_bookmark_border_black_24dp);
         }
 
-
+        Analytics.logEventViewItem(getApplicationContext(),event.getTimestamp().toString(),mTitleView.getText().toString(),"event");
         if(event.action != null){
             if (event.action.containsKey(getCurrentUserId())) {
 

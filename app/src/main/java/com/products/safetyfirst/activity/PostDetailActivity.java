@@ -65,7 +65,6 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_detail);
 
-
         mBodyView = findViewById(R.id.post_body);
         mTitleView = findViewById(R.id.post_title);
         mDate = findViewById(R.id.dateTime);

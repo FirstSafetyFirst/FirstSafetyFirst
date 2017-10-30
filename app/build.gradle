@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
+    flavorDimensions "versionCode"
     buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.products.safetyfirst"
@@ -39,6 +40,7 @@ android {
 
 repositories {
     jcenter()
+    google()
 }
 
 dependencies {
