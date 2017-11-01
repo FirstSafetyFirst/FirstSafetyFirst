@@ -1,10 +1,7 @@
 package com.products.safetyfirst.adapters;
 
 import android.content.Context;
-import android.content.Intent;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,137 +9,46 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.products.safetyfirst.R;
-import com.products.safetyfirst.activity.PostDetailActivity;
-import com.products.safetyfirst.customview.CircleTransform;
-import com.products.safetyfirst.modelhelper.AuthorHelper;
-import com.products.safetyfirst.modelhelper.PostHelper;
 import com.products.safetyfirst.models.PostModel;
 import com.products.safetyfirst.utils.JustifiedWebView;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
-
-import io.reactivex.Single;
-import io.reactivex.SingleSource;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
-import io.reactivex.schedulers.Schedulers;
 
 /**
- *
- * Created by rishabh on 21/10/17.
+ * Created by vikas on 01/11/17.
  */
 
-public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.PostViewHolder> {
+public class DiscussionAdapter extends
+        RecyclerView.Adapter<DiscussionAdapter.ViewHolder> {
 
-    private List<Pair<String, PostModel>> posts;
-    private DiscussionCallbacks discussionCallbacks;
-    private LinearLayoutManager layoutManager;
+    // Store a member variable for the contacts
+    private List<PostModel> mContacts;
 
-    /* Helpers */
-    AuthorHelper authorHelper = AuthorHelper.getInstance();
-    PostHelper postHelper = PostHelper.getInstance();
-
-    public DiscussionAdapter(LinearLayoutManager layoutManager, DiscussionCallbacks discussionCallbacks) {
-        posts = new ArrayList<>();
-        this.layoutManager = layoutManager;
-        this.discussionCallbacks = discussionCallbacks;
-        discussionCallbacks.updateData(posts, this);
-
+    // Pass in the contact array into the constructor
+    public DiscussionAdapter(List<PostModel> contacts) {
+        mContacts = contacts;
     }
 
-    @Override
-    public PostViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.discussion_item, parent, false);
-        return new PostViewHolder(itemView);
-    }
+    // Provide a direct reference to each of the views within a data item
+    // Used to cache the views within the item layout for fast access
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        // Your holder should contain a member variable
+        // for any view that will be set as you render a row
+        public ImageView images, overflow, post_author_photo, likeBtn, ansBtn, bookmark;
+        public TextView post_title, dateTime, post_author, post_author_email;
+        public JustifiedWebView body;
+        public Button readMore;
+        public LinearLayout post_author_layout;
 
-    public void notifyScrollUp(){
-        this.notifyDataSetChanged();
-        layoutManager.scrollToPosition(0);
-    }
-
-    @Override
-    public void onBindViewHolder(final PostViewHolder holder, int pos) {
-        //int position = posts.size() - pos - 1;
-        int position = pos;
-        final PostDiscussionModel postDiscussionData = new PostDiscussionModel();
-        final PostModel post = posts.get(position).second;
-        final String postKey = posts.get(position).first;
-
-        postDiscussionData.setFromPostModel(post);
-
-        Disposable subs = authorHelper.getPeerName(post.getUid()).observeOn(
-                AndroidSchedulers.mainThread()
-        ).subscribeOn(
-                Schedulers.io()
-        ).flatMap(new Function<String, SingleSource<String>>() {
-            @Override
-            public SingleSource<String> apply(@NonNull String name) throws Exception {
-                postDiscussionData.author = name;
-                return authorHelper.getPeerEmail(post.getUid());
-            }
-        }).flatMap(new Function<String, SingleSource<String>>() {
-            @Override
-            public SingleSource<String> apply(@NonNull String email) throws Exception {
-                postDiscussionData.authorEmail = email;
-                return authorHelper.getPeerImage(post.getUid());
-            }
-        }).flatMap(new Function<String, SingleSource<Integer>>() {
-            @Override
-            public SingleSource<Integer> apply(@NonNull String photoUrl) throws Exception {
-                postDiscussionData.authorPhoto = photoUrl;
-                return postHelper.getStarCount(postKey);
-            }
-        }).map(new Function<Integer, Object>() {
-            @Override
-            public Object apply(@NonNull Integer starCount) throws Exception {
-                postDiscussionData.starCount = starCount;
-                return Single.just(1);
-            }
-        }).doAfterSuccess(new Consumer<Object>() {
-            @Override
-            public void accept(Object o) throws Exception {
-                postDiscussionData.key = postKey;
-                holder.setData(postDiscussionData);
-            }
-        }).subscribe();
-
-        if(position+2 == posts.size()){
-            //discussionCallbacks.updateData(posts, this);
-        }
-    }
-
-
-
-    @Override
-    public int getItemCount() {
-        return posts.size();
-    }
-
-    public class PostViewHolder extends RecyclerView.ViewHolder {
-
-        private ImageView images, overflow, post_author_photo, likeBtn, ansBtn, bookmark;
-        private TextView post_title, dateTime, post_author, post_author_email;
-        private JustifiedWebView body;
-        private Button readMore;
-        private LinearLayout post_author_layout;
-
-        private Context context;
-
-        public PostViewHolder(View itemView) {
+        // We also create a constructor that accepts the entire item row
+        // and does the view lookups to find each subview
+        public ViewHolder(View itemView) {
+            // Stores the itemView in a public final member variable that can be used
+            // to access the context from any ViewHolder instance.
             super(itemView);
+
             post_author_photo = (ImageView) itemView.findViewById(R.id.post_author_photo);
             overflow = (ImageView) itemView.findViewById(R.id.overflow);
             likeBtn = (ImageView) itemView.findViewById(R.id.LikeBtn);
@@ -155,51 +61,30 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.Po
             post_author_email = (TextView) itemView.findViewById(R.id.post_author_email);
             readMore = (Button) itemView.findViewById(R.id.view_details);
             post_author_layout = (LinearLayout) itemView.findViewById(R.id.post_author_layout);
-            context = itemView.getContext();
-        }
-
-        public void setData(final PostDiscussionModel postData) {
-            post_title.setText(postData.title);
-            body.setText(postData.body);
-            post_author.setText(postData.author);
-            post_author_email.setText(postData.authorEmail);
-            Glide.with(context).load(postData.authorPhoto).error(R.drawable.ic_person_black_24dp).transform(new CircleTransform(context)).into(post_author_photo);
-            Date date = new Date(postData.timestamp * 1000);
-            SimpleDateFormat sDate = new SimpleDateFormat("dd MM yyyy", new Locale("hi", "IN"));
-            dateTime.setText(sDate.format(date));
-
-            readMore.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    Intent intent = new Intent(context, PostDetailActivity.class);
-                    intent.putExtra(PostDetailActivity.EXTRA_POST_KEY, postData.key);
-                    Toast.makeText(context, postData.key , Toast.LENGTH_SHORT).show();
-                    context.startActivity(intent);
-
-                }
-            });
         }
     }
 
-    public class PostDiscussionModel {
-        public String key;
-        public String title;
-        public String body;
-        public String author;
-        public String authorEmail;
-        public int starCount;
-        public String authorPhoto;
-        public long timestamp;
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        Context context = parent.getContext();
+        LayoutInflater inflater = LayoutInflater.from(context);
 
-        public void setFromPostModel(PostModel post) {
-            this.title = post.getTitle();
-            this.body = post.getBody();
-            this.timestamp = post.getTimestamp();
-        }
+        View contactView = inflater.inflate(R.layout.discussion_item, parent, false);
+
+        ViewHolder viewHolder = new ViewHolder(contactView);
+        return viewHolder;
     }
 
-    public interface DiscussionCallbacks {
-        void updateData(List<Pair<String, PostModel>> postList, DiscussionAdapter adapter);
+    @Override
+    public void onBindViewHolder(ViewHolder viewHolder, int position) {
+        PostModel contact = mContacts.get(position);
+
+        TextView textView = viewHolder.post_title;
+        textView.setText(contact.getTitle());
+    }
+
+    @Override
+    public int getItemCount() {
+        return mContacts.size();
     }
 }

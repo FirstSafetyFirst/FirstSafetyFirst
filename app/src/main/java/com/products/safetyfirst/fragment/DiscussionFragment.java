@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,24 +13,26 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.Query;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.activity.NewPostActivity;
 import com.products.safetyfirst.adapters.DiscussionAdapter;
-import com.products.safetyfirst.adapters.Populate.DiscussionAdapterPopulate;
+import com.products.safetyfirst.adapters.EndlessRecyclerViewScrollListener;
+import com.products.safetyfirst.impementations.presenter.PostPresenterImpl;
+import com.products.safetyfirst.interfaces.presenter.PostPresenter;
+import com.products.safetyfirst.interfaces.view.PostView;
 import com.products.safetyfirst.modelhelper.PostHelper;
 import com.products.safetyfirst.modelhelper.UserHelper;
+import com.products.safetyfirst.models.PostModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.products.safetyfirst.activity.HomeActivity.bottomNavigationView;
 import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
 
-/**
- * Created by profileconnect on 20/04/17.
- */
-
-public class DiscussionFragment extends Fragment {
+public class DiscussionFragment extends Fragment implements PostView{
     public static final String ARG_TITLE = "arg_title";
-    RecyclerView home_recycler;
+    RecyclerView rvItems;
 
     private DatabaseReference mDatabase;
     private ProgressBar mpaginateprogbar;
@@ -39,6 +40,13 @@ public class DiscussionFragment extends Fragment {
 
     private UserHelper user;
     private PostHelper postHelper;
+
+    private EndlessRecyclerViewScrollListener scrollListener;
+
+    private PostPresenter presenter;
+
+    final List<PostModel> allPosts =  new ArrayList<>();
+    final DiscussionAdapter adapter = new DiscussionAdapter(allPosts);
 
     public DiscussionFragment(){}
 
@@ -55,21 +63,11 @@ public class DiscussionFragment extends Fragment {
         mFab = (FloatingActionButton) rootView.findViewById(R.id.new_post);
 
 
-        home_recycler=(RecyclerView)rootView.findViewById(R.id.discussion_recycler);
-        home_recycler.setHasFixedSize(true);
+        rvItems =(RecyclerView)rootView.findViewById(R.id.discussion_recycler);
+        rvItems.setHasFixedSize(true);
 
-        //setting detection of scrolling
-        home_recycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if (newState > 0) {
-                    mFab.hide();
-                } else {
-                    mFab.show();
-                }
-            }
-        });
+        presenter = new PostPresenterImpl(this);
+
         bottomNavigationView.setVisibility(View.VISIBLE);
         return rootView;
     }
@@ -77,32 +75,87 @@ public class DiscussionFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        // Set up Layout Manager, reverse layout
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-        //mLayoutManager.setReverseLayout(true);
-        mLayoutManager.setStackFromEnd(true);
 
-        home_recycler.setLayoutManager(mLayoutManager);
-        home_recycler.setItemAnimator(new DefaultItemAnimator());
+        presenter.requestFirstPosts();
 
-        home_recycler.setAdapter(new DiscussionAdapter(mLayoutManager, new DiscussionAdapterPopulate())); // DiscussionAdapterPopulate implements interface
-
-        mFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            if(user.isSignedIn()) {
-                Intent intent = new Intent(getContext(), NewPostActivity.class);
-                startActivity(intent);
-            } else {
-                Snackbar.make(getView(), "Sign In first", Snackbar.LENGTH_LONG).show();
-            }
-            }
-        });
     }
-
     @Override
     public void onDestroy() {
         super.onDestroy();
     }
 
+    @Override
+    public void onError(String message) {
+
+    }
+
+    @Override
+    public void onSuccess(String message) {
+
+    }
+
+    @Override
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
+
+    }
+
+    @Override
+    public void navigateToHome() {
+
+    }
+
+    @Override
+    public void getInitialPosts(List<PostModel> initialPosts) {
+        allPosts.addAll(initialPosts);
+
+
+        rvItems.setAdapter(adapter);
+        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        rvItems.setLayoutManager(linearLayoutManager);
+
+        EndlessRecyclerViewScrollListener scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+
+                presenter.requestPostByKey("", page  );
+
+            }
+        };
+        rvItems.addOnScrollListener(scrollListener);
+
+        mFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(user.isSignedIn()) {
+                    Intent intent = new Intent(getContext(), NewPostActivity.class);
+                    startActivity(intent);
+                } else {
+                    Snackbar.make(getView(), "Sign In first", Snackbar.LENGTH_LONG).show();
+                }
+            }
+        });
+
+    }
+
+    @Override
+    public void getNextPost(List<PostModel> posts) {
+       // List<PostModel> morePosts = PostModel.createPostList(10, page);
+        final int curSize = adapter.getItemCount();
+
+        //allPosts.addAll(morePosts);
+        allPosts.addAll(posts);
+        adapter.notifyItemRangeInserted(curSize, allPosts.size() - 1);
+
+       /* view.post(new Runnable() {
+            @Override
+            public void run() {
+                adapter.notifyItemRangeInserted(curSize, allPosts.size() - 1);
+            }
+        });*/
+    }
 }
