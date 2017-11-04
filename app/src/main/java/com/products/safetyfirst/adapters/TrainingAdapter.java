@@ -8,14 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.activity.MapsActivity;
 import com.products.safetyfirst.impementations.presenter.TrainingPresenterImpl;
 import com.products.safetyfirst.interfaces.adapter.TrainingAdapterView;
 import com.products.safetyfirst.interfaces.presenter.TrainingPresenter;
+import com.products.safetyfirst.viewholder.TrainingViewHolder;
 
 import java.util.ArrayList;
 
@@ -24,7 +23,7 @@ import java.util.ArrayList;
  * Created by vikas on 25/10/17.
  */
 
-public class TrainingAdapter extends RecyclerView.Adapter<TrainingAdapter.ViewHolder> implements TrainingAdapterView {
+public class TrainingAdapter extends RecyclerView.Adapter<TrainingViewHolder> implements TrainingAdapterView {
 
     private final TrainingPresenter presenter;
     private Context context;
@@ -36,15 +35,15 @@ public class TrainingAdapter extends RecyclerView.Adapter<TrainingAdapter.ViewHo
     }
 
     @Override
-    public TrainingAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public TrainingViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.training_list_item, parent, false);
 
-        return new TrainingAdapter.ViewHolder(itemView);
+        return new TrainingViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(TrainingAdapter.ViewHolder holder, final int position) {
+    public void onBindViewHolder(TrainingViewHolder holder, final int position) {
         Animation animation = AnimationUtils.loadAnimation(context, R.anim.anim_recycler_item_show);
         holder.mView.startAnimation(animation);
 
@@ -78,17 +77,4 @@ public class TrainingAdapter extends RecyclerView.Adapter<TrainingAdapter.ViewHo
         presenter.request();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-
-        private View mView;
-        public TextView type;
-
-
-        public ViewHolder(View view) {
-
-            super(view);
-            mView = view;
-            type = (TextView) view.findViewById(R.id.type);
-        }
-    }
 }

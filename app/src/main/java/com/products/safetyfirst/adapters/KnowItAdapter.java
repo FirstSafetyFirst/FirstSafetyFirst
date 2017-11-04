@@ -7,8 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.products.safetyfirst.R;
@@ -18,6 +16,7 @@ import com.products.safetyfirst.interfaces.adapter.KnowItAdapterView;
 import com.products.safetyfirst.interfaces.presenter.KnowItPresenter;
 import com.products.safetyfirst.models.KnowItItem;
 import com.products.safetyfirst.utils.Analytics;
+import com.products.safetyfirst.viewholder.KnowItViewHolder;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -27,7 +26,7 @@ import java.util.ArrayList;
  * Created by ishita sharma on 10/20/2017.
  */
 
-public class KnowItAdapter extends RecyclerView.Adapter<KnowItAdapter.ViewHolder> implements KnowItAdapterView{
+public class KnowItAdapter extends RecyclerView.Adapter<KnowItViewHolder> implements KnowItAdapterView{
 
     private Context context;
     private ArrayList<KnowItItem> knowItItemArrayList=new ArrayList<>();
@@ -40,15 +39,15 @@ public class KnowItAdapter extends RecyclerView.Adapter<KnowItAdapter.ViewHolder
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public KnowItViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.know_it_item, parent, false);
 
-        return new ViewHolder(itemView);
+        return new KnowItViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
+    public void onBindViewHolder(final KnowItViewHolder holder, final int position) {
         URL url=null;
         final KnowItItem knowItItem = knowItItemArrayList.get(position);
         if(knowItItem.getItem_name()!=null)
@@ -98,18 +97,4 @@ public class KnowItAdapter extends RecyclerView.Adapter<KnowItAdapter.ViewHolder
         presenter.request();
     }
 
-
-    public class ViewHolder extends RecyclerView.ViewHolder{
-        private View mView;
-        private TextView title;
-        private ImageView imageView;
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-            mView=itemView;
-            title= (TextView) itemView.findViewById(R.id.know_it_item_title);
-            imageView= (ImageView) itemView.findViewById(R.id.know_it_item_image);
-
-        }
-    }
 }

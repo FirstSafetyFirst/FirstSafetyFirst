@@ -16,9 +16,9 @@ public class Analytics {
         params.putString("login","1");
         FirebaseAnalytics.getInstance(context).logEvent(FirebaseAnalytics.Event.LOGIN,params);
     }
-    public static void logEventSearch(Context context,String serach_term){
+    public static void logEventSearch(Context context,String search_term){
         Bundle params = new Bundle();
-        params.putString(FirebaseAnalytics.Param.SEARCH_TERM,serach_term);
+        params.putString(FirebaseAnalytics.Param.SEARCH_TERM,search_term);
         FirebaseAnalytics.getInstance(context).logEvent(FirebaseAnalytics.Event.SEARCH,params);
     }
     public static void logEventShare(Context context,String title,String key){

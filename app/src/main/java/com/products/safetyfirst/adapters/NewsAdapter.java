@@ -6,10 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.database.ChildEventListener;
@@ -20,10 +17,11 @@ import com.google.firebase.database.Query;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.activity.NewsDetailActivity;
 import com.products.safetyfirst.models.News_model;
+import com.products.safetyfirst.viewholder.NewsViewHolder;
 
 import java.util.ArrayList;
 
-public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewholder> {
+public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
 
     private final Context context;
     ArrayList<News_model> getNews = new ArrayList<>();
@@ -130,15 +128,15 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewholder
     }
 
     @Override
-    public NewsViewholder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public NewsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.news_item, parent, false);
 
-        return new NewsViewholder(itemView);
+        return new NewsViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(final NewsViewholder holder, final int position) {
+    public void onBindViewHolder(final NewsViewHolder holder, final int position) {
 
       //  Glide.with(context).load(newsArrayList.get(position).getImg_url()).into(holder.images);
         if(newsArrayList.get(position).getImgUrl() != null)
@@ -166,25 +164,5 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewholder
     public int getItemCount() {
         return newsArrayList.size();
     }
-
-    public class NewsViewholder extends RecyclerView.ViewHolder {
-
-        private ImageView images, favicon, bookmark;
-        private TextView title, timestamp;
-        private Button detail;
-
-        private NewsViewholder(View view) {
-
-            super(view);
-            images = (ImageView) view.findViewById(R.id.news_avtar);
-            favicon = (ImageView) view.findViewById(R.id.favicon);
-            bookmark = (ImageView) view.findViewById(R.id.bookmark);
-            title = (TextView) view.findViewById(R.id.title);
-            timestamp = (TextView) view.findViewById(R.id.dateTime);
-            detail = (Button) view.findViewById(R.id.view_details);
-
-        }
-    }
-
 
 }

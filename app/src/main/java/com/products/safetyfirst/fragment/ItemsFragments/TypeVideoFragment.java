@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.activity.ItemTypeInfoActivity;
-import com.products.safetyfirst.utils.Analytics;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,13 +64,12 @@ public class TypeVideoFragment extends Fragment {
         webSettings.setJavaScriptEnabled(true);
 
         webView.loadData(frameVideo, "text/html", "utf-8");
-        webView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void  onClick(View v) {
-
-                Analytics.logEventTutorialBegin(getContext());
-            }
-        });
+       // webView.setOnClickListener(new View.OnClickListener() {
+         //   @Override
+        // public void  onClick(View v) {
+        //   Analytics.logEventTutorialBegin(getContext());
+      //      }
+        // });
         return mainView;
     }
 }
