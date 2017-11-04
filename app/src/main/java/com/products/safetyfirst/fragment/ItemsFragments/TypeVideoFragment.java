@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.activity.ItemTypeInfoActivity;
-import com.products.safetyfirst.models.KnowItItemType;
 import com.products.safetyfirst.utils.Analytics;
 
 /**
@@ -44,7 +43,7 @@ public class TypeVideoFragment extends Fragment {
 
 
 
-        if(url.equals("no") || url == null) {
+        if( url == null||url.equals("no")) {
             notAvailable.setVisibility(View.VISIBLE);
             webView.setVisibility(View.GONE);
             Log.e("Video", "Not Available");
@@ -53,7 +52,8 @@ public class TypeVideoFragment extends Fragment {
 
         String frameVideo = "<html><body><iframe width=\"100%\" height=\"312px\" src=\""+url+"\" frameborder=\"0\" " + "allowfullscreen onload=\"this.width=screen.width-20\"></iframe></body></html>";
 
-        //   wv.loadUrl(url);
+          //webView.loadUrl(url);
+          webView.setVisibility(View.VISIBLE);
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -63,6 +63,7 @@ public class TypeVideoFragment extends Fragment {
 
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
+
         webView.loadData(frameVideo, "text/html", "utf-8");
         webView.setOnClickListener(new View.OnClickListener() {
             @Override
