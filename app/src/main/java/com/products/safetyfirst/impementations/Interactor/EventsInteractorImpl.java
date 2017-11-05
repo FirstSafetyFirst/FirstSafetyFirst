@@ -53,14 +53,12 @@ public class EventsInteractorImpl implements EventsInteractor {
                     presenter.getKeys(eventsArrayKey);
                 }
 
+
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
                     Log.e("Events Interacter", "Could not fetch events");
                 }
             });
-
-
-
     }
 
     @Override

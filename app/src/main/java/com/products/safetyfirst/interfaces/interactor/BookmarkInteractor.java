@@ -5,9 +5,10 @@ package com.products.safetyfirst.interfaces.interactor;
  */
 
 public interface BookmarkInteractor {
-     void requestItem();
+     void requestItem(String type);
     interface  OnUpdateFinishedListener{
         void onError(String message);
         void onSuccess(String message);
     }
+    void onRemoveBookMark();
 }

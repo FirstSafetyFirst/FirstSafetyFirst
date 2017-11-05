@@ -115,6 +115,4 @@ public class EventsAdapter extends RecyclerView.Adapter<EventViewHolder> impleme
         presenter.request();
     }
 
-
-
 }
