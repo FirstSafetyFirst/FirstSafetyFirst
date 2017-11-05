@@ -101,7 +101,12 @@
         <activity
             android:name=".activity.MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".activity.BookmarkActivity"></activity>
+        <activity android:name=".activity.BookmarkActivity"
+            android:parentActivityName=".activity.HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.products.safetyfirst.activity.HomeActivity" />
+        </activity>
     </application>
 
 </manifest>

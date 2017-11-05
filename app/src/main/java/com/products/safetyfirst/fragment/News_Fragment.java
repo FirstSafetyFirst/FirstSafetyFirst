@@ -36,6 +36,11 @@ public class News_Fragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.news_fragment, container, false);
 
+        Bundle bundle=getArguments();
+        if(bundle.getString("action").equals("bookmark")){
+            //TODO:
+        }
+
         mDatabase = getDatabase().getReference();
         mpaginateprogbar=(ProgressBar) rootView.findViewById(R.id.newspaginateprogbar);
 
