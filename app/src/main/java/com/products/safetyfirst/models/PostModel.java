@@ -1,5 +1,6 @@
 package com.products.safetyfirst.models;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -83,5 +84,17 @@ public class PostModel {
 
     public void setPreviousPost(String previousPost) {
         this.previousPost = previousPost;
+    }
+
+    private static int lastContactId = 0;
+
+    public static List<PostModel> createPostList(int numContacts, int offset) {
+        List<PostModel> contacts = new ArrayList<PostModel>();
+
+        for (int i = 1; i <= numContacts; i++) {
+            contacts.add(new PostModel("demo " + ++lastContactId, "body", "uid", null, null, 0, "prev"));
+        }
+
+        return contacts;
     }
 }
