@@ -76,6 +76,7 @@ public class Personal_Fragment extends Fragment implements UpdateProfileView, Vi
 
 
         mPhoto = (ImageView) mainView.findViewById(R.id.camera);
+        //mPhoto.bringToFront();
         mName = (EditText) mainView.findViewById(R.id.username);
         mPhone = (EditText) mainView.findViewById(R.id.phone);
         mCompany = (EditText) mainView.findViewById(R.id.company);
@@ -280,6 +281,7 @@ public class Personal_Fragment extends Fragment implements UpdateProfileView, Vi
                     mDesignation.getText().toString(), mCertificate.getText().toString(), mCity.getText().toString());
         }
         if (i == R.id.camera) {
+            Toast.makeText(getContext(),"OnClick",Toast.LENGTH_SHORT);
             ChangeProfilePic();
         }
     }

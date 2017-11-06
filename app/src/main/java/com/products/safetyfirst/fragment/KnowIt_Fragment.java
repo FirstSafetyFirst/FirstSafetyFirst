@@ -94,7 +94,7 @@ public class KnowIt_Fragment extends Fragment implements KnowItView{
 
     @Override
     public void onError() {
-        Log.e("Know_itFragment","Error populating views");
+        Log.e("Know_ItFragment","Error in populating views");
     }
 
     @Override

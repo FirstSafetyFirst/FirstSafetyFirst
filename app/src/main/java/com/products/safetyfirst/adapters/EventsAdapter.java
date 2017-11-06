@@ -9,9 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.activity.EventsDetailActivity;
@@ -19,13 +16,15 @@ import com.products.safetyfirst.impementations.presenter.EventsPresenterImpl;
 import com.products.safetyfirst.interfaces.adapter.EventsAdapterView;
 import com.products.safetyfirst.interfaces.presenter.EventsPresenter;
 import com.products.safetyfirst.models.Event_model;
+import com.products.safetyfirst.viewholder.EventViewHolder;
+
 import java.util.ArrayList;
 
 /**
  * Created by VIKAS on 11-Oct-17.
  */
 
-public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder> implements EventsAdapterView{
+public class EventsAdapter extends RecyclerView.Adapter<EventViewHolder> implements EventsAdapterView{
 
 
     private final ArrayList<Event_model> mEventsList = new ArrayList<>();
@@ -41,15 +40,15 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
     }
 
     @Override
-    public EventsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public EventViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.event_item, parent, false);
 
-        return new ViewHolder(itemView);
+        return new EventViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
+    public void onBindViewHolder(final EventViewHolder holder, final int position) {
         Animation animation = AnimationUtils.loadAnimation(context, R.anim.anim_recycler_item_show);
         holder.mView.startAnimation(animation);
 
@@ -116,31 +115,4 @@ public class EventsAdapter extends RecyclerView.Adapter<EventsAdapter.ViewHolder
         presenter.request();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-
-        private View mView;
-        public ImageView images;
-        public TextView title;
-        public TextView dateTime;
-        public ImageView bookmark;
-        public TextView going;
-        public TextView maybe;
-        public Button details;
-
-
-        public ViewHolder(View view) {
-
-            super(view);
-            mView = view;
-            images = (ImageView) view.findViewById(R.id.event_avtar);
-            title = (TextView) view.findViewById(R.id.title);
-            dateTime = (TextView) view.findViewById(R.id.dateTime);
-            bookmark = (ImageView) view.findViewById(R.id.bookmark);
-
-            going = (TextView) view.findViewById(R.id.going);
-            maybe = (TextView) view.findViewById(R.id.interested);
-            details = (Button) view.findViewById(R.id.view_details);
-
-        }
-    }
 }

@@ -40,9 +40,13 @@ public class Events_Fragment extends Fragment implements EventsView {
         super.onCreate(savedInstanceState);
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+        Bundle bundle=getArguments();
+        if(bundle.getString("action").equals("bookmark")){
+            //TODO:
+        }
         return inflater.inflate(R.layout.news_fragment, container, false);
 
     }

@@ -7,12 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.TextView;
 
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.impementations.presenter.AddProjectPresenterImpl;
 import com.products.safetyfirst.interfaces.adapter.AddProjectsAdapterView;
 import com.products.safetyfirst.models.Project_model;
+import com.products.safetyfirst.viewholder.ProjectsViewHolder;
 
 import java.util.ArrayList;
 
@@ -20,7 +20,7 @@ import java.util.ArrayList;
  * Created by vikas on 05/10/17.
  */
 
-public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.ViewHolder> implements AddProjectsAdapterView {
+public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsViewHolder> implements AddProjectsAdapterView {
 
     private final ArrayList<Project_model> mProjectsList = new ArrayList<>();
     private final AddProjectPresenterImpl presenter;
@@ -33,13 +33,13 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.ViewHo
 
 
     @Override
-    public ProjectsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ProjectsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.project_item, parent, false);
-        return new ViewHolder(v);
+        return new ProjectsViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(ProjectsAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(ProjectsViewHolder holder, int position) {
 
         Animation animation = AnimationUtils.loadAnimation(context, R.anim.anim_recycler_item_show);
         holder.mView.startAnimation(animation);
@@ -67,18 +67,6 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsAdapter.ViewHo
         presenter.request(mProfileKey);
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        private View mView;
-        private TextView mUserTextView;
-        private TextView mComapnyTextView;
-        private TextView mDescriptionTextView;
 
-        public ViewHolder(View itemView) {
-            super(itemView);
-            mView = itemView;
-            mUserTextView = (TextView) itemView.findViewById(R.id.username);
-            mComapnyTextView = (TextView) itemView.findViewById(R.id.company);
-            mDescriptionTextView = (TextView) itemView.findViewById(R.id.description);
-        }
     }
-}
+

@@ -372,6 +372,10 @@ public class HomeActivity extends BaseActivity
         } else if (id == R.id.nav_update_profile) {
             switchFragment(4, TAG_FRAGMENT_UPDATE_PROFILE);
         }
+        else if(id==R.id.bookmarks){
+            Intent intent= new Intent(this,BookmarkActivity.class);
+            startActivity(intent);
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
