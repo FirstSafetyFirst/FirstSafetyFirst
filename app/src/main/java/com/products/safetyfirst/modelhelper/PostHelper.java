@@ -3,12 +3,14 @@ package com.products.safetyfirst.modelhelper;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -20,6 +22,7 @@ import com.products.safetyfirst.utils.StringHelper;
 
 import java.io.ByteArrayOutputStream;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import io.reactivex.Single;
@@ -49,22 +52,22 @@ public class PostHelper {
     private UserHelper userhelper = UserHelper.getInstance();
     private StringHelper stringHelper = StringHelper.getInstance();
 
-    public void createNewPost(final String postKey, final String title, final String body, final List<String> fileList, final List<String> imageList ) {
+    public void createNewPost(
+            final String postKey,
+            final String title,
+            final String body,
+            final List<String> fileList,
+            final List<String> imageList
+    ) {
         final int time = (int) System.currentTimeMillis();
 
-        Disposable subs = getLatestPost().subscribe(new Consumer<String>() {
-            @Override
-            public void accept(String key) throws Exception {
-
-                PostModel post = new PostModel(
-                        title, body, userhelper.getUserId(), imageList, fileList, time, key
-                );
-                DatabaseUtil.getDatabase().getReference().child(Constants.POSTS_LINK).child(postKey).setValue(post);  // Create post in /posts/
-                DatabaseUtil.getDatabase().getReference().child(Constants.USERS_POSTS_LINK).child(userhelper.getUserId()).child(postKey).setValue(true);  // push post key in /user-posts/
-                DatabaseUtil.getDatabase().getReference().child(Constants.POSTS_STARS_LINK).child(postKey).setValue(0);
-                DatabaseUtil.getDatabase().getReference().child(Constants.POSTS_VIEWS_LINK).child(postKey).setValue(0);
-            }
-        });
+        PostModel post = new PostModel(
+                title, body, userhelper.getUserId(), imageList, fileList, time, postKey
+        );
+        DatabaseUtil.getDatabase().getReference().child(Constants.POSTS_LINK).child(postKey).setValue(post);  // Create post in /posts/
+        DatabaseUtil.getDatabase().getReference().child(Constants.USERS_POSTS_LINK).child(userhelper.getUserId()).child(postKey).setValue(true);  // push post key in /user-posts/
+        DatabaseUtil.getDatabase().getReference().child(Constants.POSTS_STARS_LINK).child(postKey).setValue(0);
+        DatabaseUtil.getDatabase().getReference().child(Constants.POSTS_VIEWS_LINK).child(postKey).setValue(0);
     }
 
     public String createPostKey() {
@@ -150,29 +153,7 @@ public class PostHelper {
         });
     }
 
-    public Single<String> getLatestPost() {
-        return Single.create(new SingleOnSubscribe<String>() {
-            @Override
-            public void subscribe(@io.reactivex.annotations.NonNull final SingleEmitter<String> emitter) throws Exception {
-                Query ref = DatabaseUtil.getDatabase().getReference("posts").orderByKey().limitToLast(1);
-                ref.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        String key = null;
-                        for(DataSnapshot data: dataSnapshot.getChildren()) {
-                            key = data.getKey();
-                        }
-                        emitter.onSuccess(key);
-                    }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                /* Maybe Later */
-                    }
-                });
-            }
-        });
-    }
 
     private static String randomName() {
         Random generator = new Random();

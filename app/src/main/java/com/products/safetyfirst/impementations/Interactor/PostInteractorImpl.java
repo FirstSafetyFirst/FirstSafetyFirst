@@ -31,16 +31,18 @@ public class PostInteractorImpl implements PostInteractor {
         Query query;
 
         query = getDatabase().getReference()
-                .child("posts");
+                .child("posts").orderByKey().limitToFirst(10);
 
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                String lastKey = null;
                 ArrayList<PostModel> mListOfPosts = new ArrayList<>();
                 for (DataSnapshot x : dataSnapshot.getChildren()) {
                     mListOfPosts.add(x.getValue(PostModel.class));
+                    lastKey = x.getKey();
                 }
-                presenter.getChildren(mListOfPosts);
+                presenter.getChildren(mListOfPosts, lastKey);
             }
 
             @Override
@@ -52,19 +54,24 @@ public class PostInteractorImpl implements PostInteractor {
 
     @Override
     public void requestPost(String key) {
+
+        if(key == null) return;
+
         Query query;
 
         query = getDatabase().getReference()
-                .child("posts");
+                .child("posts").orderByKey().startAt(key).limitToFirst(10);
 
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                String lastKey = null;
                 ArrayList<PostModel> mListOfPosts = new ArrayList<>();
                 for (DataSnapshot x : dataSnapshot.getChildren()) {
                     mListOfPosts.add(x.getValue(PostModel.class));
+                    lastKey = x.getKey();
                 }
-                presenter.getAnother(mListOfPosts);
+                presenter.getAnother(mListOfPosts, lastKey);
             }
 
             @Override

@@ -20,7 +20,7 @@ public interface PostView {
 
     void navigateToHome();
 
-    void getInitialPosts(List<PostModel> initialPosts);
+    void getInitialPosts(List<PostModel> initialPosts, String lastKey);
 
-    void getNextPost(List<PostModel> initialPosts);
+    void getNextPost(List<PostModel> initialPosts, String lastKey);
 }

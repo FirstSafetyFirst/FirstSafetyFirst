@@ -21,9 +21,7 @@ public class BookmarkInteractorImpl implements BookmarkInteractor {
 
     private BookmarkPresenter bookmarkPresenter;
     ArrayList<Object> mListOfItems= new ArrayList<>();
-    ArrayList<String> mListOfEvents = new ArrayList<>();
-    ArrayList<String> mListOfNews = new ArrayList<>();
-    ArrayList<String> mListOfPosts = new ArrayList<>();
+
     public BookmarkInteractorImpl(BookmarkPresenter presenter){
         bookmarkPresenter=presenter;
     }
@@ -34,12 +32,15 @@ public class BookmarkInteractorImpl implements BookmarkInteractor {
         //for events
         query= getDatabase().getReference().child("events").child("eventsBookmarks").child(FirebaseUtils.getCurrentUserId());
         query.addValueEventListener(new ValueEventListener() {
+            ArrayList<String> mListOfEvents = new ArrayList<>();
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 for (DataSnapshot x : dataSnapshot.getChildren()) {
                     mListOfEvents.add(x.getKey());
                 }
+
+                getItemFromKey(mListOfEvents);
             }
 
             @Override
@@ -47,12 +48,20 @@ public class BookmarkInteractorImpl implements BookmarkInteractor {
                 Log.e("BookMark Interacter", "Could not fetch items");
             }
         });
+
+
+
+
+    }
+
+    private void getItemFromKey( ArrayList<String> mListOfEvents ){
         for(int i=0;i<mListOfEvents.size();i++) {
-            query = getDatabase().getReference().child("events").equalTo(mListOfEvents.get(i));
+            Query query = getDatabase().getReference().child("events").equalTo(mListOfEvents.get(i));
             query.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     mListOfItems.add(dataSnapshot.getValue());
+                    bookmarkPresenter.getChildren(mListOfItems);
                 }
 
                 @Override
@@ -61,23 +70,6 @@ public class BookmarkInteractorImpl implements BookmarkInteractor {
                 }
             });
         }
-        /**
-        query= getDatabase().getReference().child("news").child("newsBookmarks").child(FirebaseUtils.getCurrentUserId());
-        query.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot x : dataSnapshot.getChildren()) {
-                    mListOfItems.add(x.getValue());
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-         **/
-        bookmarkPresenter.getChildren(mListOfItems);
     }
 
     @Override

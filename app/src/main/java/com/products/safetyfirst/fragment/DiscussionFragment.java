@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.products.safetyfirst.R;
@@ -46,7 +47,9 @@ public class DiscussionFragment extends Fragment implements PostView{
     private PostPresenter presenter;
 
     final List<PostModel> allPosts =  new ArrayList<>();
-    final DiscussionAdapter adapter = new DiscussionAdapter(allPosts);
+    final DiscussionAdapter adapter = new DiscussionAdapter(allPosts, getActivity());
+   // final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+
 
     public DiscussionFragment(){}
 
@@ -65,6 +68,7 @@ public class DiscussionFragment extends Fragment implements PostView{
 
         rvItems =(RecyclerView)rootView.findViewById(R.id.discussion_recycler);
         rvItems.setHasFixedSize(true);
+        rvItems.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         presenter = new PostPresenterImpl(this);
 
@@ -109,23 +113,31 @@ public class DiscussionFragment extends Fragment implements PostView{
 
     }
 
+    String lastPostKey = null;
     @Override
-    public void getInitialPosts(List<PostModel> initialPosts) {
+    public void getInitialPosts(List<PostModel> initialPosts, final String lastKey) {
+
         allPosts.addAll(initialPosts);
 
-
         rvItems.setAdapter(adapter);
-        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        rvItems.setLayoutManager(linearLayoutManager);
 
-        EndlessRecyclerViewScrollListener scrollListener = new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+
+
+        lastPostKey = lastKey;
+
+        // Retain an instance so that you can call `resetState()` for fresh searches
+        scrollListener = new EndlessRecyclerViewScrollListener((LinearLayoutManager) rvItems.getLayoutManager()) {
             @Override
-            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-
-                presenter.requestPostByKey("", page  );
-
+            public void onLoadMore( int totalItemsCount, RecyclerView view) {
+                // Triggered only when new data needs to be appended to the list
+                // Add whatever code is needed to append new items to the bottom of the list
+                String requestKey = lastPostKey;
+                presenter.requestPostByKey(requestKey);
             }
         };
+
+
+
         rvItems.addOnScrollListener(scrollListener);
 
         mFab.setOnClickListener(new View.OnClickListener() {
@@ -143,19 +155,10 @@ public class DiscussionFragment extends Fragment implements PostView{
     }
 
     @Override
-    public void getNextPost(List<PostModel> posts) {
-       // List<PostModel> morePosts = PostModel.createPostList(10, page);
+    public void getNextPost(List<PostModel> posts, String lastKey) {
+        lastPostKey = lastKey;
         final int curSize = adapter.getItemCount();
-
-        //allPosts.addAll(morePosts);
         allPosts.addAll(posts);
         adapter.notifyItemRangeInserted(curSize, allPosts.size() - 1);
-
-       /* view.post(new Runnable() {
-            @Override
-            public void run() {
-                adapter.notifyItemRangeInserted(curSize, allPosts.size() - 1);
-            }
-        });*/
     }
 }

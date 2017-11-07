@@ -157,7 +157,9 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
 
                 @Override
                 public void onComplete(List<String> imageList) {
+
                     postHelper.createNewPost(postKey, titleText.getText().toString(), editor.getHtml(), null, imageList);
+
                     int notificationId = notifHelper.createNotif(NewPostActivity.this, "Created new post", titleText.getText().toString());
                     if(progressNotification != null) {
                         progressNotification.onCompleteProgress("Image upload complete");

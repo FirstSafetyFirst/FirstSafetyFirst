@@ -16,11 +16,11 @@ public interface PostPresenter {
 
     void requestFirstPosts();
 
-    void requestPostByKey(String key, int page);
+    void requestPostByKey(String key);
 
-    void getChildren(ArrayList<PostModel> post);
+    void getChildren(ArrayList<PostModel> post, String lastKey);
 
-    void getAnother(ArrayList<PostModel> post);
+    void getAnother(ArrayList<PostModel> post, String lastKey);
 
 
 }

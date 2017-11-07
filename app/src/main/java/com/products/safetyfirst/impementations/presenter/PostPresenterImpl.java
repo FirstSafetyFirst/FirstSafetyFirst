@@ -36,23 +36,23 @@ public class PostPresenterImpl implements PostPresenter {
     }
 
     @Override
-    public void requestPostByKey(String key, int page) {
+    public void requestPostByKey(String key) {
         if(postInteractor != null){
             postInteractor.requestPost(key);
         }
     }
 
     @Override
-    public void getChildren(ArrayList<PostModel> post) {
+    public void getChildren(ArrayList<PostModel> post, String lastKey) {
         if(postView != null){
-            postView.getInitialPosts(post);
+            postView.getInitialPosts(post, lastKey);
         }
     }
 
     @Override
-    public void getAnother(ArrayList<PostModel> post) {
+    public void getAnother(ArrayList<PostModel> post, String lastKey) {
         if(postView != null){
-            postView.getNextPost(post);
+            postView.getNextPost(post, lastKey);
         }
 
     }
