@@ -1,11 +1,6 @@
 package com.products.safetyfirst.activity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Rect;
-import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.support.design.widget.FloatingActionButton;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -13,17 +8,9 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
-import android.text.SpannableString;
-import android.text.style.StyleSpan;
-import android.text.style.UnderlineSpan;
-import android.util.Log;
-import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
@@ -32,23 +19,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.getkeepsafe.taptargetview.TapTarget;
-import com.getkeepsafe.taptargetview.TapTargetSequence;
-import com.getkeepsafe.taptargetview.TapTargetView;
 import com.products.safetyfirst.R;
-import com.products.safetyfirst.fragment.ItemsFragments.ChecklistFragment;
 import com.products.safetyfirst.fragment.ItemsFragments.EventInfoFragment;
 import com.products.safetyfirst.fragment.ItemsFragments.EventVideoFragment;
-import com.products.safetyfirst.fragment.ItemsFragments.HowToUseFragment;
-import com.products.safetyfirst.fragment.ItemsFragments.InfoFragment;
-import com.products.safetyfirst.fragment.ItemsFragments.VideoFragment;
 import com.products.safetyfirst.fragment.ItemsFragments.VisitorsListFragment;
 import com.products.safetyfirst.impementations.presenter.EventsDetailPresenterImpl;
 import com.products.safetyfirst.interfaces.presenter.EventsDetailPresenter;
 import com.products.safetyfirst.interfaces.view.EventsDetailView;
-import com.products.safetyfirst.models.Event_model;
-import com.products.safetyfirst.recycler.home.Events;
-import com.products.safetyfirst.utils.Analytics;
+import com.products.safetyfirst.models.EventModel;
 import com.products.safetyfirst.utils.JustifiedWebView;
 import com.products.safetyfirst.utils.PrefManager;
 
@@ -77,7 +55,7 @@ public class EventsDetailActivity extends BaseActivity implements View.OnClickLi
     private TabLayout.OnTabSelectedListener tabSelectedListener;
     private TabLayout.TabLayoutOnPageChangeListener pageChangeListener;
 
-    private Event_model event;
+    private EventModel event;
 
 
     @Override
@@ -260,7 +238,7 @@ public class EventsDetailActivity extends BaseActivity implements View.OnClickLi
     }
 
     @Override
-    public void setEvent(Event_model event) {
+    public void setEvent(EventModel event) {
 
         this.event = event;
 

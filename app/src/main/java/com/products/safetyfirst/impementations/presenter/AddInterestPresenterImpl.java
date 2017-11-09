@@ -6,7 +6,7 @@ import com.products.safetyfirst.interfaces.adapter.AddInterestAdapterView;
 import com.products.safetyfirst.interfaces.interactor.AddInterestInteractor;
 import com.products.safetyfirst.interfaces.presenter.AddInterestPresenter;
 import com.products.safetyfirst.interfaces.view.AddInterestView;
-import com.products.safetyfirst.models.Interest_model;
+import com.products.safetyfirst.models.InterestModel;
 
 import java.util.ArrayList;
 
@@ -32,7 +32,7 @@ public class AddInterestPresenterImpl implements AddInterestPresenter, AddIntere
     }
 
     @Override
-    public void validateInterest(Interest_model interest) {
+    public void validateInterest(InterestModel interest) {
         if (addInterestView != null) {
             addInterestView.showProgress();
         }
@@ -50,7 +50,7 @@ public class AddInterestPresenterImpl implements AddInterestPresenter, AddIntere
     }
 
     @Override
-    public void getChildren(ArrayList<Interest_model> interests) {
+    public void getChildren(ArrayList<InterestModel> interests) {
         adapterView.addAll(interests);
     }
 

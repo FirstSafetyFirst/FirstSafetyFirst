@@ -1,6 +1,6 @@
 package com.products.safetyfirst.interfaces.adapter;
 
-import com.products.safetyfirst.models.Interest_model;
+import com.products.safetyfirst.models.InterestModel;
 
 import java.util.ArrayList;
 
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public interface AddInterestAdapterView {
 
-    void addAll(ArrayList<Interest_model> interest);
+    void addAll(ArrayList<InterestModel> interest);
 
     void request();
 

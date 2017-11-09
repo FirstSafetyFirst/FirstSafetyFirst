@@ -6,7 +6,6 @@ import android.util.Log;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
@@ -14,7 +13,7 @@ import com.products.safetyfirst.impementations.presenter.NewsDetailPresenterImpl
 import com.products.safetyfirst.interfaces.interactor.NewsDetailInteractor;
 import com.products.safetyfirst.interfaces.presenter.NewsDetailPresenter;
 import com.products.safetyfirst.modelhelper.UserHelper;
-import com.products.safetyfirst.models.News_model;
+import com.products.safetyfirst.models.NewsModel;
 import com.products.safetyfirst.models.UserModel;
 
 import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
@@ -42,7 +41,7 @@ public class NewsDetailInteractorImpl implements NewsDetailInteractor {
         mPostReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                News_model news = dataSnapshot.getValue(News_model.class);
+                NewsModel news = dataSnapshot.getValue(NewsModel.class);
                 newsDetailPresenter.getNews(news);
             }
 
@@ -104,7 +103,7 @@ public class NewsDetailInteractorImpl implements NewsDetailInteractor {
         newsRef.runTransaction(new Transaction.Handler() {
             @Override
             public Transaction.Result doTransaction(MutableData mutableData) {
-                News_model p = mutableData.getValue(News_model.class);
+                NewsModel p = mutableData.getValue(NewsModel.class);
                 if (p == null) {
                     return Transaction.success(mutableData);
                 }

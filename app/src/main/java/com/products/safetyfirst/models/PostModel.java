@@ -1,12 +1,17 @@
 package com.products.safetyfirst.models;
 
+import com.google.firebase.database.Exclude;
+import com.google.firebase.database.IgnoreExtraProperties;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by vikas on 24/04/17.
  */
-
+@IgnoreExtraProperties
 public class PostModel {
 
     String title;
@@ -15,7 +20,19 @@ public class PostModel {
     List<String> imageList;
     List<String> fileList;
     long timestamp;
-    String previousPost;
+    String postKey;
+
+
+    private String authorImageUrl;
+    private String author;
+    private int starCount = 0;
+    private Map<String, Boolean> stars = new HashMap<>();
+
+    public String image;
+    //  public String video;
+    public String file;
+    public String link;
+
 
     public PostModel() {
     }
@@ -27,7 +44,7 @@ public class PostModel {
         this.imageList = imageList;
         this.fileList = fileList;
         this.timestamp = timestamp;
-        this.previousPost = previousPost;
+        this.postKey = previousPost;
     }
 
     public String getTitle() {
@@ -79,10 +96,27 @@ public class PostModel {
     }
 
     public String getPreviousPost() {
-        return previousPost;
+        return postKey;
     }
 
     public void setPreviousPost(String previousPost) {
-        this.previousPost = previousPost;
+        this.postKey = previousPost;
+    }
+
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("uid", uid);
+        result.put("author", author);
+        result.put("title", title);
+        result.put("body", body);
+        result.put("image", image);
+        result.put("starCount", starCount);
+        result.put("stars", stars);
+        result.put("authorImageUrl", authorImageUrl);
+        result.put("postLink", link);
+        result.put("imageList", imageList);
+
+        return result;
     }
 }

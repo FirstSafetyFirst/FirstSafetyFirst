@@ -12,12 +12,11 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.products.safetyfirst.interfaces.interactor.AddInterestInteractor;
 import com.products.safetyfirst.interfaces.presenter.AddInterestPresenter;
-import com.products.safetyfirst.models.Interest_model;
+import com.products.safetyfirst.models.InterestModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
 
@@ -34,7 +33,7 @@ public class AddInterestInteractorImpl implements AddInterestInteractor {
     }
 
     @Override
-    public void addInterest(Interest_model interests, OnUpdateFinishedListener listener) {
+    public void addInterest(InterestModel interests, OnUpdateFinishedListener listener) {
 
 
         DatabaseReference mInterestReference;
@@ -74,10 +73,10 @@ public class AddInterestInteractorImpl implements AddInterestInteractor {
             query.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    ArrayList<Interest_model> mListOfInterests = new ArrayList<>();
+                    ArrayList<InterestModel> mListOfInterests = new ArrayList<>();
 
                     for (DataSnapshot x : dataSnapshot.getChildren()) {
-                        mListOfInterests.add(new Interest_model(x.getKey(), (Boolean) x.getValue()));
+                        mListOfInterests.add(new InterestModel(x.getKey(), (Boolean) x.getValue()));
                     }
                     presenter.getChildren(mListOfInterests);
                 }

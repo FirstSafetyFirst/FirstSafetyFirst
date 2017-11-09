@@ -4,7 +4,7 @@ import com.products.safetyfirst.impementations.Interactor.NewsDetailInteractorIm
 import com.products.safetyfirst.interfaces.interactor.NewsDetailInteractor;
 import com.products.safetyfirst.interfaces.presenter.NewsDetailPresenter;
 import com.products.safetyfirst.interfaces.view.NewsDetailView;
-import com.products.safetyfirst.models.News_model;
+import com.products.safetyfirst.models.NewsModel;
 
 /**
  * Created by vikas on 06/10/17.
@@ -29,7 +29,7 @@ public class NewsDetailPresenterImpl implements NewsDetailPresenter {
     }
 
     @Override
-    public void getNews(News_model news) {
+    public void getNews(NewsModel news) {
         newsDetailView.setNews(news);
     }
 

@@ -1,6 +1,6 @@
 package com.products.safetyfirst.interfaces.presenter;
 
-import com.products.safetyfirst.models.Event_model;
+import com.products.safetyfirst.models.EventModel;
 
 import java.util.ArrayList;
 
@@ -14,7 +14,7 @@ public interface EventsPresenter {
 
     void request();
 
-    void getChildren(ArrayList<Event_model> events);
+    void getChildren(ArrayList<EventModel> events);
 
     void addAction(String mEventId, String mProfileKey, int mAction);
 

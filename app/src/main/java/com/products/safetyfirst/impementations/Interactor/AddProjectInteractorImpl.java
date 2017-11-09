@@ -14,7 +14,7 @@ import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.products.safetyfirst.interfaces.interactor.AddProjectInteractor;
 import com.products.safetyfirst.interfaces.presenter.AddProjectPresenter;
-import com.products.safetyfirst.models.Project_model;
+import com.products.safetyfirst.models.ProjectModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -88,10 +88,10 @@ public class AddProjectInteractorImpl implements AddProjectInteractor {
             query.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    ArrayList<Project_model> mListOfProjects = new ArrayList<>();
+                    ArrayList<ProjectModel> mListOfProjects = new ArrayList<>();
 
                     for (DataSnapshot x : dataSnapshot.getChildren()) {
-                        mListOfProjects.add(x.getValue(Project_model.class));
+                        mListOfProjects.add(x.getValue(ProjectModel.class));
                     }
 
                     Collections.reverse(mListOfProjects);

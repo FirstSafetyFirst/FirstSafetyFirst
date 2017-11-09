@@ -6,7 +6,7 @@ import java.util.Map;
  * Created by profileconnect on 24/04/17.
  */
 
-public class Event_model {
+public class EventModel {
 
     private String url,title,desc,thumb_url,organizer;
     private Object timestamp;
@@ -19,11 +19,11 @@ public class Event_model {
     public Map<String, Object> action;
     public Map<String, Object> bookmarks;
 
-    public Event_model(){
+    public EventModel(){
 
     }
 
-    public Event_model(String video_url, String title, String desc, String thumb_url, String visitor_list) {
+    public EventModel(String video_url, String title, String desc, String thumb_url, String visitor_list) {
         this.video_url = video_url;
         this.title = title;
         this.desc = desc;

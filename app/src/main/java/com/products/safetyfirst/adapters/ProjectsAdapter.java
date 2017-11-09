@@ -11,7 +11,7 @@ import android.view.animation.AnimationUtils;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.impementations.presenter.AddProjectPresenterImpl;
 import com.products.safetyfirst.interfaces.adapter.AddProjectsAdapterView;
-import com.products.safetyfirst.models.Project_model;
+import com.products.safetyfirst.models.ProjectModel;
 import com.products.safetyfirst.viewholder.ProjectsViewHolder;
 
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsViewHolder> implements AddProjectsAdapterView {
 
-    private final ArrayList<Project_model> mProjectsList = new ArrayList<>();
+    private final ArrayList<ProjectModel> mProjectsList = new ArrayList<>();
     private final AddProjectPresenterImpl presenter;
     private Context context;
 
@@ -44,7 +44,7 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsViewHolder> im
         Animation animation = AnimationUtils.loadAnimation(context, R.anim.anim_recycler_item_show);
         holder.mView.startAnimation(animation);
 
-        Project_model current = mProjectsList.get(position);
+        ProjectModel current = mProjectsList.get(position);
         holder.mUserTextView.setText(current.getUsername());
         holder.mComapnyTextView.setText(current.getCompany());
         holder.mDescriptionTextView.setText(current.getDescription());
@@ -56,7 +56,7 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsViewHolder> im
     }
 
     @Override
-    public void addAll(ArrayList<Project_model> projects) {
+    public void addAll(ArrayList<ProjectModel> projects) {
         mProjectsList.clear();
         mProjectsList.addAll(projects);
         notifyDataSetChanged();

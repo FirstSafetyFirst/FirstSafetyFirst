@@ -6,7 +6,7 @@ import com.products.safetyfirst.interfaces.interactor.AddProjectInteractor;
 import com.products.safetyfirst.interfaces.presenter.AddProjectPresenter;
 import com.products.safetyfirst.interfaces.view.AddProjectView;
 import com.products.safetyfirst.interfaces.adapter.AddProjectsAdapterView;
-import com.products.safetyfirst.models.Project_model;
+import com.products.safetyfirst.models.ProjectModel;
 
 import java.util.ArrayList;
 
@@ -46,7 +46,7 @@ public class AddProjectPresenterImpl implements AddProjectPresenter, AddProjectI
     }
 
     @Override
-    public void getChildren(ArrayList<Project_model> projects) {
+    public void getChildren(ArrayList<ProjectModel> projects) {
         adapterView.addAll(projects);
     }
 

@@ -1,6 +1,6 @@
 package com.products.safetyfirst.interfaces.adapter;
 
-import com.products.safetyfirst.models.Event_model;
+import com.products.safetyfirst.models.EventModel;
 
 import java.util.ArrayList;
 
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public interface EventsAdapterView {
 
-    void addAllEvents(ArrayList<Event_model> events);
+    void addAllEvents(ArrayList<EventModel> events);
 
     void addAllKeys(ArrayList<String> keys);
 

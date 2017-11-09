@@ -4,16 +4,16 @@ package com.products.safetyfirst.models;
  * Created by vikas on 05/10/17.
  */
 
-public class Interest_model {
+public class InterestModel {
 
     private String interest;
     private boolean liked;
 
-    public Interest_model() {
+    public InterestModel() {
 
     }
 
-    public Interest_model(String interest, boolean liked) {
+    public InterestModel(String interest, boolean liked) {
         this.interest = interest;
         this.liked = liked;
 

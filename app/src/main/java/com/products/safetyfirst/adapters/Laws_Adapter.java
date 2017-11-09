@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.products.safetyfirst.R;
-import com.products.safetyfirst.models.Law_model;
+import com.products.safetyfirst.models.LawModel;
 import com.products.safetyfirst.utils.Analytics;
 import com.products.safetyfirst.viewholder.LawViewHolder;
 
@@ -21,9 +21,9 @@ import java.util.List;
 public class Laws_Adapter extends RecyclerView.Adapter<LawViewHolder> {
 
     private final Context context;
-    private List<Law_model> horizontalList;
+    private List<LawModel> horizontalList;
 
-    public Laws_Adapter(Context cont, List<Law_model> horizontalList) {
+    public Laws_Adapter(Context cont, List<LawModel> horizontalList) {
         this.horizontalList = horizontalList;
         this.context=cont;
     }

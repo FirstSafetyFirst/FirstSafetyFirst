@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.impementations.presenter.AddInterestPresenterImpl;
 import com.products.safetyfirst.interfaces.adapter.AddInterestAdapterView;
-import com.products.safetyfirst.models.Interest_model;
+import com.products.safetyfirst.models.InterestModel;
 import com.products.safetyfirst.viewholder.AddInterestViewHolder;
 
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 public class AddInterestAdapter extends RecyclerView.Adapter<AddInterestViewHolder> implements AddInterestAdapterView {
 
-    private final ArrayList<Interest_model> mInterestList = new ArrayList<>();
+    private final ArrayList<InterestModel> mInterestList = new ArrayList<>();
     private final AddInterestPresenterImpl presenter;
     private Context context;
 
@@ -40,14 +40,14 @@ public class AddInterestAdapter extends RecyclerView.Adapter<AddInterestViewHold
        // Animation animation = AnimationUtils.loadAnimation(context, R.anim.anim_recycler_item_show);
        // holder.mView.startAnimation(animation);
 
-        final Interest_model current = mInterestList.get(position);
+        final InterestModel current = mInterestList.get(position);
         holder.mInterest.setText(current.getInterest());
         holder.mCheck.setChecked(current.getLiked());
 
         holder.mCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                presenter.validateInterest(new Interest_model(current.getInterest(), !current.getLiked()));
+                presenter.validateInterest(new InterestModel(current.getInterest(), !current.getLiked()));
             }
         });
         // holder.mIcon.setImageDrawable(current.getDrawable());
@@ -59,7 +59,7 @@ public class AddInterestAdapter extends RecyclerView.Adapter<AddInterestViewHold
     }
 
     @Override
-    public void addAll(ArrayList<Interest_model> interest) {
+    public void addAll(ArrayList<InterestModel> interest) {
         mInterestList.clear();
         mInterestList.addAll(interest);
         notifyDataSetChanged();

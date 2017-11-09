@@ -1,6 +1,6 @@
 package com.products.safetyfirst.interfaces.presenter;
 
-import com.products.safetyfirst.models.Project_model;
+import com.products.safetyfirst.models.ProjectModel;
 
 import java.util.ArrayList;
 
@@ -14,7 +14,7 @@ public interface AddProjectPresenter {
 
     void onDestroy();
 
-    void getChildren(ArrayList<Project_model> projects);
+    void getChildren(ArrayList<ProjectModel> projects);
 
     void request(String mProfileKey);
 

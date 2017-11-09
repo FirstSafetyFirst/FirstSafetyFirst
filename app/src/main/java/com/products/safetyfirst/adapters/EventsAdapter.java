@@ -15,7 +15,7 @@ import com.products.safetyfirst.activity.EventsDetailActivity;
 import com.products.safetyfirst.impementations.presenter.EventsPresenterImpl;
 import com.products.safetyfirst.interfaces.adapter.EventsAdapterView;
 import com.products.safetyfirst.interfaces.presenter.EventsPresenter;
-import com.products.safetyfirst.models.Event_model;
+import com.products.safetyfirst.models.EventModel;
 import com.products.safetyfirst.viewholder.EventViewHolder;
 
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ import java.util.ArrayList;
 public class EventsAdapter extends RecyclerView.Adapter<EventViewHolder> implements EventsAdapterView{
 
 
-    private final ArrayList<Event_model> mEventsList = new ArrayList<>();
+    private final ArrayList<EventModel> mEventsList = new ArrayList<>();
     private final ArrayList<String> mKeysList = new ArrayList<>();
     private final EventsPresenter presenter;
     private Context context;
@@ -52,7 +52,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventViewHolder> impleme
         Animation animation = AnimationUtils.loadAnimation(context, R.anim.anim_recycler_item_show);
         holder.mView.startAnimation(animation);
 
-        Event_model event = mEventsList.get(position);
+        EventModel event = mEventsList.get(position);
 
         if(event.getTitle() != null) holder.title.setText(event.getTitle());
         if(event.getTimestamp() != null) {
@@ -98,7 +98,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventViewHolder> impleme
     }
 
     @Override
-    public void addAllEvents(ArrayList<Event_model> events) {
+    public void addAllEvents(ArrayList<EventModel> events) {
         mEventsList.clear();
         mEventsList.addAll(events);
         notifyDataSetChanged();

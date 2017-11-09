@@ -88,6 +88,7 @@
             android:layout_weight="0.5"
             android:src="@drawable/google"/>
         <ImageView
+            android:visibility="gone"
             android:id="@+id/linkedin_signup"
             android:layout_width="0dp"
             android:layout_height="70dp"

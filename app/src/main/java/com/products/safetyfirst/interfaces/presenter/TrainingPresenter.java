@@ -1,7 +1,5 @@
 package com.products.safetyfirst.interfaces.presenter;
 
-import com.products.safetyfirst.models.Event_model;
-
 import java.util.ArrayList;
 
 /**

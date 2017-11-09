@@ -1,6 +1,6 @@
 package com.products.safetyfirst.interfaces.view;
 
-import com.products.safetyfirst.models.News_model;
+import com.products.safetyfirst.models.NewsModel;
 
 /**
  * Created by vikas on 06/10/17.
@@ -14,5 +14,5 @@ public interface NewsDetailView {
 
     void readMore();
 
-    void setNews(News_model news);
+    void setNews(NewsModel news);
 }

@@ -10,7 +10,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.products.safetyfirst.interfaces.interactor.EventsInteractor;
 import com.products.safetyfirst.interfaces.presenter.EventsPresenter;
-import com.products.safetyfirst.models.Event_model;
+import com.products.safetyfirst.models.EventModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,10 +43,10 @@ public class EventsInteractorImpl implements EventsInteractor {
             query.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    ArrayList<Event_model> mListOfEvents = new ArrayList<>();
+                    ArrayList<EventModel> mListOfEvents = new ArrayList<>();
                     ArrayList<String> eventsArrayKey = new ArrayList<>();
                     for (DataSnapshot x : dataSnapshot.getChildren()) {
-                        mListOfEvents.add(x.getValue(Event_model.class));
+                        mListOfEvents.add(x.getValue(EventModel.class));
                         eventsArrayKey.add(x.getKey());
                     }
                     presenter.getChildren(mListOfEvents);

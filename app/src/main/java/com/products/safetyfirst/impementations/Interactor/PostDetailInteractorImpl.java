@@ -14,7 +14,6 @@ import com.products.safetyfirst.interfaces.interactor.PostDetailInteractor;
 import com.products.safetyfirst.interfaces.presenter.PostDetailPresenter;
 import com.products.safetyfirst.modelhelper.UserHelper;
 import com.products.safetyfirst.models.Comment;
-import com.products.safetyfirst.models.Event_model;
 import com.products.safetyfirst.models.PostModel;
 import com.products.safetyfirst.models.UserModel;
 

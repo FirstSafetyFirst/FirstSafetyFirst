@@ -1,7 +1,6 @@
 package com.products.safetyfirst.interfaces.view;
 
-import com.products.safetyfirst.models.Event_model;
-import com.products.safetyfirst.models.News_model;
+import com.products.safetyfirst.models.EventModel;
 
 /**
  * Created by vikas on 12/10/17.
@@ -15,7 +14,7 @@ public interface EventsDetailView {
 
     void setAction(int actionId);
 
-    void setEvent(Event_model event);
+    void setEvent(EventModel event);
 
     void onError(String message);
 

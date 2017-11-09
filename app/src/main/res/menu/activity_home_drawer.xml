@@ -7,7 +7,7 @@
             android:icon="@drawable/ic_person_black_24dp"
             android:title="@string/update_profile" />
         <item
-            android:id="@+id/bookmarks"
+            android:id="@+id/nav_bookmarks"
             android:icon="@drawable/collections_bookmark"
             android:title="Bookmarks"/>
         <item

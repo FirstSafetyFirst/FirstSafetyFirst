@@ -4,17 +4,17 @@ package com.products.safetyfirst.models;
  * Created by vikas on 05/10/17.
  */
 
-public class Project_model {
+public class ProjectModel {
     String username;
     String company;
     String description;
     Long timestamp;
 
-    public Project_model() {
+    public ProjectModel() {
 
     }
 
-    public Project_model(String username, String company, String description) {
+    public ProjectModel(String username, String company, String description) {
         this.username = username;
         this.company = company;
         this.description = description;

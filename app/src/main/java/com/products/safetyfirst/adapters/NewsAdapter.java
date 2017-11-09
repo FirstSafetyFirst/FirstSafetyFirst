@@ -16,7 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.activity.NewsDetailActivity;
-import com.products.safetyfirst.models.News_model;
+import com.products.safetyfirst.models.NewsModel;
 import com.products.safetyfirst.viewholder.NewsViewHolder;
 
 import java.util.ArrayList;
@@ -24,12 +24,12 @@ import java.util.ArrayList;
 public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
 
     private final Context context;
-    ArrayList<News_model> getNews = new ArrayList<>();
-    ArrayList<News_model> tempNews = new ArrayList<>();
+    ArrayList<NewsModel> getNews = new ArrayList<>();
+    ArrayList<NewsModel> tempNews = new ArrayList<>();
     ArrayList<String> tempkeys = new ArrayList<>();
     ArrayList<String> getKeys = new ArrayList<>();
     private DatabaseReference mDatabase;
-    private ArrayList<News_model> newsArrayList = new ArrayList<>();
+    private ArrayList<NewsModel> newsArrayList = new ArrayList<>();
     private ArrayList<String> newsArrayKey=new ArrayList<>();
     private Query newsquery;
     private String mLastkey;
@@ -44,7 +44,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 newsArrayKey.add(dataSnapshot.getKey());
-                newsArrayList.add(dataSnapshot.getValue(News_model.class));
+                newsArrayList.add(dataSnapshot.getValue(NewsModel.class));
                 notifyItemInserted(newsArrayList.size()-1);
                 if(newsArrayList.size()==1){
                     mLastkey=dataSnapshot.getKey();
@@ -81,7 +81,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
         Getmorenewsquery.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                getNews.add(dataSnapshot.getValue(News_model.class));
+                getNews.add(dataSnapshot.getValue(NewsModel.class));
                 getKeys.add(dataSnapshot.getKey());
                 if(getNews.size()==10){
                     getNews.remove(9);

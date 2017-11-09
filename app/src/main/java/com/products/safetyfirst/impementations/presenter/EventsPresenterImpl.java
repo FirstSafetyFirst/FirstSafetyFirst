@@ -6,7 +6,7 @@ import com.products.safetyfirst.interfaces.adapter.EventsAdapterView;
 import com.products.safetyfirst.interfaces.interactor.EventsInteractor;
 import com.products.safetyfirst.interfaces.presenter.EventsPresenter;
 import com.products.safetyfirst.interfaces.view.EventsView;
-import com.products.safetyfirst.models.Event_model;
+import com.products.safetyfirst.models.EventModel;
 
 import java.util.ArrayList;
 
@@ -43,7 +43,7 @@ public class EventsPresenterImpl implements EventsPresenter, EventsInteractor.On
     }
 
     @Override
-    public void getChildren(ArrayList<Event_model> events) {
+    public void getChildren(ArrayList<EventModel> events) {
         eventsAdapterView.addAllEvents(events);
     }
 

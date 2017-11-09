@@ -4,10 +4,10 @@ package com.products.safetyfirst.models;
  * Created by Vikas on 15-05-2017.
  */
 
-public class Law_model {
+public class LawModel {
     String img_url,title;
 
-    public Law_model(String img_url, String title) {
+    public LawModel(String img_url, String title) {
         this.img_url = img_url;
         this.title = title;
     }

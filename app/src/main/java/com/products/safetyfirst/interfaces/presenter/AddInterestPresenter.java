@@ -1,6 +1,6 @@
 package com.products.safetyfirst.interfaces.presenter;
 
-import com.products.safetyfirst.models.Interest_model;
+import com.products.safetyfirst.models.InterestModel;
 
 import java.util.ArrayList;
 
@@ -10,11 +10,11 @@ import java.util.ArrayList;
 
 public interface AddInterestPresenter {
 
-    void validateInterest(Interest_model interest);
+    void validateInterest(InterestModel interest);
 
     void onDestroy();
 
     void request();
 
-    void getChildren(ArrayList<Interest_model> interests);
+    void getChildren(ArrayList<InterestModel> interests);
 }

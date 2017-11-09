@@ -1,6 +1,6 @@
 package com.products.safetyfirst.interfaces.adapter;
 
-import com.products.safetyfirst.models.Project_model;
+import com.products.safetyfirst.models.ProjectModel;
 
 import java.util.ArrayList;
 
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public interface AddProjectsAdapterView {
 
-    void addAll(ArrayList<Project_model> projects);
+    void addAll(ArrayList<ProjectModel> projects);
 
     void request(String mProfileKey);
 }

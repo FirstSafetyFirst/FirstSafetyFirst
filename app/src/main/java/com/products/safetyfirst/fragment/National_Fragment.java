@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.adapters.Laws_Adapter;
 import com.products.safetyfirst.customview.SpacesItemDecoration;
-import com.products.safetyfirst.models.Law_model;
+import com.products.safetyfirst.models.LawModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,15 +30,15 @@ RecyclerView home_recycler;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.national_fragment, container, false);
-        List<Law_model> data=new ArrayList<>();
-        data.add(new Law_model("aa","vbb"));
-        data.add(new Law_model("aa","vbb"));
-        data.add(new Law_model("aa","vbb"));
-        data.add(new Law_model("aa","vbb"));
-        data.add(new Law_model("aa","vbb"));
-        data.add(new Law_model("aa","vbb"));
-        data.add(new Law_model("aa","vbb"));
-        data.add(new Law_model("aa","vbb"));
+        List<LawModel> data=new ArrayList<>();
+        data.add(new LawModel("aa","vbb"));
+        data.add(new LawModel("aa","vbb"));
+        data.add(new LawModel("aa","vbb"));
+        data.add(new LawModel("aa","vbb"));
+        data.add(new LawModel("aa","vbb"));
+        data.add(new LawModel("aa","vbb"));
+        data.add(new LawModel("aa","vbb"));
+        data.add(new LawModel("aa","vbb"));
         home_recycler=(RecyclerView)rootView.findViewById(R.id.national_recycler);
         home_recycler.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(),2);

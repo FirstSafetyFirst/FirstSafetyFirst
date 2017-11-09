@@ -106,6 +106,11 @@ public class HomeActivity extends BaseActivity
             nav_item2.setEnabled(true);
         }
 
+        Menu menuNav = navigationView.getMenu();
+
+        menuNav.findItem(R.id.nav_bookmarks).setVisible(false);
+        menuNav.findItem(R.id.nav_tnc).setVisible(false);
+
     }
 
     @Override

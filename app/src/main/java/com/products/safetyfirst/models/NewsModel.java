@@ -7,7 +7,7 @@ import java.util.Map;
  * Created by profileconnect on 24/04/17.
  */
 
-public class News_model {
+public class NewsModel {
 
     public Map<String, Boolean> bookmarks = new HashMap<>();
     private String title,imgUrl,favicon, body, uid, author;
@@ -29,9 +29,9 @@ public class News_model {
     private long numShares;
     private long numViews;
 
-    public News_model(){}
+    public NewsModel(){}
 
-    public News_model(String title, String imgUrl, String favicon, String body,String author, Integer timestamp) {
+    public NewsModel(String title, String imgUrl, String favicon, String body, String author, Integer timestamp) {
         this.title = title;
         this.imgUrl = imgUrl;
         this.favicon = favicon;

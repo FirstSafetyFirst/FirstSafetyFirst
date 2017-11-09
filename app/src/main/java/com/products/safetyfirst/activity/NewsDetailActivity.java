@@ -36,7 +36,7 @@ import com.products.safetyfirst.R;
 import com.products.safetyfirst.impementations.presenter.NewsDetailPresenterImpl;
 import com.products.safetyfirst.interfaces.presenter.NewsDetailPresenter;
 import com.products.safetyfirst.interfaces.view.NewsDetailView;
-import com.products.safetyfirst.models.News_model;
+import com.products.safetyfirst.models.NewsModel;
 import com.products.safetyfirst.utils.Analytics;
 import com.products.safetyfirst.utils.JustifiedWebView;
 import com.products.safetyfirst.utils.PrefManager;
@@ -184,7 +184,7 @@ public class NewsDetailActivity extends BaseActivity implements View.OnClickList
     }
 
     @Override
-    public void setNews(News_model news) {
+    public void setNews(NewsModel news) {
         HEADLINE = news.getTitle();
         mTitleView.setText(news.getTitle());
         mBodyView.setText(news.getBody());

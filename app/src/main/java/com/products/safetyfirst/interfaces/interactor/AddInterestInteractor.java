@@ -1,8 +1,6 @@
 package com.products.safetyfirst.interfaces.interactor;
 
-import com.products.safetyfirst.models.Interest_model;
-
-import java.util.ArrayList;
+import com.products.safetyfirst.models.InterestModel;
 
 /**
  * Created by vikas on 05/10/17.
@@ -10,7 +8,7 @@ import java.util.ArrayList;
 
 public interface AddInterestInteractor {
 
-    void addInterest(Interest_model interests, AddInterestInteractor.OnUpdateFinishedListener listener);
+    void addInterest(InterestModel interests, AddInterestInteractor.OnUpdateFinishedListener listener);
 
     void requestInterest();
 
