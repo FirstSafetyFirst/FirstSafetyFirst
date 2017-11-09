@@ -1,13 +1,19 @@
 package com.products.safetyfirst.activity;
 
 import android.app.ActivityOptions;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Spanned;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -17,11 +23,13 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.products.safetyfirst.R;
+import com.products.safetyfirst.adapters.CommentsAdapter;
 import com.products.safetyfirst.adapters.SliderAdapter;
 import com.products.safetyfirst.customview.CircleTransform;
 import com.products.safetyfirst.impementations.presenter.PostDetailPresenterImpl;
 import com.products.safetyfirst.interfaces.presenter.PostDetailPresenter;
 import com.products.safetyfirst.interfaces.view.PostDetailView;
+import com.products.safetyfirst.models.Comment;
 import com.products.safetyfirst.models.PostModel;
 import com.products.safetyfirst.models.UserModel;
 import com.products.safetyfirst.utils.JustifiedWebView;
@@ -30,6 +38,9 @@ import com.ramotion.cardslider.CardSliderLayoutManager;
 import com.ramotion.cardslider.CardSnapHelper;
 
 import java.util.List;
+import java.util.regex.Pattern;
+
+import jp.wasabeef.richeditor.RichEditor;
 
 
 public class PostDetailActivity extends BaseActivity implements View.OnClickListener, PostDetailView {
@@ -40,7 +51,13 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
 
     private final int[] pics = {R.drawable.p1, R.drawable.p2, R.drawable.p3, R.drawable.p4, R.drawable.p5};
 
+    //private  ArrayList<String> pics = new ArrayList<>();
+
     private final SliderAdapter sliderAdapter = new SliderAdapter(pics, 5, new OnCardClickListener());
+
+    private static final String URL_REGEX2 = "(?:^|[\\W])((ht|f)tp(s?):\\/\\/|www\\.)"
+            + "(([\\w\\-]+\\.){1,}?([\\w\\-.~]+\\/?)*"
+            + "[\\p{Alnum}.,%_=?&#\\-+()\\[\\]\\*$~@!:/{};']*)";
 
     private JustifiedWebView mBodyView;
     private TextView mTitleView;
@@ -57,8 +74,12 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
 
     private PostDetailPresenter presenter;
 
+    private CommentsAdapter commentsAdapter;
+
     private CardSliderLayoutManager layoutManger;
     private RecyclerView recyclerView;
+    private RecyclerView commentsRecycler;
+    private LinearLayoutManager commentsLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,6 +127,8 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
 
         prefManager.setFirstPostLaunch(false);
 
+        initCommentsView();
+
         initRecyclerView();
 
     }
@@ -114,7 +137,40 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fab:
-                Toast.makeText(this, "New Answer", Toast.LENGTH_SHORT).show();
+                final Dialog fullscreenDialog = new Dialog(PostDetailActivity.this, R.style.DialogFullscreen);
+                fullscreenDialog.setContentView(R.layout.dialog_fullscreen);
+
+                final RichEditor editor = fullscreenDialog.findViewById(R.id.new_ans_edit);
+
+                initEditor(editor);
+
+                TextView mPostTitle = fullscreenDialog.findViewById(R.id.post_title);
+                mPostTitle.setVisibility(View.GONE);
+
+                ImageView img_dialog_fullscreen_close = (ImageView) fullscreenDialog.findViewById(R.id.img_dialog_fullscreen_close);
+                img_dialog_fullscreen_close.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        fullscreenDialog.dismiss();
+                    }
+                });
+
+                Button mPostButton = fullscreenDialog.findViewById(R.id.post_btn);
+                mPostButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+
+                        if(!editor.getHtml().trim().equals("")){
+                            presenter.setAns(mPostKey, editor.getHtml());
+                            fullscreenDialog.dismiss();
+                        }
+                        else {
+                            Toast.makeText(PostDetailActivity.this, "Comment cannot be left blank", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                fullscreenDialog.show();
                 break;
             case R.id.image_btn:
                 //showImage();
@@ -127,6 +183,26 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
                 //showLink();
                 break;
         }
+    }
+
+    void initEditor(RichEditor editor) {
+        editor.setEditorHeight(400);
+        editor.setPadding(10, 10, 50, 10);
+        editor.setPlaceholder("Write an Answer...");
+//        editor.setOnDecorationChangeListener(new RichEditor.OnDecorationStateListener() {
+//            @Override
+//            public void onStateChangeListener(String text, List<RichEditor.Type> types) {
+//                if(types.contains(RichEditor.Type.BOLD)) {
+//                    Toast.makeText(NewPostActivity.this, "Bold Press", Toast.LENGTH_LONG).show();
+//                }
+//            }
+//        });
+
+     //   boldBtn.setOnClickListener(this);
+     //   italicBtn.setOnClickListener(this);
+     //   underlineBtn.setOnClickListener(this);
+     //   pickImgBtn.setOnClickListener(this);
+     //   createPostBtn.setOnClickListener(this);
     }
 
     @Override
@@ -171,6 +247,11 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
         }
     }
 
+    @Override
+    public void setComments(List<Comment> comments, List<String> keys) {
+
+    }
+
     private void showTutorial(){
 
     }
@@ -193,6 +274,25 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
         layoutManger = (CardSliderLayoutManager) recyclerView.getLayoutManager();
 
         new CardSnapHelper().attachToRecyclerView(recyclerView);
+    }
+
+    private void initCommentsView(){
+        commentsRecycler = findViewById(R.id.recycler_comments);
+        commentsLayoutManager = new LinearLayoutManager(PostDetailActivity.this);
+        commentsRecycler.setLayoutManager(commentsLayoutManager);
+        commentsRecycler.setHasFixedSize(true);
+        commentsRecycler.setItemAnimator(new DefaultItemAnimator());
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(commentsRecycler.getContext(),
+                commentsLayoutManager.getOrientation());
+        commentsRecycler.addItemDecoration(dividerItemDecoration);
+
+        commentsAdapter = new CommentsAdapter(PostDetailActivity.this, mPostKey);
+
+
+        commentsAdapter.request();
+
+        commentsRecycler.setAdapter(commentsAdapter);
     }
 
     @Override
@@ -241,6 +341,41 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
             }
         }
     }
+
+
+    private static boolean checkHyperlinkText(String input) {
+        Log.d("TAGhyper7", "string: " + input);
+        Spanned output;
+        String preText, postText;
+
+        Pattern p = Pattern.compile(URL_REGEX2, Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL);
+        String link = "";
+        String[] parts = input.split("\\s");
+        preText = "";
+        postText = "";
+        int flag = 0;
+        for (String item : parts) {
+            if (!p.matcher(item).matches() && flag == 0) {
+                preText += item;
+                preText += " ";
+            }
+            if (p.matcher(item).matches()) {
+                link = item;
+                //Log.d("Here",item);
+                flag = 1;
+            }
+            if (!p.matcher(item).matches() && flag == 1) {
+                postText += " ";
+                postText += item;
+            }
+        }
+        if (flag == 1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
 
 }

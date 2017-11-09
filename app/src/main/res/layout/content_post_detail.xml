@@ -6,7 +6,7 @@
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/card_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_margin="@dimen/activity_horizontal_margin"
         android:padding="@dimen/activity_horizontal_margin"
         card_view:cardCornerRadius="4dp"
@@ -61,48 +61,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-            <android.support.v7.widget.ButtonBarLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_horizontal_margin"
-                android:layout_marginBottom="@dimen/activity_horizontal_margin"
-                android:layout_gravity="center">
-
-                <ImageButton
-                    android:id="@+id/image_btn"
-                    android:padding="@dimen/activity_vertical_margin"
-                    android:layout_marginRight="@dimen/activity_vertical_margin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="showImage"
-                    android:visibility="gone"
-                    android:src="@drawable/ic_menu_camera"/>
-                <ImageButton
-                    android:visibility="gone"
-                    android:id="@+id/link_btn"
-                    android:layout_marginLeft="@dimen/activity_vertical_margin"
-                    android:layout_marginRight="@dimen/activity_vertical_margin"
-                    android:padding="@dimen/activity_vertical_margin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="showLink"
-                    android:src="@drawable/ic_menu_send"/>
-                <ImageButton
-                    android:id="@+id/file_btn"
-                    android:padding="@dimen/activity_vertical_margin"
-                    android:layout_width="wrap_content"
-                    android:layout_marginLeft="@dimen/activity_vertical_margin"
-                    android:layout_height="wrap_content"
-                    android:onClick="showFile"
-                    android:src="@drawable/ic_menu_send"/>
-
-            </android.support.v7.widget.ButtonBarLayout>
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_comments"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:listitem="@layout/item_comment" />
+                tools:listitem="@layout/comment_item" />
 
         </LinearLayout>
 

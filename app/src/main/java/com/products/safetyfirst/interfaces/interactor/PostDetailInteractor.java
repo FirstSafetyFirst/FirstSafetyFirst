@@ -14,7 +14,11 @@ public interface PostDetailInteractor {
 
     void setViews(String mPostKey);
 
-    void setComment(String mPostKey, String authorId);
+    void setComment(String mPostKey, String mAnswer);
+
+    void requestComments(String mPostKey);
+
+    void addLike(String mPostKey, String mCommentKey);
 
     interface OnPostQueryFinishedListener {
 

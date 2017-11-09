@@ -35,6 +35,14 @@ public class Comment  {
         this.upvoteCount=upvoteCount;
     }
 
+    public Comment(String uid, String author, String text, int upvoteCount ) {
+        this.uid = uid;
+        this.author = author;
+        this.text = text;
+        this.xmlText = text;
+        this.upvoteCount=upvoteCount;
+    }
+
     public String getUid() {
         return uid;
     }

@@ -7,13 +7,20 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.products.safetyfirst.impementations.presenter.PostDetailPresenterImpl;
 import com.products.safetyfirst.interfaces.interactor.PostDetailInteractor;
 import com.products.safetyfirst.interfaces.presenter.PostDetailPresenter;
 import com.products.safetyfirst.modelhelper.UserHelper;
+import com.products.safetyfirst.models.Comment;
+import com.products.safetyfirst.models.Event_model;
 import com.products.safetyfirst.models.PostModel;
 import com.products.safetyfirst.models.UserModel;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
 
@@ -89,8 +96,60 @@ public class PostDetailInteractorImpl implements PostDetailInteractor {
 
     }
 
+
     @Override
-    public void setComment(String mPostKey, String authorId) {
+    public void setComment(String mPostKey, String mAnswer) {
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        DatabaseReference  mCommentsRef = getDatabase().getReference().child("post-comments").child(mPostKey);
+
+        if(user != null) {
+
+            String key = mCommentsRef.push().getKey();
+
+            Comment comment = new Comment(user.getUid(), user.getDisplayName(), mAnswer, 0);
+
+            Map<String, Object> commentValues = comment.toMap();
+
+
+            Map<String, Object> childUpdates = new HashMap<>();
+            childUpdates.put("/post-comments/" + mPostKey + "/" + key, commentValues);
+
+            getDatabase().getReference().updateChildren(childUpdates);
+        }
+    }
+
+    @Override
+    public void requestComments(String mPostKey) {
+
+        Query query;
+
+        query = getDatabase().getReference()
+                .child("post-comments").child(mPostKey).orderByChild("timestamp");
+
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<Comment> mListOfComments = new ArrayList<>();
+                ArrayList<String> commentsArrayKey = new ArrayList<>();
+                for (DataSnapshot x : dataSnapshot.getChildren()) {
+                    mListOfComments.add(x.getValue(Comment.class));
+                    commentsArrayKey.add(x.getKey());
+                }
+                presenter.getAnswers(mListOfComments, commentsArrayKey);
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("Post Detail Interacter", "Could not fetch comments");
+            }
+        });
+    }
+
+    @Override
+    public void addLike(String mPostKey, String mCommentKey) {
 
     }
 }
