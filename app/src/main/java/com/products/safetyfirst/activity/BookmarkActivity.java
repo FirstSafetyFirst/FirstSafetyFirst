@@ -22,7 +22,7 @@ public class BookmarkActivity extends AppCompatActivity {
     private ViewPager bookmarkView;
     private TabLayout.OnTabSelectedListener tabSelectedListener;
     private TabLayout.TabLayoutOnPageChangeListener pageChangeListener;
-    Bundle bundle;
+    private Bundle bundle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,8 +36,8 @@ public class BookmarkActivity extends AppCompatActivity {
         }
         else
             Toast.makeText(this,"null",Toast.LENGTH_SHORT).show();
-        bookmarkTabs=(TabLayout)findViewById(R.id.bookmarks_tabs);
-        bookmarkView=(ViewPager)findViewById(R.id.bookmark_viewpager);
+        bookmarkTabs= findViewById(R.id.bookmarks_tabs);
+        bookmarkView= findViewById(R.id.bookmark_viewpager);
         setUpTabs();
     }
 
@@ -89,7 +89,7 @@ public class BookmarkActivity extends AppCompatActivity {
         final Fragment f3= new DiscussionFragment();
         f3.setArguments(bundle);
         FragmentPagerAdapter categoryAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
-            Fragment fragments[] = {f1,f2,f3};
+            final Fragment[] fragments = {f1,f2,f3};
             String titles[] = {"News", "Events","Posts"};
             @Override
             public Fragment getItem(int position) {

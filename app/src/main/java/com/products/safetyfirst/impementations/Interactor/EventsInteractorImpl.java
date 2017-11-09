@@ -24,7 +24,7 @@ import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
 
 public class EventsInteractorImpl implements EventsInteractor {
 
-    private EventsPresenter presenter;
+    private final EventsPresenter presenter;
 
     public EventsInteractorImpl(EventsPresenter pre){
 

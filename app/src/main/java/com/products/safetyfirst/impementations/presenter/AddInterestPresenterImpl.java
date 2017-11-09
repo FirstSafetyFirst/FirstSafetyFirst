@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class AddInterestPresenterImpl implements AddInterestPresenter, AddInterestInteractor.OnUpdateFinishedListener {
 
     private AddInterestView addInterestView;
-    private AddInterestInteractor addInterestInteractor;
+    private final AddInterestInteractor addInterestInteractor;
 
     private AddInterestAdapterView adapterView;
 

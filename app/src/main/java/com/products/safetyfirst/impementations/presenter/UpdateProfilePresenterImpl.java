@@ -15,7 +15,7 @@ import com.products.safetyfirst.models.UserModel;
 public class UpdateProfilePresenterImpl implements UpdateProfilePresenter, UpdateProfileInteractor.OnUpdateFinishedListener {
 
     private UpdateProfileView updateProfileView;
-    private UpdateProfileInteractor updateProfileInteractor;
+    private final UpdateProfileInteractor updateProfileInteractor;
 
     public UpdateProfilePresenterImpl(UpdateProfileView updateProfileView) {
         this.updateProfileView = updateProfileView;

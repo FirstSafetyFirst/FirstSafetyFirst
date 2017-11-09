@@ -181,10 +181,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 View infoWindow = getLayoutInflater().inflate(R.layout.custom_info_contents,
                         (FrameLayout) findViewById(R.id.map), false);
 
-                TextView title = ((TextView) infoWindow.findViewById(R.id.title));
+                TextView title = infoWindow.findViewById(R.id.title);
                 title.setText(marker.getTitle());
 
-                TextView snippet = ((TextView) infoWindow.findViewById(R.id.snippet));
+                TextView snippet = infoWindow.findViewById(R.id.snippet);
                 snippet.setText(marker.getSnippet());
 
                 return infoWindow;
@@ -439,7 +439,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
-    protected Marker createMarker(double latitude, double longitude, String title, String snippet) {
+    private Marker createMarker(double latitude, double longitude, String title, String snippet) {
 
         return mMap.addMarker(new MarkerOptions()
                 .title(title)

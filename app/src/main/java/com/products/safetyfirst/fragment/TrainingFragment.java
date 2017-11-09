@@ -20,6 +20,7 @@ import com.products.safetyfirst.interfaces.presenter.TrainingPresenter;
 import com.products.safetyfirst.interfaces.view.TrainingView;
 
 
+@SuppressWarnings({"ALL", "EmptyMethod"})
 public class TrainingFragment extends Fragment implements TrainingView{
 
     private TrainingPresenter presenter;
@@ -48,12 +49,12 @@ public class TrainingFragment extends Fragment implements TrainingView{
     }
 
     private void createUI(View view) {
-        recycler = (RecyclerView) view.findViewById(R.id.training_recycler);
+        recycler = view.findViewById(R.id.training_recycler);
         recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         recycler.setHasFixedSize(true);
         recycler.setItemAnimator(new DefaultItemAnimator());
 
-        mProgressbar = (ProgressBar) view.findViewById(R.id.newspaginateprogbar);
+        mProgressbar = view.findViewById(R.id.newspaginateprogbar);
 
         presenter = new TrainingPresenterImpl(this);
 
@@ -99,6 +100,7 @@ public class TrainingFragment extends Fragment implements TrainingView{
 
     }
 
+    @SuppressWarnings("EmptyMethod")
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
     }

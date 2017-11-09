@@ -67,9 +67,9 @@ public class NotificationHelper implements SimpleNotification {
 
     public class ProgressNotification {
 
-        private int notifId;
-        private NotificationCompat.Builder mBuilder;
-        private NotificationManager mNotificationManager;
+        private final int notifId;
+        private final NotificationCompat.Builder mBuilder;
+        private final NotificationManager mNotificationManager;
 
         public ProgressNotification (int notifId, NotificationCompat.Builder mBuilder, NotificationManager mNotificationManager) {
             this.notifId = notifId;

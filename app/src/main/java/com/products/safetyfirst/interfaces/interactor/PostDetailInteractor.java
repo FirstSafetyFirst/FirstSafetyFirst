@@ -4,6 +4,7 @@ package com.products.safetyfirst.interfaces.interactor;
  * Created by vikas on 30/10/17.
  */
 
+@SuppressWarnings({"ALL", "EmptyMethod"})
 public interface PostDetailInteractor {
 
     void requestPost(String mPostKey, PostDetailInteractor.OnPostQueryFinishedListener listener);

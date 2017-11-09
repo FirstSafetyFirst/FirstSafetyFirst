@@ -46,6 +46,7 @@ import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
  * Created by krishna on 30/1/17.
  */
 
+@SuppressWarnings({"ALL", "EmptyMethod"})
 public class SignUpActivity extends BaseActivity implements GoogleApiClient.OnConnectionFailedListener,
         View.OnClickListener{
 
@@ -60,14 +61,14 @@ public class SignUpActivity extends BaseActivity implements GoogleApiClient.OnCo
     private EditText mConfirmPasswordField;
     private Button mSignUpButton;
     private TextView mSigninText;
-    CheckBox checkBox;
+    private CheckBox checkBox;
     TextView tncLink;
 
     private static final int RC_SIGN_IN = 9001;
     private SignInButton mGoogleSignInButton;
     private GoogleApiClient mGoogleApiClient;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    int tncFlag = 0;
+    private int tncFlag = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,13 +82,13 @@ public class SignUpActivity extends BaseActivity implements GoogleApiClient.OnCo
         mFirebaseAuth = FirebaseAuth.getInstance();
 
         // Views
-        mNameField = (EditText) findViewById(R.id.input_name);
-        mEmailField = (EditText) findViewById(R.id.input_email);
-        mPasswordField = (EditText) findViewById(R.id.input_password);
-        mConfirmPasswordField = (EditText) findViewById(R.id.input_password_confirm);
-        mSignUpButton = (Button) findViewById(R.id.btn_signup);
+        mNameField = findViewById(R.id.input_name);
+        mEmailField = findViewById(R.id.input_email);
+        mPasswordField = findViewById(R.id.input_password);
+        mConfirmPasswordField = findViewById(R.id.input_password_confirm);
+        mSignUpButton = findViewById(R.id.btn_signup);
       //  mSigninText = (TextView) findViewById(R.id.link_login);
-        checkBox = (CheckBox) findViewById(R.id.checkbox);
+        checkBox = findViewById(R.id.checkbox);
       //  tncLink = (TextView) findViewById(R.id.terms_cond);
 
         if(checkBox.isChecked()) {
@@ -96,7 +97,7 @@ public class SignUpActivity extends BaseActivity implements GoogleApiClient.OnCo
         // Click listeners
         mSignUpButton.setOnClickListener(this);
        // mSigninText.setOnClickListener(this);
-        mGoogleSignInButton = (SignInButton) findViewById(R.id.sign_in_button);
+        mGoogleSignInButton = findViewById(R.id.sign_in_button);
 
         mGoogleSignInButton.setOnClickListener(this);
 

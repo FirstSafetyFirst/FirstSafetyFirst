@@ -12,7 +12,7 @@ public class ItemTypeInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_type_info);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if(getSupportActionBar() != null)
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

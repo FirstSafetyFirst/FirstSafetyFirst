@@ -27,9 +27,10 @@ import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
  * Created by vikas on 04/10/17.
  */
 
+@SuppressWarnings("ConstantConditions")
 public class AddProjectInteractorImpl implements AddProjectInteractor {
 
-    private AddProjectPresenter presenter;
+    private final AddProjectPresenter presenter;
 
     public AddProjectInteractorImpl(AddProjectPresenter pre) {
         this.presenter = pre;

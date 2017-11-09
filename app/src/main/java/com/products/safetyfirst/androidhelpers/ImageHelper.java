@@ -12,7 +12,7 @@ import java.io.ByteArrayOutputStream;
 
 public class ImageHelper {
 
-    private static ImageHelper instance = new ImageHelper();
+    private static final ImageHelper instance = new ImageHelper();
 
     public static ImageHelper getInstance() {
         return instance;

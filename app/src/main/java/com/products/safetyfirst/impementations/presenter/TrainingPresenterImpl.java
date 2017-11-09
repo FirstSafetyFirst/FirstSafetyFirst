@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class TrainingPresenterImpl implements TrainingPresenter {
 
     private TrainingView trainingView;
-    private TrainingInteractor trainingInteractor;
+    private final TrainingInteractor trainingInteractor;
     private TrainingAdapterView trainingAdapterView;
 
     public TrainingPresenterImpl(TrainingView trainingView){

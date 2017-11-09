@@ -12,15 +12,15 @@ import com.products.safetyfirst.R;
  */
 
 public class KnowItViewHolder extends RecyclerView.ViewHolder{
-    public View mView;
-    public TextView title;
-    public ImageView imageView;
+    public final View mView;
+    public final TextView title;
+    public final ImageView imageView;
 
     public KnowItViewHolder(View itemView) {
         super(itemView);
         mView=itemView;
-        title= (TextView) itemView.findViewById(R.id.know_it_item_title);
-        imageView= (ImageView) itemView.findViewById(R.id.know_it_item_image);
+        title= itemView.findViewById(R.id.know_it_item_title);
+        imageView= itemView.findViewById(R.id.know_it_item_image);
 
     }
 }

@@ -33,8 +33,8 @@ public class UpdateProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_update_profile, container, false);
 
-        categoryTabs = (TabLayout) rootView.findViewById(R.id.profile_tabs);
-        categoryView = (ViewPager) rootView.findViewById(R.id.profile_viewpager);
+        categoryTabs = rootView.findViewById(R.id.profile_tabs);
+        categoryView = rootView.findViewById(R.id.profile_viewpager);
 
         setupTabs();
         bottomNavigationView.setVisibility(View.GONE);
@@ -43,7 +43,7 @@ public class UpdateProfileFragment extends Fragment {
 
 
 
-    void setupTabs() {
+    private void setupTabs() {
         tabSelectedListener = new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -78,8 +78,8 @@ public class UpdateProfileFragment extends Fragment {
         categoryTabs.addTab(categoryTabs.newTab().setCustomView(tab3));
 
         FragmentPagerAdapter categoryAdapter = new FragmentPagerAdapter(getFragmentManager()) {
-            Fragment fragments[] = {new Personal_Fragment(), new ProjectsFragment(), new Interest_Fragment()};
-            String titles[] = {"Personal", "Projects", "Fields"};
+            final Fragment[] fragments = {new Personal_Fragment(), new ProjectsFragment(), new Interest_Fragment()};
+            final String[] titles = {"Personal", "Projects", "Fields"};
             @Override
             public Fragment getItem(int position) {
                 return fragments[position];
@@ -116,7 +116,7 @@ public class UpdateProfileFragment extends Fragment {
         LayoutInflater inflater = LayoutInflater.from(getContext());
 
         View view = inflater.inflate(R.layout.know_it_tabitem, null);
-        TextView textView = (TextView)view.findViewById(R.id.tab_text);
+        TextView textView = view.findViewById(R.id.tab_text);
         textView.setText(text);
         textView.setTextColor(getResources().getColor(colorResource));
         if(textSize == -1){

@@ -11,12 +11,12 @@ import com.products.safetyfirst.R;
  */
 
 public class LawViewHolder extends RecyclerView.ViewHolder{
-    public ImageView images;
+    private final ImageView images;
 
     public LawViewHolder(View view) {
 
         super(view);
-        images = (ImageView) view.findViewById(R.id.know_img);
+        images = view.findViewById(R.id.know_img);
 
     }
 }

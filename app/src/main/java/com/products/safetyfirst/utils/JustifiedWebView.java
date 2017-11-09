@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.webkit.WebView;
 
 
+@SuppressWarnings({"ALL", "EmptyMethod"})
 public class JustifiedWebView extends WebView {
 
     private String content;

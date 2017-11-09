@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class NewsModel {
 
-    public Map<String, Boolean> bookmarks = new HashMap<>();
+    public final Map<String, Boolean> bookmarks = new HashMap<>();
     private String title,imgUrl,favicon, body, uid, author;
     private Integer timestamp;
     private String deeplink;

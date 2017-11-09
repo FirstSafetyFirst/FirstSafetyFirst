@@ -13,6 +13,7 @@ import com.google.firebase.iid.FirebaseInstanceIdService;
 /**
  * Created by Vikas on 15-07-2016.
  */
+@SuppressWarnings({"ALL", "EmptyMethod"})
 public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
 
     private static final String TAG = "MyFirebaseIIDService";

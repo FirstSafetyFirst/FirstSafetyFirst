@@ -51,7 +51,7 @@ public class AuthorHelper {
         disposable.add(subs);
     }
 
-    public Single<String> getPeerImage(final String uid) {
+    private Single<String> getPeerImage(final String uid) {
         return Single.create(new SingleOnSubscribe<String>() {
             @Override
             public void subscribe(@NonNull final SingleEmitter<String> emitter) throws Exception {

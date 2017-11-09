@@ -9,8 +9,8 @@ import android.view.View;
  */
 
 public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
-    private int space;
-    private int mNumCol;
+    private final int space;
+    private final int mNumCol;
 
     public SpacesItemDecoration(int space, int numCol) {
         this.space = space;

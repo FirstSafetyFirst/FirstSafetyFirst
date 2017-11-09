@@ -13,7 +13,7 @@ public class Comment  {
 
     private String uid;
     private String author;
-    public String text;
+    private String text;
     private int upvoteCount = 0;
     private int downvoteCount = 0;
     private String xmlText = null;

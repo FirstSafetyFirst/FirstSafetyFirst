@@ -18,6 +18,7 @@ import com.products.safetyfirst.R;
  * Use the {@link AnswersFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+@SuppressWarnings("ALL")
 public class AnswersFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -102,6 +103,7 @@ public class AnswersFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
+    @SuppressWarnings("EmptyMethod")
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);

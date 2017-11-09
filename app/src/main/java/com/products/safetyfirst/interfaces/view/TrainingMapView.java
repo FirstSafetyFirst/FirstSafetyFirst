@@ -8,6 +8,7 @@ import java.util.ArrayList;
  * Created by vikas on 19/10/17.
  */
 
+@SuppressWarnings({"ALL", "EmptyMethod"})
 public interface TrainingMapView {
 
     void onError(String message);

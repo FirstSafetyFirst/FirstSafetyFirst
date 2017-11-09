@@ -22,7 +22,7 @@ public class AddInterestAdapter extends RecyclerView.Adapter<AddInterestViewHold
 
     private final ArrayList<InterestModel> mInterestList = new ArrayList<>();
     private final AddInterestPresenterImpl presenter;
-    private Context context;
+    private final Context context;
 
     public AddInterestAdapter(Context context) {
         this.presenter = new AddInterestPresenterImpl(this);

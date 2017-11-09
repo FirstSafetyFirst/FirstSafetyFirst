@@ -9,6 +9,7 @@ import java.util.ArrayList;
  * Created by ishita sharma on 10/20/2017.
  */
 
+@SuppressWarnings({"ALL", "EmptyMethod"})
 public interface KnowItPresenter {
 
     void onDestroy();

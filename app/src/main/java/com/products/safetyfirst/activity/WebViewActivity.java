@@ -31,7 +31,7 @@ public class WebViewActivity extends AppCompatActivity {
         progDailog.setCancelable(false);
 
 
-        webView = (WebView) findViewById(R.id.web);
+        webView = findViewById(R.id.web);
 
 
         webView.getSettings().setJavaScriptEnabled(true);

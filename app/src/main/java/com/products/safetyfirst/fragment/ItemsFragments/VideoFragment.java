@@ -34,8 +34,8 @@ public class VideoFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mainView = inflater.inflate(R.layout.fragment_video, container, false);
-        WebView webView = (WebView) mainView.findViewById(R.id.webview);
-        TextView notAvailable = (TextView) mainView.findViewById(R.id.not_available);
+        WebView webView = mainView.findViewById(R.id.webview);
+        TextView notAvailable = mainView.findViewById(R.id.not_available);
 
 
         String url =  ((ItemTypeInfoActivity) getActivity()).getKnowItItemVideo();

@@ -20,7 +20,7 @@ import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
 
 public class PostInteractorImpl implements PostInteractor {
 
-    private PostPresenter presenter;
+    private final PostPresenter presenter;
 
     public PostInteractorImpl(PostPresenter presenter){
         this.presenter = presenter;

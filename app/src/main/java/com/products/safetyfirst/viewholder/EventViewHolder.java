@@ -13,28 +13,28 @@ import com.products.safetyfirst.R;
  */
 
 public class EventViewHolder extends RecyclerView.ViewHolder{
-    public View mView;
-    public ImageView images;
-    public TextView title;
-    public TextView dateTime;
-    public ImageView bookmark;
-    public TextView going;
-    public TextView maybe;
-    public Button details;
+    public final View mView;
+    private final ImageView images;
+    public final TextView title;
+    public final TextView dateTime;
+    private final ImageView bookmark;
+    public final TextView going;
+    public final TextView maybe;
+    public final Button details;
 
 
     public EventViewHolder(View view) {
 
         super(view);
         mView = view;
-        images = (ImageView) view.findViewById(R.id.event_avtar);
-        title = (TextView) view.findViewById(R.id.title);
-        dateTime = (TextView) view.findViewById(R.id.dateTime);
-        bookmark = (ImageView) view.findViewById(R.id.bookmark);
+        images = view.findViewById(R.id.event_avtar);
+        title = view.findViewById(R.id.title);
+        dateTime = view.findViewById(R.id.dateTime);
+        bookmark = view.findViewById(R.id.bookmark);
 
-        going = (TextView) view.findViewById(R.id.going);
-        maybe = (TextView) view.findViewById(R.id.interested);
-        details = (Button) view.findViewById(R.id.view_details);
+        going = view.findViewById(R.id.going);
+        maybe = view.findViewById(R.id.interested);
+        details = view.findViewById(R.id.view_details);
 
     }
 }

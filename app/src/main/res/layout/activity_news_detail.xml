@@ -51,7 +51,8 @@
         app:layout_anchor="@id/app_bar_scrolling"
         app:backgroundTint="@color/colorPrimaryLight"
         app:layout_anchorGravity="bottom|right|end"
-        app:srcCompat="@drawable/ic_bookmark_border_black_24dp" />
+        app:srcCompat="@drawable/ic_bookmark_border_black_24dp"
+        android:focusable="true" />
 
     <include layout="@layout/content_scrolling" />
 <android.support.v7.widget.ButtonBarLayout

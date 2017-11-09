@@ -51,7 +51,7 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
     private static final int REQUEST_READ = 12;
 
     /* Variables used */
-    private List<Bitmap> imageList = new ArrayList<>();
+    private final List<Bitmap> imageList = new ArrayList<>();
 
     /* Helper class instances */
     private UserHelper user;
@@ -75,20 +75,20 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
             finish();
         }
 
-        editor = (RichEditor) findViewById(R.id.new_post_edit);
-        boldBtn = (ImageButton) findViewById(R.id.bold_btn);
-        italicBtn = (ImageButton) findViewById(R.id.italic_btn);
-        underlineBtn = (ImageButton) findViewById(R.id.underline_btn);
-        pickImgBtn = (ImageButton) findViewById(R.id.pick_img_btn);
-        createPostBtn = (Button) findViewById(R.id.post_btn);
-        imgView = (RecyclerView) findViewById(R.id.images_list_view);
-        titleText = (EditText) findViewById(R.id.new_post_title);
+        editor = findViewById(R.id.new_post_edit);
+        boldBtn = findViewById(R.id.bold_btn);
+        italicBtn = findViewById(R.id.italic_btn);
+        underlineBtn = findViewById(R.id.underline_btn);
+        pickImgBtn = findViewById(R.id.pick_img_btn);
+        createPostBtn = findViewById(R.id.post_btn);
+        imgView = findViewById(R.id.images_list_view);
+        titleText = findViewById(R.id.new_post_title);
 
         initEditor();
         initImgRecycler();
     }
 
-    void initEditor() {
+    private void initEditor() {
         editor.setEditorHeight(400);
         editor.setPadding(10, 10, 50, 10);
         editor.setPlaceholder("Type question...");
@@ -108,7 +108,7 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
         createPostBtn.setOnClickListener(this);
     }
 
-    void initImgRecycler() {
+    private void initImgRecycler() {
         imgAdapter = new ImageAdapter(imageList);
         // RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(this, 4);
@@ -130,7 +130,7 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    void pickImage() {
+    private void pickImage() {
         imageSelectionHelper = new ImageSelectionHelper(this);
         imageSelectionHelper.pickMultipleImages();
     }
@@ -147,7 +147,7 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    public void createNewPost() {
+    private void createNewPost() {
         if(!titleText.getText().toString().trim().equals("") && !editor.getHtml().trim().equals("")) {
             final String postKey = postHelper.createPostKey();
             Analytics.logEventShare(getApplicationContext(),titleText.getText().toString(),postKey);
@@ -195,7 +195,7 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
 
     private class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHolder> {
 
-        private List<Bitmap> thumbList;
+        private final List<Bitmap> thumbList;
 
         public ImageAdapter(List<Bitmap> thumbList) {
             this.thumbList = thumbList;
@@ -220,10 +220,10 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
 
         public class ImageViewHolder extends RecyclerView.ViewHolder {
 
-            private ImageView thumbImg;
+            private final ImageView thumbImg;
             private ImageViewHolder(View itemView) {
                 super(itemView);
-                thumbImg = (ImageView) itemView.findViewById(R.id.new_post_img);
+                thumbImg = itemView.findViewById(R.id.new_post_img);
             }
         }
     }

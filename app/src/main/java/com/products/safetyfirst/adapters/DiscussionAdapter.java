@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.products.safetyfirst.activity.PostDetailActivity;
+import com.products.safetyfirst.activity.ProfileActivity;
 import com.products.safetyfirst.models.PostModel;
 import com.products.safetyfirst.utils.JustifiedWebView;
 
@@ -28,7 +29,7 @@ public class DiscussionAdapter extends
         RecyclerView.Adapter<DiscussionAdapter.ViewHolder> {
 
     // Store a member variable for the contacts
-    private List<PostModel> postModels;
+    private final List<PostModel> postModels;
    // private Context context;
 
     // Pass in the contact array into the constructor
@@ -42,12 +43,20 @@ public class DiscussionAdapter extends
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // Your holder should contain a member variable
         // for any view that will be set as you render a row
-        public ImageView images, overflow, post_author_photo, likeBtn, ansBtn, bookmark;
-        public TextView post_title, dateTime, post_author, post_author_email;
-        public JustifiedWebView body;
-        public Button readMore;
-        public LinearLayout post_author_layout;
-        private Context context;
+        public ImageView images;
+        public final ImageView overflow;
+        public final ImageView post_author_photo;
+        public final ImageView likeBtn;
+        public final ImageView ansBtn;
+        public final ImageView bookmark;
+        public final TextView post_title;
+        public final TextView dateTime;
+        public final TextView post_author;
+        public final TextView post_author_email;
+        public final JustifiedWebView body;
+        public final Button readMore;
+        public final LinearLayout post_author_layout;
+        private final Context context;
 
         // We also create a constructor that accepts the entire item row
         // and does the view lookups to find each subview
@@ -56,18 +65,18 @@ public class DiscussionAdapter extends
             // to access the context from any ViewHolder instance.
             super(itemView);
 
-            post_author_photo = (ImageView) itemView.findViewById(R.id.post_author_photo);
-            overflow = (ImageView) itemView.findViewById(R.id.overflow);
-            likeBtn = (ImageView) itemView.findViewById(R.id.LikeBtn);
-            ansBtn = (ImageView) itemView.findViewById(R.id.ansBtn);
-            bookmark = (ImageView) itemView.findViewById(R.id.bookmark);
-            post_title = (TextView) itemView.findViewById(R.id.post_title);
-            body = (JustifiedWebView) itemView.findViewById(R.id.post_body);
-            dateTime = (TextView) itemView.findViewById(R.id.dateTime);
-            post_author = (TextView) itemView.findViewById(R.id.post_author);
-            post_author_email = (TextView) itemView.findViewById(R.id.post_author_email);
-            readMore = (Button) itemView.findViewById(R.id.view_details);
-            post_author_layout = (LinearLayout) itemView.findViewById(R.id.post_author_layout);
+            post_author_photo = itemView.findViewById(R.id.post_author_photo);
+            overflow = itemView.findViewById(R.id.overflow);
+            likeBtn = itemView.findViewById(R.id.LikeBtn);
+            ansBtn = itemView.findViewById(R.id.ansBtn);
+            bookmark = itemView.findViewById(R.id.bookmark);
+            post_title = itemView.findViewById(R.id.post_title);
+            body = itemView.findViewById(R.id.post_body);
+            dateTime = itemView.findViewById(R.id.dateTime);
+            post_author = itemView.findViewById(R.id.post_author);
+            post_author_email = itemView.findViewById(R.id.post_author_email);
+            readMore = itemView.findViewById(R.id.view_details);
+            post_author_layout = itemView.findViewById(R.id.post_author_layout);
             context = itemView.getContext();
         }
     }
@@ -79,8 +88,7 @@ public class DiscussionAdapter extends
 
         View contactView = inflater.inflate(R.layout.discussion_item, parent, false);
 
-        ViewHolder viewHolder = new ViewHolder(contactView);
-        return viewHolder;
+        return new ViewHolder(contactView);
     }
 
     @Override
@@ -129,6 +137,15 @@ public class DiscussionAdapter extends
             public void onClick(View view) {
                 Intent intent = new Intent(viewHolder.context, PostDetailActivity.class);
                 intent.putExtra(PostDetailActivity.EXTRA_POST_KEY, postModel.getPreviousPost());
+                viewHolder.context.startActivity(intent);
+            }
+        });
+
+        viewHolder.post_author_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(viewHolder.context, ProfileActivity.class);
+                intent.putExtra(ProfileActivity.EXTRA_PROFILE_KEY, postModel.getUid());
                 viewHolder.context.startActivity(intent);
             }
         });

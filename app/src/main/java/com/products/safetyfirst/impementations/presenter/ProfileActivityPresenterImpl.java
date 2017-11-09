@@ -13,7 +13,7 @@ import com.products.safetyfirst.models.UserModel;
 public class ProfileActivityPresenterImpl implements ProfileActivityPresenter, ProfileActivityInteractor.OnUpdateFinishedListener {
 
     private ProfileActivityView profileActivityView;
-    private ProfileActivityInteractor profileActivityInteractor;
+    private final ProfileActivityInteractor profileActivityInteractor;
     private String currentUserId, followedUserId;
 
     public ProfileActivityPresenterImpl(ProfileActivityView profileActivityView) {

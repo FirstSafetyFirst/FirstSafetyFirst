@@ -28,9 +28,9 @@ import java.util.ArrayList;
 
 public class KnowItAdapter extends RecyclerView.Adapter<KnowItViewHolder> implements KnowItAdapterView{
 
-    private Context context;
-    private ArrayList<KnowItItem> knowItItemArrayList=new ArrayList<>();
-    private KnowItPresenter presenter;
+    private final Context context;
+    private final ArrayList<KnowItItem> knowItItemArrayList=new ArrayList<>();
+    private final KnowItPresenter presenter;
 
 
     public KnowItAdapter(Context context){

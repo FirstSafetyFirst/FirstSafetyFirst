@@ -21,7 +21,7 @@ import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
 
 public class TrainingMapInteractorImpl implements TrainingMapInteractor {
 
-    TrainingMapPresenter presenter;
+    private final TrainingMapPresenter presenter;
 
     public TrainingMapInteractorImpl(TrainingMapPresenter presenter){
         this.presenter = presenter;

@@ -27,12 +27,12 @@ import java.util.Random;
 
 public class ImageSelectionHelper {
 
-    private Activity activity;
-    private int PICK_IMAGE;
-    private List<Bitmap> imageList;
+    private final Activity activity;
+    private final int PICK_IMAGE;
+    private final List<Bitmap> imageList;
     private boolean allowed;
 
-    private int REQUEST_READ = 12;
+    private final int REQUEST_READ = 12;
 
     public ImageSelectionHelper(Activity activity) {
         this.activity = activity;

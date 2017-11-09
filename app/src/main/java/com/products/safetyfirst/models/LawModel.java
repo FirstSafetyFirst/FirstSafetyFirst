@@ -5,7 +5,8 @@ package com.products.safetyfirst.models;
  */
 
 public class LawModel {
-    String img_url,title;
+    private String img_url;
+    private String title;
 
     public LawModel(String img_url, String title) {
         this.img_url = img_url;

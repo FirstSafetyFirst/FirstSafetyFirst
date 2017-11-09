@@ -6,7 +6,9 @@ package com.products.safetyfirst.models;
 
 public class SliderModel {
 
-    String img_url,title,desc;
+    private String img_url;
+    private String title;
+    private String desc;
 
     public SliderModel(String img_url, String title, String desc) {
         this.img_url = img_url;

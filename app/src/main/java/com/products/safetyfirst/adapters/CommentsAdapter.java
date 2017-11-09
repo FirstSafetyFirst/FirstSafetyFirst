@@ -1,5 +1,6 @@
 package com.products.safetyfirst.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -26,8 +27,8 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentViewHolder> imp
     private final ArrayList<Comment> mCommentssList = new ArrayList<>();
     private final ArrayList<String> mKeysList = new ArrayList<>();
     private final PostDetailPresenter presenter;
-    private Context context;
-    private String mPostKey;
+    private final Context context;
+    private final String mPostKey;
 
 
     public CommentsAdapter (Context context, String mPostKey){
@@ -43,6 +44,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentViewHolder> imp
         return new CommentViewHolder(itemView);
     }
 
+    @SuppressLint("RecyclerView")
     @Override
     public void onBindViewHolder(CommentViewHolder holder, final int position) {
         Animation animation = AnimationUtils.loadAnimation(context, R.anim.anim_recycler_item_show);

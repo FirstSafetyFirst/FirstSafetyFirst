@@ -1,5 +1,6 @@
 package com.products.safetyfirst.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -24,16 +25,16 @@ import java.util.ArrayList;
 public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
 
     private final Context context;
-    ArrayList<NewsModel> getNews = new ArrayList<>();
-    ArrayList<NewsModel> tempNews = new ArrayList<>();
-    ArrayList<String> tempkeys = new ArrayList<>();
-    ArrayList<String> getKeys = new ArrayList<>();
-    private DatabaseReference mDatabase;
+    private ArrayList<NewsModel> getNews = new ArrayList<>();
+    private ArrayList<NewsModel> tempNews = new ArrayList<>();
+    private ArrayList<String> tempkeys = new ArrayList<>();
+    private ArrayList<String> getKeys = new ArrayList<>();
+    private final DatabaseReference mDatabase;
     private ArrayList<NewsModel> newsArrayList = new ArrayList<>();
     private ArrayList<String> newsArrayKey=new ArrayList<>();
-    private Query newsquery;
+    private final Query newsquery;
     private String mLastkey;
-    private ProgressBar mpaginateprogbar;
+    private final ProgressBar mpaginateprogbar;
 
     public NewsAdapter(Context cont, Query newsquery, DatabaseReference mDatabase, ProgressBar mpaginateprogbar ) {
         this.context=cont;
@@ -74,7 +75,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
         });
     }
 
-    public void getMoreData(){
+    private void getMoreData(){
         tempkeys=newsArrayKey;
         tempNews=newsArrayList;
         Query Getmorenewsquery=mDatabase.child("news").orderByKey().endAt(mLastkey).limitToLast(10);
@@ -135,6 +136,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
         return new NewsViewHolder(itemView);
     }
 
+    @SuppressLint("RecyclerView")
     @Override
     public void onBindViewHolder(final NewsViewHolder holder, final int position) {
 

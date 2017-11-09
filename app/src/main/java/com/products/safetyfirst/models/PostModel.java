@@ -14,24 +14,24 @@ import java.util.Map;
 @IgnoreExtraProperties
 public class PostModel {
 
-    String title;
-    String body;
-    String uid;
-    List<String> imageList;
-    List<String> fileList;
-    long timestamp;
-    String postKey;
+    private String title;
+    private String body;
+    private String uid;
+    private List<String> imageList;
+    private List<String> fileList;
+    private long timestamp;
+    private String postKey;
 
 
     private String authorImageUrl;
     private String author;
-    private int starCount = 0;
-    private Map<String, Boolean> stars = new HashMap<>();
+    private final int starCount = 0;
+    private final Map<String, Boolean> stars = new HashMap<>();
 
-    public String image;
+    private String image;
     //  public String video;
     public String file;
-    public String link;
+    private String link;
 
 
     public PostModel() {

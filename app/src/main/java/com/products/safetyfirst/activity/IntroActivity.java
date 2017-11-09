@@ -33,7 +33,7 @@ public class IntroActivity extends AppCompatActivity {
     private Button btnSkip;
     private FloatingActionButton btnNext;
     //	viewpager change listener
-    ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
+    private final ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
 
         @Override
         public void onPageSelected(int position) {

@@ -25,6 +25,10 @@ public class NotificationModel extends RealmObject {
 
     private int type;
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     private String extraString;
 
     private boolean seen;

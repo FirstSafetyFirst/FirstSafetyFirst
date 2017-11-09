@@ -44,14 +44,14 @@ import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
 public class SignInActivity extends BaseActivity implements GoogleApiClient.OnConnectionFailedListener,
         View.OnClickListener {
 
-    public static final String PREF_KEY_FIRST_START = "com.vikas.dtu.safetyfirst2.PREF_KEY_FIRST_START";
-    public static final int REQUEST_CODE_INTRO = 1;
+    private static final String PREF_KEY_FIRST_START = "com.vikas.dtu.safetyfirst2.PREF_KEY_FIRST_START";
+    private static final int REQUEST_CODE_INTRO = 1;
     private static final String TAG = "SignInActivity";
     private static final int RC_SIGN_IN = 9001;
     private static final int REQUEST_CODE_GOOGLE_SIGN_IN = 1;
-    public static GoogleApiClient mGoogleApiClient;
-    public static FirebaseAuth mFirebaseAuth;
-    public static boolean signin = false;
+    private static GoogleApiClient mGoogleApiClient;
+    private static FirebaseAuth mFirebaseAuth;
+    private static boolean signin = false;
     private SignInButton mGoogleSignInButton;
     private DatabaseReference mDatabase;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -62,7 +62,7 @@ public class SignInActivity extends BaseActivity implements GoogleApiClient.OnCo
     private SignInButton mSignInButton;
     private Button mSkipButton;
 
-    public static boolean isNetworkStatusAvailable(Context context) {
+    private static boolean isNetworkStatusAvailable(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivityManager != null) {
             NetworkInfo netInfos = connectivityManager.getActiveNetworkInfo();
@@ -96,12 +96,12 @@ public class SignInActivity extends BaseActivity implements GoogleApiClient.OnCo
         mDatabase = getDatabase().getReference();
 
         // Assign fields
-        mGoogleSignInButton = (SignInButton) findViewById(R.id.sign_in_button);
+        mGoogleSignInButton = findViewById(R.id.sign_in_button);
 
-        mEmailField = (EditText) findViewById(R.id.field_email);
-        mPasswordField = (EditText) findViewById(R.id.field_password);
-        customSigninButton = (Button) findViewById(R.id.button_sign_in);
-        mSkipButton = (Button) findViewById(R.id.button_skip);
+        mEmailField = findViewById(R.id.field_email);
+        mPasswordField = findViewById(R.id.field_password);
+        customSigninButton = findViewById(R.id.button_sign_in);
+        mSkipButton = findViewById(R.id.button_skip);
         //  mSignUpButton = (Button) findViewById(R.id.button_sign_up);
 
       //  mSignUpText = (TextView) findViewById(R.id.create_account);

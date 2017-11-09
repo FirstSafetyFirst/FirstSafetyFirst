@@ -43,8 +43,8 @@ public class Laws_Fragment extends Fragment {
         String countryCode = tm.getSimCountryIso();
         Toast.makeText(getContext(), countryCode, Toast.LENGTH_LONG).show();
 
-        categoryTabs = (TabLayout) rootView.findViewById(R.id.category_tabs);
-        categoryView = (ViewPager) rootView.findViewById(R.id.know_it_viewpager);
+        categoryTabs = rootView.findViewById(R.id.category_tabs);
+        categoryView = rootView.findViewById(R.id.know_it_viewpager);
 
         setupTabs();
 
@@ -92,7 +92,7 @@ public class Laws_Fragment extends Fragment {
 
 
 
-    void setupTabs() {
+    private void setupTabs() {
         tabSelectedListener = new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -127,8 +127,8 @@ public class Laws_Fragment extends Fragment {
         categoryTabs.addTab(categoryTabs.newTab().setCustomView(tab3));
 
         FragmentPagerAdapter categoryAdapter = new FragmentPagerAdapter(getFragmentManager()) {
-            Fragment fragments[] = {new State_Fragment(), new National_Fragment(), new International_Fragment()};
-            String titles[] = {"State Laws", "National Laws", "International Laws"};
+            final Fragment[] fragments = {new State_Fragment(), new National_Fragment(), new International_Fragment()};
+            final String[] titles = {"State Laws", "National Laws", "International Laws"};
             @Override
             public Fragment getItem(int position) {
                 return fragments[position];
@@ -165,7 +165,7 @@ public class Laws_Fragment extends Fragment {
         LayoutInflater inflater = LayoutInflater.from(getContext());
 
         View view = inflater.inflate(R.layout.know_it_tabitem, null);
-        TextView textView = (TextView)view.findViewById(R.id.tab_text);
+        TextView textView = view.findViewById(R.id.tab_text);
         textView.setText(text);
         textView.setTextColor(getResources().getColor(colorResource));
         if(textSize == -1){

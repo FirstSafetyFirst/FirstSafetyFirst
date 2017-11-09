@@ -19,12 +19,13 @@ import com.products.safetyfirst.adapters.DiscussionAdapter;
 
 import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
 
+@SuppressWarnings({"ALL", "EmptyMethod"})
 public class QuestionsFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    RecyclerView home_recycler;
+    private RecyclerView home_recycler;
 
     private DatabaseReference mDatabase;
     private ProgressBar mpaginateprogbar;
@@ -66,10 +67,10 @@ public class QuestionsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_questions, container, false);
 
         mDatabase = getDatabase().getReference();
-        mpaginateprogbar=(ProgressBar) rootView.findViewById(R.id.newspaginateprogbar);
+        mpaginateprogbar= rootView.findViewById(R.id.newspaginateprogbar);
 
 
-        home_recycler=(RecyclerView)rootView.findViewById(R.id.discussion_recycler);
+        home_recycler= rootView.findViewById(R.id.discussion_recycler);
         home_recycler.setHasFixedSize(true);
         return rootView;
     }
@@ -117,6 +118,7 @@ public class QuestionsFragment extends Fragment {
         mListener = null;
     }
 
+    @SuppressWarnings("EmptyMethod")
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
     }

@@ -31,9 +31,10 @@ import java.util.List;
 import static com.products.safetyfirst.activity.HomeActivity.bottomNavigationView;
 import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
 
+@SuppressWarnings({"ALL", "EmptyMethod"})
 public class DiscussionFragment extends Fragment implements PostView{
     public static final String ARG_TITLE = "arg_title";
-    RecyclerView rvItems;
+    private RecyclerView rvItems;
 
     private DatabaseReference mDatabase;
     private ProgressBar mpaginateprogbar;
@@ -46,8 +47,8 @@ public class DiscussionFragment extends Fragment implements PostView{
 
     private PostPresenter presenter;
 
-    final List<PostModel> allPosts =  new ArrayList<>();
-    final DiscussionAdapter adapter = new DiscussionAdapter(allPosts, getActivity());
+    private final List<PostModel> allPosts =  new ArrayList<>();
+    private final DiscussionAdapter adapter = new DiscussionAdapter(allPosts, getActivity());
    // final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
 
 
@@ -62,11 +63,11 @@ public class DiscussionFragment extends Fragment implements PostView{
         postHelper = PostHelper.getInstance();
 
         mDatabase = getDatabase().getReference();
-        mpaginateprogbar=(ProgressBar) rootView.findViewById(R.id.newspaginateprogbar);
-        mFab = (FloatingActionButton) rootView.findViewById(R.id.new_post);
+        mpaginateprogbar= rootView.findViewById(R.id.newspaginateprogbar);
+        mFab = rootView.findViewById(R.id.new_post);
 
 
-        rvItems =(RecyclerView)rootView.findViewById(R.id.discussion_recycler);
+        rvItems = rootView.findViewById(R.id.discussion_recycler);
         rvItems.setHasFixedSize(true);
         rvItems.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -113,7 +114,7 @@ public class DiscussionFragment extends Fragment implements PostView{
 
     }
 
-    String lastPostKey = null;
+    private String lastPostKey = null;
     @Override
     public void getInitialPosts(List<PostModel> initialPosts, final String lastKey) {
 

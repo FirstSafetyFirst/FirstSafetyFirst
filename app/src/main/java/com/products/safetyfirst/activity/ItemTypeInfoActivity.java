@@ -44,13 +44,14 @@ public class ItemTypeInfoActivity extends AppCompatActivity implements KnowItVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_type_info);
 
-        mainImage = (ImageView) findViewById(R.id.main_image);
+        mainImage = findViewById(R.id.main_image);
 
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Detail");
-        actionBar.setDisplayHomeAsUpEnabled(true);
-
+        if(actionBar != null){
+            actionBar.setTitle("Detail");
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         String mItemName = getIntent().getStringExtra(EXTRA_ITEM_NAME);
         if (mItemName == null) {
@@ -62,13 +63,13 @@ public class ItemTypeInfoActivity extends AppCompatActivity implements KnowItVie
         presenter.requestSpecificItem(mItemName);
 
         //((NestedScrollView) findViewById(R.id.nestedScroll)).setFillViewport(true);
-        tabs = (TabLayout) findViewById(R.id.tabs);
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        tabs = findViewById(R.id.tabs);
+        viewPager = findViewById(R.id.viewpager);
 
         setupTabs();
     }
 
-    void setupTabs() {
+    private void setupTabs() {
 
         String tab_texts[] = {"Information", "How to Use", "Checklist", "Video"};
         Integer images[] = {R.drawable.ic_description,
@@ -96,6 +97,7 @@ public class ItemTypeInfoActivity extends AppCompatActivity implements KnowItVie
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
                 TabLayout.Tab tab = tabs.getTabAt(position);
+                assert tab != null;
                 tab.select();
             }
 
@@ -119,7 +121,7 @@ public class ItemTypeInfoActivity extends AppCompatActivity implements KnowItVie
         }
 
         FragmentPagerAdapter categoryAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
-            String titles[] = {"Info", "How To Use", "Checklist", "Video"};
+            final String[] titles = {"Info", "How To Use", "Checklist", "Video"};
             @Override
             public Fragment getItem(int position) {
                 return fragments[position];

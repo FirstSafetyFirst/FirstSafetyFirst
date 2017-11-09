@@ -19,7 +19,7 @@ import java.util.List;
 public class Home_Slider_Adapter extends RecyclerView.Adapter<HomeSliderViewHolder> {
 
     private final Context context;
-    private List<SliderModel> horizontalList;
+    private final List<SliderModel> horizontalList;
 
     public Home_Slider_Adapter(Context cont, List<SliderModel> horizontalList) {
         this.horizontalList = horizontalList;

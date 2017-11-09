@@ -36,6 +36,7 @@ public class KnowItSecondActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
 
+        assert bundle != null;
         mName = bundle.getString("Name");
         mInfo = bundle.getString("Info");
         mChecklist = bundle.getString("Checklist");
@@ -48,8 +49,8 @@ public class KnowItSecondActivity extends AppCompatActivity {
         }
 
 
-        categoryTabs = (TabLayout) findViewById(R.id.category_tabs);
-        categoryView = (ViewPager) findViewById(R.id.know_it_viewpager);
+        categoryTabs = findViewById(R.id.category_tabs);
+        categoryView = findViewById(R.id.know_it_viewpager);
 
         setupTabs();
 
@@ -57,7 +58,7 @@ public class KnowItSecondActivity extends AppCompatActivity {
 
 
 
-    void setupTabs() {
+    private void setupTabs() {
         tabSelectedListener = new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -95,7 +96,7 @@ public class KnowItSecondActivity extends AppCompatActivity {
         categoryTabs.addTab(categoryTabs.newTab().setCustomView(tab2));
 
         FragmentPagerAdapter categoryAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
-            Fragment fragments[] = {new InfoFragment(), new TypeFragment()};
+            final Fragment[] fragments = {new InfoFragment(), new TypeFragment()};
             String titles[] = {"Info", "Types"};
             @Override
             public Fragment getItem(int position) {

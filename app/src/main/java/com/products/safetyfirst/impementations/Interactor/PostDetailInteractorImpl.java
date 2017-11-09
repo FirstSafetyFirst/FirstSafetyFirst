@@ -29,8 +29,8 @@ import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
 
 public class PostDetailInteractorImpl implements PostDetailInteractor {
 
-    private PostDetailPresenter presenter;
-    private UserHelper user;
+    private final PostDetailPresenter presenter;
+    private final UserHelper user;
 
     public PostDetailInteractorImpl(PostDetailPresenterImpl presenter){
         this.presenter = presenter;

@@ -11,13 +11,13 @@ import com.products.safetyfirst.R;
  * Created by profileconnect on 12/04/17.
  */
 
-public class Statics extends RecyclerView.ViewHolder {
+class Statics extends RecyclerView.ViewHolder {
 
-    ImageView statics;
+    private ImageView statics;
 
     public Statics(View v) {
         super(v);
-        statics = (ImageView) v.findViewById(R.id.images);
+        statics = v.findViewById(R.id.images);
     }
 
     public ImageView getStatics() {

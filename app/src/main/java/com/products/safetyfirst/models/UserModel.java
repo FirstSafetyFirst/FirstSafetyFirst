@@ -14,7 +14,7 @@ import java.util.Map;
  */
 
 public class UserModel {
-    public Map<String, Boolean> newsBookmarks = new HashMap<>();
+    public final Map<String, Boolean> newsBookmarks = new HashMap<>();
     private String name;
     private int rank;
     private String email;

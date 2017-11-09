@@ -10,6 +10,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+@SuppressWarnings({"ALL", "EmptyMethod"})
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 public class SplashActivityTest2 {

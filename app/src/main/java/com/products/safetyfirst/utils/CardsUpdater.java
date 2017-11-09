@@ -9,7 +9,8 @@ import android.view.View;
 import com.ramotion.cardslider.CardSliderLayoutManager;
 import com.ramotion.cardslider.DefaultViewUpdater;
 
-public class CardsUpdater extends DefaultViewUpdater {
+@SuppressWarnings({"ALL", "EmptyMethod"})
+class CardsUpdater extends DefaultViewUpdater {
 
     public CardsUpdater(CardSliderLayoutManager lm) {
         super(lm);

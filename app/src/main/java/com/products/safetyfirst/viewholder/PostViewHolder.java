@@ -25,29 +25,37 @@ import java.util.Locale;
  * Created by ishita sharma on 11/4/2017.
  */
 
-public class PostViewHolder  extends RecyclerView.ViewHolder{
-    private ImageView images, overflow, post_author_photo, likeBtn, ansBtn, bookmark;
-    private TextView post_title, dateTime, post_author, post_author_email;
-    private JustifiedWebView body;
-    private Button readMore;
-    private LinearLayout post_author_layout;
+class PostViewHolder  extends RecyclerView.ViewHolder{
+    private ImageView images;
+    private final ImageView overflow;
+    private final ImageView post_author_photo;
+    private final ImageView likeBtn;
+    private final ImageView ansBtn;
+    private final ImageView bookmark;
+    private final TextView post_title;
+    private final TextView dateTime;
+    private final TextView post_author;
+    private final TextView post_author_email;
+    private final JustifiedWebView body;
+    private final Button readMore;
+    private final LinearLayout post_author_layout;
 
-    private Context context;
+    private final Context context;
 
     public PostViewHolder(View itemView){
         super(itemView);
-        post_author_photo = (ImageView) itemView.findViewById(R.id.post_author_photo);
-        overflow = (ImageView) itemView.findViewById(R.id.overflow);
-        likeBtn = (ImageView) itemView.findViewById(R.id.LikeBtn);
-        ansBtn = (ImageView) itemView.findViewById(R.id.ansBtn);
-        bookmark = (ImageView) itemView.findViewById(R.id.bookmark);
-        post_title = (TextView) itemView.findViewById(R.id.post_title);
-        body = (JustifiedWebView) itemView.findViewById(R.id.post_body);
-        dateTime = (TextView) itemView.findViewById(R.id.dateTime);
-        post_author = (TextView) itemView.findViewById(R.id.post_author);
-        post_author_email = (TextView) itemView.findViewById(R.id.post_author_email);
-        readMore = (Button) itemView.findViewById(R.id.view_details);
-        post_author_layout = (LinearLayout) itemView.findViewById(R.id.post_author_layout);
+        post_author_photo = itemView.findViewById(R.id.post_author_photo);
+        overflow = itemView.findViewById(R.id.overflow);
+        likeBtn = itemView.findViewById(R.id.LikeBtn);
+        ansBtn = itemView.findViewById(R.id.ansBtn);
+        bookmark = itemView.findViewById(R.id.bookmark);
+        post_title = itemView.findViewById(R.id.post_title);
+        body = itemView.findViewById(R.id.post_body);
+        dateTime = itemView.findViewById(R.id.dateTime);
+        post_author = itemView.findViewById(R.id.post_author);
+        post_author_email = itemView.findViewById(R.id.post_author_email);
+        readMore = itemView.findViewById(R.id.view_details);
+        post_author_layout = itemView.findViewById(R.id.post_author_layout);
         context = itemView.getContext();
     }
 

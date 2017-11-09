@@ -4,10 +4,10 @@ package com.products.safetyfirst.models;
  * Created by profileconnect on 24/04/17.
  */
 
-public class Statics_model {
+class Statics_model {
 
-    Integer point;
-    String texts;
+    private Integer point;
+    private String texts;
 
     public Statics_model(String texts) {
         this.texts = texts;

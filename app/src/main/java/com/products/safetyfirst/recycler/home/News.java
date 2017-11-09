@@ -9,13 +9,13 @@ import com.products.safetyfirst.R;
  * Created by profileconnect on 12/04/17.
  */
 
-public class News extends RecyclerView.ViewHolder {
+class News extends RecyclerView.ViewHolder {
 
-    RecyclerView news;
+    private RecyclerView news;
 
     public News(View v) {
         super(v);
-        news = (RecyclerView) v.findViewById(R.id.news_holder);
+        news = v.findViewById(R.id.news_holder);
     }
 
 

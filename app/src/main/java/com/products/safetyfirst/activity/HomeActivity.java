@@ -78,11 +78,11 @@ public class HomeActivity extends BaseActivity
 
     private static final String DEEP_LINK_URL = Constants.DEEP_LINK_URL;
 
-    List<Fragment> fragments = new ArrayList<>(5);
-    Toolbar toolbar;
-    public static SearchView searchView;
+    private final List<Fragment> fragments = new ArrayList<>(5);
+    private Toolbar toolbar;
+    private static SearchView searchView;
     public static NavigationView navigationView;
-    PrefManager prefManager;
+    private PrefManager prefManager;
     private FirebaseUser mFirebaseUser;
     public static BottomNavigationView bottomNavigationView;
     @Override
@@ -118,8 +118,8 @@ public class HomeActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        searchView=(SearchView) findViewById(R.id.search);
-        /**
+        searchView= findViewById(R.id.search);
+        /*
         searchView.setOnSearchClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -130,7 +130,7 @@ public class HomeActivity extends BaseActivity
 
             }
         });
-         **/
+         */
         final int versionCode= BuildConfig.VERSION_CODE;
         Query query= getDatabase().getReference().child("current version");
         final long[] version = new long[1];
@@ -168,16 +168,16 @@ public class HomeActivity extends BaseActivity
 
         prefManager.setFirstHomeLaunch(false);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -266,14 +266,14 @@ public class HomeActivity extends BaseActivity
 
         final Dialog dialog = new Dialog(HomeActivity.this);
         dialog.setContentView(R.layout.dialog_tnc);
-        TextView dialogTitle = (TextView) dialog.findViewById(R.id.dialogTitle);
-        TextView dialogContent = (TextView) dialog.findViewById(R.id.content);
+        TextView dialogTitle = dialog.findViewById(R.id.dialogTitle);
+        TextView dialogContent = dialog.findViewById(R.id.content);
 
         dialogTitle.setText(title);
         dialogContent.setText(body);
 
-        Button btnDismiss = (Button) dialog.findViewById(R.id.btn_yes);
-        Button btnUpdate = (Button) dialog.findViewById(R.id.btn_no);
+        Button btnDismiss = dialog.findViewById(R.id.btn_yes);
+        Button btnUpdate = dialog.findViewById(R.id.btn_no);
 
         btnDismiss.setText("Dismiss");
         btnUpdate.setText("Update");
@@ -322,7 +322,7 @@ public class HomeActivity extends BaseActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -354,7 +354,7 @@ public class HomeActivity extends BaseActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
         if (id == R.id.nav_faq) {
@@ -377,12 +377,12 @@ public class HomeActivity extends BaseActivity
         } else if (id == R.id.nav_update_profile) {
             switchFragment(4, TAG_FRAGMENT_UPDATE_PROFILE);
         }
-        else if(id==R.id.bookmarks){
+        else if(id==R.id.nav_bookmarks){
             Intent intent= new Intent(this,BookmarkActivity.class);
             startActivity(intent);
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -392,14 +392,14 @@ public class HomeActivity extends BaseActivity
 
         final Dialog dialog = new Dialog(HomeActivity.this);
         dialog.setContentView(R.layout.dialog_tnc);
-        TextView dialogTitle = (TextView) dialog.findViewById(R.id.dialogTitle);
-        TextView dialogContent = (TextView) dialog.findViewById(R.id.content);
+        TextView dialogTitle = dialog.findViewById(R.id.dialogTitle);
+        TextView dialogContent = dialog.findViewById(R.id.content);
 
         dialogTitle.setText(title);
         dialogContent.setText(body);
 
-        Button btnYes = (Button) dialog.findViewById(R.id.btn_yes);
-        Button btnNo = (Button) dialog.findViewById(R.id.btn_no);
+        Button btnYes = dialog.findViewById(R.id.btn_yes);
+        Button btnNo = dialog.findViewById(R.id.btn_no);
 
         btnYes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -422,10 +422,10 @@ public class HomeActivity extends BaseActivity
 
         final Dialog dialog = new Dialog(HomeActivity.this);
         dialog.setContentView(R.layout.dialog_help);
-        TextView dialogTitle = (TextView) dialog.findViewById(R.id.dialogTitle);
-        TextView dialogContent = (TextView) dialog.findViewById(R.id.content);
+        TextView dialogTitle = dialog.findViewById(R.id.dialogTitle);
+        TextView dialogContent = dialog.findViewById(R.id.content);
 
-        Button btnDone = (Button) dialog.findViewById(R.id.btn_done);
+        Button btnDone = dialog.findViewById(R.id.btn_done);
 
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -443,8 +443,8 @@ public class HomeActivity extends BaseActivity
         dialog.setContentView(R.layout.dialog_logout);
 
 
-        Button btnYes = (Button) dialog.findViewById(R.id.btn_yes);
-        Button btnNo = (Button) dialog.findViewById(R.id.btn_no);
+        Button btnYes = dialog.findViewById(R.id.btn_yes);
+        Button btnNo = dialog.findViewById(R.id.btn_no);
 
         btnYes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -490,7 +490,7 @@ public class HomeActivity extends BaseActivity
     }
 
     @VisibleForTesting
-    public Uri buildDeepLink(@NonNull Uri deepLink, int minVersion) {
+    private Uri buildDeepLink(@NonNull Uri deepLink, int minVersion) {
         String domain = getString(R.string.app_code) + ".app.goo.gl";
 
         // Set dynamic link parameters:
@@ -522,6 +522,7 @@ public class HomeActivity extends BaseActivity
                 .addOnCompleteListener(this, new OnCompleteListener<ShortDynamicLink>() {
                     @Override
                     public void onComplete(@NonNull Task<ShortDynamicLink> task) {
+                        //noinspection StatementWithEmptyBody
                         if (task.isSuccessful()) {
                             // Short link created
                             Uri shortLink = task.getResult().getShortLink();
@@ -557,7 +558,7 @@ public class HomeActivity extends BaseActivity
         }
     }
 
-    void showTutorial(){
+    private void showTutorial(){
         // We load a drawable and create a location to show a tap target here
         // We need the display to get the width and height at this point in time
         final Display display = getWindowManager().getDefaultDisplay();

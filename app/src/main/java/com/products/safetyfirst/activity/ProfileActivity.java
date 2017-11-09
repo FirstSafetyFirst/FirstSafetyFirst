@@ -47,7 +47,7 @@ public class ProfileActivity extends BaseActivity
     public static final String EXTRA_PROFILE_KEY = "post_key";
     private static final String TAG = "ProfileActivity";
     private static String mProfileKey;
-    TabLayout tabLayout;
+    private TabLayout tabLayout;
     private TextView mUserName;
     private TextView mCompany;
     private TextView mDesignation;
@@ -68,24 +68,27 @@ public class ProfileActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setDisplayShowCustomEnabled(true);
+        if(actionBar!= null){
+            actionBar.setDisplayShowTitleEnabled(false);
+            actionBar.setDisplayShowCustomEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
         navigationView.setVisibility(View.GONE);
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        ViewGroup root = (ViewGroup) findViewById(R.id.toolbar);
-        LayoutInflater inflator = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View v = inflator.inflate(R.layout.custom_app_bar_profile, root);
 
-        mUserName       = (TextView) findViewById(R.id.user_name);
-        mCompany        = (TextView) findViewById(R.id.company_name);
-        mDesignation    = (TextView) findViewById(R.id.user_designation);
-        updateBtn = (Button) findViewById(R.id.update);
-        mProfileImage = (ImageView) findViewById(R.id.profile_image);
-        mFollowSwitch = (Button) findViewById(R.id.follow);
+        //ViewGroup root = findViewById(R.id.toolbar);
+        LayoutInflater inflator = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View v = inflator != null ? inflator.inflate(R.layout.custom_app_bar_profile, toolbar) : null;
+
+        mUserName       = findViewById(R.id.user_name);
+        mCompany        = findViewById(R.id.company_name);
+        mDesignation    = findViewById(R.id.user_designation);
+        updateBtn = findViewById(R.id.update);
+        mProfileImage = findViewById(R.id.profile_image);
+        mFollowSwitch = findViewById(R.id.follow);
 
 //        Toolbar parent =(Toolbar) v.getParent();
 //        parent.setPadding(0,0,0,0);//for tab otherwise give space in tab
@@ -95,10 +98,10 @@ public class ProfileActivity extends BaseActivity
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
         changeTabsFont();
         mProfileKey = getIntent().getStringExtra(EXTRA_PROFILE_KEY);
@@ -137,7 +140,7 @@ public class ProfileActivity extends BaseActivity
         if (configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 
-            CollapsingToolbarLayout collapsing_toolbar_layout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_layout);
+            CollapsingToolbarLayout collapsing_toolbar_layout = findViewById(R.id.collapsing_toolbar_layout);
             collapsing_toolbar_layout.setExpandedTitleTextColor(ColorStateList.valueOf(Color.TRANSPARENT));
         } else {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);

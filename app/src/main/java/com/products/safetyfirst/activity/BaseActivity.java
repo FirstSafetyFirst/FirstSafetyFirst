@@ -24,11 +24,11 @@ import com.products.safetyfirst.R;
 
 
 public class BaseActivity extends AppCompatActivity {
-    public static GoogleApiClient mGoogleApiClient;
-    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private static GoogleApiClient mGoogleApiClient;
+    private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private ProgressDialog mProgressDialog;
 
-    public void showProgressDialog() {
+    void showProgressDialog() {
         if (mProgressDialog == null) {
             mProgressDialog = new ProgressDialog(this);
             mProgressDialog.setCancelable(false);
@@ -38,19 +38,19 @@ public class BaseActivity extends AppCompatActivity {
         mProgressDialog.show();
     }
 
-    public void hideProgressDialog() {
+    void hideProgressDialog() {
         if (mProgressDialog != null && mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
         }
     }
 
-    public String getCurrentUserId() {
+    String getCurrentUserId() {
         if (FirebaseAuth.getInstance().getCurrentUser() != null)
             return FirebaseAuth.getInstance().getCurrentUser().getUid();
         else return null;
     }
 
-    public void logout() {
+    void logout() {
 
         FirebaseAuth.getInstance().signOut();
         Toast.makeText(getBaseContext(), "You have been Logged out", Toast.LENGTH_SHORT).show();
@@ -80,13 +80,13 @@ public class BaseActivity extends AppCompatActivity {
             return null;
     }
 
-    public boolean isLoggedIn() {
+    boolean isLoggedIn() {
         return user != null;
     }
 
     public class MySignInListener implements View.OnClickListener{
 
-        Context context;
+        final Context context;
 
         public MySignInListener(Context context){
             this.context = context;

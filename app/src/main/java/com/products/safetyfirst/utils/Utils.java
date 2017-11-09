@@ -11,7 +11,7 @@ import android.net.NetworkInfo;
 /**
  * Created by Gino Osahon on 04/03/2017.
  */
-public class Utils {
+class Utils {
 
     private Context mContext = null;
 

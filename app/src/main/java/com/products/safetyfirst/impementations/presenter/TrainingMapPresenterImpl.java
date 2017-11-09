@@ -14,8 +14,8 @@ import java.util.ArrayList;
 
 public class TrainingMapPresenterImpl implements TrainingMapPresenter, TrainingMapInteractor.OnRequestFinishedListener {
 
-    TrainingMapView trainingMapView;
-    TrainingMapInteractor trainingMapInteractor;
+    private TrainingMapView trainingMapView;
+    private final TrainingMapInteractor trainingMapInteractor;
 
     public TrainingMapPresenterImpl(TrainingMapView trainingMapView){
         this.trainingMapView = trainingMapView;

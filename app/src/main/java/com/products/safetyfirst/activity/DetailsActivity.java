@@ -32,7 +32,7 @@ public class DetailsActivity extends AppCompatActivity {
             return;
         }
 
-        imageView = (ImageView)findViewById(R.id.image);
+        imageView = findViewById(R.id.image);
         imageView.setImageResource(smallResId);
 
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -86,12 +86,12 @@ public class DetailsActivity extends AppCompatActivity {
     }
 
     private void addCardCorners() {
-        final CardView cardView = (CardView) findViewById(R.id.card);
+        final CardView cardView = findViewById(R.id.card);
         cardView.setRadius(25f);
     }
 
     private void removeCardCorners() {
-        final CardView cardView = (CardView)findViewById(R.id.card);
+        final CardView cardView = findViewById(R.id.card);
         ObjectAnimator.ofFloat(cardView, "radius", 0f).setDuration(50).start();
     }
 

@@ -8,6 +8,7 @@ import java.util.List;
  * Created by vikas on 01/11/17.
  */
 
+@SuppressWarnings({"ALL", "EmptyMethod"})
 public interface PostView {
 
     void onError(String message);

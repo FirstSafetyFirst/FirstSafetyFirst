@@ -22,7 +22,7 @@ import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
 
 public class ProfileActivityInteractorImpl implements ProfileActivityInteractor {
 
-    ProfileActivityPresenter presenter;
+    private final ProfileActivityPresenter presenter;
 
     public ProfileActivityInteractorImpl(ProfileActivityPresenter presenter) {
         this.presenter = presenter;

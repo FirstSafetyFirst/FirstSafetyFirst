@@ -13,17 +13,17 @@ import com.products.safetyfirst.R;
  */
 
 public class AddInterestViewHolder extends RecyclerView.ViewHolder{
- public View mView;
-    public ImageView mIcon;
-    public TextView mInterest;
-    public CheckBox mCheck;
+ private final View mView;
+    private final ImageView mIcon;
+    public final TextView mInterest;
+    public final CheckBox mCheck;
 
     public AddInterestViewHolder(View itemView) {
         super(itemView);
         mView = itemView;
-        mIcon = (ImageView) itemView.findViewById(R.id.icon);
-        mInterest = (TextView) itemView.findViewById(R.id.interest);
-        mCheck = (CheckBox) itemView.findViewById(R.id.check);
+        mIcon = itemView.findViewById(R.id.icon);
+        mInterest = itemView.findViewById(R.id.interest);
+        mCheck = itemView.findViewById(R.id.check);
     }
 }
 

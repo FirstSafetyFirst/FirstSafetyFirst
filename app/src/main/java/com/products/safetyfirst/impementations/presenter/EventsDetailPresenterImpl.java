@@ -13,8 +13,8 @@ import com.products.safetyfirst.models.EventModel;
 public class EventsDetailPresenterImpl implements EventsDetailPresenter, EventsDetailInteractor.OnUpdateFinishedListener {
 
     private EventsDetailView eventDetailView;
-    private EventsDetailInteractor eventDetailInteractor;
-    private String mEventKey;
+    private final EventsDetailInteractor eventDetailInteractor;
+    private final String mEventKey;
 
     public EventsDetailPresenterImpl(EventsDetailView eventDetailView, String mEventKey) {
         this.eventDetailView = eventDetailView;

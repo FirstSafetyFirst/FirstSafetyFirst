@@ -31,7 +31,7 @@ import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
 
 public class UpdateProfileInteractorImpl implements UpdateProfileInteractor {
 
-    private UpdateProfilePresenter presenter;
+    private final UpdateProfilePresenter presenter;
 
     public UpdateProfileInteractorImpl(UpdateProfilePresenter presenter) {
         this.presenter = presenter;

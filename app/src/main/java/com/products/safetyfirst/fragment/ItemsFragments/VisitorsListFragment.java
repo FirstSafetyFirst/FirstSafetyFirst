@@ -39,7 +39,7 @@ import static android.app.Activity.RESULT_OK;
 public class VisitorsListFragment extends Fragment {
 
 
-    public static final int VIEW_FILE_CODE = 10;
+    private static final int VIEW_FILE_CODE = 10;
     private File openedFile;
     private ProgressBar progress;
     private Button btn;
@@ -65,8 +65,10 @@ public class VisitorsListFragment extends Fragment {
             fos.flush();
             fos.close();
         } catch (FileNotFoundException e) {
+            //noinspection UnnecessaryReturnStatement
             return; // swallow a 404
         } catch (IOException e) {
+            //noinspection UnnecessaryReturnStatement
             return; // swallow a 404
         }
     }
@@ -76,8 +78,8 @@ public class VisitorsListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View mainView = inflater.inflate(R.layout.fragment_type_checklist, container, false);
-        btn = (Button) mainView.findViewById(R.id.checklist);
-        progress = (ProgressBar) mainView.findViewById(R.id.download_progress);
+        btn = mainView.findViewById(R.id.checklist);
+        progress = mainView.findViewById(R.id.download_progress);
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,7 +135,7 @@ public class VisitorsListFragment extends Fragment {
 
     }
 
-    public void copy(File src, File dst) throws IOException {
+    private void copy(File src, File dst) throws IOException {
         InputStream in = new FileInputStream(src);
         OutputStream out = new FileOutputStream(dst);
 

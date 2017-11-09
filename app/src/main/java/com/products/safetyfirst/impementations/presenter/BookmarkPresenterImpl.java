@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class BookmarkPresenterImpl implements BookmarkPresenter{
     private BookmarkAdapterView bookmarkAdapterView;
-    private BookmarkInteractor bookmarkInteractor;
+    private final BookmarkInteractor bookmarkInteractor;
     private BookmarkView bookmarkView;
 
     public BookmarkPresenterImpl(BookmarkView bookmarkView){

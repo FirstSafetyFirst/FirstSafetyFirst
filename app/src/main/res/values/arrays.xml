@@ -412,18 +412,18 @@
 
     <string-array name="fire_sprinklers_check">
         <item>http://www.co.frederick.va.us/home/showdocument?id=230</item>
-        <item><![CDATA[http://www.hanover.com/linec/docs/171-1749.pdf]]></item>
-        <item><![CDATA[http://c.ymcdn.com/sites/www.nfsa.org/resource/resmgr/forms/25-13x-2011.pdf]]></item>
-        <item><![CDATA[https://firebasestorage.googleapis.com/v0/b/safetyfirst-aec72.appspot.com/o/checklist%2FNFPA%20Form%20-%20Sprinkler%20System.pdf?alt=media&token=4351674e-73f2-4c7a-95d4-8f7c43840794]]></item>
+        <item><![CDATA[http://www.hanover.com/linec/docs/171–1749.pdf]]></item>
+        <item><![CDATA[http://c.ymcdn.com/sites/www.nfsa.org/resource/resmgr/forms/25–13x-2011.pdf]]></item>
+        <item><![CDATA[https://firebasestorage.googleapis.com/v0/b/safetyfirst–aec72.appspot.com/o/checklist%2FNFPA%20Form%20–%20Sprinkler%20System.pdf?alt=media&token=4351674e-73f2-4c7a-95d4-8f7c43840794]]></item>
     </string-array>
 
     <string-array name="fork_lift_check">
         <item>http://sielift.com/wp-content/uploads/2016/06/Reach-Truck-Daily-Operator-Checklist-2.pdf</item>
-        <item><![CDATA[https://firebasestorage.googleapis.com/v0/b/safetyfirst-aec72.appspot.com/o/checklist%2FCounterbalanced-Forklift-Pre-Use-Inspection-SUP-140-e-EN-16-077.pdf?alt=media&token=aa5ed4e0-2d3d-49c2-8915-89672f2287db]]></item>
+        <item><![CDATA[https://firebasestorage.googleapis.com/v0/b/safetyfirst–aec72.appspot.com/o/checklist%2FCounterbalanced–Forklift-Pre-Use-Inspection-SUP-140-e-EN-16-077.pdf?alt=media&token=aa5ed4e0-2d3d-49c2-8915-89672f2287db]]></item>
         <item>https://www.nccer.org/uploads/fileLibrary/HEO_L2_2013_CEP.pdf</item>
         <item>http://www.aalhysterforklifts.com.au/uploads/blog/Adaptalift_Hyster_Forklift_Safety_Prestart_Checklist.pdf</item>
         <item>http://www.tsha.com.au/uploads/TSH%%20Pre-Acceptance%%20Checklist%%20Issue%%202%%20Oct%%202013.pdf</item>
-        <item><![CDATA[https://firebasestorage.googleapis.com/v0/b/safetyfirst-aec72.appspot.com/o/checklist%2FPowered-Pallet-Truck-Pre-Use-Inspection-SUP-146-e-EN-16-077.pdf?alt=media&token=f66d09fa-f974-4075-b9c6-8451be34589c]]></item>
+        <item><![CDATA[https://firebasestorage.googleapis.com/v0/b/safetyfirst–aec72.appspot.com/o/checklist%2FPowered–Pallet-Truck-Pre-Use-Inspection-SUP-146-e-EN-16-077.pdf?alt=media&token=f66d09fa-f974-4075-b9c6-8451be34589c]]></item>
     </string-array>
 
     <string-array name="heat_stress_check">
@@ -437,19 +437,19 @@
     <string-array name="ladders_check">
         <item>http://www.britishladders.co.uk/images/steplader.pdf</item>
         <item>http://www-ehs.ucsd.edu/shop/pdf/Ladder_Inspection_Form.pdf</item>
-        <item><![CDATA[https://firebasestorage.googleapis.com/v0/b/safetyfirst-aec72.appspot.com/o/checklist%2Fportable%20ladder.pdf?alt=media&token=62192121-a582-487e-bd50-d22665ecc43d]]></item>
-        <item><![CDATA[https://firebasestorage.googleapis.com/v0/b/safetyfirst-aec72.appspot.com/o/checklist%2FLadder-safety-Ladders-checklist-3-monthly-inspection.pdf?alt=media&token=7034cbde-9f9d-4509-bc68-6dacee9d333a]]></item>
-        <item><![CDATA[https://firebasestorage.googleapis.com/v0/b/safetyfirst-aec72.appspot.com/o/checklist%2Fmobile-ladder-stands-checklist.pdf?alt=media&token=23b63a48-82d6-4f6b-beea-760d13fc7058]]></item>
+        <item><![CDATA[https://firebasestorage.googleapis.com/v0/b/safetyfirst–aec72.appspot.com/o/checklist%2Fportable%20ladder.pdf?alt=media&token=62192121–a582-487e-bd50-d22665ecc43d]]></item>
+        <item><![CDATA[https://firebasestorage.googleapis.com/v0/b/safetyfirst–aec72.appspot.com/o/checklist%2FLadder–safety-Ladders-checklist-3-monthly-inspection.pdf?alt=media&token=7034cbde-9f9d-4509-bc68-6dacee9d333a]]></item>
+        <item><![CDATA[https://firebasestorage.googleapis.com/v0/b/safetyfirst–aec72.appspot.com/o/checklist%2Fmobile–ladder-stands-checklist.pdf?alt=media&token=23b63a48-82d6-4f6b-beea-760d13fc7058]]></item>
         <item>https://www.osha.gov/dte/grant_materials/fy06/46e0-ht10/stf_ladder_safety_checklist.pdf</item>
     </string-array>
 
     <string-array name="respiratory_check">
-        <item><![CDATA[https://firebasestorage.googleapis.com/v0/b/safetyfirst-aec72.appspot.com/o/checklist%2FResp_Inspection_Checklist.pdf?alt=media&token=42abd5ac-602f-4640-9d20-1f2696a4b6a6]]></item>
-        <item><![CDATA[https://firebasestorage.googleapis.com/v0/b/safetyfirst-aec72.appspot.com/o/checklist%2FResp_Inspection_Checklist.pdf?alt=media&token=42abd5ac-602f-4640-9d20-1f2696a4b6a6]]></item>
-        <item><![CDATA[https://firebasestorage.googleapis.com/v0/b/safetyfirst-aec72.appspot.com/o/checklist%2FResp_Inspection_Checklist.pdf?alt=media&token=42abd5ac-602f-4640-9d20-1f2696a4b6a6]]></item>
-        <item><![CDATA[https://firebasestorage.googleapis.com/v0/b/safetyfirst-aec72.appspot.com/o/checklist%2FResp_Inspection_Checklist.pdf?alt=media&token=42abd5ac-602f-4640-9d20-1f2696a4b6a6]]></item>
-        <item><![CDATA[https://firebasestorage.googleapis.com/v0/b/safetyfirst-aec72.appspot.com/o/checklist%2FResp_Inspection_Checklist.pdf?alt=media&token=42abd5ac-602f-4640-9d20-1f2696a4b6a6]]></item>
-        <item><![CDATA[https://firebasestorage.googleapis.com/v0/b/safetyfirst-aec72.appspot.com/o/checklist%2FResp_Inspection_Checklist.pdf?alt=media&token=42abd5ac-602f-4640-9d20-1f2696a4b6a6]]></item>
+        <item><![CDATA[https://firebasestorage.googleapis.com/v0/b/safetyfirst–aec72.appspot.com/o/checklist%2FResp_Inspection_Checklist.pdf?alt=media&token=42abd5ac–602f-4640-9d20-1f2696a4b6a6]]></item>
+        <item><![CDATA[https://firebasestorage.googleapis.com/v0/b/safetyfirst–aec72.appspot.com/o/checklist%2FResp_Inspection_Checklist.pdf?alt=media&token=42abd5ac–602f-4640-9d20-1f2696a4b6a6]]></item>
+        <item><![CDATA[https://firebasestorage.googleapis.com/v0/b/safetyfirst–aec72.appspot.com/o/checklist%2FResp_Inspection_Checklist.pdf?alt=media&token=42abd5ac–602f-4640-9d20-1f2696a4b6a6]]></item>
+        <item><![CDATA[https://firebasestorage.googleapis.com/v0/b/safetyfirst–aec72.appspot.com/o/checklist%2FResp_Inspection_Checklist.pdf?alt=media&token=42abd5ac–602f-4640-9d20-1f2696a4b6a6]]></item>
+        <item><![CDATA[https://firebasestorage.googleapis.com/v0/b/safetyfirst–aec72.appspot.com/o/checklist%2FResp_Inspection_Checklist.pdf?alt=media&token=42abd5ac–602f-4640-9d20-1f2696a4b6a6]]></item>
+        <item><![CDATA[https://firebasestorage.googleapis.com/v0/b/safetyfirst–aec72.appspot.com/o/checklist%2FResp_Inspection_Checklist.pdf?alt=media&token=42abd5ac–602f-4640-9d20-1f2696a4b6a6]]></item>
     </string-array>
 
     <string-array name="scaffolds_check">

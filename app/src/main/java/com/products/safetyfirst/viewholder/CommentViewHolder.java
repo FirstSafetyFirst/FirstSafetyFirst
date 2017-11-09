@@ -15,13 +15,13 @@ import com.products.safetyfirst.utils.JustifiedWebView;
 
 public class CommentViewHolder extends RecyclerView.ViewHolder{
 
-    public View mView;
-    public ImageView images;
-    public TextView title;
-    public JustifiedWebView comment;
+    public final View mView;
+    private final ImageView images;
+    public final TextView title;
+    public final JustifiedWebView comment;
     public ImageView bookmark;
     public TextView going;
-    public CheckableImageButton likeBtn;
+    public final CheckableImageButton likeBtn;
 
 
     public CommentViewHolder(View view) {

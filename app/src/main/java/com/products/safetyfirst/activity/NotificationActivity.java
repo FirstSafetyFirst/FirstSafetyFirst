@@ -26,7 +26,7 @@ public class NotificationActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -44,7 +44,7 @@ public class NotificationActivity extends BaseActivity {
         editor.apply();
 
         notificationAdapter = new NotificationAdapter(this, realm);
-        notificationView = (RecyclerView) findViewById(R.id.notification_view);
+        notificationView = findViewById(R.id.notification_view);
         notificationView.setLayoutManager(new LinearLayoutManager(this));
         notificationView.setAdapter(notificationAdapter);
     }

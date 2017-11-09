@@ -50,7 +50,7 @@ public class TypeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mainView = inflater.inflate(R.layout.fragment_type, container, false);
-        typeRecycler = (RecyclerView) mainView.findViewById(R.id.type_recycler);
+        typeRecycler = mainView.findViewById(R.id.type_recycler);
 
         typeAdapter = new FastItemAdapter();
         types = new ArrayList<>();
@@ -83,22 +83,22 @@ public class TypeFragment extends Fragment {
     }
 
     private static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView title;
-        public ImageView image;
-        public View mainView;
+        public final TextView title;
+        public final ImageView image;
+        public final View mainView;
 
         public ViewHolder(View view) {
             super(view);
             mainView = view.findViewById(R.id.type_item);
-            title = (TextView) view.findViewById(R.id.type_item_title);
-            image = (ImageView) view.findViewById(R.id.type_item_image);
+            title = view.findViewById(R.id.type_item_title);
+            image = view.findViewById(R.id.type_item_image);
         }
     }
 
     private class TypeItem extends AbstractItem<TypeItem, ViewHolder> {
 
-        private String title;
-        private String image;
+        private final String title;
+        private final String image;
 
         TypeItem(String title, String image) {
             this.title = title;

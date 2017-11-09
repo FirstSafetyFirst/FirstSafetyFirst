@@ -13,8 +13,8 @@ import com.products.safetyfirst.models.NewsModel;
 public class NewsDetailPresenterImpl implements NewsDetailPresenter {
 
     private NewsDetailView newsDetailView;
-    private NewsDetailInteractor newsDetailInteractor;
-    private String mNewsKey;
+    private final NewsDetailInteractor newsDetailInteractor;
+    private final String mNewsKey;
 
     public NewsDetailPresenterImpl(NewsDetailView newsDetailView, String mNewsKey) {
         this.newsDetailView = newsDetailView;

@@ -10,13 +10,13 @@ import com.products.safetyfirst.R;
  * Created by profileconnect on 12/04/17.
  */
 
-public class Slider extends RecyclerView.ViewHolder {
+class Slider extends RecyclerView.ViewHolder {
 
-    RecyclerView sliders;
+    private RecyclerView sliders;
 
     public Slider(View v) {
         super(v);
-        sliders = (RecyclerView) v.findViewById(R.id.slider_holder);
+        sliders = v.findViewById(R.id.slider_holder);
     }
 
     public RecyclerView getSliders() {

@@ -41,11 +41,12 @@ import com.products.safetyfirst.utils.Analytics;
 import com.products.safetyfirst.utils.JustifiedWebView;
 import com.products.safetyfirst.utils.PrefManager;
 
+@SuppressWarnings({"ALL", "EmptyMethod"})
 public class NewsDetailActivity extends BaseActivity implements View.OnClickListener, NewsDetailView {
     public static final String EXTRA_NEWS_KEY = "post_key";
     private static final String TAG = "NewsDetailActivity";
-    NewsDetailPresenter presenter;
-    FloatingActionButton fab;
+    private NewsDetailPresenter presenter;
+    private FloatingActionButton fab;
     private ImageView image_scrolling_top;
     private String mNewsKey;
     private TextView mTitleView;
@@ -62,10 +63,10 @@ public class NewsDetailActivity extends BaseActivity implements View.OnClickList
         setContentView(R.layout.activity_news_detail);
 
 
-        mBodyView = (JustifiedWebView) findViewById(R.id.body);
-        mTitleView = (TextView) findViewById(R.id.title);
-        mReadMore = (Button) findViewById(R.id.read_more);
-        mShare =(ImageButton) findViewById(R.id.share);
+        mBodyView = findViewById(R.id.body);
+        mTitleView = findViewById(R.id.title);
+        mReadMore = findViewById(R.id.read_more);
+        mShare = findViewById(R.id.share);
 
         mNewsKey = getIntent().getStringExtra(EXTRA_NEWS_KEY);
         if (mNewsKey == null) {
@@ -73,15 +74,15 @@ public class NewsDetailActivity extends BaseActivity implements View.OnClickList
         }
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        fab = (FloatingActionButton) findViewById(R.id.bookmark);
+        fab = findViewById(R.id.bookmark);
 
-        image_scrolling_top = (ImageView) findViewById(R.id.image_scrolling_top);
+        image_scrolling_top = findViewById(R.id.image_scrolling_top);
         Glide.with(this).load(R.mipmap.ic_launcher).fitCenter().into(image_scrolling_top);
 
         mReadMore.setOnClickListener(this);
@@ -112,7 +113,7 @@ public class NewsDetailActivity extends BaseActivity implements View.OnClickList
         if (configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 
-            CollapsingToolbarLayout collapsing_toolbar_layout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_layout);
+            CollapsingToolbarLayout collapsing_toolbar_layout = findViewById(R.id.collapsing_toolbar_layout);
             collapsing_toolbar_layout.setExpandedTitleTextColor(ColorStateList.valueOf(Color.TRANSPARENT));
         } else {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
@@ -205,7 +206,7 @@ public class NewsDetailActivity extends BaseActivity implements View.OnClickList
     }
 
 
-    void showTutorial(){
+    private void showTutorial(){
 
         final Display display = getWindowManager().getDefaultDisplay();
         final Drawable droid = ContextCompat.getDrawable(this, R.drawable.ic_camera_alt_black_24dp);

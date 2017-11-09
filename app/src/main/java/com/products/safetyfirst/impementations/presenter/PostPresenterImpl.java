@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class PostPresenterImpl implements PostPresenter {
 
     private PostView postView;
-    private PostInteractor postInteractor;
+    private final PostInteractor postInteractor;
 
     public PostPresenterImpl(PostView postView){
         this.postView = postView;

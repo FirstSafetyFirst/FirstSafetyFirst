@@ -10,7 +10,7 @@ import com.google.firebase.database.FirebaseDatabase;
  */
 
 public class FirebaseUtils {
-    public static DatabaseReference getBaseRef() {
+    private static DatabaseReference getBaseRef() {
         return FirebaseDatabase.getInstance().getReference();
     }
     public static DatabaseReference getPeopleRef() {

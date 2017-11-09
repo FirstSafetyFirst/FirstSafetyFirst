@@ -1,5 +1,6 @@
 package com.products.safetyfirst.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -26,7 +27,7 @@ import java.util.ArrayList;
 public class TrainingAdapter extends RecyclerView.Adapter<TrainingViewHolder> implements TrainingAdapterView {
 
     private final TrainingPresenter presenter;
-    private Context context;
+    private final Context context;
     private final ArrayList<String> mKeysList = new ArrayList<>();
 
     public TrainingAdapter(Context context){
@@ -42,6 +43,7 @@ public class TrainingAdapter extends RecyclerView.Adapter<TrainingViewHolder> im
         return new TrainingViewHolder(itemView);
     }
 
+    @SuppressLint("RecyclerView")
     @Override
     public void onBindViewHolder(TrainingViewHolder holder, final int position) {
         Animation animation = AnimationUtils.loadAnimation(context, R.anim.anim_recycler_item_show);

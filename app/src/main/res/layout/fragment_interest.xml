@@ -68,7 +68,8 @@
                     android:clickable="true"
                     android:text="@string/done"
                     android:textStyle="bold"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:focusable="true" />
 
             </LinearLayout>
 

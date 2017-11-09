@@ -28,9 +28,10 @@ import com.products.safetyfirst.interfaces.view.AddProjectView;
 
 import static com.products.safetyfirst.utils.FirebaseUtils.getCurrentUserId;
 
+@SuppressWarnings({"ALL", "EmptyMethod"})
 public class ProjectsFragment extends Fragment implements View.OnClickListener, AddProjectView {
 
-    AddProjectPresenter presenter;
+    private AddProjectPresenter presenter;
     private FloatingActionButton mAddProjectButton;
     private OnFragmentInteractionListener mListener;
     private ProgressBar mProgressbar;
@@ -89,13 +90,13 @@ public class ProjectsFragment extends Fragment implements View.OnClickListener, 
     }
 
     private void createUI(View view) {
-        mListOfProjects = (RecyclerView) view.findViewById(R.id.recycler_view);
+        mListOfProjects = view.findViewById(R.id.recycler_view);
         mListOfProjects.setLayoutManager(new LinearLayoutManager(getActivity()));
         mListOfProjects.setHasFixedSize(true);
         mListOfProjects.setItemAnimator(new DefaultItemAnimator());
 
-        mAddProjectButton = (FloatingActionButton) view.findViewById(R.id.fab);
-        mProgressbar = (ProgressBar) view.findViewById(R.id.progressBar);
+        mAddProjectButton = view.findViewById(R.id.fab);
+        mProgressbar = view.findViewById(R.id.progressBar);
         rotate_forward = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_forward);
         rotate_backward = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_backward);
 
@@ -107,9 +108,9 @@ public class ProjectsFragment extends Fragment implements View.OnClickListener, 
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 if (newState > 0) {
-                    mAddProjectButton.hide();
+                //    mAddProjectButton.hide();
                 } else {
-                    mAddProjectButton.show();
+                //    mAddProjectButton.show();
                 }
             }
 
@@ -123,7 +124,7 @@ public class ProjectsFragment extends Fragment implements View.OnClickListener, 
 
             //Hides the fab but it reappears on scroll due to app:layout_scrollFlags="scroll|enterAlways" set
             //in layout. Remove that attribute first programatically and then set visibility to gone.
-            mAddProjectButton.setVisibility(View.VISIBLE);
+            mAddProjectButton.setVisibility(View.GONE);
         }
 
     }
@@ -166,12 +167,12 @@ public class ProjectsFragment extends Fragment implements View.OnClickListener, 
     public void showAddProjectDialog() {
         final Dialog dialog = new Dialog(getContext());
         dialog.setContentView(R.layout.dialog_add_project);
-        Button btnDone = (Button) dialog.findViewById(R.id.btn_done);
-        Button btnCancel = (Button) dialog.findViewById(R.id.btn_cancel);
+        Button btnDone = dialog.findViewById(R.id.btn_done);
+        Button btnCancel = dialog.findViewById(R.id.btn_cancel);
 
-        final EditText mName = (EditText) dialog.findViewById(R.id.username);
-        final EditText mCompany = (EditText) dialog.findViewById(R.id.company);
-        final EditText mDescription = (EditText) dialog.findViewById(R.id.description);
+        final EditText mName = dialog.findViewById(R.id.username);
+        final EditText mCompany = dialog.findViewById(R.id.company);
+        final EditText mDescription = dialog.findViewById(R.id.description);
 
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -232,6 +233,7 @@ public class ProjectsFragment extends Fragment implements View.OnClickListener, 
 
     }
 
+    @SuppressWarnings("EmptyMethod")
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
     }

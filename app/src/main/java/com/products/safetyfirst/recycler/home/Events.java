@@ -9,12 +9,12 @@ import com.products.safetyfirst.R;
  * Created by profileconnect on 12/04/17.
  */
 
-public class Events extends RecyclerView.ViewHolder {
+class Events extends RecyclerView.ViewHolder {
 
-    RecyclerView events;
+    private RecyclerView events;
     public Events(View v) {
         super(v);
-        events = (RecyclerView) v.findViewById(R.id.events_holder);
+        events = v.findViewById(R.id.events_holder);
     }
 
     public RecyclerView getEvents() {

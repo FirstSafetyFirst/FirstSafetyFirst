@@ -21,7 +21,7 @@ import java.util.List;
 public class Laws_Adapter extends RecyclerView.Adapter<LawViewHolder> {
 
     private final Context context;
-    private List<LawModel> horizontalList;
+    private final List<LawModel> horizontalList;
 
     public Laws_Adapter(Context cont, List<LawModel> horizontalList) {
         this.horizontalList = horizontalList;

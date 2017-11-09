@@ -21,7 +21,7 @@ import java.util.List;
 
 public class News_Events_Fragment extends Fragment {
     public static final String ARG_TITLE = "arg_title";
-    ViewPagerAdapter adapter;
+    private ViewPagerAdapter adapter;
 
 
 
@@ -31,9 +31,9 @@ public class News_Events_Fragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.news_event_fragment, container, false);
 
-        ViewPager viewPager = (ViewPager) rootView.findViewById(R.id.viewpager);
+        ViewPager viewPager = rootView.findViewById(R.id.viewpager);
         setupViewPager(viewPager);
-        TabLayout tabLayout = (TabLayout) rootView.findViewById(R.id.tabs);
+        TabLayout tabLayout = rootView.findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
         return rootView;

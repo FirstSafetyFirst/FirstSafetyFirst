@@ -33,11 +33,12 @@ import com.products.safetyfirst.utils.PrefManager;
 import static com.products.safetyfirst.utils.Constants.GOING;
 import static com.products.safetyfirst.utils.Constants.INTERESTED;
 
+@SuppressWarnings({"ALL", "EmptyMethod"})
 public class EventsDetailActivity extends BaseActivity implements View.OnClickListener, EventsDetailView {
 
-    public static String EXTRA_EVENT_KEY = "event_key";
+    public static final String EXTRA_EVENT_KEY = "event_key";
 
-    EventsDetailPresenter presenter;
+    private EventsDetailPresenter presenter;
 
     private FloatingActionButton fab,fab1;
     private ImageView image_scrolling_top;
@@ -47,7 +48,7 @@ public class EventsDetailActivity extends BaseActivity implements View.OnClickLi
     private ImageButton mShare, mBookmark;
     private String url;
     private String HEADLINE;
-    ActionBar actionBar;
+    private ActionBar actionBar;
 
     private TabLayout tabs;
     private ViewPager viewPager;
@@ -63,7 +64,7 @@ public class EventsDetailActivity extends BaseActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events_detail);
 
-        mainImage = (ImageView) findViewById(R.id.main_image);
+        mainImage = findViewById(R.id.main_image);
 
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         actionBar = getSupportActionBar();
@@ -73,8 +74,8 @@ public class EventsDetailActivity extends BaseActivity implements View.OnClickLi
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        tabs = (TabLayout) findViewById(R.id.tabs);
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        tabs = findViewById(R.id.tabs);
+        viewPager = findViewById(R.id.viewpager);
 
 
 
@@ -103,7 +104,7 @@ public class EventsDetailActivity extends BaseActivity implements View.OnClickLi
         prefManager.setFirstEventsLaunch(false);
     }
 
-    void setupTabs() {
+    private void setupTabs() {
 
         String tab_texts[] = {"Information", "Visitors", "Video"};
         Integer images[] = {R.drawable.ic_description,
@@ -153,7 +154,7 @@ public class EventsDetailActivity extends BaseActivity implements View.OnClickLi
         }
 
         FragmentPagerAdapter categoryAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
-            String titles[] = {"Info", "Visitors", "Video"};
+            final String[] titles = {"Info", "Visitors", "Video"};
             @Override
             public Fragment getItem(int position) {
                 return fragments[position];
@@ -324,7 +325,7 @@ public class EventsDetailActivity extends BaseActivity implements View.OnClickLi
     }
 
 
-    void showTutorial(){
+    private void showTutorial(){
 /*
         final Display display = getWindowManager().getDefaultDisplay();
         final Drawable droid = ContextCompat.getDrawable(this, R.drawable.ic_camera_alt_black_24dp);

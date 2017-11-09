@@ -5,9 +5,9 @@ package com.products.safetyfirst.models;
  */
 
 public class ProjectModel {
-    String username;
-    String company;
-    String description;
+    private String username;
+    private String company;
+    private String description;
     Long timestamp;
 
     public ProjectModel() {

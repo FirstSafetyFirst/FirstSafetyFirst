@@ -30,7 +30,7 @@ public class InfoFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mainView = inflater.inflate(R.layout.fragment_info, container, false);
-        infoTextView = (JustifiedWebView) mainView.findViewById(R.id.info_main_text);
+        infoTextView = mainView.findViewById(R.id.info_main_text);
         infoTextView.setText(((KnowItSecondActivity) this.getActivity()).getInfo());
         infoTextView.setVerticalScrollBarEnabled(false);
 

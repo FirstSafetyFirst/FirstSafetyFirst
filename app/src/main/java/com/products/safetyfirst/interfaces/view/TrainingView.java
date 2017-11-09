@@ -4,6 +4,7 @@ package com.products.safetyfirst.interfaces.view;
  * Created by vikas on 25/10/17.
  */
 
+@SuppressWarnings({"ALL", "EmptyMethod"})
 public interface TrainingView {
     void onError(String message);
 

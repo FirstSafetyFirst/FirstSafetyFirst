@@ -22,7 +22,7 @@ public class SliderCard extends RecyclerView.ViewHolder {
 
     public SliderCard(View itemView) {
         super(itemView);
-        imageView = (ImageView) itemView.findViewById(R.id.image);
+        imageView = itemView.findViewById(R.id.image);
     }
 
     public void setContent(@DrawableRes final int resId) {

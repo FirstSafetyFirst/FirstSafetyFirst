@@ -18,6 +18,7 @@ import com.products.safetyfirst.interfaces.presenter.KnowItPresenter;
 import com.products.safetyfirst.interfaces.view.KnowItView;
 import com.products.safetyfirst.models.KnowItItemType;
 
+@SuppressWarnings({"ALL", "EmptyMethod"})
 public class KnowIt_Fragment extends Fragment implements KnowItView{
 
     public final static String tool = "tool";
@@ -64,7 +65,7 @@ public class KnowIt_Fragment extends Fragment implements KnowItView{
     }
 
     private void createUI(View view) {
-        itemsRecycler = (RecyclerView) view.findViewById(R.id.know_it_recycler);
+        itemsRecycler = view.findViewById(R.id.know_it_recycler);
         itemsRecycler.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         itemsRecycler.setHasFixedSize(true);
         itemsRecycler.setItemAnimator(new DefaultItemAnimator());

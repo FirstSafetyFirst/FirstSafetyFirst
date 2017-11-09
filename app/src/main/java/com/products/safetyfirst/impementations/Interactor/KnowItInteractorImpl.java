@@ -22,7 +22,7 @@ import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
 
 public class KnowItInteractorImpl implements KnowItInteractor {
 
-    private KnowItPresenter presenter;
+    private final KnowItPresenter presenter;
 
     public KnowItInteractorImpl(KnowItPresenter presenter){
         this.presenter= presenter;

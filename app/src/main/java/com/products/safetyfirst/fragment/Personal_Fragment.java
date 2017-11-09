@@ -41,24 +41,25 @@ import java.io.InputStream;
 
 import static android.app.Activity.RESULT_OK;
 
+@SuppressWarnings({"ALL", "EmptyMethod"})
 public class Personal_Fragment extends Fragment implements UpdateProfileView, View.OnClickListener {
-    static final int RESULT_GALLERY_IMAGE = 100;
-    static final int RESULT_CAMERA_IMAGE = 101;
+    private static final int RESULT_GALLERY_IMAGE = 100;
+    private static final int RESULT_CAMERA_IMAGE = 101;
     private static final int REQUEST_EXTERNAL_STORAGE = 101;
     FirebaseUser user;
-    Uri Imagepath = null;
-    EditText mName;
-    TextView mPhone;
-    EditText mCompany;
-    EditText mDesignation;
-    ImageView mPhoto;
-    EditText mCertificate;
-    EditText mCity;
-    ProgressBar mProgressBar;
+    private Uri Imagepath = null;
+    private EditText mName;
+    private TextView mPhone;
+    private EditText mCompany;
+    private EditText mDesignation;
+    private ImageView mPhoto;
+    private EditText mCertificate;
+    private EditText mCity;
+    private ProgressBar mProgressBar;
 
-    boolean check = false;
-    View mainView;
-    UpdateProfilePresenter presenter;
+    private boolean check = false;
+    private View mainView;
+    private UpdateProfilePresenter presenter;
     private File Imagefile;
     private Button mSubmit;
 
@@ -75,16 +76,16 @@ public class Personal_Fragment extends Fragment implements UpdateProfileView, Vi
         mainView = inflater.inflate(R.layout.fragment_personal, container, false);
 
 
-        mPhoto = (ImageView) mainView.findViewById(R.id.camera);
+        mPhoto = mainView.findViewById(R.id.camera);
         //mPhoto.bringToFront();
-        mName = (EditText) mainView.findViewById(R.id.username);
+        mName = mainView.findViewById(R.id.username);
         mPhone = (EditText) mainView.findViewById(R.id.phone);
-        mCompany = (EditText) mainView.findViewById(R.id.company);
-        mDesignation = (EditText) mainView.findViewById(R.id.designation);
-        mCertificate = (EditText) mainView.findViewById(R.id.certificate);
-        mCity = (EditText) mainView.findViewById(R.id.city);
-        mProgressBar = (ProgressBar) mainView.findViewById(R.id.progressBar);
-        mSubmit = (Button) mainView.findViewById(R.id.submit);
+        mCompany = mainView.findViewById(R.id.company);
+        mDesignation = mainView.findViewById(R.id.designation);
+        mCertificate = mainView.findViewById(R.id.certificate);
+        mCity = mainView.findViewById(R.id.city);
+        mProgressBar = mainView.findViewById(R.id.progressBar);
+        mSubmit = mainView.findViewById(R.id.submit);
 
         presenter = new UpdateProfilePresenterImpl(this);
         presenter.requestCurrentDetails();
@@ -260,7 +261,7 @@ public class Personal_Fragment extends Fragment implements UpdateProfileView, Vi
 
     }
 
-    public Uri getImageUri(Context inContext, Bitmap inImage) {
+    private Uri getImageUri(Context inContext, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);

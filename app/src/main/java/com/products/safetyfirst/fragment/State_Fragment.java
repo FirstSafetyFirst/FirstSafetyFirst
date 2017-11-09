@@ -38,8 +38,8 @@ public class State_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.state_laws_fragment, container, false);
-        JustifiedWebView laws_info = (JustifiedWebView) rootView.findViewById(R.id.law_info);
-        RecyclerView stateLawsRecycler = (RecyclerView) rootView.findViewById(R.id.state_laws_recycler);
+        JustifiedWebView laws_info = rootView.findViewById(R.id.law_info);
+        RecyclerView stateLawsRecycler = rootView.findViewById(R.id.state_laws_recycler);
         FastItemAdapter lawsAdapter = new FastItemAdapter();
         final List<LawItem> laws = new ArrayList<>();
 
@@ -77,22 +77,22 @@ public class State_Fragment extends Fragment {
     }
 
     private static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView title;
-        public ImageView image;
-        public View mainView;
+        public final TextView title;
+        public final ImageView image;
+        public final View mainView;
 
         public ViewHolder(View view) {
             super(view);
             mainView = view.findViewById(R.id.know_it_item);
-            title = (TextView) view.findViewById(R.id.know_it_item_title);
-            image = (ImageView) view.findViewById(R.id.know_it_item_image);
+            title = view.findViewById(R.id.know_it_item_title);
+            image = view.findViewById(R.id.know_it_item_image);
         }
     }
 
     private class LawItem extends AbstractItem<State_Fragment.LawItem, State_Fragment.ViewHolder> {
 
-        private String title;
-        private Drawable image;
+        private final String title;
+        private final Drawable image;
 
         LawItem(String title, Drawable image){
             this.title = title;

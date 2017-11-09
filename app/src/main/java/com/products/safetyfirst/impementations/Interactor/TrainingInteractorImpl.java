@@ -19,7 +19,7 @@ import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
 
 public class TrainingInteractorImpl implements TrainingInteractor {
 
-    private TrainingPresenter presenter;
+    private final TrainingPresenter presenter;
 
     public TrainingInteractorImpl(TrainingPresenter presenter){
         this.presenter = presenter;

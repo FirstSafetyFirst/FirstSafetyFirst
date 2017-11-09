@@ -10,6 +10,7 @@ import java.util.List;
  * Created by vikas on 30/10/17.
  */
 
+@SuppressWarnings({"ALL", "EmptyMethod"})
 public interface PostDetailView {
 
     void setBookMark();

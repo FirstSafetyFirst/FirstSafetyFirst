@@ -12,17 +12,17 @@ import com.products.safetyfirst.R;
 
 public class ProjectsViewHolder extends RecyclerView.ViewHolder {
 
-    public View mView;
-    public TextView mUserTextView;
-    public TextView mComapnyTextView;
-    public TextView mDescriptionTextView;
+    public final View mView;
+    public final TextView mUserTextView;
+    public final TextView mComapnyTextView;
+    public final TextView mDescriptionTextView;
 
     public ProjectsViewHolder(View itemView) {
         super(itemView);
         mView = itemView;
-        mUserTextView = (TextView) itemView.findViewById(R.id.username);
-        mComapnyTextView = (TextView) itemView.findViewById(R.id.company);
-        mDescriptionTextView = (TextView) itemView.findViewById(R.id.description);
+        mUserTextView = itemView.findViewById(R.id.username);
+        mComapnyTextView = itemView.findViewById(R.id.company);
+        mDescriptionTextView = itemView.findViewById(R.id.description);
     }
 }
 

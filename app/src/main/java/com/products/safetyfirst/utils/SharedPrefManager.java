@@ -10,15 +10,15 @@ import android.content.SharedPreferences;
 /**
  * Created by Gino Osahon on 04/03/2017.
  */
-public class SharedPrefManager {
+class SharedPrefManager {
 
-    SharedPreferences sharedPreferences;
-    Context mContext;
+    private SharedPreferences sharedPreferences;
+    private Context mContext;
     // shared pref mode
-    int PRIVATE_MODE = 0;
+    private final int PRIVATE_MODE = 0;
     // Shared preferences file name
     private static final String PREF_NAME = "sessionPref";
-    SharedPreferences.Editor editor;
+    private final SharedPreferences.Editor editor;
 
     public SharedPrefManager (Context context) {
         mContext = context;
@@ -32,7 +32,7 @@ public class SharedPrefManager {
         sharedPreferences = mContext.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean ("IS_LOGGED_IN", isLoggedIn);
-        editor.commit();
+        editor.apply();
 
     }
 
@@ -47,7 +47,7 @@ public class SharedPrefManager {
         sharedPreferences = mContext.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("ID_TOKEN", toke);
-        editor.commit();
+        editor.apply();
     }
 
     public String getUserToken(){
@@ -61,7 +61,7 @@ public class SharedPrefManager {
         sharedPreferences = mContext.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("EMAIL", email);
-        editor.commit();
+        editor.apply();
     }
 
     public String getUserEmail(){
@@ -75,7 +75,7 @@ public class SharedPrefManager {
         sharedPreferences = mContext.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("NAME", name);
-        editor.commit();
+        editor.apply();
     }
 
     public String getName(){
@@ -88,7 +88,7 @@ public class SharedPrefManager {
         sharedPreferences = mContext.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("PHOTO", photo);
-        editor.commit();
+        editor.apply();
     }
 
     public String getPhoto(){

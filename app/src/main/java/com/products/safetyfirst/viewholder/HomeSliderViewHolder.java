@@ -11,12 +11,12 @@ import com.products.safetyfirst.R;
  */
 
 public class HomeSliderViewHolder extends RecyclerView.ViewHolder{
-    public ImageView slider_image;
+    public final ImageView slider_image;
 
     public HomeSliderViewHolder(View view) {
 
         super(view);
-        slider_image = (ImageView) view.findViewById(R.id.sliders_img);
+        slider_image = view.findViewById(R.id.sliders_img);
 
     }
 }

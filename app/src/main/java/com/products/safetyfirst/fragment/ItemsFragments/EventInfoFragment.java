@@ -36,7 +36,7 @@ public class EventInfoFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mainView = inflater.inflate(R.layout.fragment_type_info, container, false);
-        informationView = (JustifiedWebView) mainView.findViewById(R.id.post_body);
+        informationView = mainView.findViewById(R.id.post_body);
 
         String info = ((EventsDetailActivity) getActivity()).getEventInfo();
 

@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class AddProjectPresenterImpl implements AddProjectPresenter, AddProjectInteractor.OnUpdateFinishedListener {
 
     private AddProjectView addProjectView;
-    private AddProjectInteractor addProjectInteractor;
+    private final AddProjectInteractor addProjectInteractor;
 
     private AddProjectsAdapterView adapterView;
 

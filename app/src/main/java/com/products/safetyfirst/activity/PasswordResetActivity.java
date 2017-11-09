@@ -18,18 +18,18 @@ import com.products.safetyfirst.R;
  */
 
 public class PasswordResetActivity extends BaseActivity {
-    private String TAG = "PasswordResetActivity";
+    private final String TAG = "PasswordResetActivity";
     private EditText email;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.forgot_password);
-        email = (EditText)findViewById(R.id.email);
+        email = findViewById(R.id.email);
     }
 
     public void SendEmail(View view) {
         FirebaseAuth auth = FirebaseAuth.getInstance();
-        email = (EditText)findViewById(R.id.email);
+        email = findViewById(R.id.email);
         String emailAddress = email.getText().toString();
         if(emailAddress.contains("@")&& emailAddress.contains(".") && (emailAddress.indexOf('@')-emailAddress.indexOf('.') >2))
         {

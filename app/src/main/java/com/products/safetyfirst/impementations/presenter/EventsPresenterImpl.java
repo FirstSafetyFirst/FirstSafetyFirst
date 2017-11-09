@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class EventsPresenterImpl implements EventsPresenter, EventsInteractor.OnUpdateFinishedListener {
 
     private EventsView eventsView;
-    private EventsInteractor eventsInteractor;
+    private final EventsInteractor eventsInteractor;
     private EventsAdapterView eventsAdapterView;
 
     public EventsPresenterImpl(EventsView eventsView){

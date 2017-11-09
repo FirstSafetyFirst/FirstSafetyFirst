@@ -6,6 +6,7 @@ import com.products.safetyfirst.models.EventModel;
  * Created by vikas on 12/10/17.
  */
 
+@SuppressWarnings({"ALL", "EmptyMethod"})
 public interface EventsDetailView {
 
     void setBookMark();

@@ -21,6 +21,7 @@ import com.products.safetyfirst.interfaces.view.AddInterestView;
 /**
  * A simple {@link Fragment} subclass.
  */
+@SuppressWarnings({"ALL", "EmptyMethod"})
 public class Interest_Fragment extends Fragment implements View.OnClickListener, AddInterestView {
     private RecyclerView recyclerView;
     private AddInterestAdapter adapter;
@@ -62,8 +63,8 @@ public class Interest_Fragment extends Fragment implements View.OnClickListener,
 
     private void createUI(View view) {
 
-        mDoneBtn = (Button) view.findViewById(R.id.btn_done);
-        recyclerView = (RecyclerView) view.findViewById(R.id.interest_recycler);
+        mDoneBtn = view.findViewById(R.id.btn_done);
+        recyclerView = view.findViewById(R.id.interest_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
         recyclerView.setItemAnimator(new DefaultItemAnimator());

@@ -10,12 +10,12 @@ import com.products.safetyfirst.R;
  * Created by profileconnect on 12/04/17.
  */
 
-public class TrainingCenters extends RecyclerView.ViewHolder {
+class TrainingCenters extends RecyclerView.ViewHolder {
 
-    RecyclerView events;
+    private final RecyclerView events;
     public TrainingCenters(View v) {
         super(v);
-        events = (RecyclerView) v.findViewById(R.id.events_holder);
+        events = v.findViewById(R.id.events_holder);
     }
 
 

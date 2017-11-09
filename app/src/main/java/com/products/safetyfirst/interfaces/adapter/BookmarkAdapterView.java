@@ -6,6 +6,7 @@ import java.util.ArrayList;
  * Created by ishita sharma on 11/5/2017.
  */
 
+@SuppressWarnings({"ALL", "EmptyMethod"})
 public interface BookmarkAdapterView {
     void addAllItem(ArrayList<Object> list);
 

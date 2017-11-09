@@ -1,5 +1,6 @@
 package com.products.safetyfirst.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -30,8 +31,8 @@ public class EventsAdapter extends RecyclerView.Adapter<EventViewHolder> impleme
     private final ArrayList<EventModel> mEventsList = new ArrayList<>();
     private final ArrayList<String> mKeysList = new ArrayList<>();
     private final EventsPresenter presenter;
-    private Context context;
-    private String mUserId;
+    private final Context context;
+    private final String mUserId;
 
     public EventsAdapter(Context context, String userId){
         this.presenter = new EventsPresenterImpl(this);
@@ -47,6 +48,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventViewHolder> impleme
         return new EventViewHolder(itemView);
     }
 
+    @SuppressLint("RecyclerView")
     @Override
     public void onBindViewHolder(final EventViewHolder holder, final int position) {
         Animation animation = AnimationUtils.loadAnimation(context, R.anim.anim_recycler_item_show);

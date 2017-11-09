@@ -23,6 +23,7 @@ import static com.products.safetyfirst.utils.FirebaseUtils.getCurrentUserId;
  * Created by profileconnect on 20/04/17.
  */
 
+@SuppressWarnings({"ALL", "EmptyMethod"})
 public class Events_Fragment extends Fragment implements EventsView {
     public static final String ARG_TITLE = "arg_title";
 
@@ -73,12 +74,12 @@ public class Events_Fragment extends Fragment implements EventsView {
     }
 
     private void createUI(View view) {
-        recycler = (RecyclerView) view.findViewById(R.id.news_recycler);
+        recycler = view.findViewById(R.id.news_recycler);
         recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         recycler.setHasFixedSize(true);
         recycler.setItemAnimator(new DefaultItemAnimator());
 
-        mProgressbar = (ProgressBar) view.findViewById(R.id.newspaginateprogbar);
+        mProgressbar = view.findViewById(R.id.newspaginateprogbar);
 
         presenter = new EventsPresenterImpl(this);
 

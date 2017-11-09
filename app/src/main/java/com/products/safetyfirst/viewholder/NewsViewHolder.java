@@ -14,19 +14,22 @@ import com.products.safetyfirst.R;
 
 public class NewsViewHolder extends RecyclerView.ViewHolder{
 
-    public ImageView images, favicon, bookmark;
-    public TextView title, timestamp;
-    public Button detail;
+    public final ImageView images;
+    private final ImageView favicon;
+    private final ImageView bookmark;
+    public final TextView title;
+    public final TextView timestamp;
+    public final Button detail;
 
     public NewsViewHolder(View view) {
 
         super(view);
-        images = (ImageView) view.findViewById(R.id.news_avtar);
-        favicon = (ImageView) view.findViewById(R.id.favicon);
-        bookmark = (ImageView) view.findViewById(R.id.bookmark);
-        title = (TextView) view.findViewById(R.id.title);
-        timestamp = (TextView) view.findViewById(R.id.dateTime);
-        detail = (Button) view.findViewById(R.id.view_details);
+        images = view.findViewById(R.id.news_avtar);
+        favicon = view.findViewById(R.id.favicon);
+        bookmark = view.findViewById(R.id.bookmark);
+        title = view.findViewById(R.id.title);
+        timestamp = view.findViewById(R.id.dateTime);
+        detail = view.findViewById(R.id.view_details);
 
     }
 }

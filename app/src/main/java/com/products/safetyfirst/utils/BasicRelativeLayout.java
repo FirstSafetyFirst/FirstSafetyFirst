@@ -50,6 +50,6 @@ public class BasicRelativeLayout extends RelativeLayout {
         View mainView = LayoutInflater.from(context).inflate(R.layout.basic_layout, this);
         addView(mainView);
         setBackgroundResource(R.color.background);
-        toolbar = (Toolbar)findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
     }
 }

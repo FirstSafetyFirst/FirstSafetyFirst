@@ -11,14 +11,14 @@ import com.products.safetyfirst.R;
  */
 
 public class TrainingViewHolder extends RecyclerView.ViewHolder{
-    public View mView;
-    public TextView type;
+    public final View mView;
+    public final TextView type;
 
 
     public TrainingViewHolder(View view) {
 
         super(view);
         mView = view;
-        type = (TextView) view.findViewById(R.id.type);
+        type = view.findViewById(R.id.type);
     }
 }

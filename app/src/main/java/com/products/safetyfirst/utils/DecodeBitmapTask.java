@@ -81,7 +81,7 @@ public class DecodeBitmapTask extends AsyncTask<Void, Void, Bitmap> {
         return result;
     }
 
-    public static Bitmap getRoundedCornerBitmap(Bitmap bitmap, float pixels, int width, int height) {
+    private static Bitmap getRoundedCornerBitmap(Bitmap bitmap, float pixels, int width, int height) {
         final Bitmap output = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         final Canvas canvas = new Canvas(output);
 

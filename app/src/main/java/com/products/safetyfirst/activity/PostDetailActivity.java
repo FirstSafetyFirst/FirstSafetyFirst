@@ -43,6 +43,7 @@ import java.util.regex.Pattern;
 import jp.wasabeef.richeditor.RichEditor;
 
 
+@SuppressWarnings({"ALL", "EmptyMethod"})
 public class PostDetailActivity extends BaseActivity implements View.OnClickListener, PostDetailView {
 
 
@@ -147,7 +148,7 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
                 TextView mPostTitle = fullscreenDialog.findViewById(R.id.post_title);
                 mPostTitle.setVisibility(View.GONE);
 
-                ImageView img_dialog_fullscreen_close = (ImageView) fullscreenDialog.findViewById(R.id.img_dialog_fullscreen_close);
+                ImageView img_dialog_fullscreen_close = fullscreenDialog.findViewById(R.id.img_dialog_fullscreen_close);
                 img_dialog_fullscreen_close.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -172,20 +173,10 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
                 });
                 fullscreenDialog.show();
                 break;
-            case R.id.image_btn:
-                //showImage();
-                break;
-            case R.id.file_btn:
-                //showFile();
-                break;
-
-            case R.id.link_btn:
-                //showLink();
-                break;
         }
     }
 
-    void initEditor(RichEditor editor) {
+    private void initEditor(RichEditor editor) {
         editor.setEditorHeight(400);
         editor.setPadding(10, 10, 50, 10);
         editor.setPlaceholder("Write an Answer...");
@@ -257,7 +248,7 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
     }
 
     private void initRecyclerView() {
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setAdapter(sliderAdapter);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new CardSliderLayoutManager(this));
@@ -300,9 +291,11 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
         super.onDestroy();
     }
 
+    @SuppressWarnings("UnnecessaryReturnStatement")
     private void onActiveCardChange() {
         final int pos = layoutManger.getActiveCardPosition();
         if (pos == RecyclerView.NO_POSITION ) {
+            //noinspection UnnecessaryReturnStatement
             return;
         }
     }
@@ -369,11 +362,7 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
                 postText += item;
             }
         }
-        if (flag == 1) {
-            return true;
-        } else {
-            return false;
-        }
+        return flag == 1;
     }
 
 

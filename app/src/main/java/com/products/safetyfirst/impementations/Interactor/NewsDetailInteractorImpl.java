@@ -24,8 +24,8 @@ import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
 
 public class NewsDetailInteractorImpl implements NewsDetailInteractor {
 
-    private NewsDetailPresenter newsDetailPresenter;
-    private UserHelper user;
+    private final NewsDetailPresenter newsDetailPresenter;
+    private final UserHelper user;
 
     public NewsDetailInteractorImpl(NewsDetailPresenterImpl newsDetailPresenter) {
         this.newsDetailPresenter = newsDetailPresenter;

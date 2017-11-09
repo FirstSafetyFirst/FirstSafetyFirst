@@ -21,9 +21,10 @@ import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
  * Created by profileconnect on 20/04/17.
  */
 
+@SuppressWarnings({"ALL", "EmptyMethod"})
 public class News_Fragment extends Fragment {
     private static final String TAG = "NewsListFragment";
-    RecyclerView news_recycler;
+    private RecyclerView news_recycler;
 
     private DatabaseReference mDatabase;
     private ProgressBar mProgressBar;
@@ -42,11 +43,11 @@ public class News_Fragment extends Fragment {
         }
 
         mDatabase = getDatabase().getReference();
-        mpaginateprogbar=(ProgressBar) rootView.findViewById(R.id.newspaginateprogbar);
+        mpaginateprogbar= rootView.findViewById(R.id.newspaginateprogbar);
 
-        mProgressBar = (ProgressBar) rootView.findViewById(R.id.progressBar);
+        mProgressBar = rootView.findViewById(R.id.progressBar);
 
-        news_recycler =(RecyclerView)rootView.findViewById(R.id.news_recycler);
+        news_recycler = rootView.findViewById(R.id.news_recycler);
         news_recycler.setHasFixedSize(true);
         return rootView;
     }

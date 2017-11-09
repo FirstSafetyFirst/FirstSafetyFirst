@@ -19,8 +19,8 @@ import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
 
 public class BookmarkInteractorImpl implements BookmarkInteractor {
 
-    private BookmarkPresenter bookmarkPresenter;
-    ArrayList<Object> mListOfItems= new ArrayList<>();
+    private final BookmarkPresenter bookmarkPresenter;
+    private final ArrayList<Object> mListOfItems= new ArrayList<>();
 
     public BookmarkInteractorImpl(BookmarkPresenter presenter){
         bookmarkPresenter=presenter;
@@ -32,7 +32,7 @@ public class BookmarkInteractorImpl implements BookmarkInteractor {
         //for events
         query= getDatabase().getReference().child("events").child("eventsBookmarks").child(FirebaseUtils.getCurrentUserId());
         query.addValueEventListener(new ValueEventListener() {
-            ArrayList<String> mListOfEvents = new ArrayList<>();
+            final ArrayList<String> mListOfEvents = new ArrayList<>();
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 

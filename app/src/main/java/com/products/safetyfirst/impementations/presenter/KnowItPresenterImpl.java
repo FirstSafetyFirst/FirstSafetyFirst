@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 public class KnowItPresenterImpl implements KnowItPresenter{
     private KnowItView knowItView;
-    private KnowItInteractor knowItInteractor;
+    private final KnowItInteractor knowItInteractor;
     private KnowItAdapterView knowItAdapterView;
 
     public KnowItPresenterImpl(KnowItView knowItView){

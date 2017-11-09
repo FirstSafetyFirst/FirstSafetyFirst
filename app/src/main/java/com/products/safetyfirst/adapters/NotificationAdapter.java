@@ -25,10 +25,10 @@ import io.realm.RealmResults;
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.NotificationViewHolder> {
 
     private RealmResults<NotificationModel> items;
-    private Context mContext;
-    private Realm realm;
+    private final Context mContext;
+    private final Realm realm;
 
-    NotificationAdapter(Context context, Realm realmInstance) {
+    public NotificationAdapter(Context context, Realm realmInstance) {
         this.mContext = context;
         this.realm = realmInstance;
         realm.executeTransaction(new Realm.Transaction() {
@@ -83,9 +83,9 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     public class NotificationViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView bodyView;
-        public View mainView;
-        public TextView titleView;
+        public final TextView bodyView;
+        public final View mainView;
+        public final TextView titleView;
         //TODO add upvotes and downvotes round_blue_dark
 
 
@@ -93,8 +93,8 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             super(itemView);
 
             mainView = itemView;
-            bodyView = (TextView) itemView.findViewById(R.id.notification_descr);
-            titleView = (TextView) itemView.findViewById(R.id.notification_title);
+            bodyView = itemView.findViewById(R.id.notification_descr);
+            titleView = itemView.findViewById(R.id.notification_title);
         }
     }
 }

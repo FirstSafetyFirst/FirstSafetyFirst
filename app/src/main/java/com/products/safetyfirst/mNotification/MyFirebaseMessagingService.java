@@ -139,8 +139,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             connection.setDoInput(true);
             connection.connect();
             InputStream input = connection.getInputStream();
-            Bitmap myBitmap = BitmapFactory.decodeStream(input);
-            return myBitmap;
+            return BitmapFactory.decodeStream(input);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -148,7 +147,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
 
     public NotificationModel insertInDatabase(final String body, final int type, final String extraString, final String title) {
-        Realm realm = Realm.getDefaultInstance();
+        Realm realm;
+        Realm.init(getApplicationContext());
+        realm = Realm.getDefaultInstance();
         final NotificationModel notif = new NotificationModel();
 
         realm.executeTransaction(new Realm.Transaction() {

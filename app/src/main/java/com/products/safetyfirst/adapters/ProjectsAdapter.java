@@ -24,7 +24,7 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsViewHolder> im
 
     private final ArrayList<ProjectModel> mProjectsList = new ArrayList<>();
     private final AddProjectPresenterImpl presenter;
-    private Context context;
+    private final Context context;
 
     public ProjectsAdapter(Context context) {
         this.presenter = new AddProjectPresenterImpl(this);

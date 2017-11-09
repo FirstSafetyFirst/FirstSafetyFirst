@@ -26,7 +26,7 @@ import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
 
 public class AddInterestInteractorImpl implements AddInterestInteractor {
 
-    private AddInterestPresenter presenter;
+    private final AddInterestPresenter presenter;
 
     public AddInterestInteractorImpl(AddInterestPresenter pre) {
         this.presenter = pre;
@@ -62,7 +62,7 @@ public class AddInterestInteractorImpl implements AddInterestInteractor {
 
         Query query;
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String mProfileKey = null;
+        String mProfileKey;
 
         if (user != null) {
             mProfileKey = user.getUid();

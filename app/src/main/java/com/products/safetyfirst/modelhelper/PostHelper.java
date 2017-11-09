@@ -40,7 +40,7 @@ import io.reactivex.internal.observers.ConsumerSingleObserver;
 
 public class PostHelper {
 
-    private static PostHelper instance = new PostHelper();
+    private static final PostHelper instance = new PostHelper();
 
     private PostHelper() {
     }
@@ -49,7 +49,7 @@ public class PostHelper {
         return instance;
     }
 
-    private UserHelper userhelper = UserHelper.getInstance();
+    private final UserHelper userhelper = UserHelper.getInstance();
     private StringHelper stringHelper = StringHelper.getInstance();
 
     public void createNewPost(
@@ -140,6 +140,7 @@ public class PostHelper {
                         .addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
+                                @SuppressWarnings("UnnecessaryLocalVariable")
                                 DataSnapshot data = dataSnapshot;
                                 Log.e("Data Received", data.toString());
                                 emitter.onSuccess(dataSnapshot.getValue(PostModel.class)); // TODO: improve null ?

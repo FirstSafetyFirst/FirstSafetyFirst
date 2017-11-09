@@ -22,7 +22,7 @@ import java.util.List;
 
 public class National_Fragment extends Fragment {
     public static final String ARG_TITLE = "arg_title";
-RecyclerView home_recycler;
+private RecyclerView home_recycler;
 
 
 
@@ -39,7 +39,7 @@ RecyclerView home_recycler;
         data.add(new LawModel("aa","vbb"));
         data.add(new LawModel("aa","vbb"));
         data.add(new LawModel("aa","vbb"));
-        home_recycler=(RecyclerView)rootView.findViewById(R.id.national_recycler);
+        home_recycler= rootView.findViewById(R.id.national_recycler);
         home_recycler.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(),2);
         home_recycler.setLayoutManager(mLayoutManager);
