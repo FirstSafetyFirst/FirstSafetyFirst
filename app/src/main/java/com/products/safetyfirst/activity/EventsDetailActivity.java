@@ -9,8 +9,14 @@ import android.graphics.drawable.Drawable;
 import android.support.design.widget.FloatingActionButton;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewPager;
+import android.support.v4.widget.NestedScrollView;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
@@ -23,16 +29,25 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 import com.getkeepsafe.taptargetview.TapTargetView;
 import com.products.safetyfirst.R;
+import com.products.safetyfirst.fragment.ItemsFragments.ChecklistFragment;
+import com.products.safetyfirst.fragment.ItemsFragments.EventInfoFragment;
+import com.products.safetyfirst.fragment.ItemsFragments.EventVideoFragment;
+import com.products.safetyfirst.fragment.ItemsFragments.HowToUseFragment;
+import com.products.safetyfirst.fragment.ItemsFragments.InfoFragment;
+import com.products.safetyfirst.fragment.ItemsFragments.VideoFragment;
+import com.products.safetyfirst.fragment.ItemsFragments.VisitorsListFragment;
 import com.products.safetyfirst.impementations.presenter.EventsDetailPresenterImpl;
 import com.products.safetyfirst.interfaces.presenter.EventsDetailPresenter;
 import com.products.safetyfirst.interfaces.view.EventsDetailView;
 import com.products.safetyfirst.models.Event_model;
+import com.products.safetyfirst.recycler.home.Events;
 import com.products.safetyfirst.utils.Analytics;
 import com.products.safetyfirst.utils.JustifiedWebView;
 import com.products.safetyfirst.utils.PrefManager;
@@ -54,6 +69,15 @@ public class EventsDetailActivity extends BaseActivity implements View.OnClickLi
     private ImageButton mShare, mBookmark;
     private String url;
     private String HEADLINE;
+    ActionBar actionBar;
+
+    private TabLayout tabs;
+    private ViewPager viewPager;
+    private ImageView mainImage;
+    private TabLayout.OnTabSelectedListener tabSelectedListener;
+    private TabLayout.TabLayoutOnPageChangeListener pageChangeListener;
+
+    private Event_model event;
 
 
     @Override
@@ -61,11 +85,20 @@ public class EventsDetailActivity extends BaseActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events_detail);
 
+        mainImage = (ImageView) findViewById(R.id.main_image);
 
-        mBodyView = (JustifiedWebView) findViewById(R.id.body);
-        mTitleView = (TextView) findViewById(R.id.title);
-        mBookmark = (ImageButton) findViewById(R.id.bookmark);
-        mShare =(ImageButton) findViewById(R.id.share);
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+        actionBar = getSupportActionBar();
+
+        if (actionBar != null) {
+            actionBar.setTitle("Detail");
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
+        tabs = (TabLayout) findViewById(R.id.tabs);
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+
+
 
         mEventKey = getIntent().getStringExtra(EXTRA_EVENT_KEY);
         if (mEventKey == null) {
@@ -73,22 +106,13 @@ public class EventsDetailActivity extends BaseActivity implements View.OnClickLi
         }
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
+     //   mBookmark.setOnClickListener(this);
+     //   mShare.setOnClickListener(this);
 
-        image_scrolling_top = (ImageView) findViewById(R.id.image_scrolling_top);
-        Glide.with(this).load(R.mipmap.ic_launcher).fitCenter().into(image_scrolling_top);
-
-        mBookmark.setOnClickListener(this);
-        mShare.setOnClickListener(this);
-
-        fab = (FloatingActionButton)findViewById(R.id.going);
-        fab1 = (FloatingActionButton)findViewById(R.id.interested);
-        fab.setOnClickListener(this);
-        fab1.setOnClickListener(this);
+      //  fab = (FloatingActionButton)findViewById(R.id.going);
+      //  fab1 = (FloatingActionButton)findViewById(R.id.interested);
+      //  fab.setOnClickListener(this);
+      //  fab1.setOnClickListener(this);
 
         presenter = new EventsDetailPresenterImpl(this, mEventKey);
         presenter.requestEvent();
@@ -99,6 +123,81 @@ public class EventsDetailActivity extends BaseActivity implements View.OnClickLi
         }
 
         prefManager.setFirstEventsLaunch(false);
+    }
+
+    void setupTabs() {
+
+        String tab_texts[] = {"Information", "Visitors", "Video"};
+        Integer images[] = {R.drawable.ic_description,
+                R.drawable.ic_checklist,
+                R.drawable.ic_video};
+        View tab_layouts[] = new View[4];
+
+        tabSelectedListener = new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition(), true);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {}
+        };
+        pageChangeListener = new TabLayout.TabLayoutOnPageChangeListener(tabs) {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                TabLayout.Tab tab = tabs.getTabAt(position);
+                tab.select();
+            }
+
+        };
+
+        for(int i = 0; i < 3; i++) {
+            tab_layouts[i] = getLayoutInflater().inflate(R.layout.item_type_info_tabs, null);
+            ((TextView)tab_layouts[i].findViewById(R.id.tabs_text)).setText(tab_texts[i]);
+            ((ImageView)tab_layouts[i].findViewById(R.id.tabs_image)).setImageDrawable(getResources().getDrawable(images[i]));
+            tabs.addTab(tabs.newTab().setCustomView(tab_layouts[i]));
+        }
+
+        final Bundle args = new Bundle();
+
+        final Fragment fragments[] = {
+                new EventInfoFragment(),
+                new VisitorsListFragment(),
+                new EventVideoFragment() };
+        for(Fragment fragment: fragments){
+            fragment.setArguments(args);
+        }
+
+        FragmentPagerAdapter categoryAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
+            String titles[] = {"Info", "Visitors", "Video"};
+            @Override
+            public Fragment getItem(int position) {
+                return fragments[position];
+            }
+
+            @Override
+            public int getCount() {
+                return fragments.length;
+            }
+
+            @Override
+            public CharSequence getPageTitle(int position) {
+                return titles[position];
+            }
+
+        };
+        viewPager.setAdapter(categoryAdapter);
+        viewPager.setCurrentItem(0);
+        tabs.getTabAt(0).select();
+
+        viewPager.addOnPageChangeListener(pageChangeListener);
+        tabs.addOnTabSelectedListener(tabSelectedListener);
     }
 
 
@@ -162,7 +261,24 @@ public class EventsDetailActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void setEvent(Event_model event) {
-       if(event.getTitle() != null) mTitleView.setText(event.getTitle());
+
+        this.event = event;
+
+        if (actionBar != null) {
+            actionBar.setTitle(event.getTitle());
+        }
+
+        setupTabs();
+
+       // Toast.makeText(this, event.getDesc(), Toast.LENGTH_SHORT).show();
+
+        ImageView main_image = findViewById(R.id.main_image);
+        if(event.getThumbUrl() != null ) Glide.with(getApplicationContext()).load(event.getThumbUrl()).fitCenter().into(main_image);
+
+        Toast.makeText(this, ""+event.getThumbUrl(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, ""+event.getVisitors(), Toast.LENGTH_SHORT).show();
+
+     /*  if(event.getTitle() != null) mTitleView.setText(event.getTitle());
        if(event.getDesc() != null ) mBodyView.setText(event.getDesc());
        if(event.getUrl() != null ) Glide.with(getApplicationContext()).load(event.getUrl()).fitCenter().into(image_scrolling_top);
 
@@ -172,9 +288,9 @@ public class EventsDetailActivity extends BaseActivity implements View.OnClickLi
 
             else
                 mBookmark.setImageResource(R.drawable.ic_bookmark_border_black_24dp);
-        }
+        }*/
 
-        Analytics.logEventViewItem(getApplicationContext(),event.getTimestamp().toString(),mTitleView.getText().toString(),"event");
+  /*      Analytics.logEventViewItem(getApplicationContext(),event.getTimestamp().toString(),mTitleView.getText().toString(),"event");
         if(event.action != null){
             if (event.action.containsKey(getCurrentUserId())) {
 
@@ -211,7 +327,7 @@ public class EventsDetailActivity extends BaseActivity implements View.OnClickLi
             fab.setColorFilter(Color.argb(255, 255, 255, 255));
             fab1.setColorFilter(Color.argb(255, 255, 255, 255));
         }
-
+*/
     }
 
     @Override
@@ -231,7 +347,7 @@ public class EventsDetailActivity extends BaseActivity implements View.OnClickLi
 
 
     void showTutorial(){
-
+/*
         final Display display = getWindowManager().getDefaultDisplay();
         final Drawable droid = ContextCompat.getDrawable(this, R.drawable.ic_camera_alt_black_24dp);
         final Rect droidTarget = new Rect(0, 0, droid.getIntrinsicWidth() * 2, droid.getIntrinsicHeight() * 2);
@@ -243,7 +359,7 @@ public class EventsDetailActivity extends BaseActivity implements View.OnClickLi
         final TapTargetSequence sequence = new TapTargetSequence(this)
                 .targets(
                         // This tap target will target the back button, we just need to pass its containing toolbar
-                        TapTarget.forView(fab, "This is an action button", sassyDesc).id(1),
+                      //  TapTarget.forView(fab, "This is an action button", sassyDesc).id(1),
                         // Likewise, this tap target will target the search button
                         TapTarget.forView(fab1, "This is another action button", "It tells your friends that you are Interested to this event")
                                 .dimColor(android.R.color.black)
@@ -327,6 +443,29 @@ public class EventsDetailActivity extends BaseActivity implements View.OnClickLi
             }
         });
 
+*/
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        viewPager.removeOnPageChangeListener(pageChangeListener);
+        tabs.removeOnTabSelectedListener(tabSelectedListener);
+    }
+
+    public String getEventInfo(){
+        if(event != null) return event.getDesc();
+        Toast.makeText(this, "null event", Toast.LENGTH_SHORT).show();
+        return null;
+    }
+
+    public String getVisitors(){
+        if(event != null) return event.getVisitors();
+        return null;
+    }
+
+    public String getEventVideo(){
+        if(event != null) return event.getVideo();
+        return null;
     }
 }

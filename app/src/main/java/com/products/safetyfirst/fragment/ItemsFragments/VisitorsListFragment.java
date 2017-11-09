@@ -12,11 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.products.safetyfirst.R;
+import com.products.safetyfirst.activity.EventsDetailActivity;
 import com.products.safetyfirst.activity.ItemTypeInfoActivity;
-import com.products.safetyfirst.models.KnowItItemType;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -35,14 +36,15 @@ import static android.app.Activity.RESULT_OK;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TypeChecklistFragment extends Fragment {
+public class VisitorsListFragment extends Fragment {
+
 
     public static final int VIEW_FILE_CODE = 10;
     private File openedFile;
     private ProgressBar progress;
     private Button btn;
 
-    public TypeChecklistFragment() {
+    public VisitorsListFragment() {
         // Required empty public constructor
     }
 
@@ -90,7 +92,7 @@ public class TypeChecklistFragment extends Fragment {
 
     private void openPdf(){
 
-       final  String url  = ((ItemTypeInfoActivity) getActivity()).getKnowItItemCheckList();
+        final  String url  = ((EventsDetailActivity) getActivity()).getVisitors();
 
         if (url==null) return ;
 
@@ -153,4 +155,5 @@ public class TypeChecklistFragment extends Fragment {
             }
         }
     }
+
 }

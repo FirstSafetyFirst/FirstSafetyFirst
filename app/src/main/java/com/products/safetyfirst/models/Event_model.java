@@ -8,11 +8,13 @@ import java.util.Map;
 
 public class Event_model {
 
-    private String url,title,desc,favicon_url,organizer;
+    private String url,title,desc,thumb_url,organizer;
     private Object timestamp;
     private String deeplink;
     private long numShares;
     private long numViews;
+    private String video_url;
+    private String visitor_list;
 
     public Map<String, Object> action;
     public Map<String, Object> bookmarks;
@@ -21,12 +23,12 @@ public class Event_model {
 
     }
 
-    public Event_model(String url, String title, String desc, String favicon_url, String organizer) {
-        this.url = url;
+    public Event_model(String video_url, String title, String desc, String thumb_url, String visitor_list) {
+        this.video_url = video_url;
         this.title = title;
         this.desc = desc;
-        this.favicon_url = favicon_url;
-        this.organizer = organizer;
+        this.thumb_url = thumb_url;
+        this.visitor_list = visitor_list;
     }
 
     public String getUrl() {
@@ -49,16 +51,22 @@ public class Event_model {
         return desc;
     }
 
+    public String getVideo() { return this.video_url; }
+
+    public String getVisitors() {
+        return this.visitor_list;
+    }
+
     public void setDesc(String desc) {
         this.desc = desc;
     }
 
-    public String getFavicon_url() {
-        return favicon_url;
+    public String getThumbUrl() {
+        return this.thumb_url;
     }
 
-    public void setFavicon_url(String favicon_url) {
-        this.favicon_url = favicon_url;
+    public void setThumbUrl(String favicon_url) {
+        this.thumb_url = favicon_url;
     }
 
     public String getOrganizer() {

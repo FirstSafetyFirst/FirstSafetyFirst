@@ -11,18 +11,21 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.products.safetyfirst.R;
+import com.products.safetyfirst.activity.EventsDetailActivity;
 import com.products.safetyfirst.activity.ItemTypeInfoActivity;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TypeVideoFragment extends Fragment {
+public class EventVideoFragment extends Fragment {
+
 
     private View mainView;
 
-    public TypeVideoFragment() {
+    public EventVideoFragment() {
         // Required empty public constructor
     }
 
@@ -33,12 +36,12 @@ public class TypeVideoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mainView = inflater.inflate(R.layout.fragment_type_video, container, false);
+        mainView = inflater.inflate(R.layout.fragment_video, container, false);
         WebView webView = (WebView) mainView.findViewById(R.id.webview);
         TextView notAvailable = (TextView) mainView.findViewById(R.id.not_available);
 
 
-        String url =  ((ItemTypeInfoActivity) getActivity()).getKnowItItemVideo();
+        String url =  ((EventsDetailActivity) getActivity()).getEventVideo();
 
 
 
@@ -48,11 +51,12 @@ public class TypeVideoFragment extends Fragment {
             Log.e("Video", "Not Available");
             return mainView;
         }
+        else Toast.makeText(getContext(), "NULL VIDEO", Toast.LENGTH_SHORT).show();
 
         String frameVideo = "<html><body><iframe width=\"100%\" height=\"312px\" src=\""+url+"\" frameborder=\"0\" " + "allowfullscreen onload=\"this.width=screen.width-20\"></iframe></body></html>";
 
-          //webView.loadUrl(url);
-          webView.setVisibility(View.VISIBLE);
+        //webView.loadUrl(url);
+        webView.setVisibility(View.VISIBLE);
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -64,12 +68,13 @@ public class TypeVideoFragment extends Fragment {
         webSettings.setJavaScriptEnabled(true);
 
         webView.loadData(frameVideo, "text/html", "utf-8");
-       // webView.setOnClickListener(new View.OnClickListener() {
-         //   @Override
+        // webView.setOnClickListener(new View.OnClickListener() {
+        //   @Override
         // public void  onClick(View v) {
         //   Analytics.logEventTutorialBegin(getContext());
-      //      }
+        //      }
         // });
         return mainView;
     }
+
 }

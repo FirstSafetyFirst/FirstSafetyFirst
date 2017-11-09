@@ -12,14 +12,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.products.safetyfirst.R;
-import com.products.safetyfirst.fragment.ItemsFragments.TypeChecklistFragment;
-import com.products.safetyfirst.fragment.ItemsFragments.TypeHowToUseFragment;
-import com.products.safetyfirst.fragment.ItemsFragments.TypeInfoFragment;
-import com.products.safetyfirst.fragment.ItemsFragments.TypeVideoFragment;
+import com.products.safetyfirst.fragment.ItemsFragments.ChecklistFragment;
+import com.products.safetyfirst.fragment.ItemsFragments.HowToUseFragment;
+import com.products.safetyfirst.fragment.ItemsFragments.InfoFragment;
+import com.products.safetyfirst.fragment.ItemsFragments.VideoFragment;
 import com.products.safetyfirst.impementations.presenter.KnowItPresenterImpl;
 import com.products.safetyfirst.interfaces.presenter.KnowItPresenter;
 import com.products.safetyfirst.interfaces.view.KnowItView;
@@ -111,10 +110,10 @@ public class ItemTypeInfoActivity extends AppCompatActivity implements KnowItVie
 
         final Bundle args = new Bundle();
         args.putParcelable("KnowItItemType",knowItItemType);
-        final Fragment fragments[] = {new TypeInfoFragment(),
-                new TypeHowToUseFragment(),
-                new TypeChecklistFragment(),
-                new TypeVideoFragment() };
+        final Fragment fragments[] = {new InfoFragment(),
+                new HowToUseFragment(),
+                new ChecklistFragment(),
+                new VideoFragment() };
         for(Fragment fragment: fragments){
             fragment.setArguments(args);
         }

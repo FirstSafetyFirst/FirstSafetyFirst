@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.products.safetyfirst.fragment.ItemsFragments.TypeChecklistFragment">
+    tools:context="com.products.safetyfirst.fragment.ItemsFragments.ChecklistFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"

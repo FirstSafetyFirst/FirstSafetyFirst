@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.products.safetyfirst.fragment.ItemsFragments.TypeInfoFragment">
+    tools:context="com.products.safetyfirst.fragment.ItemsFragments.InfoFragment">
 
     <android.support.v7.widget.CardView
         android:id="@+id/info_main_text_container"

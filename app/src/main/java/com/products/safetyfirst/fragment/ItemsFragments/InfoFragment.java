@@ -15,14 +15,14 @@ import com.products.safetyfirst.utils.JustifiedWebView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TypeInfoFragment extends Fragment {
+public class InfoFragment extends Fragment {
 
     private View mainView;
     private JustifiedWebView informationView;
     //private int toolValue;
     //private int typeValue;
     private KnowItItemType knowItItemType;
-    public TypeInfoFragment() {
+    public InfoFragment() {
         // Required empty public constructor
     }
 
