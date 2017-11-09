@@ -52,6 +52,30 @@ public class NewsModel {
         return imgUrl;
     }
 
+    public Map<String, Boolean> getBookmarks() {
+        return bookmarks;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public void setDeeplink(String deeplink) {
+        this.deeplink = deeplink;
+    }
+
+    public void setNumShares(long numShares) {
+        this.numShares = numShares;
+    }
+
+    public void setNumViews(long numViews) {
+        this.numViews = numViews;
+    }
+
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
     }

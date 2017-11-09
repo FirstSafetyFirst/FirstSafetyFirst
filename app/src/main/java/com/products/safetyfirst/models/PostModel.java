@@ -25,8 +25,8 @@ public class PostModel {
 
     private String authorImageUrl;
     private String author;
-    private final int starCount = 0;
-    private final Map<String, Boolean> stars = new HashMap<>();
+    public int starCount = 0;
+    public Map<String, Boolean> stars = new HashMap<>();
 
     private String image;
     //  public String video;
@@ -118,5 +118,61 @@ public class PostModel {
         result.put("imageList", imageList);
 
         return result;
+    }
+
+    public String getPostKey() {
+        return postKey;
+    }
+
+    public void setPostKey(String postKey) {
+        this.postKey = postKey;
+    }
+
+    public String getAuthorImageUrl() {
+        return authorImageUrl;
+    }
+
+    public void setAuthorImageUrl(String authorImageUrl) {
+        this.authorImageUrl = authorImageUrl;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public int getStarCount() {
+        return starCount;
+    }
+
+    public Map<String, Boolean> getStars() {
+        return stars;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getFile() {
+        return file;
+    }
+
+    public void setFile(String file) {
+        this.file = file;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 }

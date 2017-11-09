@@ -36,12 +36,12 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
     private String mLastkey;
     private final ProgressBar mpaginateprogbar;
 
-    public NewsAdapter(Context cont, Query newsquery, DatabaseReference mDatabase, ProgressBar mpaginateprogbar ) {
+    public NewsAdapter(Context cont, Query query, DatabaseReference mDatabase, ProgressBar mpaginateprogbar ) {
         this.context=cont;
-        this.newsquery = newsquery;
+        this.newsquery = query;
         this.mDatabase = mDatabase;
         this.mpaginateprogbar = mpaginateprogbar;
-        newsquery.addChildEventListener(new ChildEventListener() {
+        query.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 newsArrayKey.add(dataSnapshot.getKey());

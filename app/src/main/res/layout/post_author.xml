@@ -26,7 +26,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
             android:gravity="center_vertical"
-            android:text="Vikas Mahato"
+            android:text="Anonymous"
             android:textColor="@color/colorPrimary"
             android:textIsSelectable="true" />
         <TextView
@@ -37,7 +37,6 @@
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
             android:gravity="center_vertical"
-            android:text="someauthor@email.com"
             android:textIsSelectable="true"
             android:textStyle="italic" />
     </LinearLayout>

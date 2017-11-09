@@ -15,6 +15,7 @@ import com.products.safetyfirst.R;
 import com.products.safetyfirst.activity.PostDetailActivity;
 import com.products.safetyfirst.customview.CircleTransform;
 import com.products.safetyfirst.models.PostDiscussionModel;
+import com.products.safetyfirst.models.PostModel;
 import com.products.safetyfirst.utils.JustifiedWebView;
 
 import java.text.SimpleDateFormat;
@@ -25,22 +26,23 @@ import java.util.Locale;
  * Created by ishita sharma on 11/4/2017.
  */
 
-class PostViewHolder  extends RecyclerView.ViewHolder{
-    private ImageView images;
-    private final ImageView overflow;
-    private final ImageView post_author_photo;
-    private final ImageView likeBtn;
-    private final ImageView ansBtn;
-    private final ImageView bookmark;
-    private final TextView post_title;
-    private final TextView dateTime;
-    private final TextView post_author;
-    private final TextView post_author_email;
-    private final JustifiedWebView body;
-    private final Button readMore;
-    private final LinearLayout post_author_layout;
+public class PostViewHolder  extends RecyclerView.ViewHolder{
+    public ImageView images;
+    public ImageView overflow;
+    public ImageView post_author_photo;
+    public ImageView likeBtn;
+    public ImageView ansBtn;
+    public ImageView bookmark;
+    public TextView post_title;
+    public TextView dateTime;
+    public TextView post_author;
+    public TextView post_author_email;
+    public JustifiedWebView body;
+    public Button readMore;
+    public LinearLayout post_author_layout;
+    public ImageView postImage;
 
-    private final Context context;
+    public final Context context;
 
     public PostViewHolder(View itemView){
         super(itemView);
@@ -56,8 +58,10 @@ class PostViewHolder  extends RecyclerView.ViewHolder{
         post_author_email = itemView.findViewById(R.id.post_author_email);
         readMore = itemView.findViewById(R.id.view_details);
         post_author_layout = itemView.findViewById(R.id.post_author_layout);
+        postImage = itemView.findViewById(R.id.post_image);
         context = itemView.getContext();
     }
+
 
     public void setData(final PostDiscussionModel postData) {
         post_title.setText(postData.title);
@@ -81,4 +85,13 @@ class PostViewHolder  extends RecyclerView.ViewHolder{
             }
         });
     }
+
+    public void setData(PostModel post){
+        post_title.setText(post.getTitle());
+        post_author.setText(post.getAuthor());
+        //numStarsView.setText(String.valueOf(post.starCount));
+
+         body.setText(post.getBody());
+    }
+
 }

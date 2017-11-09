@@ -81,4 +81,71 @@ public class EventModel {
         return timestamp;
     }
 
+    public String getThumb_url() {
+        return thumb_url;
+    }
+
+    public void setThumb_url(String thumb_url) {
+        this.thumb_url = thumb_url;
+    }
+
+    public void setTimestamp(Object timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public String getDeeplink() {
+        return deeplink;
+    }
+
+    public void setDeeplink(String deeplink) {
+        this.deeplink = deeplink;
+    }
+
+    public long getNumShares() {
+        return numShares;
+    }
+
+    public void setNumShares(long numShares) {
+        this.numShares = numShares;
+    }
+
+    public long getNumViews() {
+        return numViews;
+    }
+
+    public void setNumViews(long numViews) {
+        this.numViews = numViews;
+    }
+
+    public String getVideo_url() {
+        return video_url;
+    }
+
+    public void setVideo_url(String video_url) {
+        this.video_url = video_url;
+    }
+
+    public String getVisitor_list() {
+        return visitor_list;
+    }
+
+    public void setVisitor_list(String visitor_list) {
+        this.visitor_list = visitor_list;
+    }
+
+    public Map<String, Object> getAction() {
+        return action;
+    }
+
+    public void setAction(Map<String, Object> action) {
+        this.action = action;
+    }
+
+    public Map<String, Object> getBookmarks() {
+        return bookmarks;
+    }
+
+    public void setBookmarks(Map<String, Object> bookmarks) {
+        this.bookmarks = bookmarks;
+    }
 }

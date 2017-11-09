@@ -52,6 +52,7 @@ import com.google.firebase.dynamiclinks.ShortDynamicLink;
 import com.products.safetyfirst.BuildConfig;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.fragment.DiscussionFragment;
+import com.products.safetyfirst.fragment.DiscussionFragmentOld;
 import com.products.safetyfirst.fragment.KnowIt_Fragment;
 import com.products.safetyfirst.fragment.News_Events_Fragment;
 import com.products.safetyfirst.fragment.ProfileFragment.ProjectsFragment;
@@ -308,7 +309,9 @@ public class HomeActivity extends BaseActivity
 
     private void buildFragmentsList() {
         News_Events_Fragment newsFragment = new News_Events_Fragment();
-        DiscussionFragment discussionFragment = new DiscussionFragment();
+       // DiscussionFragment discussionFragment = new DiscussionFragment();
+       // RecentPostsFragment discussionFragment = new RecentPostsFragment();
+        DiscussionFragmentOld discussionFragment = new DiscussionFragmentOld();
         TrainingFragment trainingFragment = new TrainingFragment();
         KnowIt_Fragment knowFragment = new KnowIt_Fragment();
         UpdateProfileFragment updateProfileFragment = new UpdateProfileFragment();
