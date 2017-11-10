@@ -1,5 +1,8 @@
 package com.products.safetyfirst.activity;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.os.Bundle;
@@ -32,6 +35,8 @@ import com.products.safetyfirst.utils.Analytics;
 import com.products.safetyfirst.utils.JustifiedWebView;
 import com.products.safetyfirst.utils.PrefManager;
 
+import jp.wasabeef.richeditor.RichEditor;
+
 import static com.products.safetyfirst.utils.Constants.GOING;
 import static com.products.safetyfirst.utils.Constants.INTERESTED;
 
@@ -61,7 +66,7 @@ public class EventsDetailActivity extends BaseActivity implements View.OnClickLi
 
     private EventModel event;
 
-
+    boolean tabsSetup = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,6 +110,8 @@ public class EventsDetailActivity extends BaseActivity implements View.OnClickLi
     }
 
     private void setupTabs() {
+
+        if(tabsSetup) return;
 
         String tab_texts[] = {"Information", "Visitors", "Video"};
         Integer images[] = {R.drawable.ic_description,
@@ -190,7 +197,18 @@ public class EventsDetailActivity extends BaseActivity implements View.OnClickLi
                 setAction(GOING);
                 break;
             case R.id.interested:
-                setAction(INTERESTED);
+                //setAction(INTERESTED);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(EventsDetailActivity.this);
+                builder.setTitle(R.string.pick_avatar)
+                        .setItems(R.array.avatas_array, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                Toast.makeText(EventsDetailActivity.this, String.valueOf(which), Toast.LENGTH_SHORT).show();
+                                presenter.setAction(which);
+                            }
+                        });
+                builder.show();
+
                 break;
             case R.id.share:
                 share();

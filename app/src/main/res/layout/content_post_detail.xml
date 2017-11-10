@@ -52,7 +52,7 @@
                     android:layout_marginStart="@dimen/recycler_view_left_offset"
                     android:clipChildren="false"
                     android:overScrollMode="never"
-                    app:viewUpdater="com.ramotion.cardslider.examples.simple.cards.CardsUpdater"/>
+                    android:orientation="horizontal"/>
             </RelativeLayout>
 
             <include

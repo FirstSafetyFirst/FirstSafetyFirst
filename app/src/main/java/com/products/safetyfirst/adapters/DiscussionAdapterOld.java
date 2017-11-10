@@ -167,7 +167,6 @@ public class DiscussionAdapterOld  extends RecyclerView.Adapter<PostViewHolder> 
             public void onClick(View v) {
                 Intent intent = new Intent(context, PostDetailActivity.class);
                 intent.putExtra(PostDetailActivity.EXTRA_POST_KEY, postArrayKey.get(position));
-                Toast.makeText(context, postArrayKey.get(position)+"", Toast.LENGTH_SHORT).show();
                 context.startActivity(intent);
 
             }

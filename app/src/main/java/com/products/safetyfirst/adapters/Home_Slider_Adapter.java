@@ -5,11 +5,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.products.safetyfirst.R;
-import com.products.safetyfirst.models.SliderModel;
 import com.products.safetyfirst.viewholder.HomeSliderViewHolder;
 
 import java.util.List;
@@ -21,9 +19,9 @@ import java.util.List;
 public class Home_Slider_Adapter extends RecyclerView.Adapter<HomeSliderViewHolder> {
 
     private final Context context;
-    private final List<SliderModel> horizontalList;
+    private final List<String> horizontalList;
 
-    public Home_Slider_Adapter(Context cont, List<SliderModel> horizontalList) {
+    public Home_Slider_Adapter(Context cont, List<String> horizontalList) {
         this.horizontalList = horizontalList;
         this.context=cont;
     }
@@ -39,12 +37,12 @@ public class Home_Slider_Adapter extends RecyclerView.Adapter<HomeSliderViewHold
     @Override
     public void onBindViewHolder(final HomeSliderViewHolder holder, final int position) {
 
-        Glide.with(context).load("http://fscl01.fonpit.de/userfiles/6727621/image/2016/Nougat/AndroidPIT-Android-N-Nougat-2480.jpg").into(holder.slider_image);
-
+       // Glide.with(context).load("http://fscl01.fonpit.de/userfiles/6727621/image/2016/Nougat/AndroidPIT-Android-N-Nougat-2480.jpg").into(holder.slider_image);
+        Glide.with(context).load(horizontalList.get(position)).into(holder.slider_image);
         holder.slider_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, horizontalList.get(position).getDesc(), Toast.LENGTH_SHORT).show();
+               // Toast.makeText(context, horizontalList.get(position).getDesc(), Toast.LENGTH_SHORT).show();
             }
         });
     }

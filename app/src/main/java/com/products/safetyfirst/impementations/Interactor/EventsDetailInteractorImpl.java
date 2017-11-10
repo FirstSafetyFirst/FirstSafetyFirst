@@ -113,7 +113,9 @@ public class EventsDetailInteractorImpl implements EventsDetailInteractor {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     Map<String, Object> updatedUserData = new HashMap<>();
-                    if (dataSnapshot.exists()) {
+                    updatedUserData.put("events/" + mEventKey + "/action/" + mProfileKey, actionId);
+                    updatedUserData.put("eventsActions/" + mProfileKey + "/" + mEventKey, actionId);
+                   /* if (dataSnapshot.exists()) {
                         // Already following, need to unfollow
 
                         long val = (long) dataSnapshot.getValue();
@@ -130,7 +132,7 @@ public class EventsDetailInteractorImpl implements EventsDetailInteractor {
                     } else {
                         updatedUserData.put("events/" + mEventKey + "/action/" + mProfileKey, actionId);
                         updatedUserData.put("eventsActions/" + mProfileKey + "/" + mEventKey, actionId);
-                    }
+                    }*/
                     getDatabase().getReference().updateChildren(updatedUserData, new DatabaseReference.CompletionListener() {
                         @Override
                         public void onComplete(DatabaseError firebaseError, DatabaseReference firebase) {

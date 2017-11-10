@@ -473,4 +473,8 @@
         <item>no</item>
         <item>no</item>
     </string-array>
+    <string-array name="avatas_array" >
+        <item>Exhibitor</item>
+        <item>Visitor</item>
+    </string-array>
 </resources>

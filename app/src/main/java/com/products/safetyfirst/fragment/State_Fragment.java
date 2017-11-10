@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.IAdapter;
-import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter;
+//import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter;
 import com.mikepenz.fastadapter.items.AbstractItem;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.activity.KnowItSecondActivity;
@@ -38,19 +38,19 @@ public class State_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.state_laws_fragment, container, false);
-        JustifiedWebView laws_info = rootView.findViewById(R.id.law_info);
+     /*   JustifiedWebView laws_info = rootView.findViewById(R.id.law_info);
         RecyclerView stateLawsRecycler = rootView.findViewById(R.id.state_laws_recycler);
-        FastItemAdapter lawsAdapter = new FastItemAdapter();
+     //   FastItemAdapter lawsAdapter = new FastItemAdapter();
         final List<LawItem> laws = new ArrayList<>();
 
-        /*Set Laws Text*/
+        *//*Set Laws Text*//*
         laws_info.setText(getResources().getString(R.string.lorem_ipsum),  // Change here with text fetched from database
                 "<span style=\" color: #2c3b42; font-size: 20px; \"><strong>"
                         + "State Laws"
                         + "</strong></span><hr>");
 
         stateLawsRecycler.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        stateLawsRecycler.setAdapter(lawsAdapter);
+      //  stateLawsRecycler.setAdapter(lawsAdapter);
         stateLawsRecycler.setNestedScrollingEnabled(false);
 
         //TODO: Add state laws dummy data
@@ -71,7 +71,7 @@ public class State_Fragment extends Fragment {
                 startActivity(intent);
                 return true;
             }
-        });
+        });*/
 
         return rootView;
     }

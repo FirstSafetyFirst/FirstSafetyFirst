@@ -60,11 +60,6 @@
             android:parentActivityName=".activity.HomeActivity"
             android:theme="@style/NoActionBar" />
         <activity
-            android:name=".activity.DetailsActivity"
-            android:launchMode="singleTop"
-            android:parentActivityName=".activity.HomeActivity"
-            android:theme="@style/NoActionBar" />
-        <activity
             android:name=".activity.ItemTypeInfoActivity"
             android:label="@string/title_activity_item_type_info"
             android:parentActivityName=".activity.KnowItSecondActivity"
@@ -85,8 +80,8 @@
         <activity android:name=".activity.EventsDetailActivity" />
         <activity
             android:name=".activity.NewPostActivity"
-            android:parentActivityName=".activity.HomeActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize" />
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:parentActivityName=".activity.HomeActivity" />
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -123,6 +118,8 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+        <activity android:name=".activity.PostDetailOld"></activity>
     </application>
 
 </manifest>

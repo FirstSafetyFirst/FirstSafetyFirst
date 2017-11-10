@@ -1,12 +1,8 @@
 package com.products.safetyfirst.activity;
 
-import android.app.ActivityOptions;
 import android.app.Dialog;
-import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,7 +20,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.adapters.CommentsAdapter;
-import com.products.safetyfirst.adapters.SliderAdapter;
+import com.products.safetyfirst.adapters.Home_Slider_Adapter;
 import com.products.safetyfirst.customview.CircleTransform;
 import com.products.safetyfirst.impementations.presenter.PostDetailPresenterImpl;
 import com.products.safetyfirst.interfaces.presenter.PostDetailPresenter;
@@ -34,9 +30,8 @@ import com.products.safetyfirst.models.PostModel;
 import com.products.safetyfirst.models.UserModel;
 import com.products.safetyfirst.utils.JustifiedWebView;
 import com.products.safetyfirst.utils.PrefManager;
-import com.ramotion.cardslider.CardSliderLayoutManager;
-import com.ramotion.cardslider.CardSnapHelper;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -49,12 +44,6 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
 
     public static final String EXTRA_POST_KEY = "post_key";
     private static final String TAG = "PostDetailActivity";
-
-    private final int[] pics = {R.drawable.p1, R.drawable.p2, R.drawable.p3, R.drawable.p4, R.drawable.p5};
-
-    //private  ArrayList<String> pics = new ArrayList<>();
-
-    private final SliderAdapter sliderAdapter = new SliderAdapter(pics, 5, new OnCardClickListener());
 
     private static final String URL_REGEX2 = "(?:^|[\\W])((ht|f)tp(s?):\\/\\/|www\\.)"
             + "(([\\w\\-]+\\.){1,}?([\\w\\-.~]+\\/?)*"
@@ -76,11 +65,11 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
     private PostDetailPresenter presenter;
 
     private CommentsAdapter commentsAdapter;
-
-    private CardSliderLayoutManager layoutManger;
     private RecyclerView recyclerView;
     private RecyclerView commentsRecycler;
     private LinearLayoutManager commentsLayoutManager;
+    private List<String> imageList = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +89,7 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
         mOverflow = findViewById(R.id.overflow);
         mOverflow.setVisibility(View.GONE);
      //   mShare =(ImageButton) findViewById(R.id.share);
+        recyclerView = findViewById(R.id.recycler_view);
 
         mPostKey = getIntent().getStringExtra(EXTRA_POST_KEY);
         if (mPostKey == null) {
@@ -128,8 +118,6 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
         prefManager.setFirstPostLaunch(false);
 
         initCommentsView();
-
-        initRecyclerView();
 
     }
 
@@ -204,9 +192,12 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
 
             if(post.getImageList() != null){
                 List<String> imageList = post.getImageList();
-                Toast.makeText(this, "Images", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(this, "Images", Toast.LENGTH_SHORT).show();
+                initImageRecycler(post.getImageList());
+
+
             }else{
-               // Toast.makeText(this, "No images", Toast.LENGTH_SHORT).show();
+                recyclerView.setVisibility(View.GONE);
             }
         }
     }
@@ -232,24 +223,14 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
 
     }
 
-    private void initRecyclerView() {
-        recyclerView = findViewById(R.id.recycler_view);
-        recyclerView.setAdapter(sliderAdapter);
+    private void initImageRecycler(List<String> imageList) {
+
+
+        Home_Slider_Adapter imageAdapter = new Home_Slider_Adapter(PostDetailActivity.this, imageList);
+        recyclerView.setAdapter(imageAdapter);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new CardSliderLayoutManager(this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    onActiveCardChange();
-                }
-            }
-        });
-
-        layoutManger = (CardSliderLayoutManager) recyclerView.getLayoutManager();
-
-        new CardSnapHelper().attachToRecyclerView(recyclerView);
     }
 
     private void initCommentsView(){
@@ -276,49 +257,7 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
         super.onDestroy();
     }
 
-    @SuppressWarnings("UnnecessaryReturnStatement")
-    private void onActiveCardChange() {
-        final int pos = layoutManger.getActiveCardPosition();
-        if (pos == RecyclerView.NO_POSITION ) {
-            //noinspection UnnecessaryReturnStatement
-            return;
-        }
-    }
 
-
-    private class OnCardClickListener implements View.OnClickListener {
-        @Override
-        public void onClick(View view) {
-            final CardSliderLayoutManager lm =  (CardSliderLayoutManager) recyclerView.getLayoutManager();
-
-            if (lm.isSmoothScrolling()) {
-                return;
-            }
-
-            final int activeCardPosition = lm.getActiveCardPosition();
-            if (activeCardPosition == RecyclerView.NO_POSITION) {
-                return;
-            }
-
-            final int clickedPosition = recyclerView.getChildAdapterPosition(view);
-            if (clickedPosition == activeCardPosition) {
-                final Intent intent = new Intent(PostDetailActivity.this, DetailsActivity.class);
-                intent.putExtra(DetailsActivity.BUNDLE_IMAGE_ID, pics[activeCardPosition % pics.length]);
-
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-                    startActivity(intent);
-                } else {
-                    final CardView cardView = (CardView) view;
-                    final View sharedView = cardView.getChildAt(cardView.getChildCount() - 1);
-                    final ActivityOptions options = ActivityOptions
-                            .makeSceneTransitionAnimation(PostDetailActivity.this, sharedView, "shared");
-                    startActivity(intent, options.toBundle());
-                }
-            } else if (clickedPosition > activeCardPosition) {
-                recyclerView.smoothScrollToPosition(clickedPosition);
-            }
-        }
-    }
 
 
     private static boolean checkHyperlinkText(String input) {
