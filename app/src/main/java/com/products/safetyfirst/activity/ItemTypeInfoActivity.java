@@ -72,10 +72,12 @@ public class ItemTypeInfoActivity extends AppCompatActivity implements KnowItVie
     private void setupTabs() {
 
         String tab_texts[] = {"Information", "How to Use", "Checklist", "Video"};
-        Integer images[] = {R.drawable.ic_description,
-                R.drawable.ic_howtouse,
-                R.drawable.ic_checklist,
-                R.drawable.ic_video};
+        Integer images[] = {
+                R.drawable.ic_info_black_24dp,
+                R.drawable.ic_assignment_black_24dp,
+                R.drawable.ic_playlist_add_check_black_24dp,
+                R.drawable.ic_videocam_black_24dp
+                };
         View tab_layouts[] = new View[4];
 
         tabSelectedListener = new TabLayout.OnTabSelectedListener() {

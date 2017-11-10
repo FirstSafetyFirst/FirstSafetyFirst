@@ -112,11 +112,11 @@ public class EventsDetailActivity extends BaseActivity implements View.OnClickLi
     private void setupTabs() {
 
         if(tabsSetup) return;
-
+        tabsSetup = true;
         String tab_texts[] = {"Information", "Visitors", "Video"};
-        Integer images[] = {R.drawable.ic_description,
-                R.drawable.ic_checklist,
-                R.drawable.ic_video};
+        Integer images[] = {R.drawable.ic_info_black_24dp,
+                R.drawable.ic_playlist_add_check_black_24dp,
+                R.drawable.ic_videocam_black_24dp};
         View tab_layouts[] = new View[4];
 
         tabSelectedListener = new TabLayout.OnTabSelectedListener() {
@@ -203,7 +203,6 @@ public class EventsDetailActivity extends BaseActivity implements View.OnClickLi
                 builder.setTitle(R.string.pick_avatar)
                         .setItems(R.array.avatas_array, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(EventsDetailActivity.this, String.valueOf(which), Toast.LENGTH_SHORT).show();
                                 presenter.setAction(which);
                             }
                         });
