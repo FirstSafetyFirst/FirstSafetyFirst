@@ -90,7 +90,6 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
         mBodyView = findViewById(R.id.post_body);
         mTitleView = findViewById(R.id.post_title);
         mDate = findViewById(R.id.dateTime);
-
         mAuthorImage = findViewById(R.id.post_author_photo);
         mAuthorName = findViewById(R.id.post_author);
         mAuthorEmail = findViewById(R.id.post_author_email);
@@ -180,20 +179,6 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
         editor.setEditorHeight(400);
         editor.setPadding(10, 10, 50, 10);
         editor.setPlaceholder("Write an Answer...");
-//        editor.setOnDecorationChangeListener(new RichEditor.OnDecorationStateListener() {
-//            @Override
-//            public void onStateChangeListener(String text, List<RichEditor.Type> types) {
-//                if(types.contains(RichEditor.Type.BOLD)) {
-//                    Toast.makeText(NewPostActivity.this, "Bold Press", Toast.LENGTH_LONG).show();
-//                }
-//            }
-//        });
-
-     //   boldBtn.setOnClickListener(this);
-     //   italicBtn.setOnClickListener(this);
-     //   underlineBtn.setOnClickListener(this);
-     //   pickImgBtn.setOnClickListener(this);
-     //   createPostBtn.setOnClickListener(this);
     }
 
     @Override
