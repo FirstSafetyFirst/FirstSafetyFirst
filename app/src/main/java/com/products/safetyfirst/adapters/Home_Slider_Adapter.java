@@ -5,7 +5,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.models.SliderModel;
 import com.products.safetyfirst.viewholder.HomeSliderViewHolder;
@@ -37,14 +39,14 @@ public class Home_Slider_Adapter extends RecyclerView.Adapter<HomeSliderViewHold
     @Override
     public void onBindViewHolder(final HomeSliderViewHolder holder, final int position) {
 
-//        Glide.with(context).load("http://fscl01.fonpit.de/userfiles/6727621/image/2016/Nougat/AndroidPIT-Android-N-Nougat-2480.jpg").into(holder.slider_image);
-//
-//        holder.slider_image.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(context, horizontalList.get(position).getBody(),Toast.LENGTH_SHORT).show();
-//            }
-//        });
+        Glide.with(context).load("http://fscl01.fonpit.de/userfiles/6727621/image/2016/Nougat/AndroidPIT-Android-N-Nougat-2480.jpg").into(holder.slider_image);
+
+        holder.slider_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, horizontalList.get(position).getDesc(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

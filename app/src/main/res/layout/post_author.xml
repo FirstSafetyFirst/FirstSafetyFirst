@@ -12,7 +12,7 @@
         android:layout_height="36dp"
         android:layout_marginLeft="10dp"
         android:layout_marginStart="10dp"
-        android:tint="@color/colorPrimary"
+        android:tint="@color/gray_light"
         app:srcCompat="@drawable/ic_person_black_24dp" />
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,8 +26,8 @@
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
             android:gravity="center_vertical"
-            android:text="Anonymous"
-            android:textColor="@color/colorPrimary"
+            android:text="@string/lorem_ipsum"
+            android:textColor="@color/gray"
             android:textIsSelectable="true" />
         <TextView
             android:id="@+id/post_author_email"
@@ -37,6 +37,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
             android:gravity="center_vertical"
+            android:textColor="@color/gray"
             android:textIsSelectable="true"
             android:textStyle="italic" />
     </LinearLayout>
