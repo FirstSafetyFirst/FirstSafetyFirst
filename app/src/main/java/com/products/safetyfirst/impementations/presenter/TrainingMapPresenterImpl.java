@@ -60,6 +60,13 @@ public class TrainingMapPresenterImpl implements TrainingMapPresenter, TrainingM
     }
 
     @Override
+    public void saveLocation(String location) {
+        if( trainingMapInteractor != null){
+            trainingMapInteractor.saveLocation(location);
+        }
+    }
+
+    @Override
     public void onError(String message) {
 
     }

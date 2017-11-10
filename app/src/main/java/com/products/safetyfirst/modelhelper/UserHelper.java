@@ -32,6 +32,10 @@ public class UserHelper {
         return auth.getCurrentUser().getUid();
     }
 
+    public String getUserName() {
+        return auth.getCurrentUser().getDisplayName();
+    }
+
     public String getUserImgUrl() {
         if(auth.getCurrentUser().getPhotoUrl() != null) {
             return auth.getCurrentUser().getPhotoUrl().toString();

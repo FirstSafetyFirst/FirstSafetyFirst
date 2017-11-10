@@ -5,18 +5,22 @@
         <item
             android:id="@+id/nav_update_profile"
             android:icon="@drawable/ic_person_black_24dp"
+            android:iconTint="@color/bg_screen1"
             android:title="@string/update_profile" />
         <item
             android:id="@+id/nav_bookmarks"
             android:icon="@drawable/collections_bookmark"
+            android:iconTint="@color/bg_screen2"
             android:title="Bookmarks"/>
         <item
             android:id="@+id/nav_faq"
             android:icon="@drawable/ic_help_black_24dp"
+            android:iconTint="@color/bg_screen3"
             android:title="@string/faqs" />
         <item
             android:id="@+id/nav_help"
             android:icon="@drawable/ic_thumb_up_black_24dp"
+            android:iconTint="@color/bg_screen4"
             android:title="@string/help" />
         <item
             android:id="@+id/nav_tnc"
@@ -30,11 +34,13 @@
             <item
                 android:id="@+id/nav_logout"
                 android:icon="@drawable/ic_menu_send"
+                android:iconTint="@color/darkgreen"
                 android:title="@string/logout" />
 
             <item
                 android:id="@+id/nav_invite"
                 android:icon="@drawable/ic_email_black_24dp"
+                android:iconTint="@color/darkpurple"
                 android:title="@string/invite" />
 
     </group>

@@ -206,7 +206,7 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
                 List<String> imageList = post.getImageList();
                 Toast.makeText(this, "Images", Toast.LENGTH_SHORT).show();
             }else{
-                Toast.makeText(this, "No images", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(this, "No images", Toast.LENGTH_SHORT).show();
             }
         }
     }

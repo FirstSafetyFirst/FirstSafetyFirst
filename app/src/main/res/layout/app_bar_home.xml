@@ -34,6 +34,7 @@
                 android:id="@+id/toolbar_title" />
 
             <SearchView
+                android:visibility="gone"
                 android:id="@+id/search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

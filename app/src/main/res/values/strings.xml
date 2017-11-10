@@ -110,5 +110,6 @@
     <string name="pick_place">Choose a place</string>
     <string name="add_comment">Add Comment</string>
     <string name="no_notification">You have no new notifications</string>
+    <string name="interested">Interested</string>
 
 </resources>

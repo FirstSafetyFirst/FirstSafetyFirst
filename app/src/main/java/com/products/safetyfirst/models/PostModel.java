@@ -37,7 +37,7 @@ public class PostModel {
     public PostModel() {
     }
 
-    public PostModel(String title, String body, String uid, List<String> imageList, List<String> fileList, long timestamp, String previousPost ) {
+    public PostModel(String title, String body, String uid, String author, List<String> imageList, List<String> fileList, long timestamp, String previousPost ) {
         this.title = title;
         this.body = body;
         this.uid = uid;
@@ -45,6 +45,7 @@ public class PostModel {
         this.fileList = fileList;
         this.timestamp = timestamp;
         this.postKey = previousPost;
+        this.author = author;
     }
 
     public String getTitle() {

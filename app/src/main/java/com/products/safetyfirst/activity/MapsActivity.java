@@ -2,6 +2,8 @@ package com.products.safetyfirst.activity;
 
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -15,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -39,7 +42,10 @@ import com.products.safetyfirst.impementations.presenter.TrainingMapPresenterImp
 import com.products.safetyfirst.interfaces.view.TrainingMapView;
 import com.products.safetyfirst.models.TrainingCenterModel;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, TrainingMapView {
 
@@ -58,7 +64,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     // A default location (Sydney, Australia) and default zoom to use when location permission is
     // not granted.
     private final LatLng mDefaultLocation = new LatLng(-33.8523341, 151.2106085);
-    private static final int DEFAULT_ZOOM = 15;
+    private static final int DEFAULT_ZOOM = 5;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private boolean mLocationPermissionGranted;
 
@@ -98,7 +104,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         mTrainingCenterType = getIntent().getStringExtra(EXTRA_CENTER_KEY);
         if (mTrainingCenterType == null) {
-            throw new IllegalArgumentException("Must pass EXTRA_EVENT_KEY");
+            throw new IllegalArgumentException("Must pass EXTRA_CENTER_KEY");
         }
 
         // Construct a GeoDataClient.
@@ -231,6 +237,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                                     new LatLng(mLastKnownLocation.getLatitude(),
                                             mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+
+                            Geocoder gcd = new Geocoder(MapsActivity.this, Locale.getDefault());
+                            List<Address> addresses = new ArrayList<>();
+                            try {
+                                addresses = gcd.getFromLocation(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude(), 1);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            if (addresses!=null &&  addresses.size() > 0) {
+                                //Toast.makeText(MapsActivity.this, ""+addresses.get(0).getLocality(), Toast.LENGTH_SHORT).show();
+                                presenter.saveLocation(addresses.get(0).getLocality());
+                            }
+                            else {
+                                // do your stuff
+                            }
                         } else {
                             Log.d(TAG, "Current location is null. Using defaults.");
                             Log.e(TAG, "Exception: %s", task.getException());
@@ -462,4 +483,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void navigateToHome() {
 
     }
+
+
 }

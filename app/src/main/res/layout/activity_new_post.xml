@@ -81,6 +81,7 @@
                 android:layout_height="48dp" />
 
             <ImageButton
+                android:visibility="invisible"
                 android:id="@+id/pick_img_btn"
                 app:srcCompat="@drawable/ic_image"
                 android:background="@android:color/transparent"

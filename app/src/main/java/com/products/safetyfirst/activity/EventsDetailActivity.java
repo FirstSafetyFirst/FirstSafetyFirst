@@ -13,6 +13,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,6 +28,7 @@ import com.products.safetyfirst.impementations.presenter.EventsDetailPresenterIm
 import com.products.safetyfirst.interfaces.presenter.EventsDetailPresenter;
 import com.products.safetyfirst.interfaces.view.EventsDetailView;
 import com.products.safetyfirst.models.EventModel;
+import com.products.safetyfirst.utils.Analytics;
 import com.products.safetyfirst.utils.JustifiedWebView;
 import com.products.safetyfirst.utils.PrefManager;
 
@@ -46,6 +48,7 @@ public class EventsDetailActivity extends BaseActivity implements View.OnClickLi
     private TextView mTitleView;
     private JustifiedWebView mBodyView;
     private ImageButton mShare, mBookmark;
+    private Button mInterested;
     private String url;
     private String HEADLINE;
     private ActionBar actionBar;
@@ -65,6 +68,8 @@ public class EventsDetailActivity extends BaseActivity implements View.OnClickLi
         setContentView(R.layout.activity_events_detail);
 
         mainImage = findViewById(R.id.main_image);
+        mInterested = findViewById(R.id.interested);
+        mShare = findViewById(R.id.share);
 
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         actionBar = getSupportActionBar();
@@ -85,13 +90,8 @@ public class EventsDetailActivity extends BaseActivity implements View.OnClickLi
         }
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 
-     //   mBookmark.setOnClickListener(this);
-     //   mShare.setOnClickListener(this);
-
-      //  fab = (FloatingActionButton)findViewById(R.id.going);
-      //  fab1 = (FloatingActionButton)findViewById(R.id.interested);
-      //  fab.setOnClickListener(this);
-      //  fab1.setOnClickListener(this);
+        mInterested.setOnClickListener(this);
+        mShare.setOnClickListener(this);
 
         presenter = new EventsDetailPresenterImpl(this, mEventKey);
         presenter.requestEvent();
@@ -241,6 +241,8 @@ public class EventsDetailActivity extends BaseActivity implements View.OnClickLi
     @Override
     public void setEvent(EventModel event) {
 
+        Analytics.logEventViewItem(getApplicationContext(),event.getTimestamp().toString(),event.getTitle(),"event");
+
         this.event = event;
 
         if (actionBar != null) {
@@ -254,8 +256,8 @@ public class EventsDetailActivity extends BaseActivity implements View.OnClickLi
         ImageView main_image = findViewById(R.id.main_image);
         if(event.getThumbUrl() != null ) Glide.with(getApplicationContext()).load(event.getThumbUrl()).fitCenter().into(main_image);
 
-        Toast.makeText(this, ""+event.getThumbUrl(), Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, ""+event.getVisitors(), Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, ""+event.getThumbUrl(), Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, ""+event.getVisitors(), Toast.LENGTH_SHORT).show();
 
      /*  if(event.getTitle() != null) mTitleView.setText(event.getTitle());
        if(event.getDesc() != null ) mBodyView.setText(event.getDesc());
@@ -269,7 +271,7 @@ public class EventsDetailActivity extends BaseActivity implements View.OnClickLi
                 mBookmark.setImageResource(R.drawable.ic_bookmark_border_black_24dp);
         }*/
 
-  /*      Analytics.logEventViewItem(getApplicationContext(),event.getTimestamp().toString(),mTitleView.getText().toString(),"event");
+  /*
         if(event.action != null){
             if (event.action.containsKey(getCurrentUserId())) {
 

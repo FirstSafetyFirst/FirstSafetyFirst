@@ -19,4 +19,6 @@ public interface TrainingMapPresenter {
     void onRequestError(String message);
 
     void onRequestSuccess(String message);
+
+    void saveLocation(String location);
 }

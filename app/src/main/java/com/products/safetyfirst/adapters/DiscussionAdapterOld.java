@@ -172,7 +172,7 @@ public class DiscussionAdapterOld  extends RecyclerView.Adapter<PostViewHolder> 
 
             }
         });
-        holder.post_author_layout.setOnClickListener(new View.OnClickListener() {
+      /*  holder.post_author_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, ProfileActivity.class);
@@ -181,7 +181,7 @@ public class DiscussionAdapterOld  extends RecyclerView.Adapter<PostViewHolder> 
 
             }
         });
-
+*/
         if (position==0){
             mpaginateprogbar.setVisibility(View.VISIBLE);
             getMoreData();

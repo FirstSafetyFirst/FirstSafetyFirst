@@ -76,6 +76,7 @@
         <activity
             android:name=".activity.PostDetailActivity"
             android:label="@string/title_activity_post_detail"
+            android:parentActivityName=".activity.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.ProfileActivity"
@@ -84,6 +85,7 @@
         <activity android:name=".activity.EventsDetailActivity" />
         <activity
             android:name=".activity.NewPostActivity"
+            android:parentActivityName=".activity.HomeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />
 
         <!--

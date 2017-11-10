@@ -11,6 +11,8 @@ public interface TrainingMapInteractor {
 
     void getContact(String TrainingCenterId);
 
+    void saveLocation(String location);
+
     @SuppressWarnings("EmptyMethod")
     interface  OnRequestFinishedListener{
         void onError(String message);

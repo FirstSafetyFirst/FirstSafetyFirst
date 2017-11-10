@@ -3,15 +3,18 @@ package com.products.safetyfirst.activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
@@ -35,6 +38,10 @@ import android.widget.Toast;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 import com.getkeepsafe.taptargetview.TapTargetView;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -76,6 +83,13 @@ public class HomeActivity extends BaseActivity
     private static final String TAG_FRAGMENT_TRAINING = "tag_frag_training";
     private static final String TAG_FRAGMENT_KNOWIT = "tag_frag_knowit";
     private static final String TAG_FRAGMENT_UPDATE_PROFILE = "tag_fragment_update_profile";
+    private static final String KEY_LOCATION = "location";
+
+    private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
+    private boolean mLocationPermissionGranted;
+    private FusedLocationProviderClient mFusedLocationProviderClient;
+    private Location mLastKnownLocation;
+
 
     private static final String DEEP_LINK_URL = Constants.DEEP_LINK_URL;
 
@@ -147,13 +161,19 @@ public class HomeActivity extends BaseActivity
             }
         });
 
-        if(versionCode!=version[0]){
-            showUpdateDialog("Update App","A newer version of this app is available on PlayStore. You will get to have a smoother user experience. We have fixed the bugs too. \nSo, Let's try it out.");
+        if(versionCode<version[0]){
+            showUpdateDialog("Update App","A newer version of this app is available on PlayStore. You will get to have a smoother user experience. We have fixed some bugs too. \nSo, Let's try it out.");
 
         }
 
         //log events
         Bundle bundle= new Bundle();
+
+        if (savedInstanceState != null) {
+            mLastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
+        }
+
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         //bundle.putString(FirebaseAnalytics.Param.);
 
@@ -261,8 +281,81 @@ public class HomeActivity extends BaseActivity
                     }
                 });
 
+       // getLocationPermission();
+
+   //     getDeviceLocation();
 
     }
+
+    /**
+     * Prompts the user for permission to use the device location.
+     */
+    private void getLocationPermission() {
+        /*
+         * Request location permission, so that we can get the location of the
+         * device. The result of the permission request is handled by a callback,
+         * onRequestPermissionsResult.
+         */
+        if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
+            mLocationPermissionGranted = true;
+        } else {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                    PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
+        }
+    }
+    /**
+     * Handles the result of the request for location permissions.
+     */
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           @NonNull String permissions[],
+                                           @NonNull int[] grantResults) {
+        mLocationPermissionGranted = false;
+        switch (requestCode) {
+            case PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    mLocationPermissionGranted = true;
+                }
+            }
+        }
+        saveLocationToFirebase();
+    }
+
+    private void saveLocationToFirebase(){
+        Toast.makeText(this, "Saving location", Toast.LENGTH_SHORT).show();
+    }
+
+    private void getDeviceLocation() {
+        /*
+         * Get the best and most recent location of the device, which may be null in rare
+         * cases when a location is not available.
+         */
+        try {
+            if (mLocationPermissionGranted) {
+                Task<Location> locationResult = mFusedLocationProviderClient.getLastLocation();
+                locationResult.addOnCompleteListener(this, new OnCompleteListener<Location>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Location> task) {
+                        if (task.isSuccessful()) {
+                            // Set the map's camera position to the current location of the device.
+                            mLastKnownLocation = task.getResult();
+                        } else {
+                            Log.d("HOMEACTIVITY", "Current location is null. Using defaults.");
+                            Log.e("HOMEACTIVITY", "Exception: %s", task.getException());
+                        }
+                    }
+                });
+            }
+        } catch (SecurityException e)  {
+            Log.e("Exception: %s", e.getMessage());
+        }
+    }
+
     private void showUpdateDialog(String title, String body) {
 
         final Dialog dialog = new Dialog(HomeActivity.this);
@@ -309,8 +402,6 @@ public class HomeActivity extends BaseActivity
 
     private void buildFragmentsList() {
         News_Events_Fragment newsFragment = new News_Events_Fragment();
-       // DiscussionFragment discussionFragment = new DiscussionFragment();
-       // RecentPostsFragment discussionFragment = new RecentPostsFragment();
         DiscussionFragmentOld discussionFragment = new DiscussionFragmentOld();
         TrainingFragment trainingFragment = new TrainingFragment();
         KnowIt_Fragment knowFragment = new KnowIt_Fragment();

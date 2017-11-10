@@ -89,5 +89,35 @@
 
     </android.support.design.widget.CoordinatorLayout>
 
+
+    <android.support.v7.widget.ButtonBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:background="@color/colorAccent">
+        <Button
+            android:id="@+id/interested"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:background="@color/colorAccent"
+            android:text="@string/interested"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            />
+        <ImageButton
+            android:id="@+id/share"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="0.5"
+            android:background="@color/colorAccent"
+            android:tint="@android:color/white"
+            app:srcCompat="@drawable/ic_share_black_24dp"
+            />
+    </android.support.v7.widget.ButtonBarLayout>
+
 </RelativeLayout>
     <!--NOTE:: Due to dpi constraint the picture is viewed small-->
