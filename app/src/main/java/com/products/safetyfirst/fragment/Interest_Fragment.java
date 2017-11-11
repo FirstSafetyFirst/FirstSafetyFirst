@@ -1,6 +1,7 @@
 package com.products.safetyfirst.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,8 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.products.safetyfirst.R;
+import com.products.safetyfirst.activity.HomeActivity;
 import com.products.safetyfirst.adapters.AddInterestAdapter;
 import com.products.safetyfirst.impementations.presenter.AddInterestPresenterImpl;
 import com.products.safetyfirst.interfaces.presenter.AddInterestPresenter;
@@ -63,12 +66,14 @@ public class Interest_Fragment extends Fragment implements View.OnClickListener,
 
     private void createUI(View view) {
 
-        mDoneBtn = view.findViewById(R.id.btn_done);
+        mDoneBtn = view.findViewById(R.id.btn_done_interest);
         recyclerView = view.findViewById(R.id.interest_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setHasFixedSize(true);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         presenter = new AddInterestPresenterImpl(this);
+
+        mDoneBtn.setOnClickListener(this);
 
 
     }
@@ -82,8 +87,10 @@ public class Interest_Fragment extends Fragment implements View.OnClickListener,
     @Override
     public void onClick(View view) {
         int i = view.getId();
-        if (i == R.id.btn_done) {
-            //Start Home activity and finish profile activity preferably call a function in Profile activity to do so.
+        if (i == R.id.btn_done_interest) {
+            Intent intent = new Intent(getContext(), HomeActivity.class);
+            getActivity().finishAfterTransition();
+            startActivity(intent);
         }
     }
 

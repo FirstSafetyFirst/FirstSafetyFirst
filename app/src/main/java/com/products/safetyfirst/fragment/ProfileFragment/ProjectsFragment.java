@@ -174,15 +174,17 @@ public class ProjectsFragment extends Fragment implements View.OnClickListener, 
         Button btnDone = dialog.findViewById(R.id.btn_done);
         Button btnCancel = dialog.findViewById(R.id.btn_cancel);
 
-        final EditText mName = dialog.findViewById(R.id.username);
+        final EditText mName = dialog.findViewById(R.id.designation);
         final EditText mCompany = dialog.findViewById(R.id.company);
         final EditText mDescription = dialog.findViewById(R.id.description);
+        final EditText mYears = dialog.findViewById(R.id.years);
+        final EditText mEvaluation = dialog.findViewById(R.id.evaluation);
 
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 presenter.validateCredentials(mName.getText().toString(), mCompany.getText().toString(),
-                        mDescription.getText().toString());
+                        mDescription.getText().toString(), mYears.getText().toString(), mEvaluation.getText().toString());
                 dialog.dismiss();
             }
         });

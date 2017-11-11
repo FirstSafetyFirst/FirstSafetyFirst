@@ -282,7 +282,7 @@ public class Personal_Fragment extends Fragment implements UpdateProfileView, Vi
                     mDesignation.getText().toString(), "", mCity.getText().toString());
         }
         if (i == R.id.camera) {
-            Toast.makeText(getContext(),"OnClick",Toast.LENGTH_SHORT);
+           // Toast.makeText(getContext(),"OnClick",Toast.LENGTH_SHORT);
             ChangeProfilePic();
         }
     }

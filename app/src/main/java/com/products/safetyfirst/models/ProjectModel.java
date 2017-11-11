@@ -5,9 +5,28 @@ package com.products.safetyfirst.models;
  */
 
 public class ProjectModel {
-    private String username;
+    private String designation;
     private String company;
     private String description;
+    private String evaluation;
+    private String years;
+
+    public String getEvaluation() {
+        return evaluation;
+    }
+
+    public void setEvaluation(String evaluation) {
+        this.evaluation = evaluation;
+    }
+
+    public String getYears() {
+        return years;
+    }
+
+    public void setYears(String years) {
+        this.years = years;
+    }
+
     Long timestamp;
 
     public ProjectModel() {
@@ -15,7 +34,7 @@ public class ProjectModel {
     }
 
     public ProjectModel(String username, String company, String description) {
-        this.username = username;
+        this.designation = username;
         this.company = company;
         this.description = description;
     }
@@ -36,12 +55,12 @@ public class ProjectModel {
         this.description = description;
     }
 
-    public String getUsername() {
+    public String getDesignation() {
 
-        return username;
+        return designation;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setDesignation(String designation) {
+        this.designation = designation;
     }
 }

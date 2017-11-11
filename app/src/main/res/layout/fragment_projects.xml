@@ -7,8 +7,13 @@
     android:background="@color/background"
     tools:context="com.products.safetyfirst.fragment.Personal_Fragment">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
     <TextView
-        android:visibility="gone"
+        android:visibility="visible"
         android:id="@+id/no_projects"
         style="@style/Base.TextAppearance.AppCompat.Medium"
         android:layout_width="match_parent"
@@ -16,6 +21,7 @@
         android:layout_marginTop="@dimen/activity_horizontal_margin"
         android:layout_marginLeft="@dimen/activity_vertical_margin"
         android:layout_marginRight="@dimen/activity_vertical_margin"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:text="@string/projects"
         android:textColor="@color/colorPrimary" />
 
@@ -23,6 +29,7 @@
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+    </LinearLayout>
 
 
     <android.support.design.widget.FloatingActionButton

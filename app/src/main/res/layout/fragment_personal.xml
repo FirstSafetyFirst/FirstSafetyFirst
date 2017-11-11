@@ -54,7 +54,7 @@
                 app:srcCompat="@drawable/ic_camera_alt_black_24dp" />
 
             <EditText
-                android:id="@+id/username"
+                android:id="@+id/designation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -62,7 +62,7 @@
                 android:drawablePadding="@dimen/activity_horizontal_margin"
                 android:drawableStart="@drawable/ic_person_black_24dp"
                 android:drawableTint="@color/colorPrimary"
-                android:hint="@string/username" />
+                android:hint="@string/designation" />
 
             <EditText
                 android:id="@+id/phone"
@@ -87,7 +87,7 @@
                 android:hint="@string/company" />
 
             <EditText
-                android:id="@+id/designation"
+                android:id="@+id/username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_horizontal_margin"

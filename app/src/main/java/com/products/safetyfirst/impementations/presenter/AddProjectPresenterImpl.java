@@ -33,11 +33,11 @@ public class AddProjectPresenterImpl implements AddProjectPresenter, AddProjectI
 
 
     @Override
-    public void validateCredentials(String name, String company, String description) {
+    public void validateCredentials(String name, String company, String description, String years, String evaluation) {
         if (addProjectView != null) {
             addProjectView.showProgress();
         }
-        addProjectInteractor.addProject(name, company, description, this);
+        addProjectInteractor.addProject(name, company, description,years,evaluation, this);
     }
 
     @Override

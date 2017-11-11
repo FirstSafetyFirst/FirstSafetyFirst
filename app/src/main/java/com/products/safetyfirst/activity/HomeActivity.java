@@ -124,6 +124,7 @@ public class HomeActivity extends BaseActivity
 
         menuNav.findItem(R.id.nav_bookmarks).setVisible(false);
         menuNav.findItem(R.id.nav_tnc).setVisible(false);
+        menuNav.findItem(R.id.nav_faq).setVisible(false);
 
     }
 
@@ -356,6 +357,7 @@ public class HomeActivity extends BaseActivity
         }
     }
 
+
     private void showUpdateDialog(String title, String body) {
 
         final Dialog dialog = new Dialog(HomeActivity.this);
@@ -427,7 +429,7 @@ public class HomeActivity extends BaseActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
+      //  getMenuInflater().inflate(R.menu.home, menu);
         return true;
     }
 
@@ -624,8 +626,8 @@ public class HomeActivity extends BaseActivity
 
                             Intent intent = new Intent(Intent.ACTION_SEND);
                             intent.setType("text/html");
-                            intent.putExtra(Intent.EXTRA_SUBJECT, "Firebase Deep Link");
-                            intent.putExtra(Intent.EXTRA_TEXT,shortLink.toString());
+                            intent.putExtra(Intent.EXTRA_SUBJECT, "Try Safety First");
+                            intent.putExtra(Intent.EXTRA_TEXT,"Safety just got safer with Safety First!  "+shortLink.toString());
                             startActivity(intent);
 
                         } else {
@@ -671,13 +673,13 @@ public class HomeActivity extends BaseActivity
                         // This tap target will target the back button, we just need to pass its containing toolbar
                         TapTarget.forToolbarNavigationIcon(toolbar, "This is the menu button", sassyDesc).id(1),
                         // Likewise, this tap target will target the search button
-                        TapTarget.forToolbarMenuItem(toolbar, R.id.search, "This is a search icon", "As you can see, it has gotten pretty dark around here...")
+                       /* TapTarget.forToolbarMenuItem(toolbar, R.id.search, "This is a search icon", "As you can see, it has gotten pretty dark around here...")
                                 .dimColor(android.R.color.black)
                                 .outerCircleColor(R.color.colorAccent)
                                 .targetCircleColor(android.R.color.black)
                                 .transparentTarget(true)
                                 .textColor(android.R.color.black)
-                                .id(2),
+                                .id(2),*/
                         // You can also target the overflow button in your toolbar
                         TapTarget.forToolbarOverflow(toolbar, "This will show more options", "But they're not useful :(").id(3),
                         // This tap target will target our droid buddy at the given target rect

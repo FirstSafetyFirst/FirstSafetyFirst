@@ -45,9 +45,19 @@ public class ProjectsAdapter extends RecyclerView.Adapter<ProjectsViewHolder> im
         holder.mView.startAnimation(animation);
 
         ProjectModel current = mProjectsList.get(position);
-        holder.mUserTextView.setText(current.getUsername());
-        holder.mComapnyTextView.setText(current.getCompany());
-        holder.mDescriptionTextView.setText(current.getDescription());
+
+        if(current.getDesignation() != null)
+            holder.mUserTextView.setText(current.getDesignation());
+        if(current.getCompany() != null)
+            holder.mComapnyTextView.setText(current.getCompany());
+        if(current.getDescription() != null)
+            holder.mDescriptionTextView.setText(current.getDescription());
+        if(current.getEvaluation() != null)
+            holder.mEvaluation.setText("Project Evaluation :"+String.valueOf(current.getEvaluation()));
+        if(current.getYears() != null)
+            holder.mYears.setText("Years :"+ String.valueOf(current.getYears()));
+
+
     }
 
     @Override

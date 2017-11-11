@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public interface AddProjectPresenter {
 
-    void validateCredentials(String name, String company, String designation);
+    void validateCredentials(String name, String company, String designation, String years, String evaluation);
 
     void onDestroy();
 

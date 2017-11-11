@@ -6,7 +6,7 @@ package com.products.safetyfirst.interfaces.interactor;
 
 public interface AddProjectInteractor {
 
-    void addProject(String name, String company, String designation, AddProjectInteractor.OnUpdateFinishedListener listener);
+    void addProject(String name, String company, String designation,String years, String evaluation, AddProjectInteractor.OnUpdateFinishedListener listener);
 
     void requestProjects(String mProfileKey);
 

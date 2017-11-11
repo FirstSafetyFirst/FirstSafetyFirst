@@ -16,13 +16,17 @@ public class ProjectsViewHolder extends RecyclerView.ViewHolder {
     public final TextView mUserTextView;
     public final TextView mComapnyTextView;
     public final TextView mDescriptionTextView;
+    public final TextView mEvaluation;
+    public final TextView mYears;
 
     public ProjectsViewHolder(View itemView) {
         super(itemView);
         mView = itemView;
-        mUserTextView = itemView.findViewById(R.id.username);
+        mUserTextView = itemView.findViewById(R.id.designation);
         mComapnyTextView = itemView.findViewById(R.id.company);
         mDescriptionTextView = itemView.findViewById(R.id.description);
+        mEvaluation = itemView.findViewById(R.id.evaluation);
+        mYears = itemView.findViewById(R.id.years);
     }
 }
 

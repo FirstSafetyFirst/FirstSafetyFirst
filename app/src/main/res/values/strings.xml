@@ -40,7 +40,7 @@
     <string name="type_item_image_description">Item Type Image</string>
     <string name="author_name">Author Name</string>
     <string name="news_image">News Image</string>
-    <string name="username">Username</string>
+    <string name="designation">Designation</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="confirm_password">Confirm Password</string>
@@ -69,7 +69,6 @@
     <string name="read_more">Read More</string>
     <string name="phone">Phone</string>
     <string name="company">Company Name</string>
-    <string name="designation">Designation</string>
     <string name="type">Select</string>
     <string name="certificate">Certificate Number</string>
     <string name="city">City</string>
@@ -113,5 +112,7 @@
     <string name="interested">Interested</string>
     <string name="pick_avatar">Please select</string>
     <string name="projects">Please add any projects you have worked on. This will be used to calculate your Safety First rank !!</string>
+    <string name="evaluation">Evaluation (in Rupees)</string>
+    <string name="years" >Years</string>
 
 </resources>

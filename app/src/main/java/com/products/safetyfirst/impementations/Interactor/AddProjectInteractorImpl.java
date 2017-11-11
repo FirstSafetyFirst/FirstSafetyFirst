@@ -37,7 +37,7 @@ public class AddProjectInteractorImpl implements AddProjectInteractor {
     }
 
     @Override
-    public void addProject(String name, String company, String description, OnUpdateFinishedListener listener) {
+    public void addProject(String name, String company, String description,String years, String evaluation, OnUpdateFinishedListener listener) {
         boolean error = false;
         if (TextUtils.isEmpty(name)) {
             listener.onUsernameError();
@@ -54,12 +54,24 @@ public class AddProjectInteractorImpl implements AddProjectInteractor {
             error = true;
             return;
         }
+        if (TextUtils.isEmpty(years)) {
+            listener.onDescriptionError();
+            error = true;
+            return;
+        }
+        if (TextUtils.isEmpty(evaluation)) {
+            listener.onDescriptionError();
+            error = true;
+            return;
+        }
 
         if (!error) {
             Map<String, Object> childUpdates = new HashMap<>();
             childUpdates.put("company", company);
             childUpdates.put("description", description);
-            childUpdates.put("username", name);
+            childUpdates.put("designation", name);
+            childUpdates.put("years", years);
+            childUpdates.put("evaluation", evaluation);
             childUpdates.put("timestamp", ServerValue.TIMESTAMP);
             DatabaseReference mProjectReference;
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
