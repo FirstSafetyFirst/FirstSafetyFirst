@@ -77,7 +77,8 @@
             android:name=".activity.ProfileActivity"
             android:parentActivityName=".activity.HomeActivity" />
         <activity android:name=".activity.WebViewActivity" />
-        <activity android:name=".activity.EventsDetailActivity" />
+        <activity android:name=".activity.EventsDetailActivity"
+            android:parentActivityName=".activity.HomeActivity"/>
         <activity
             android:name=".activity.NewPostActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"

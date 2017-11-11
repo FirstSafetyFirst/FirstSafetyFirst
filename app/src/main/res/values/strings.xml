@@ -112,5 +112,6 @@
     <string name="no_notification">You have no new notifications</string>
     <string name="interested">Interested</string>
     <string name="pick_avatar">Please select</string>
+    <string name="projects">Please add any projects you have worked on. This will be used to calculate your Safety First rank !!</string>
 
 </resources>

@@ -62,11 +62,11 @@ public class UpdateProfileInteractorImpl implements UpdateProfileInteractor {
             error = true;
             return;
         }
-        if (TextUtils.isEmpty(certificate)) {
+     /*   if (TextUtils.isEmpty(certificate)) {
             listener.onCertificateError();
             error = true;
             return;
-        }
+        } */
         if (TextUtils.isEmpty(city)) {
             listener.onCityError();
             error = true;
@@ -78,7 +78,7 @@ public class UpdateProfileInteractorImpl implements UpdateProfileInteractor {
             childUpdates.put("company", company);
             childUpdates.put("designation", designation);
             childUpdates.put("city", city);
-            childUpdates.put("certificate", certificate);
+           // childUpdates.put("certificate", certificate);
             childUpdates.put("phone",phone.toString());
             DatabaseReference mProfileReference;
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();

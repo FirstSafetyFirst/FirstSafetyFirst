@@ -76,7 +76,6 @@ import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
 public class HomeActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, ProjectsFragment.OnFragmentInteractionListener, TrainingFragment.OnFragmentInteractionListener {
 
-    //private static final String TAG_FRAGMENT_HOME = "tag_frag_home";
     private static final String TAG_FRAGMENT_NEWS = "tag_frag_news";
     private static final String TAG_FRAGMENT_DISCUSSION = "tag_frag_discussion";
     private static final String TAG_FRAGMENT_LAWS = "tag_frag_laws";
@@ -148,6 +147,7 @@ public class HomeActivity extends BaseActivity
          */
         final int versionCode= BuildConfig.VERSION_CODE;
         Query query= getDatabase().getReference().child("current version");
+//        Query query= getDatabase().getReference().child("versionInfo").child("versionCode");
         final long[] version = new long[1];
         query.addValueEventListener(new ValueEventListener() {
             @Override

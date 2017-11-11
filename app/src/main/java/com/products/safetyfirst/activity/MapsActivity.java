@@ -63,8 +63,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     // A default location (Sydney, Australia) and default zoom to use when location permission is
     // not granted.
-    private final LatLng mDefaultLocation = new LatLng(-33.8523341, 151.2106085);
-    private static final int DEFAULT_ZOOM = 5;
+    private final LatLng mDefaultLocation = new LatLng(22.9734229, 78.6568942);
+    private static final int DEFAULT_ZOOM = 10;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private boolean mLocationPermissionGranted;
 
@@ -234,23 +234,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         if (task.isSuccessful()) {
                             // Set the map's camera position to the current location of the device.
                             mLastKnownLocation = task.getResult();
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                                    new LatLng(mLastKnownLocation.getLatitude(),
-                                            mLastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+                            if(mLastKnownLocation != null) {
+                                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                                        new LatLng(mLastKnownLocation.getLatitude(),
+                                                mLastKnownLocation.getLongitude()), DEFAULT_ZOOM)
+                                );
 
-                            Geocoder gcd = new Geocoder(MapsActivity.this, Locale.getDefault());
-                            List<Address> addresses = new ArrayList<>();
-                            try {
-                                addresses = gcd.getFromLocation(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude(), 1);
-                            } catch (IOException e) {
-                                e.printStackTrace();
+                                Geocoder gcd = new Geocoder(MapsActivity.this, Locale.getDefault());
+                                List<Address> addresses = new ArrayList<>();
+                                try {
+                                    addresses = gcd.getFromLocation(mLastKnownLocation.getLatitude(), mLastKnownLocation.getLongitude(), 1);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                                if (addresses != null && addresses.size() > 0) {
+                                    //Toast.makeText(MapsActivity.this, ""+addresses.get(0).getLocality(), Toast.LENGTH_SHORT).show();
+                                    presenter.saveLocation(addresses.get(0).getLocality());
+                                }
                             }
-                            if (addresses!=null &&  addresses.size() > 0) {
-                                //Toast.makeText(MapsActivity.this, ""+addresses.get(0).getLocality(), Toast.LENGTH_SHORT).show();
-                                presenter.saveLocation(addresses.get(0).getLocality());
-                            }
+
                             else {
-                                // do your stuff
+                                Toast.makeText(MapsActivity.this, "Oops!! There was an error fetching your Location! Please turn on Location!", Toast.LENGTH_SHORT).show();
                             }
                         } else {
                             Log.d(TAG, "Current location is null. Using defaults.");

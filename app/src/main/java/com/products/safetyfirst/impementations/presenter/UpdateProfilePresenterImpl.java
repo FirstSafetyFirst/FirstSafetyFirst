@@ -32,7 +32,8 @@ public class UpdateProfilePresenterImpl implements UpdateProfilePresenter, Updat
 
     @Override
     public void getProfile(UserModel user) {
-        updateProfileView.setUser(user);
+        if(user != null)
+            updateProfileView.setUser(user);
     }
 
     @Override

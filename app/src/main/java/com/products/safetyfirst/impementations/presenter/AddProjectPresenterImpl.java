@@ -56,6 +56,12 @@ public class AddProjectPresenterImpl implements AddProjectPresenter, AddProjectI
     }
 
     @Override
+    public void noProjects() {
+        if(addProjectView != null)
+            addProjectView.noProjects();
+    }
+
+    @Override
     public void onUsernameError() {
         if (addProjectView != null) {
             addProjectView.setUsernameError();

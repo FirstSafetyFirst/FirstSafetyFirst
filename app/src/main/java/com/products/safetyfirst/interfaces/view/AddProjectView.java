@@ -20,4 +20,6 @@ public interface AddProjectView {
     void hideProgress();
 
     void navigateToHome();
+
+    void noProjects();
 }

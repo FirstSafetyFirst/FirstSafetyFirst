@@ -7,6 +7,18 @@
     android:background="@color/background"
     tools:context="com.products.safetyfirst.fragment.Personal_Fragment">
 
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/no_projects"
+        style="@style/Base.TextAppearance.AppCompat.Medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
+        android:text="@string/projects"
+        android:textColor="@color/colorPrimary" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"

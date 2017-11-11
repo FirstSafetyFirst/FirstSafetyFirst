@@ -18,4 +18,6 @@ public interface AddProjectPresenter {
 
     void request(String mProfileKey);
 
+    void noProjects();
+
 }

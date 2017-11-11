@@ -96,7 +96,12 @@ public class AddProjectInteractorImpl implements AddProjectInteractor {
                     }
 
                     Collections.reverse(mListOfProjects);
-                    presenter.getChildren(mListOfProjects);
+
+                    if(mListOfProjects.size() == 0){
+                        presenter.noProjects();
+                    }else {
+                        presenter.getChildren(mListOfProjects);
+                    }
 
                 }
 

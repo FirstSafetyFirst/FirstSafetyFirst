@@ -19,6 +19,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.adapters.ProjectsAdapter;
@@ -40,6 +41,7 @@ public class ProjectsFragment extends Fragment implements View.OnClickListener, 
 
     private RecyclerView mListOfProjects;
     private ProjectsAdapter adapter;
+    private TextView noProjectsText;
 
     private String mProfileKey = null;
 
@@ -94,6 +96,8 @@ public class ProjectsFragment extends Fragment implements View.OnClickListener, 
         mListOfProjects.setLayoutManager(new LinearLayoutManager(getActivity()));
         mListOfProjects.setHasFixedSize(true);
         mListOfProjects.setItemAnimator(new DefaultItemAnimator());
+
+        noProjectsText = view.findViewById(R.id.no_projects);
 
         mAddProjectButton = view.findViewById(R.id.fab);
         mProgressbar = view.findViewById(R.id.progressBar);
@@ -231,6 +235,11 @@ public class ProjectsFragment extends Fragment implements View.OnClickListener, 
     @Override
     public void navigateToHome() {
 
+    }
+
+    @Override
+    public void noProjects() {
+        noProjectsText.setVisibility(View.VISIBLE);
     }
 
     @SuppressWarnings("EmptyMethod")
