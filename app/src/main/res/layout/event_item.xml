@@ -30,8 +30,7 @@
             android:adjustViewBounds="true"
             android:background="@drawable/round_corner"
             android:contentDescription="@string/news_image"
-            android:scaleType="centerCrop"
-            android:src="@drawable/welcome" />
+            android:src="@drawable/logo" />
         <View
             android:layout_width="1dp"
             android:layout_height="130dp"
@@ -98,11 +97,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:drawableTop="@drawable/ic_event_available_black_24dp"
                     android:gravity="center"
                     android:visibility="invisible"
-                    android:text="Going"
-                    android:textSize="10sp" />
+                   />
 
                 <TextView
                     android:id="@+id/interested"
@@ -111,11 +108,8 @@
                     android:layout_gravity="center"
                     android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:drawableTop="@drawable/ic_event_black_24dp"
                     android:gravity="center"
-                    android:visibility="invisible"
-                    android:text="Maybe"
-                    android:textSize="10sp" />
+                    android:visibility="invisible" />
                 <Button
                     android:id="@+id/view_details"
                     style="@style/Widget.AppCompat.Button.Colored"

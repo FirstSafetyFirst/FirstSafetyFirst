@@ -659,11 +659,11 @@ public class HomeActivity extends BaseActivity
         // We need the display to get the width and height at this point in time
         final Display display = getWindowManager().getDefaultDisplay();
         // Load our little droid guy
-        final Drawable droid = ContextCompat.getDrawable(this, R.drawable.ic_camera_alt_black_24dp);
+       // final Drawable droid = ContextCompat.getDrawable(this, R.drawable.ic_camera_alt_black_24dp);
         // Tell our droid buddy where we want him to appear
-        final Rect droidTarget = new Rect(0, 0, droid.getIntrinsicWidth() * 2, droid.getIntrinsicHeight() * 2);
+      //  final Rect droidTarget = new Rect(0, 0, droid.getIntrinsicWidth() * 2, droid.getIntrinsicHeight() * 2);
         // Using deprecated methods makes you look way cool
-        droidTarget.offset(display.getWidth() / 2, display.getHeight() / 2);
+     //   droidTarget.offset(display.getWidth() / 2, display.getHeight() / 2);
 
         final SpannableString sassyDesc = new SpannableString("It shows some additional information");
         sassyDesc.setSpan(new StyleSpan(Typeface.ITALIC), sassyDesc.length() - "information".length(), sassyDesc.length(), 0);
@@ -671,7 +671,7 @@ public class HomeActivity extends BaseActivity
         final TapTargetSequence sequence = new TapTargetSequence(this)
                 .targets(
                         // This tap target will target the back button, we just need to pass its containing toolbar
-                        TapTarget.forToolbarNavigationIcon(toolbar, "This is the menu button", sassyDesc).id(1),
+                        TapTarget.forToolbarNavigationIcon(toolbar, "This is the menu button", sassyDesc).id(1)
                         // Likewise, this tap target will target the search button
                        /* TapTarget.forToolbarMenuItem(toolbar, R.id.search, "This is a search icon", "As you can see, it has gotten pretty dark around here...")
                                 .dimColor(android.R.color.black)
@@ -681,12 +681,12 @@ public class HomeActivity extends BaseActivity
                                 .textColor(android.R.color.black)
                                 .id(2),*/
                         // You can also target the overflow button in your toolbar
-                        TapTarget.forToolbarOverflow(toolbar, "This will show more options", "But they're not useful :(").id(3),
+                 //       TapTarget.forToolbarOverflow(toolbar, "This will show more options", "But they're not useful :(").id(3)
                         // This tap target will target our droid buddy at the given target rect
-                        TapTarget.forBounds(droidTarget, "Oh look!", "You can point to any part of the screen. You also can't cancel this one!")
-                                .cancelable(false)
+                  //      TapTarget.forBounds(droidTarget, "Oh look!", "You can point to any part of the screen. You also can't cancel this one!")
+                    //            .cancelable(false)
                                // .icon(droid)
-                                .id(4)
+                      //          .id(4)
                 )
                 .listener(new TapTargetSequence.Listener() {
                     // This listener will tell us when interesting(tm) events happen in regards

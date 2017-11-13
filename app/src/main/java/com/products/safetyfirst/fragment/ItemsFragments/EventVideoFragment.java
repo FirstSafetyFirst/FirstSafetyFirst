@@ -51,7 +51,7 @@ public class EventVideoFragment extends Fragment {
             Log.e("Video", "Not Available");
             return mainView;
         }
-        else Toast.makeText(getContext(), "NULL VIDEO", Toast.LENGTH_SHORT).show();
+       // else Toast.makeText(getContext(), "NULL VIDEO", Toast.LENGTH_SHORT).show();
 
         String frameVideo = "<html><body><iframe width=\"100%\" height=\"312px\" src=\""+url+"\" frameborder=\"0\" " + "allowfullscreen onload=\"this.width=screen.width-20\"></iframe></body></html>";
 

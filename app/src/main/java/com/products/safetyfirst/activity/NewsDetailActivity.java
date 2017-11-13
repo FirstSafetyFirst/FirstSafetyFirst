@@ -83,7 +83,7 @@ public class NewsDetailActivity extends BaseActivity implements View.OnClickList
         fab = findViewById(R.id.bookmark);
 
         image_scrolling_top = findViewById(R.id.image_scrolling_top);
-        Glide.with(this).load(R.mipmap.ic_launcher).fitCenter().into(image_scrolling_top);
+        Glide.with(this).load(R.drawable.ic_launcher).fitCenter().into(image_scrolling_top);
 
         mReadMore.setOnClickListener(this);
         mShare.setOnClickListener(this);

@@ -62,6 +62,10 @@ public class ProjectsFragment extends Fragment implements View.OnClickListener, 
         if(this.getArguments() != null) {
             mProfileKey = this.getArguments().getString("PROFILE_KEY");
         }
+
+        if(getCurrentUserId() != null){
+            mProfileKey = getCurrentUserId();
+        }
         return inflater.inflate(R.layout.fragment_projects, container, false);
     }
 

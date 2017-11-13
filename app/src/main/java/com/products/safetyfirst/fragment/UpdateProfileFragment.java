@@ -19,12 +19,12 @@ import static com.products.safetyfirst.activity.HomeActivity.bottomNavigationVie
 /**
  * A simple {@link Fragment} subclass.
  */
-public class UpdateProfileFragment extends Fragment {
+public class UpdateProfileFragment extends Fragment{
     public static final String ARG_TITLE = "arg_title";
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private TabLayout categoryTabs;
-    private ViewPager categoryView;
+    public static TabLayout categoryTabs;
+    public static ViewPager categoryView;
     private TabLayout.OnTabSelectedListener tabSelectedListener;
     private TabLayout.TabLayoutOnPageChangeListener pageChangeListener;
 
@@ -104,6 +104,7 @@ public class UpdateProfileFragment extends Fragment {
         categoryTabs.addOnTabSelectedListener(tabSelectedListener);
     }
 
+
     /**
      *
      * @param text
@@ -131,6 +132,11 @@ public class UpdateProfileFragment extends Fragment {
         super.onDestroy();
         categoryTabs.removeOnTabSelectedListener(tabSelectedListener);
         categoryView.removeOnPageChangeListener(pageChangeListener);
+    }
+
+    public void changeTab(int position){
+        categoryView.setCurrentItem(position);
+        categoryTabs.getTabAt(position).select();
     }
 
 }

@@ -11,141 +11,117 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/background"
-    >
-
-    <android.support.v7.widget.CardView
-
-        android:id="@+id/main"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/activity_horizontal_margin"
-        app:cardBackgroundColor="@android:color/white"
-        app:cardCornerRadius="4dp"
-        app:cardElevation="8dp">
-
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:visibility="gone" />
-
-
-        <LinearLayout
-
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/activity_horizontal_margin">
-            <ImageView
-                android:id="@+id/camera"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginTop="@dimen/activity_horizontal_margin"
-                android:layout_gravity="center_horizontal"
-                app:layout_anchor="@id/main"
-                android:clickable="true"
-                android:focusable="true"
-                app:srcCompat="@drawable/ic_camera_alt_black_24dp" />
+            android:background="@color/background"
+            >
 
-            <EditText
-                android:id="@+id/designation"
+            <android.support.v7.widget.CardView
+
+                android:id="@+id/main"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:drawableLeft="@drawable/ic_person_black_24dp"
-                android:drawablePadding="@dimen/activity_horizontal_margin"
-                android:drawableStart="@drawable/ic_person_black_24dp"
-                android:drawableTint="@color/colorPrimary"
-                android:hint="@string/designation" />
+                android:layout_margin="@dimen/activity_horizontal_margin"
+                app:cardBackgroundColor="@android:color/white"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="8dp">
 
-            <EditText
-                android:id="@+id/phone"
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/activity_horizontal_margin">
+                    <ImageView
+                        android:id="@+id/camera"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_marginTop="@dimen/activity_horizontal_margin"
+                        android:layout_gravity="center_horizontal"
+                        app:layout_anchor="@id/main"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:src="@drawable/ic_launcher" />
+
+                    <EditText
+                        android:id="@+id/designation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:hint="@string/designation" />
+
+                    <EditText
+                        android:id="@+id/phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/activity_horizontal_margin"
+                        android:hint="@string/phone" />
+
+                    <EditText
+                        android:id="@+id/company"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/activity_horizontal_margin"
+                        android:hint="@string/company" />
+
+                    <EditText
+                        android:id="@+id/username"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/activity_horizontal_margin"
+                        android:hint="@string/designation" />
+
+
+                    <EditText
+                        android:visibility="gone"
+                        android:id="@+id/certificate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/activity_horizontal_margin"
+                        android:hint="@string/certificate" />
+
+                    <EditText
+                        android:id="@+id/city"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/activity_horizontal_margin"
+
+                        android:hint="@string/city" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.ButtonBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_horizontal_margin"
-                android:drawableLeft="@drawable/ic_phone_black_24dp"
-                android:drawablePadding="@dimen/activity_horizontal_margin"
-                android:drawableStart="@drawable/ic_phone_black_24dp"
-                android:drawableTint="@color/colorPrimary"
-                android:hint="@string/phone" />
-
-            <EditText
-                android:id="@+id/company"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_horizontal_margin"
-                android:drawableLeft="@drawable/ic_business_black_24dp"
-                android:drawablePadding="@dimen/activity_horizontal_margin"
-                android:drawableStart="@drawable/ic_business_black_24dp"
-                android:drawableTint="@color/colorPrimary"
-                android:hint="@string/company" />
-
-            <EditText
-                android:id="@+id/username"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_horizontal_margin"
-                android:drawableLeft="@drawable/ic_assignment_ind_black_24dp"
-                android:drawablePadding="@dimen/activity_horizontal_margin"
-                android:drawableStart="@drawable/ic_assignment_ind_black_24dp"
-                android:drawableTint="@color/colorPrimary"
-                android:hint="@string/designation" />
+                android:layout_below="@id/main"
+                android:layout_gravity="bottom"
+                android:background="@color/colorAccent">
+                <Button
+                    android:id="@+id/submit"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:background="?attr/selectableItemBackground"
+                    android:text="@string/update_profile"
+                    android:textAllCaps="true"
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"
+                    />
+            </android.support.v7.widget.ButtonBarLayout>
 
 
-            <EditText
-                android:visibility="gone"
-                android:id="@+id/certificate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_horizontal_margin"
-                android:drawableLeft="@drawable/ic_library_books_black_24dp"
-                android:drawablePadding="@dimen/activity_horizontal_margin"
-                android:drawableStart="@drawable/ic_library_books_black_24dp"
-                android:drawableTint="@color/colorPrimary"
-                android:hint="@string/certificate" />
-
-            <EditText
-                android:id="@+id/city"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_horizontal_margin"
-                android:drawableLeft="@drawable/ic_location_city_black_24dp"
-                android:drawablePadding="@dimen/activity_horizontal_margin"
-                android:drawableStart="@drawable/ic_location_city_black_24dp"
-                android:drawableTint="@color/colorPrimary"
-                android:hint="@string/city" />
-        </LinearLayout>
-
-    </android.support.v7.widget.CardView>
-
-    <android.support.v7.widget.ButtonBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/main"
-        android:layout_gravity="bottom"
-        android:background="@color/colorAccent">
-        <Button
-            android:id="@+id/submit"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:background="?attr/selectableItemBackground"
-            android:text="@string/update_profile"
-            android:textAllCaps="true"
-            android:textColor="@android:color/white"
-            android:textStyle="bold"
-            />
-    </android.support.v7.widget.ButtonBarLayout>
-
-
-</RelativeLayout>
-</ScrollView>
+        </RelativeLayout>
+    </ScrollView>
 
 </FrameLayout>

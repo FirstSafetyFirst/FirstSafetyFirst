@@ -3,6 +3,8 @@ package com.products.safetyfirst.activity;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -74,6 +76,7 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         setContentView(R.layout.activity_post_detail);
 
         mBodyView = findViewById(R.id.post_body);
@@ -125,6 +128,10 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fab:
+                if(getCurrentUserId() == null ) {
+                    Toast.makeText(this, "Please Sign In to post a comment", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 final Dialog fullscreenDialog = new Dialog(PostDetailActivity.this, R.style.DialogFullscreen);
                 fullscreenDialog.setContentView(R.layout.dialog_fullscreen);
 

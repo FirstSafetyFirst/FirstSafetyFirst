@@ -13,11 +13,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatDelegate;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -29,6 +32,7 @@ import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseUser;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.customview.CircleTransform;
+import com.products.safetyfirst.fragment.ProfileFragment.ProjectsFragment;
 import com.products.safetyfirst.impementations.presenter.UpdateProfilePresenterImpl;
 import com.products.safetyfirst.interfaces.presenter.UpdateProfilePresenter;
 import com.products.safetyfirst.interfaces.view.UpdateProfileView;
@@ -72,17 +76,18 @@ public class Personal_Fragment extends Fragment implements UpdateProfileView, Vi
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+            AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+
         // Inflate the layout for this fragment
         mainView = inflater.inflate(R.layout.fragment_personal, container, false);
 
 
         mPhoto = mainView.findViewById(R.id.camera);
-        //mPhoto.bringToFront();
         mName = mainView.findViewById(R.id.username);
         mPhone = (EditText) mainView.findViewById(R.id.phone);
         mCompany = mainView.findViewById(R.id.company);
         mDesignation = mainView.findViewById(R.id.designation);
-       // mCertificate = mainView.findViewById(R.id.certificate);
         mCity = mainView.findViewById(R.id.city);
         mProgressBar = mainView.findViewById(R.id.progressBar);
         mSubmit = mainView.findViewById(R.id.submit);
@@ -156,7 +161,6 @@ public class Personal_Fragment extends Fragment implements UpdateProfileView, Vi
         mPhone.setText(String.valueOf(user.getPhone()));
         mCompany.setText(user.getCompany());
         mDesignation.setText(user.getDesignation());
-       // mCertificate.setText(String.valueOf(user.getCertificate()));
         mCity.setText(user.getCity());
         Glide.with(getContext()).load(user.getPhotoUrl())
                 .error(R.drawable.ic_person_black_24dp)
@@ -202,7 +206,6 @@ public class Personal_Fragment extends Fragment implements UpdateProfileView, Vi
     }
 
     private void TakePhoto() {
-        Toast.makeText(getContext(), "Going to change pic", Toast.LENGTH_SHORT).show();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
@@ -280,9 +283,10 @@ public class Personal_Fragment extends Fragment implements UpdateProfileView, Vi
         if (i == R.id.submit) {
             presenter.validateCredentials(mName.getText().toString(), mPhone.getText().toString(), mCompany.getText().toString(),
                     mDesignation.getText().toString(), "", mCity.getText().toString());
+
+
         }
         if (i == R.id.camera) {
-           // Toast.makeText(getContext(),"OnClick",Toast.LENGTH_SHORT);
             ChangeProfilePic();
         }
     }

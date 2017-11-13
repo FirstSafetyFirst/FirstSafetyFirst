@@ -13,6 +13,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.WindowManager;
@@ -58,6 +59,8 @@ public class EventsDetailActivity extends BaseActivity implements View.OnClickLi
     private String HEADLINE;
     private ActionBar actionBar;
 
+    private String deepLink;
+
     private TabLayout tabs;
     private ViewPager viewPager;
     private ImageView mainImage;
@@ -70,6 +73,7 @@ public class EventsDetailActivity extends BaseActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         setContentView(R.layout.activity_events_detail);
 
         mainImage = findViewById(R.id.main_image);
@@ -235,10 +239,15 @@ public class EventsDetailActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void share() {
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.putExtra(android.content.Intent.EXTRA_TEXT, url + "\nShared via:Safety First\nhttps://play.google.com/store/apps/details?id=com.vikas.dtu.safetyfirst2");
-        startActivity(intent);
+        if (deepLink != null) {
+            Intent intent = new Intent();
+            String msg = "Hey see this Event: " + deepLink;
+            intent.setAction(Intent.ACTION_SEND);
+            intent.putExtra(Intent.EXTRA_TEXT, msg);
+            intent.setType("text/plain");
+            startActivity(intent);
+
+        }
     }
 
     @Override
@@ -261,6 +270,7 @@ public class EventsDetailActivity extends BaseActivity implements View.OnClickLi
         Analytics.logEventViewItem(getApplicationContext(),event.getTimestamp().toString(),event.getTitle(),"event");
 
         this.event = event;
+        this.deepLink = event.getDeeplink();
 
         if (actionBar != null) {
             actionBar.setTitle(event.getTitle());
@@ -453,7 +463,7 @@ public class EventsDetailActivity extends BaseActivity implements View.OnClickLi
 
     public String getEventInfo(){
         if(event != null) return event.getDesc();
-        Toast.makeText(this, "null event", Toast.LENGTH_SHORT).show();
+    //    Toast.makeText(this, "null event", Toast.LENGTH_SHORT).show();
         return null;
     }
 

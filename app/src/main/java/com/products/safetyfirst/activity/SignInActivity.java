@@ -7,6 +7,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatDelegate;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -91,7 +92,7 @@ public class SignInActivity extends BaseActivity implements GoogleApiClient.OnCo
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         setContentView(R.layout.login);
         mDatabase = getDatabase().getReference();
 

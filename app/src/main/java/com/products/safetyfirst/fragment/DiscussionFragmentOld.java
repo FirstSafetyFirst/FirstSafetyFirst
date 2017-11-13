@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.products.safetyfirst.R;
+import com.products.safetyfirst.activity.BaseActivity;
 import com.products.safetyfirst.activity.NewPostActivity;
 import com.products.safetyfirst.adapters.DiscussionAdapterOld;
 import com.products.safetyfirst.adapters.NewsAdapter;

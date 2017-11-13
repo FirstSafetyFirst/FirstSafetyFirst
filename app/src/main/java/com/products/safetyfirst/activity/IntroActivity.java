@@ -9,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,7 +67,7 @@ public class IntroActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         // Checking for first time launch - before calling setContentView()
         prefManager = new PrefManager(this);
         if (!prefManager.isFirstTimeLaunch()) {

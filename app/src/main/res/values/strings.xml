@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">SAFETY FIRST</string>
-    <string name="app_code">x2e8v</string>
+    <string name="app_name">Safety First</string>
+    <string name="app_code">qwh8n</string>
 
-    <string name="deep_link_url">https://x2e8v.app.goo.gl/</string>
+    <string name="deep_link_url">https://qwh8n.app.goo.gl/</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

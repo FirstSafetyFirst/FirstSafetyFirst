@@ -30,9 +30,6 @@
             android:layout_height="wrap_content"
             android:hint="@string/email"
             android:inputType="textEmailAddress"
-            android:drawableStart="@drawable/ic_email_black_24dp"
-            android:drawableLeft="@drawable/ic_email_black_24dp"
-            android:drawableTint="@color/colorAccent"
             android:drawablePadding="@dimen/activity_horizontal_margin"/>
         <EditText
             android:id="@+id/field_password"
@@ -40,9 +37,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password"
-            android:drawableStart="@drawable/ic_lock_black_24dp"
-            android:drawableLeft="@drawable/ic_lock_black_24dp"
-            android:drawableTint="@color/colorAccent"
             android:drawablePadding="@dimen/activity_horizontal_margin"/>
         <TextView
             android:id="@+id/forgot_password"

@@ -7,6 +7,7 @@ package com.products.safetyfirst.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatDelegate;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -73,6 +74,7 @@ public class SignUpActivity extends BaseActivity implements GoogleApiClient.OnCo
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         setContentView(R.layout.signup);
 
         tncFlag = 0;

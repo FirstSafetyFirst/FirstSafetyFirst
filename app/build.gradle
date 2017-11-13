@@ -7,20 +7,19 @@ android {
     buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "com.products.safetyfirst"
-        minSdkVersion 19
+        minSdkVersion 17
         targetSdkVersion 26
-        versionCode 5
-        versionName "5.0"
+        versionCode 21
+        versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
-        vectorDrawables.useSupportLibrary true
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         debug {
             debuggable true
         }
         release {
-            debuggable true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -29,13 +28,13 @@ android {
     productFlavors {
         dev {
             dimension "default"
-            minSdkVersion 19
+            minSdkVersion 17
             applicationId 'com.products.safetyfirst'
             targetSdkVersion 26
         }
         prod {
             dimension "default"
-            minSdkVersion 19
+            minSdkVersion 17
             applicationId 'com.vikas.dtu.safetyfirst2'
             targetSdkVersion 26
         }
@@ -89,6 +88,8 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     compile 'io.reactivex.rxjava2:rxjava:2.1.5'
+    compile 'com.android.support:multidex:1.0.1'
+
     testCompile 'junit:junit:4.12'
 }
 apply plugin: 'com.google.gms.google-services'
