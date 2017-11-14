@@ -1,6 +1,7 @@
 package com.products.safetyfirst.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,57 +14,77 @@ import android.widget.ProgressBar;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.products.safetyfirst.R;
+import com.products.safetyfirst.adapters.EventsAdapter;
 import com.products.safetyfirst.adapters.NewsAdapter;
+import com.products.safetyfirst.impementations.presenter.EventsPresenterImpl;
+import com.products.safetyfirst.impementations.presenter.NewsPresenterImpl;
+import com.products.safetyfirst.interfaces.presenter.EventsPresenter;
+import com.products.safetyfirst.interfaces.presenter.NewsPresenter;
+import com.products.safetyfirst.interfaces.view.NewsView;
 
 import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
+import static com.products.safetyfirst.utils.FirebaseUtils.getCurrentUserId;
 
 /**
  * Created by profileconnect on 20/04/17.
  */
 
 @SuppressWarnings({"ALL", "EmptyMethod"})
-public class News_Fragment extends Fragment {
+public class News_Fragment extends Fragment implements NewsView{
     private static final String TAG = "NewsListFragment";
-    private RecyclerView news_recycler;
-
-    private DatabaseReference mDatabase;
-    private ProgressBar mProgressBar;
-    private ProgressBar mpaginateprogbar;
+    private NewsPresenter presenter;
+    private ProgressBar mProgressbar;
+    private RecyclerView recycler;
+    private NewsAdapter adapter;
 
     public News_Fragment() {}
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.news_fragment, container, false);
-
-        Bundle bundle=getArguments();
-        if( bundle!=null && bundle.getString("action").equals("bookmark")){
-            //TODO:
-        }
-
-        mDatabase = getDatabase().getReference();
-        mpaginateprogbar= rootView.findViewById(R.id.newspaginateprogbar);
-
-        mProgressBar = rootView.findViewById(R.id.progressBar);
-
-        news_recycler = rootView.findViewById(R.id.news_recycler);
-        news_recycler.setHasFixedSize(true);
-        return rootView;
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        // Set up Layout Manager, reverse layout
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-        mLayoutManager.setReverseLayout(true);
-        mLayoutManager.setStackFromEnd(true);
-        news_recycler.setLayoutManager(mLayoutManager);
-        news_recycler.setItemAnimator(new DefaultItemAnimator());
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Bundle bundle=getArguments();
+        if(bundle!=null && bundle.getString("action").equals("bookmark")){
+            //TODO:
+        }
+        return inflater.inflate(R.layout.news_fragment, container, false);
 
-        Query newsQuery =  mDatabase.child("news").orderByKey().limitToLast(10);
-        news_recycler.setAdapter(new NewsAdapter(getActivity(),newsQuery, mDatabase, mpaginateprogbar));
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        createUI(view);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        fillUI();
+    }
+
+    private void fillUI() {
+        adapter = new NewsAdapter(getContext(), getCurrentUserId());
+
+
+        adapter.request();
+
+        recycler.setAdapter(adapter);
+    }
+
+    private void createUI(View view) {
+        recycler = view.findViewById(R.id.news_recycler);
+        recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recycler.setHasFixedSize(true);
+        recycler.setItemAnimator(new DefaultItemAnimator());
+
+        mProgressbar = view.findViewById(R.id.newspaginateprogbar);
+
+        presenter = new NewsPresenterImpl(this);
+
     }
 
     @Override
@@ -72,5 +93,28 @@ public class News_Fragment extends Fragment {
     }
 
 
+    @Override
+    public void onError(String message) {
 
+    }
+
+    @Override
+    public void onSuccess(String message) {
+
+    }
+
+    @Override
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void hideProgress() {
+
+    }
+
+    @Override
+    public void navigateToHome() {
+
+    }
 }

@@ -17,6 +17,6 @@ public class PostDiscussionModel {
     public void setFromPostModel(PostModel post) {
         this.title = post.getTitle();
         this.body = post.getBody();
-        this.timestamp = post.getTimestamp();
+       // this.timestamp = post.getTimestamp();
     }
 }

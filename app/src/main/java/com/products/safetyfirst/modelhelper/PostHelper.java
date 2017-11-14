@@ -59,10 +59,10 @@ public class PostHelper {
             final List<String> fileList,
             final List<String> imageList
     ) {
-        final int time = (int) System.currentTimeMillis();
+        //final int time = (int) System.currentTimeMillis();
 
         PostModel post = new PostModel(
-                title, body, userhelper.getUserId(), userhelper.getUserName(), imageList, fileList, time, postKey
+                title, body, userhelper.getUserId(), userhelper.getUserName(), imageList, fileList, postKey
         );
         DatabaseUtil.getDatabase().getReference().child(Constants.POSTS_LINK).child(postKey).setValue(post);  // Create post in /posts/
         DatabaseUtil.getDatabase().getReference().child(Constants.USERS_POSTS_LINK).child(userhelper.getUserId()).child(postKey).setValue(true);  // push post key in /user-posts/

@@ -27,71 +27,53 @@ import java.util.Locale;
  */
 
 public class PostViewHolder  extends RecyclerView.ViewHolder{
-    public ImageView images;
-    public ImageView overflow;
-    public ImageView post_author_photo;
-    public ImageView likeBtn;
-    public ImageView ansBtn;
-    public ImageView bookmark;
-    public TextView post_title;
-    public TextView dateTime;
-    public TextView post_author;
-    public TextView post_author_email;
-    public JustifiedWebView body;
-    public Button readMore;
-    public LinearLayout post_author_layout;
-    public ImageView postImage;
+    private ImageView post_author_photo;
+    private TextView post_title;
+    private TextView post_author;
+    private JustifiedWebView body;
+    private Button readMore;
 
-    public final Context context;
+    private final Context context;
 
     public PostViewHolder(View itemView){
         super(itemView);
         post_author_photo = itemView.findViewById(R.id.post_author_photo);
-        overflow = itemView.findViewById(R.id.overflow);
-        likeBtn = itemView.findViewById(R.id.LikeBtn);
-        ansBtn = itemView.findViewById(R.id.ansBtn);
-        bookmark = itemView.findViewById(R.id.bookmark);
         post_title = itemView.findViewById(R.id.post_title);
         body = itemView.findViewById(R.id.post_body);
-        dateTime = itemView.findViewById(R.id.dateTime);
         post_author = itemView.findViewById(R.id.post_author);
-        post_author_email = itemView.findViewById(R.id.post_author_email);
         readMore = itemView.findViewById(R.id.view_details);
-        post_author_layout = itemView.findViewById(R.id.post_author_layout);
-        postImage = itemView.findViewById(R.id.post_image);
         context = itemView.getContext();
     }
 
 
-    public void setData(final PostDiscussionModel postData) {
-        post_title.setText(postData.title);
-        body.setText(postData.body);
-        post_author.setText(postData.author);
-        post_author_email.setText(postData.authorEmail);
-        Glide.with(context).load(postData.authorPhoto).error(R.drawable.ic_person_black_24dp).transform(new CircleTransform(context)).into(post_author_photo);
-        Date date = new Date(postData.timestamp * 1000);
-        SimpleDateFormat sDate = new SimpleDateFormat("dd MM yyyy", new Locale("hi", "IN"));
-        dateTime.setText(sDate.format(date));
+    public void setData(final PostModel postData) {
+        if(postData.getTitle() != null)
+            post_title.setText(postData.getTitle());
+        else
+            post_title.setText("   ");
+
+        if(postData.getBody() != null)
+            body.setText(postData.getBody());
+        else
+            body.setText("   ");
+
+        if(postData.getAuthor()!= null)
+            post_author.setText(postData.getAuthor());
+        else
+            post_author.setText("Anonymous");
+
+        Glide.with(context).load(postData.getAuthorImageUrl()).error(R.drawable.ic_person_black_24dp).transform(new CircleTransform(context)).into(post_author_photo);
 
         readMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Intent intent = new Intent(context, PostDetailActivity.class);
-                intent.putExtra(PostDetailActivity.EXTRA_POST_KEY, postData.key);
-                Toast.makeText(context, postData.key , Toast.LENGTH_SHORT).show();
-                context.startActivity(intent);
+                Toast.makeText(context, postData.getBody(), Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(context, PostDetailActivity.class);
+//                intent.putExtra(PostDetailActivity.EXTRA_POST_KEY, postData.getPostKey());
+//                context.startActivity(intent);
 
             }
         });
-    }
-
-    public void setData(PostModel post){
-        post_title.setText(post.getTitle());
-        post_author.setText(post.getAuthor());
-        //numStarsView.setText(String.valueOf(post.starCount));
-
-         body.setText(post.getBody());
     }
 
 }

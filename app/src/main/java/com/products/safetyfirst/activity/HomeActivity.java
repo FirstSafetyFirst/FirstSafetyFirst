@@ -404,7 +404,8 @@ public class HomeActivity extends BaseActivity
 
     private void buildFragmentsList() {
         News_Events_Fragment newsFragment = new News_Events_Fragment();
-        DiscussionFragmentOld discussionFragment = new DiscussionFragmentOld();
+       // DiscussionFragmentOld discussionFragment = new DiscussionFragmentOld();
+        DiscussionFragment discussionFragment = new DiscussionFragment();
         TrainingFragment trainingFragment = new TrainingFragment();
         KnowIt_Fragment knowFragment = new KnowIt_Fragment();
         UpdateProfileFragment updateProfileFragment = new UpdateProfileFragment();

@@ -14,7 +14,7 @@ import com.products.safetyfirst.R;
 
 public class EventViewHolder extends RecyclerView.ViewHolder{
     public final View mView;
-    private final ImageView images;
+    public final ImageView images;
     public final TextView title;
     public final TextView dateTime;
     private final ImageView bookmark;

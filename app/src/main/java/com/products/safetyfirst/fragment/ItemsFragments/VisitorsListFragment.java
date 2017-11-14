@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,6 +44,8 @@ public class VisitorsListFragment extends Fragment {
     private File openedFile;
     private ProgressBar progress;
     private Button btn;
+    private ImageView sad;
+    private TextView noVisitor;
 
     public VisitorsListFragment() {
         // Required empty public constructor
@@ -80,11 +83,18 @@ public class VisitorsListFragment extends Fragment {
         View mainView = inflater.inflate(R.layout.fragment_type_checklist, container, false);
         btn = mainView.findViewById(R.id.checklist);
         progress = mainView.findViewById(R.id.download_progress);
-
+        noVisitor = mainView.findViewById(R.id.no_vistor_text);
+        sad = mainView.findViewById(R.id.sad);
+        final String url  = ((EventsDetailActivity) getActivity()).getVisitors();
+        if (url==null || url == "NULL") {
+            noVisitor.setVisibility(View.VISIBLE);
+            sad.setVisibility(View.VISIBLE);
+            btn.setVisibility(View.GONE);
+        }
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openPdf();
+                openPdf(url);
                 progress.setVisibility(View.VISIBLE);
                 btn.setVisibility(View.GONE);
             }
@@ -92,11 +102,11 @@ public class VisitorsListFragment extends Fragment {
         return mainView;
     }
 
-    private void openPdf(){
+    private void openPdf(final String url){
 
-        final  String url  = ((EventsDetailActivity) getActivity()).getVisitors();
 
-        if (url==null) return ;
+        if(url == null || url =="NULL") return;
+
 
         File dir = getContext().getCacheDir();
         String[] fileNameSplit = url.split("/");

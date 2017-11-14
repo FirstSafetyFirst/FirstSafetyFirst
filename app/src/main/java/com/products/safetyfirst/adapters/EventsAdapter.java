@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
+import com.bumptech.glide.Glide;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.activity.EventsDetailActivity;
 import com.products.safetyfirst.impementations.presenter.EventsPresenterImpl;
@@ -20,6 +22,8 @@ import com.products.safetyfirst.models.EventModel;
 import com.products.safetyfirst.viewholder.EventViewHolder;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Locale;
 
 /**
  * Created by VIKAS on 11-Oct-17.
@@ -58,27 +62,12 @@ public class EventsAdapter extends RecyclerView.Adapter<EventViewHolder> impleme
 
         if(event.getTitle() != null) holder.title.setText(event.getTitle());
         if(event.getTimestamp() != null) {
-          //  SimpleDateFormat sfd = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-          //  sfd.format(new Date(timestamp))
-            holder.dateTime.setText(DateUtils.getRelativeTimeSpanString(
-                    (long) event.getTimestamp()).toString());
+          /*  holder.dateTime.setText(DateUtils.getRelativeTimeSpanString(
+                    (long) event.getTimestamp()));*/
+          holder.dateTime.setText(getDate((long)event.getTimestamp()));
         }
-
-
-
-        if(event.action != null && event.action.containsKey(mUserId)){
-            switch (String.valueOf(event.action.get(mUserId))){
-                case "1": //going
-                    holder.going.setText("Maybe you will go");
-                    break;
-                case "0": //not going
-                    holder.maybe.setText("You are not going");
-                    break;
-                default:
-                    holder.going.setText("Going");
-                    holder.maybe.setText("Not Going");
-                    break;
-            }
+        if(event.getThumbUrl() != null){
+            Glide.with(context).load(event.getThumbUrl()).fitCenter().into(holder.images);
         }
 
         holder.details.setOnClickListener(new View.OnClickListener() {
@@ -90,7 +79,6 @@ public class EventsAdapter extends RecyclerView.Adapter<EventViewHolder> impleme
 
             }
         });
-
 
     }
 
@@ -115,6 +103,14 @@ public class EventsAdapter extends RecyclerView.Adapter<EventViewHolder> impleme
     @Override
     public void request() {
         presenter.request();
+    }
+
+    private String getDate(long time) {
+        if (time == 0) return "";
+        Calendar cal = Calendar.getInstance(Locale.ENGLISH);
+        cal.setTimeInMillis(time);
+        String date = DateFormat.format("dd-MM-yyyy", cal).toString();
+        return date;
     }
 
 }

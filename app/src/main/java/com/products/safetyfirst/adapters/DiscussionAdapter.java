@@ -59,7 +59,7 @@ public class DiscussionAdapter extends
 
         //CharSequence getRelativeTimeSpanString (long time,
         //long now,
-        //long minResolution)
+   /*     //long minResolution)
 
         postViewHolder.post_title.setText(postModel.getTitle());
         postViewHolder.post_title.setAllCaps(true);
@@ -110,7 +110,7 @@ public class DiscussionAdapter extends
                 postViewHolder.context.startActivity(intent);
             }
         });
-
+*/
     }
 
     @Override

@@ -1,9 +1,11 @@
 package com.products.safetyfirst.impementations.presenter;
 
+import com.products.safetyfirst.adapters.PostAdapter;
 import com.products.safetyfirst.impementations.Interactor.PostInteractorImpl;
+import com.products.safetyfirst.interfaces.adapter.PostAdapterView;
 import com.products.safetyfirst.interfaces.interactor.PostInteractor;
 import com.products.safetyfirst.interfaces.presenter.PostPresenter;
-import com.products.safetyfirst.interfaces.view.PostView;
+import com.products.safetyfirst.interfaces.view.PostsView;
 import com.products.safetyfirst.models.PostModel;
 
 import java.util.ArrayList;
@@ -12,48 +14,72 @@ import java.util.ArrayList;
  * Created by vikas on 01/11/17.
  */
 
-public class PostPresenterImpl implements PostPresenter {
+public class PostPresenterImpl implements PostPresenter, PostInteractor.OnUpdateFinishedListener {
+    private PostsView eventsView;
+    private final PostInteractor eventsInteractor;
+    private PostAdapterView eventsAdapterView;
 
-    private PostView postView;
-    private final PostInteractor postInteractor;
+    public PostPresenterImpl (PostsView eventsView){
 
-    public PostPresenterImpl(PostView postView){
-        this.postView = postView;
-        this.postInteractor = new PostInteractorImpl(this);
+        this.eventsView = eventsView;
+        this.eventsInteractor = new PostInteractorImpl(this);
+
     }
 
+    public PostPresenterImpl(PostAdapter adapter){
+        this.eventsAdapterView = adapter;
+        this.eventsInteractor = new PostInteractorImpl(this);
+    }
 
     @Override
     public void onDestroy() {
-        postView = null;
+        eventsView = null;
     }
 
     @Override
-    public void requestFirstPosts() {
-        if(postInteractor != null){
-            postInteractor.requestFirstPosts();
+    public void request() {
+        eventsInteractor.requestPosts();
+    }
+
+    @Override
+    public void getChildren(ArrayList<PostModel> postModels) {
+        eventsAdapterView.addAllEvents(postModels);
+    }
+
+    @Override
+    public void addAction(String mEventId, String mProfileKey, int mAction) {
+        if (eventsView != null) {
+            eventsView.showProgress();
+        }
+        eventsInteractor.addAction(mEventId, mProfileKey, mAction);
+    }
+
+    @Override
+    public void onActionError(String message) {
+        if (eventsView != null) {
+            eventsView.hideProgress();
         }
     }
 
     @Override
-    public void requestPostByKey(String key) {
-        if(postInteractor != null){
-            postInteractor.requestPost(key);
+    public void onActionSuccess(String message) {
+
+    }
+
+    @Override
+    public void getKeys(ArrayList<String> postArrayKey) {
+        if(eventsAdapterView != null){
+            eventsAdapterView.addAllKeys(postArrayKey);
         }
     }
 
     @Override
-    public void getChildren(ArrayList<PostModel> post, String lastKey) {
-        if(postView != null){
-            postView.getInitialPosts(post, lastKey);
-        }
+    public void onError(String message) {
+
     }
 
     @Override
-    public void getAnother(ArrayList<PostModel> post, String lastKey) {
-        if(postView != null){
-            postView.getNextPost(post, lastKey);
-        }
+    public void onSuccess(String message) {
 
     }
 }

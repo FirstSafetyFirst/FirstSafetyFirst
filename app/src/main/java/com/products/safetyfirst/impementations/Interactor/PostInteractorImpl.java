@@ -8,9 +8,11 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.products.safetyfirst.interfaces.interactor.PostInteractor;
 import com.products.safetyfirst.interfaces.presenter.PostPresenter;
+import com.products.safetyfirst.models.EventModel;
 import com.products.safetyfirst.models.PostModel;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
 
@@ -26,58 +28,41 @@ public class PostInteractorImpl implements PostInteractor {
         this.presenter = presenter;
     }
 
+
+
     @Override
-    public void requestFirstPosts() {
+    public void requestPosts() {
         Query query;
 
         query = getDatabase().getReference()
-                .child("posts").orderByKey().limitToFirst(10);
+                .child("posts").orderByKey();
 
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String lastKey = null;
-                ArrayList<PostModel> mListOfPosts = new ArrayList<>();
+                ArrayList<PostModel> mListOfEvents = new ArrayList<>();
+                ArrayList<String> eventsArrayKey = new ArrayList<>();
                 for (DataSnapshot x : dataSnapshot.getChildren()) {
-                    mListOfPosts.add(x.getValue(PostModel.class));
-                    lastKey = x.getKey();
+                    mListOfEvents.add(x.getValue(PostModel.class));
+                    eventsArrayKey.add(x.getKey());
                 }
-                presenter.getChildren(mListOfPosts, lastKey);
+
+                Collections.reverse(mListOfEvents);
+                Collections.reverse(eventsArrayKey);
+                presenter.getChildren(mListOfEvents);
+                presenter.getKeys(eventsArrayKey);
             }
+
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.e("Post Interacter", "Could not fetch initial posts");
+                Log.e("Events Interacter", "Could not fetch events");
             }
         });
     }
 
     @Override
-    public void requestPost(String key) {
+    public void addAction(String mEventId, String mProfileKey, int mAction) {
 
-        if(key == null) return;
-
-        Query query;
-
-        query = getDatabase().getReference()
-                .child("posts").orderByKey().startAt(key).limitToFirst(10);
-
-        query.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String lastKey = null;
-                ArrayList<PostModel> mListOfPosts = new ArrayList<>();
-                for (DataSnapshot x : dataSnapshot.getChildren()) {
-                    mListOfPosts.add(x.getValue(PostModel.class));
-                    lastKey = x.getKey();
-                }
-                presenter.getAnother(mListOfPosts, lastKey);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.e("Post Interacter", "Could not fetch initial posts");
-            }
-        });
     }
 }

@@ -14,36 +14,29 @@ import java.util.Map;
 @IgnoreExtraProperties
 public class PostModel {
 
-    private String title;
+    private String author;
+    private String authorImageUrl;
     private String body;
+    private String deeplink;
+    private String photoUrl;
+    private int starCount = 0;
+    private String title;
     private String uid;
     private List<String> imageList;
     private List<String> fileList;
-    private long timestamp;
     private String postKey;
-
-
-    private String authorImageUrl;
-    private String author;
-    public int starCount = 0;
     public Map<String, Boolean> stars = new HashMap<>();
-
     private String image;
-    //  public String video;
-    public String file;
-    private String link;
-
 
     public PostModel() {
     }
 
-    public PostModel(String title, String body, String uid, String author, List<String> imageList, List<String> fileList, long timestamp, String previousPost ) {
+    public PostModel(String title, String body, String uid, String author, List<String> imageList, List<String> fileList, String previousPost ) {
         this.title = title;
         this.body = body;
         this.uid = uid;
         this.imageList = imageList;
         this.fileList = fileList;
-        this.timestamp = timestamp;
         this.postKey = previousPost;
         this.author = author;
     }
@@ -88,37 +81,12 @@ public class PostModel {
         this.fileList = fileList;
     }
 
-    public long getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(long timestamp) {
-        this.timestamp = timestamp;
-    }
-
     public String getPreviousPost() {
         return postKey;
     }
 
     public void setPreviousPost(String previousPost) {
         this.postKey = previousPost;
-    }
-
-    @Exclude
-    public Map<String, Object> toMap() {
-        HashMap<String, Object> result = new HashMap<>();
-        result.put("uid", uid);
-        result.put("author", author);
-        result.put("title", title);
-        result.put("body", body);
-        result.put("image", image);
-        result.put("starCount", starCount);
-        result.put("stars", stars);
-        result.put("authorImageUrl", authorImageUrl);
-        result.put("postLink", link);
-        result.put("imageList", imageList);
-
-        return result;
     }
 
     public String getPostKey() {
@@ -161,19 +129,44 @@ public class PostModel {
         this.image = image;
     }
 
-    public String getFile() {
-        return file;
+    public String getDeeplink() {
+        return deeplink;
     }
 
-    public void setFile(String file) {
-        this.file = file;
+    public void setDeeplink(String deeplink) {
+        this.deeplink = deeplink;
     }
 
-    public String getLink() {
-        return link;
+    public String getPhotoUrl() {
+        return photoUrl;
     }
 
-    public void setLink(String link) {
-        this.link = link;
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
+    }
+
+    public void setStarCount(int starCount) {
+        this.starCount = starCount;
+    }
+
+    public void setStars(Map<String, Boolean> stars) {
+        this.stars = stars;
+    }
+
+
+    @Exclude
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("uid", uid);
+        result.put("author", author);
+        result.put("title", title);
+        result.put("body", body);
+        result.put("image", image);
+        result.put("starCount", starCount);
+        result.put("stars", stars);
+        result.put("authorImageUrl", authorImageUrl);
+        result.put("imageList", imageList);
+
+        return result;
     }
 }

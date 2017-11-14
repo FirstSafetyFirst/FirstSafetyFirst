@@ -103,6 +103,7 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle("");
         }
 
         fab = findViewById(R.id.fab);
@@ -199,7 +200,6 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
 
             if(post.getImageList() != null){
                 List<String> imageList = post.getImageList();
-               // Toast.makeText(this, "Images", Toast.LENGTH_SHORT).show();
                 initImageRecycler(post.getImageList());
 
 
@@ -215,7 +215,6 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
             mAuthorName.setText(user.getUsername());
             mAuthorEmail.setText(user.getEmail());
             Glide.with(getBaseContext()).load(user.getPhotoUrl())
-                    .error(R.drawable.ic_person_black_24dp)
                     .transform(new CircleTransform(getBaseContext())).into(mAuthorImage);
 
         }

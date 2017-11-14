@@ -85,8 +85,8 @@ public class DiscussionAdapterOld  extends RecyclerView.Adapter<PostViewHolder> 
     private void getMoreData(){
         tempkeys= postArrayKey;
         tempPostModels = postArrayList;
-        Query Getmorenewsquery=mDatabase.child("posts").orderByKey().endAt(mLastkey).limitToLast(10);
-        Getmorenewsquery.addChildEventListener(new ChildEventListener() {
+        Query getMorePostsQuery=mDatabase.child("posts").orderByKey().endAt(mLastkey).limitToLast(10);
+        getMorePostsQuery.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 postModels.add(dataSnapshot.getValue(PostModel.class));
@@ -147,7 +147,7 @@ public class DiscussionAdapterOld  extends RecyclerView.Adapter<PostViewHolder> 
     @Override
     public void onBindViewHolder(final PostViewHolder holder, final int position) {
 
-        //  Glide.with(context).load(postArrayList.get(position).getImg_url()).into(holder.images);
+        /*//  Glide.with(context).load(postArrayList.get(position).getImg_url()).into(holder.images);
         if(postArrayList.get(position).getImage()!= null)
             Glide.with(context).load(postArrayList.get(position).getImage()).into(holder.postImage);
 
@@ -171,20 +171,11 @@ public class DiscussionAdapterOld  extends RecyclerView.Adapter<PostViewHolder> 
 
             }
         });
-      /*  holder.post_author_layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, ProfileActivity.class);
-                intent.putExtra(ProfileActivity.EXTRA_PROFILE_KEY, postArrayList.get(position).getAuthor());
-                context.startActivity(intent);
 
-            }
-        });
-*/
         if (position==0){
             mpaginateprogbar.setVisibility(View.VISIBLE);
             getMoreData();
-        }
+        }*/
     }
 
     @Override
