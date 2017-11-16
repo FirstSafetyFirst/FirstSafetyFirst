@@ -57,6 +57,7 @@
     <string name="hello_blank_fragment">blank_fragment</string>
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer facilisis felis imperdiet nibh efficitur, quis aliquam odio volutpat. Morbi in tellus tortor. Ut suscipit velit id nibh luctus, sed accumsan dolor cursus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vivamus in interdum nisi, at volutpat nibh. Mauris ultrices auctor eros non rhoncus. In hac habitasse platea dictumst. Donec ut pulvinar augue, ac semper libero.</string>
     <string name="faqs">FAQs</string>
+    <string name="terms_n_conditions">Our terms and conditions are</string>
     <string name="help">Help</string>
     <string name="tnc"><![CDATA[Terms & Conditions]]></string>
     <string name="feedback">Feedback</string>

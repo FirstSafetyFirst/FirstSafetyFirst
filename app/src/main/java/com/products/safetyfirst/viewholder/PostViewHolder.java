@@ -46,7 +46,7 @@ public class PostViewHolder  extends RecyclerView.ViewHolder{
     }
 
 
-    public void setData(final PostModel postData) {
+    public void setData(final PostModel postData, final String key) {
         if(postData.getTitle() != null)
             post_title.setText(postData.getTitle());
         else
@@ -67,10 +67,10 @@ public class PostViewHolder  extends RecyclerView.ViewHolder{
         readMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, postData.getBody(), Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(context, PostDetailActivity.class);
-//                intent.putExtra(PostDetailActivity.EXTRA_POST_KEY, postData.getPostKey());
-//                context.startActivity(intent);
+         //       Toast.makeText(context, postData.getBody(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, PostDetailActivity.class);
+                intent.putExtra(PostDetailActivity.EXTRA_POST_KEY, key);
+                context.startActivity(intent);
 
             }
         });

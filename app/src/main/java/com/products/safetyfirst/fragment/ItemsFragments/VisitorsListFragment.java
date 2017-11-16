@@ -4,8 +4,10 @@ package com.products.safetyfirst.fragment.ItemsFragments;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.FileUriExposedException;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -94,9 +96,15 @@ public class VisitorsListFragment extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
                 openPdf(url);
                 progress.setVisibility(View.VISIBLE);
                 btn.setVisibility(View.GONE);
+
+            }
+                            else{
+                Toast.makeText(getContext(), "THis feature will be available soon", Toast.LENGTH_SHORT).show();
+            }
             }
         });
         return mainView;
@@ -130,9 +138,12 @@ public class VisitorsListFragment extends Fragment {
                         progress.setVisibility(View.GONE);
                         btn.setVisibility(View.VISIBLE);
                         try {
-                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.fromFile(externalFile));
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                            startActivityForResult(intent, VIEW_FILE_CODE);
+
+
+                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.fromFile(externalFile));
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                                startActivityForResult(intent, VIEW_FILE_CODE);
+
                         } catch (ActivityNotFoundException e){
                             Toast.makeText(getContext(), "Install PDF Viewer", Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.google.android.apps.pdfviewer&hl=en"));

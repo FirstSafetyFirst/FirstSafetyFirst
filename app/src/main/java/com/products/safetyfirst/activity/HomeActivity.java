@@ -259,7 +259,7 @@ public class HomeActivity extends BaseActivity
                                     startActivity(intent);
                                     break;
                                 case "event":
-                                    Intent eventIntent = new Intent(HomeActivity.this, NewsDetailActivity.class);
+                                    Intent eventIntent = new Intent(HomeActivity.this, EventsDetailActivity.class);
                                     eventIntent.putExtra(EventsDetailActivity.EXTRA_EVENT_KEY, key);
                                     startActivity(eventIntent);
                                     break;
@@ -461,7 +461,7 @@ public class HomeActivity extends BaseActivity
         } else if (id == R.id.nav_feedback) {
             rateMe();
         } else if (id == R.id.nav_tnc) {
-            showTncDialog(getString(R.string.tnc), getString(R.string.lorem_ipsum));
+            showTncDialog(getString(R.string.tnc), getString(R.string.terms_n_conditions));
         } else if (id == R.id.nav_invite) {
                 sendInvite();
         } else if (id == R.id.nav_logout) {
