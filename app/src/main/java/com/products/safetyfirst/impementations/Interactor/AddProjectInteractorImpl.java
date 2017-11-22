@@ -14,7 +14,7 @@ import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.products.safetyfirst.interfaces.interactor.AddProjectInteractor;
 import com.products.safetyfirst.interfaces.presenter.AddProjectPresenter;
-import com.products.safetyfirst.models.ProjectModel;
+import com.products.safetyfirst.Pojos.ProjectModel;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -4,7 +4,7 @@ import com.products.safetyfirst.impementations.Interactor.NewsDetailInteractorIm
 import com.products.safetyfirst.interfaces.interactor.NewsDetailInteractor;
 import com.products.safetyfirst.interfaces.presenter.NewsDetailPresenter;
 import com.products.safetyfirst.interfaces.view.NewsDetailView;
-import com.products.safetyfirst.models.NewsModel;
+import com.products.safetyfirst.Pojos.NewsModel;
 
 /**
  * Created by vikas on 06/10/17.

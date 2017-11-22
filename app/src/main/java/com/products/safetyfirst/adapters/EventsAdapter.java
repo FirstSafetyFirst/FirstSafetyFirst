@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
-import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +17,7 @@ import com.products.safetyfirst.activity.EventsDetailActivity;
 import com.products.safetyfirst.impementations.presenter.EventsPresenterImpl;
 import com.products.safetyfirst.interfaces.adapter.EventsAdapterView;
 import com.products.safetyfirst.interfaces.presenter.EventsPresenter;
-import com.products.safetyfirst.models.EventModel;
+import com.products.safetyfirst.Pojos.EventModel;
 import com.products.safetyfirst.viewholder.EventViewHolder;
 
 import java.util.ArrayList;

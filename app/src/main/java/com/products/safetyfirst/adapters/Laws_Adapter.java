@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.products.safetyfirst.R;
-import com.products.safetyfirst.models.LawModel;
+import com.products.safetyfirst.Pojos.LawModel;
 import com.products.safetyfirst.utils.Analytics;
 import com.products.safetyfirst.viewholder.LawViewHolder;
 

@@ -1,4 +1,4 @@
-package com.products.safetyfirst.models;
+package com.products.safetyfirst.Pojos;
 
 /**
  * Created by ishita sharma on 11/4/2017.

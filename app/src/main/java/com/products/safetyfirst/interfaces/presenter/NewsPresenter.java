@@ -1,7 +1,6 @@
 package com.products.safetyfirst.interfaces.presenter;
 
-import com.products.safetyfirst.models.EventModel;
-import com.products.safetyfirst.models.NewsModel;
+import com.products.safetyfirst.Pojos.NewsModel;
 
 import java.util.ArrayList;
 

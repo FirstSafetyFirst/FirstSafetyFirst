@@ -4,7 +4,7 @@ import com.products.safetyfirst.impementations.Interactor.EventsDetailInteractor
 import com.products.safetyfirst.interfaces.interactor.EventsDetailInteractor;
 import com.products.safetyfirst.interfaces.presenter.EventsDetailPresenter;
 import com.products.safetyfirst.interfaces.view.EventsDetailView;
-import com.products.safetyfirst.models.EventModel;
+import com.products.safetyfirst.Pojos.EventModel;
 
 /**
  * Created by vikas on 12/10/17.

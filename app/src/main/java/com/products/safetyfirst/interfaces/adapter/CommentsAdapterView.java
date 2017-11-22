@@ -1,6 +1,6 @@
 package com.products.safetyfirst.interfaces.adapter;
 
-import com.products.safetyfirst.models.Comment;
+import com.products.safetyfirst.Pojos.Comment;
 
 import java.util.ArrayList;
 

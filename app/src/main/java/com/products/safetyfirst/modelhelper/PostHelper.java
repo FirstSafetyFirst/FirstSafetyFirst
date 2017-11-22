@@ -3,36 +3,27 @@ package com.products.safetyfirst.modelhelper;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.products.safetyfirst.models.PostModel;
+import com.products.safetyfirst.Pojos.PostModel;
 import com.products.safetyfirst.utils.Constants;
 import com.products.safetyfirst.utils.DatabaseUtil;
 import com.products.safetyfirst.utils.StringHelper;
 
 import java.io.ByteArrayOutputStream;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 import io.reactivex.Single;
 import io.reactivex.SingleEmitter;
 import io.reactivex.SingleOnSubscribe;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.Consumer;
-import io.reactivex.internal.observers.ConsumerSingleObserver;
 
 /**
  * Created by rishabh on 12/10/17.

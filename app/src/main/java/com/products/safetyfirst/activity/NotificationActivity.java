@@ -11,7 +11,7 @@ import android.view.View;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.mNotification.MyFirebaseMessagingService;
 import com.products.safetyfirst.adapters.NotificationAdapter;
-import com.products.safetyfirst.models.NotificationModel;
+import com.products.safetyfirst.Pojos.NotificationModel;
 
 import io.realm.Realm;
 import io.realm.RealmResults;

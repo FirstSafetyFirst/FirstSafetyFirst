@@ -34,7 +34,7 @@ import com.products.safetyfirst.fragment.ProfileFragment.ProjectsFragment;
 import com.products.safetyfirst.fragment.ProfileFragment.QuestionsFragment;
 import com.products.safetyfirst.impementations.presenter.ProfileActivityPresenterImpl;
 import com.products.safetyfirst.interfaces.view.ProfileActivityView;
-import com.products.safetyfirst.models.UserModel;
+import com.products.safetyfirst.Pojos.UserModel;
 
 import java.util.Objects;
 

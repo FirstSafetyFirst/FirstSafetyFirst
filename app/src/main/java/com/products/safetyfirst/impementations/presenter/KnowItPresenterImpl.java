@@ -8,8 +8,8 @@ import com.products.safetyfirst.interfaces.adapter.KnowItAdapterView;
 import com.products.safetyfirst.interfaces.interactor.KnowItInteractor;
 import com.products.safetyfirst.interfaces.presenter.KnowItPresenter;
 import com.products.safetyfirst.interfaces.view.KnowItView;
-import com.products.safetyfirst.models.KnowItItem;
-import com.products.safetyfirst.models.KnowItItemType;
+import com.products.safetyfirst.Pojos.KnowItItem;
+import com.products.safetyfirst.Pojos.KnowItItemType;
 
 import java.util.ArrayList;
 

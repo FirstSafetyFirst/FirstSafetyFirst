@@ -23,7 +23,7 @@ import com.products.safetyfirst.fragment.ItemsFragments.VideoFragment;
 import com.products.safetyfirst.impementations.presenter.KnowItPresenterImpl;
 import com.products.safetyfirst.interfaces.presenter.KnowItPresenter;
 import com.products.safetyfirst.interfaces.view.KnowItView;
-import com.products.safetyfirst.models.KnowItItemType;
+import com.products.safetyfirst.Pojos.KnowItItemType;
 
 import java.net.MalformedURLException;
 import java.net.URL;

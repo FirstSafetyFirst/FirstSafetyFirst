@@ -6,7 +6,7 @@ import android.util.Log;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
-import com.products.safetyfirst.models.UserModel;
+import com.products.safetyfirst.Pojos.UserModel;
 import com.products.safetyfirst.utils.DatabaseUtil;
 
 import java.util.ArrayList;

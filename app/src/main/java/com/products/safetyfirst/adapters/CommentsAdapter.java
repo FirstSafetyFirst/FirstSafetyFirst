@@ -13,7 +13,7 @@ import com.products.safetyfirst.R;
 import com.products.safetyfirst.impementations.presenter.PostDetailPresenterImpl;
 import com.products.safetyfirst.interfaces.adapter.CommentsAdapterView;
 import com.products.safetyfirst.interfaces.presenter.PostDetailPresenter;
-import com.products.safetyfirst.models.Comment;
+import com.products.safetyfirst.Pojos.Comment;
 import com.products.safetyfirst.viewholder.CommentViewHolder;
 
 import java.util.ArrayList;

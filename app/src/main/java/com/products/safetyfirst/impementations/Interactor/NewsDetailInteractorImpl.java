@@ -13,8 +13,8 @@ import com.products.safetyfirst.impementations.presenter.NewsDetailPresenterImpl
 import com.products.safetyfirst.interfaces.interactor.NewsDetailInteractor;
 import com.products.safetyfirst.interfaces.presenter.NewsDetailPresenter;
 import com.products.safetyfirst.modelhelper.UserHelper;
-import com.products.safetyfirst.models.NewsModel;
-import com.products.safetyfirst.models.UserModel;
+import com.products.safetyfirst.Pojos.NewsModel;
+import com.products.safetyfirst.Pojos.UserModel;
 
 import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
 

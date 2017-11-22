@@ -11,7 +11,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.products.safetyfirst.interfaces.interactor.TrainingMapInteractor;
 import com.products.safetyfirst.interfaces.presenter.TrainingMapPresenter;
-import com.products.safetyfirst.models.TrainingCenterModel;
+import com.products.safetyfirst.Pojos.TrainingCenterModel;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.impementations.presenter.AddInterestPresenterImpl;
 import com.products.safetyfirst.interfaces.adapter.AddInterestAdapterView;
-import com.products.safetyfirst.models.InterestModel;
+import com.products.safetyfirst.Pojos.InterestModel;
 import com.products.safetyfirst.viewholder.AddInterestViewHolder;
 
 import java.util.ArrayList;

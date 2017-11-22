@@ -1,6 +1,6 @@
 package com.products.safetyfirst.interfaces.interactor;
 
-import com.products.safetyfirst.models.InterestModel;
+import com.products.safetyfirst.Pojos.InterestModel;
 
 /**
  * Created by vikas on 05/10/17.

@@ -6,7 +6,7 @@ import com.products.safetyfirst.interfaces.adapter.PostAdapterView;
 import com.products.safetyfirst.interfaces.interactor.PostInteractor;
 import com.products.safetyfirst.interfaces.presenter.PostPresenter;
 import com.products.safetyfirst.interfaces.view.PostsView;
-import com.products.safetyfirst.models.PostModel;
+import com.products.safetyfirst.Pojos.PostModel;
 
 import java.util.ArrayList;
 

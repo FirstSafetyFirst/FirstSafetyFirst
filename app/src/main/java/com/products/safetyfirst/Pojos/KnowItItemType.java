@@ -1,4 +1,4 @@
-package com.products.safetyfirst.models;
+package com.products.safetyfirst.Pojos;
 
 import android.os.Parcel;
 import android.os.Parcelable;

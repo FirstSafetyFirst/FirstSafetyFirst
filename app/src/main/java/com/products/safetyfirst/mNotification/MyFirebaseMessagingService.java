@@ -18,7 +18,7 @@ import com.products.safetyfirst.R;
 import com.products.safetyfirst.activity.HomeActivity;
 import com.products.safetyfirst.activity.NotificationActivity;
 import com.products.safetyfirst.activity.PostDetailActivity;
-import com.products.safetyfirst.models.NotificationModel;
+import com.products.safetyfirst.Pojos.NotificationModel;
 
 import java.io.IOException;
 import java.io.InputStream;

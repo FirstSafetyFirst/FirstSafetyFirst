@@ -1,6 +1,6 @@
 package com.products.safetyfirst.interfaces.adapter;
 
-import com.products.safetyfirst.models.EventModel;
+import com.products.safetyfirst.Pojos.EventModel;
 
 import java.util.ArrayList;
 

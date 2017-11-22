@@ -167,7 +167,7 @@ To advertise to, or so, any user to buy or sell any products or services, orb us
     <string name="pick_avatar">Please select</string>
     <string name="projects">Please add any projects you have worked on. This will be used to calculate your Safety First rank !!</string>
     <string name="evaluation">Evaluation (in Rupees)</string>
-    <string name="years" >Years</string>
+    <string name="years">Years</string>
     <string name="no_visitor">Sorry the Visitor\'s List is not currently Available. We are trying our best to get it soon!!</string>
 
 </resources>

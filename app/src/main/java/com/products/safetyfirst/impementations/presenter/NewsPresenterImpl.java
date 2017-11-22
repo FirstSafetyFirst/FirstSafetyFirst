@@ -6,7 +6,7 @@ import com.products.safetyfirst.interfaces.adapter.NewsAdapterView;
 import com.products.safetyfirst.interfaces.interactor.NewsInteractor;
 import com.products.safetyfirst.interfaces.presenter.NewsPresenter;
 import com.products.safetyfirst.interfaces.view.NewsView;
-import com.products.safetyfirst.models.NewsModel;
+import com.products.safetyfirst.Pojos.NewsModel;
 
 import java.util.ArrayList;
 

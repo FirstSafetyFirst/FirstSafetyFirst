@@ -13,9 +13,9 @@ import com.products.safetyfirst.impementations.presenter.PostDetailPresenterImpl
 import com.products.safetyfirst.interfaces.interactor.PostDetailInteractor;
 import com.products.safetyfirst.interfaces.presenter.PostDetailPresenter;
 import com.products.safetyfirst.modelhelper.UserHelper;
-import com.products.safetyfirst.models.Comment;
-import com.products.safetyfirst.models.PostModel;
-import com.products.safetyfirst.models.UserModel;
+import com.products.safetyfirst.Pojos.Comment;
+import com.products.safetyfirst.Pojos.PostModel;
+import com.products.safetyfirst.Pojos.UserModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;

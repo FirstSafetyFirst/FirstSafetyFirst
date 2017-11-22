@@ -1,6 +1,6 @@
 package com.products.safetyfirst.interfaces.adapter;
 
-import com.products.safetyfirst.models.KnowItItem;
+import com.products.safetyfirst.Pojos.KnowItItem;
 
 import java.util.ArrayList;
 

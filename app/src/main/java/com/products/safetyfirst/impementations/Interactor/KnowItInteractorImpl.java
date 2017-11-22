@@ -9,8 +9,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.products.safetyfirst.interfaces.interactor.KnowItInteractor;
 import com.products.safetyfirst.interfaces.presenter.KnowItPresenter;
-import com.products.safetyfirst.models.KnowItItem;
-import com.products.safetyfirst.models.KnowItItemType;
+import com.products.safetyfirst.Pojos.KnowItItem;
+import com.products.safetyfirst.Pojos.KnowItItemType;
 
 import java.util.ArrayList;
 

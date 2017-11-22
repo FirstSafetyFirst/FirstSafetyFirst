@@ -1,6 +1,6 @@
 package com.products.safetyfirst.interfaces.view;
 
-import com.products.safetyfirst.models.UserModel;
+import com.products.safetyfirst.Pojos.UserModel;
 
 /**
  * Created by vikas on 07/10/17.

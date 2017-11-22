@@ -1,9 +1,8 @@
-package com.products.safetyfirst.models;
+package com.products.safetyfirst.Pojos;
 
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

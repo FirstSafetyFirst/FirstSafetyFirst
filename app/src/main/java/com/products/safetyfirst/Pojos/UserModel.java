@@ -1,4 +1,4 @@
-package com.products.safetyfirst.models;
+package com.products.safetyfirst.Pojos;
 
 import java.util.ArrayList;
 import java.util.HashMap;

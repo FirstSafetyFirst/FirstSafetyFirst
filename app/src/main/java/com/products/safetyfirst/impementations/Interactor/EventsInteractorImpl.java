@@ -10,7 +10,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.products.safetyfirst.interfaces.interactor.EventsInteractor;
 import com.products.safetyfirst.interfaces.presenter.EventsPresenter;
-import com.products.safetyfirst.models.EventModel;
+import com.products.safetyfirst.Pojos.EventModel;
 
 import java.util.ArrayList;
 import java.util.Collections;

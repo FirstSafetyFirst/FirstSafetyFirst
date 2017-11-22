@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.activity.ItemTypeInfoActivity;
-import com.products.safetyfirst.models.KnowItItemType;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

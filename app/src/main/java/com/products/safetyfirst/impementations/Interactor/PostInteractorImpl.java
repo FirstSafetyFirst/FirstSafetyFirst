@@ -8,8 +8,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.products.safetyfirst.interfaces.interactor.PostInteractor;
 import com.products.safetyfirst.interfaces.presenter.PostPresenter;
-import com.products.safetyfirst.models.EventModel;
-import com.products.safetyfirst.models.PostModel;
+import com.products.safetyfirst.Pojos.PostModel;
 
 import java.util.ArrayList;
 import java.util.Collections;

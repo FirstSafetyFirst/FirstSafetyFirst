@@ -1,7 +1,6 @@
 package com.products.safetyfirst.activity;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
@@ -16,12 +15,10 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.products.safetyfirst.R;
@@ -31,15 +28,12 @@ import com.products.safetyfirst.fragment.ItemsFragments.VisitorsListFragment;
 import com.products.safetyfirst.impementations.presenter.EventsDetailPresenterImpl;
 import com.products.safetyfirst.interfaces.presenter.EventsDetailPresenter;
 import com.products.safetyfirst.interfaces.view.EventsDetailView;
-import com.products.safetyfirst.models.EventModel;
+import com.products.safetyfirst.Pojos.EventModel;
 import com.products.safetyfirst.utils.Analytics;
 import com.products.safetyfirst.utils.JustifiedWebView;
 import com.products.safetyfirst.utils.PrefManager;
 
-import jp.wasabeef.richeditor.RichEditor;
-
 import static com.products.safetyfirst.utils.Constants.GOING;
-import static com.products.safetyfirst.utils.Constants.INTERESTED;
 
 @SuppressWarnings({"ALL", "EmptyMethod"})
 public class EventsDetailActivity extends BaseActivity implements View.OnClickListener, EventsDetailView {

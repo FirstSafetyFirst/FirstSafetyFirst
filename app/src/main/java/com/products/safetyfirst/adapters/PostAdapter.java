@@ -10,7 +10,7 @@ import com.products.safetyfirst.R;
 import com.products.safetyfirst.impementations.presenter.PostPresenterImpl;
 import com.products.safetyfirst.interfaces.adapter.PostAdapterView;
 import com.products.safetyfirst.interfaces.presenter.PostPresenter;
-import com.products.safetyfirst.models.PostModel;
+import com.products.safetyfirst.Pojos.PostModel;
 import com.products.safetyfirst.viewholder.PostViewHolder;
 
 import java.util.ArrayList;

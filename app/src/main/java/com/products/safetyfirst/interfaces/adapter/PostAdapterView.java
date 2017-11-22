@@ -1,7 +1,6 @@
 package com.products.safetyfirst.interfaces.adapter;
 
-import com.products.safetyfirst.models.EventModel;
-import com.products.safetyfirst.models.PostModel;
+import com.products.safetyfirst.Pojos.PostModel;
 
 import java.util.ArrayList;
 

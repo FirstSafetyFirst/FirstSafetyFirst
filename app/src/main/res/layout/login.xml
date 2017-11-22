@@ -15,7 +15,6 @@
             android:layout_marginTop="@dimen/activity_horizontal_margin"
             android:layout_marginBottom="@dimen/activity_horizontal_margin"
             android:textColor="@color/colorPrimary"
-            android:onClick="createAccount"
             android:text="@string/dont_have_account"/>
 
         <ImageView
@@ -45,7 +44,6 @@
             android:layout_gravity="end"
             android:layout_marginTop="@dimen/activity_horizontal_margin"
             android:textColor="@color/colorPrimary"
-            android:onClick="forgotPassword"
             android:text="@string/forgot"/>
         <Button
             android:id="@+id/button_sign_in"

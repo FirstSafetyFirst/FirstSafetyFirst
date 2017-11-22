@@ -6,21 +6,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.activity.PostDetailActivity;
 import com.products.safetyfirst.customview.CircleTransform;
-import com.products.safetyfirst.models.PostDiscussionModel;
-import com.products.safetyfirst.models.PostModel;
+import com.products.safetyfirst.Pojos.PostModel;
 import com.products.safetyfirst.utils.JustifiedWebView;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 /**
  * Created by ishita sharma on 11/4/2017.

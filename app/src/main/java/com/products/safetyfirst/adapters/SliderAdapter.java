@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.products.safetyfirst.R;
-import com.products.safetyfirst.models.SliderCard;
+import com.products.safetyfirst.Pojos.SliderCard;
 
 public class SliderAdapter extends RecyclerView.Adapter<SliderCard> {
 

@@ -1,6 +1,6 @@
 package com.products.safetyfirst.interfaces.presenter;
 
-import com.products.safetyfirst.models.TrainingCenterModel;
+import com.products.safetyfirst.Pojos.TrainingCenterModel;
 
 import java.util.ArrayList;
 

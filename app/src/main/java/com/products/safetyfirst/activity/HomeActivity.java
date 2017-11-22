@@ -35,13 +35,14 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.IdpResponse;
+import com.firebase.ui.auth.ResultCodes;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 import com.getkeepsafe.taptargetview.TapTargetView;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -65,12 +66,13 @@ import com.products.safetyfirst.fragment.News_Events_Fragment;
 import com.products.safetyfirst.fragment.ProfileFragment.ProjectsFragment;
 import com.products.safetyfirst.fragment.TrainingFragment;
 import com.products.safetyfirst.fragment.UpdateProfileFragment;
+import com.products.safetyfirst.login.LoginActivity;
 import com.products.safetyfirst.utils.Constants;
 import com.products.safetyfirst.utils.PrefManager;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-
 import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
 
 public class HomeActivity extends BaseActivity
@@ -83,6 +85,7 @@ public class HomeActivity extends BaseActivity
     private static final String TAG_FRAGMENT_KNOWIT = "tag_frag_knowit";
     private static final String TAG_FRAGMENT_UPDATE_PROFILE = "tag_fragment_update_profile";
     private static final String KEY_LOCATION = "location";
+    private static final int RC_SIGN_IN = 123;
 
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private boolean mLocationPermissionGranted;
@@ -134,18 +137,7 @@ public class HomeActivity extends BaseActivity
         setContentView(R.layout.activity_home);
 
         searchView= findViewById(R.id.search);
-        /*
-        searchView.setOnSearchClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(searchView.getQuery()!=null){
-                    searchView.setSubmitButtonEnabled(true);
-                    Analytics.logEventSearch(getApplicationContext(), ""+searchView.getQuery());
-                }
 
-            }
-        });
-         */
         final int versionCode= BuildConfig.VERSION_CODE;
         Query query= getDatabase().getReference().child("current version");
 //        Query query= getDatabase().getReference().child("versionInfo").child("versionCode");
@@ -467,7 +459,20 @@ public class HomeActivity extends BaseActivity
         } else if (id == R.id.nav_logout) {
             mFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
             if (mFirebaseUser == null) {
-                startActivity(new Intent(HomeActivity.this, SignInActivity.class));
+                List<AuthUI.IdpConfig> providers = Arrays.asList(
+                        new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
+                        new AuthUI.IdpConfig.Builder(AuthUI.PHONE_VERIFICATION_PROVIDER).build(),
+                        new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build());
+                       // new AuthUI.IdpConfig.Builder(AuthUI.FACEBOOK_PROVIDER).build(),
+                       // new AuthUI.IdpConfig.Builder(AuthUI.TWITTER_PROVIDER).build()
+                startActivityForResult(
+                        AuthUI.getInstance()
+                                .createSignInIntentBuilder()
+                                .setAvailableProviders(providers)
+                                .build(),
+                        RC_SIGN_IN);
+
+                //startActivity(new Intent(HomeActivity.this, LoginActivity.class));
             } else
                 showLogoutDialog();
 
@@ -750,4 +755,22 @@ public class HomeActivity extends BaseActivity
 
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RC_SIGN_IN) {
+            IdpResponse response = IdpResponse.fromResultIntent(data);
+
+            if (resultCode == ResultCodes.OK) {
+                // Successfully signed in
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                Toast.makeText(this, user.getDisplayName(), Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "SignIn Failed", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
 }

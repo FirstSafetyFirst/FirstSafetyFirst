@@ -4,7 +4,7 @@ import com.products.safetyfirst.impementations.Interactor.ProfileActivityInterac
 import com.products.safetyfirst.interfaces.interactor.ProfileActivityInteractor;
 import com.products.safetyfirst.interfaces.presenter.ProfileActivityPresenter;
 import com.products.safetyfirst.interfaces.view.ProfileActivityView;
-import com.products.safetyfirst.models.UserModel;
+import com.products.safetyfirst.Pojos.UserModel;
 
 /**
  * Created by vikas on 07/10/17.

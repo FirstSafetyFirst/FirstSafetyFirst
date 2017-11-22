@@ -1,6 +1,6 @@
 package com.products.safetyfirst.interfaces.presenter;
 
-import com.products.safetyfirst.models.InterestModel;
+import com.products.safetyfirst.Pojos.InterestModel;
 
 import java.util.ArrayList;
 

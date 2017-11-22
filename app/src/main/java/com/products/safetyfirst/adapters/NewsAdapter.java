@@ -6,20 +6,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 
 import com.bumptech.glide.Glide;
 import com.products.safetyfirst.R;
-import com.products.safetyfirst.activity.EventsDetailActivity;
 import com.products.safetyfirst.activity.NewsDetailActivity;
-import com.products.safetyfirst.impementations.presenter.EventsPresenterImpl;
 import com.products.safetyfirst.impementations.presenter.NewsPresenterImpl;
 import com.products.safetyfirst.interfaces.adapter.NewsAdapterView;
-import com.products.safetyfirst.interfaces.presenter.EventsPresenter;
-import com.products.safetyfirst.models.EventModel;
-import com.products.safetyfirst.models.NewsModel;
-import com.products.safetyfirst.viewholder.EventViewHolder;
+import com.products.safetyfirst.Pojos.NewsModel;
 import com.products.safetyfirst.viewholder.NewsViewHolder;
 
 import java.util.ArrayList;

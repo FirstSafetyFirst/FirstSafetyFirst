@@ -6,12 +6,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.activity.EventsDetailActivity;
-import com.products.safetyfirst.activity.ItemTypeInfoActivity;
-import com.products.safetyfirst.models.KnowItItemType;
+import com.products.safetyfirst.Pojos.KnowItItemType;
 import com.products.safetyfirst.utils.JustifiedWebView;
 
 /**

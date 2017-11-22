@@ -12,7 +12,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.products.safetyfirst.interfaces.interactor.AddInterestInteractor;
 import com.products.safetyfirst.interfaces.presenter.AddInterestPresenter;
-import com.products.safetyfirst.models.InterestModel;
+import com.products.safetyfirst.Pojos.InterestModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;

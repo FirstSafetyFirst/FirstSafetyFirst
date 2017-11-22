@@ -1,4 +1,4 @@
-package com.products.safetyfirst.models;
+package com.products.safetyfirst.Pojos;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;

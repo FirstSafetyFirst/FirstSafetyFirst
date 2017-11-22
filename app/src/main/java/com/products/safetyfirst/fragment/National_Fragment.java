@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.adapters.Laws_Adapter;
 import com.products.safetyfirst.customview.SpacesItemDecoration;
-import com.products.safetyfirst.models.LawModel;
+import com.products.safetyfirst.Pojos.LawModel;
 
 import java.util.ArrayList;
 import java.util.List;
