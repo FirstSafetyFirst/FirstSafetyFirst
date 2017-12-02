@@ -107,7 +107,7 @@ public class PostDetailInteractorImpl implements PostDetailInteractor {
 
             String key = mCommentsRef.push().getKey();
 
-            Comment comment = new Comment(user.getUid(), user.getDisplayName(), mAnswer, 0);
+            Comment comment = new Comment(user.getUid(), user.getDisplayName(), mAnswer, null);
 
             Map<String, Object> commentValues = comment.toMap();
 

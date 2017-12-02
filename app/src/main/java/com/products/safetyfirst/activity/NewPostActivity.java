@@ -17,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.firebase.firestore.DocumentReference;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.androidhelpers.ImageHelper;
 import com.products.safetyfirst.androidhelpers.ImageSelectionHelper;
@@ -142,10 +143,11 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
 
     private void createNewPost() {
         if(!titleText.getText().toString().trim().equals("") && !editor.getHtml().trim().equals("")) {
-            final String postKey = postHelper.createPostKey();
-            Analytics.logEventShare(getApplicationContext(),titleText.getText().toString(),postKey);
+            final DocumentReference postKey = postHelper.createPostKey();
+            Toast.makeText(this, postKey.getId(), Toast.LENGTH_SHORT).show();
+            Analytics.logEventShare(getApplicationContext(),titleText.getText().toString(),postKey.toString());
             List<String> imageUrls = new ArrayList<>();
-            postHelper.createImageUrls(postKey, imageList, imageUrls, 0, new PostHelper.UploadCallbacks() {
+            postHelper.createImageUrls(postKey.toString(), imageList, imageUrls, 0, new PostHelper.UploadCallbacks() {
                 NotificationHelper.ProgressNotification progressNotification;
 
                 @Override

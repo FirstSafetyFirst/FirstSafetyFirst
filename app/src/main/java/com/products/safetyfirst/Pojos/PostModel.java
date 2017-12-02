@@ -2,6 +2,7 @@ package com.products.safetyfirst.Pojos;
 
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
+import com.google.firebase.firestore.DocumentReference;
 
 import java.util.HashMap;
 import java.util.List;
@@ -23,20 +24,18 @@ public class PostModel {
     private String uid;
     private List<String> imageList;
     private List<String> fileList;
-    private String postKey;
     public Map<String, Boolean> stars = new HashMap<>();
     private String image;
 
     public PostModel() {
     }
 
-    public PostModel(String title, String body, String uid, String author, List<String> imageList, List<String> fileList, String previousPost ) {
+    public PostModel(String title, String body, String uid, String author, List<String> imageList, List<String> fileList) {
         this.title = title;
         this.body = body;
         this.uid = uid;
         this.imageList = imageList;
         this.fileList = fileList;
-        this.postKey = previousPost;
         this.author = author;
     }
 
@@ -78,22 +77,6 @@ public class PostModel {
 
     public void setFileList(List<String> fileList) {
         this.fileList = fileList;
-    }
-
-    public String getPreviousPost() {
-        return postKey;
-    }
-
-    public void setPreviousPost(String previousPost) {
-        this.postKey = previousPost;
-    }
-
-    public String getPostKey() {
-        return postKey;
-    }
-
-    public void setPostKey(String postKey) {
-        this.postKey = postKey;
     }
 
     public String getAuthorImageUrl() {

@@ -2,7 +2,6 @@ package com.products.safetyfirst.root;
 
 import android.app.Application;
 
-import com.products.safetyfirst.login.LoginModule;
 import com.products.safetyfirst.root.ApplicationComponent;
 import com.products.safetyfirst.root.ApplicationModule;
 
@@ -20,7 +19,6 @@ public class App extends Application {
 
         component = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
-                .loginModule(new LoginModule())
                 .build();
     }
 

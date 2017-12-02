@@ -1,7 +1,9 @@
 package com.products.safetyfirst.Pojos;
 
 import com.google.firebase.database.Exclude;
+import com.google.firebase.firestore.ServerTimestamp;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,31 +18,26 @@ public class Comment  {
     private String text;
     private int upvoteCount = 0;
     private int downvoteCount = 0;
-    private String xmlText = null;
     private String image = null;
-    private String file = null;
     private Map<String, Boolean> upvoteusers = new HashMap<>();
+    private Map<String, Boolean> downvoteusers = new HashMap<>();
+    private @ServerTimestamp Date timestamp;
 
     public Comment() {
         // Default constructor required for calls to DataSnapshot.getValue(Comment.class)
     }
 
-    public Comment(String uid, String author, String text, String xmlText, String image, String file , int upvoteCount ) {
+    public Comment(String uid, String author, String text, String image ) {
         this.uid = uid;
         this.author = author;
         this.text = text;
-        this.xmlText = xmlText;
         this.image = image;
-        this.file = file;
-        this.upvoteCount=upvoteCount;
     }
 
-    public Comment(String uid, String author, String text, int upvoteCount ) {
+    public Comment(String uid, String author, String text ) {
         this.uid = uid;
         this.author = author;
         this.text = text;
-        this.xmlText = text;
-        this.upvoteCount=upvoteCount;
     }
 
     public String getUid() {
@@ -83,28 +80,12 @@ public class Comment  {
         this.downvoteCount = downvoteCount;
     }
 
-    public String getXmlText() {
-        return xmlText;
-    }
-
-    public void setXmlText(String xmlText) {
-        this.xmlText = xmlText;
-    }
-
     public String getImage() {
         return image;
     }
 
     public void setImage(String image) {
         this.image = image;
-    }
-
-    public String getFile() {
-        return file;
-    }
-
-    public void setFile(String file) {
-        this.file = file;
     }
 
     public Map<String, Boolean> getUpvoteusers() {
@@ -115,6 +96,21 @@ public class Comment  {
         this.upvoteusers = upvoteusers;
     }
 
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
+    }
+
+    public Map<String, Boolean> getDownvoteusers() {
+        return downvoteusers;
+    }
+
+    public void setDownvoteusers(Map<String, Boolean> downvoteusers) {
+        this.downvoteusers = downvoteusers;
+    }
 
     @Exclude
     public Map<String, Object> toMap() {
@@ -122,8 +118,6 @@ public class Comment  {
         result.put("uid", uid);
         result.put("author", author);
         result.put("text", text);
-        result.put("xmlText", xmlText);
-        result.put("file", file);
         result.put("image", image);
         result.put("upvotecount",upvoteCount);
         result.put("upvoteusers",upvoteusers);

@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class UserModel {
     public final Map<String, Boolean> newsBookmarks = new HashMap<>();
-    private String name;
+    private String username;
     private int rank;
     private String email;
     private Map<String, Object> following;
@@ -41,15 +41,19 @@ public class UserModel {
 
     public UserModel(){}
 
+    public UserModel(String username, String photoUrl) {
+        this.username = username;
+        this.photoUrl = photoUrl;
+    }
 
     public UserModel(String username, String email, String photoUrl){
-        this.name = username;
+        this.username = username;
         this.email      = email;
         this.photoUrl   = photoUrl;
     }
 
     public UserModel(String username, String email, String phone,String photoUrl,String certificate, ArrayList<String> news, ArrayList<String> topics){
-        this.name = username;
+        this.username = username;
         this.email      = email;
         this.phone= Long.parseLong(phone);
         this.photoUrl   = photoUrl;
@@ -71,11 +75,11 @@ public class UserModel {
     }
 
     public String getUsername() {
-        return name;
+        return username;
     }
 
     public void setUsername(String username) {
-        this.name = username;
+        this.username = username;
     }
 
     public int getRank() {

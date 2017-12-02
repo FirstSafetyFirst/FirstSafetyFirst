@@ -14,6 +14,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -36,6 +37,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
 import com.firebase.ui.auth.ResultCodes;
 import com.getkeepsafe.taptargetview.TapTarget;
@@ -57,7 +59,10 @@ import com.google.firebase.dynamiclinks.DynamicLink;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 import com.google.firebase.dynamiclinks.ShortDynamicLink;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.products.safetyfirst.BuildConfig;
+import com.products.safetyfirst.Pojos.UserModel;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.fragment.DiscussionFragment;
 import com.products.safetyfirst.fragment.DiscussionFragmentOld;
@@ -66,7 +71,6 @@ import com.products.safetyfirst.fragment.News_Events_Fragment;
 import com.products.safetyfirst.fragment.ProfileFragment.ProjectsFragment;
 import com.products.safetyfirst.fragment.TrainingFragment;
 import com.products.safetyfirst.fragment.UpdateProfileFragment;
-import com.products.safetyfirst.login.LoginActivity;
 import com.products.safetyfirst.utils.Constants;
 import com.products.safetyfirst.utils.PrefManager;
 
@@ -74,6 +78,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
+import static com.products.safetyfirst.utils.DatabaseUtil.getFireStore;
 
 public class HomeActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, ProjectsFragment.OnFragmentInteractionListener, TrainingFragment.OnFragmentInteractionListener {
@@ -462,13 +467,17 @@ public class HomeActivity extends BaseActivity
                 List<AuthUI.IdpConfig> providers = Arrays.asList(
                         new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
                         new AuthUI.IdpConfig.Builder(AuthUI.PHONE_VERIFICATION_PROVIDER).build(),
+                        // new AuthUI.IdpConfig.Builder(AuthUI.FACEBOOK_PROVIDER).build(),
+                        // new AuthUI.IdpConfig.Builder(AuthUI.TWITTER_PROVIDER).build(),
                         new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build());
-                       // new AuthUI.IdpConfig.Builder(AuthUI.FACEBOOK_PROVIDER).build(),
-                       // new AuthUI.IdpConfig.Builder(AuthUI.TWITTER_PROVIDER).build()
+
                 startActivityForResult(
                         AuthUI.getInstance()
                                 .createSignInIntentBuilder()
                                 .setAvailableProviders(providers)
+                                .setTosUrl("https://superapp.example.com/terms-of-service.html")
+                                .setPrivacyPolicyUrl("https://superapp.example.com/privacy-policy.html")
+                                .setIsSmartLockEnabled(!BuildConfig.DEBUG)
                                 .build(),
                         RC_SIGN_IN);
 
@@ -767,10 +776,54 @@ public class HomeActivity extends BaseActivity
                 // Successfully signed in
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 Toast.makeText(this, user.getDisplayName(), Toast.LENGTH_SHORT).show();
+                //WRITE TO FIREBASE
+                FirebaseFirestore db = getFireStore();
+
+                UserModel userModel = new UserModel(user.getDisplayName(), user.getPhotoUrl()==null?"":user.getPhotoUrl().toString());
+
+                db.collection("users")
+                        .add(userModel)
+                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                Log.d("LOGIN", "DocumentSnapshot added with ID: " + documentReference.getId());
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w("LOGIN", "Error adding document", e);
+                            }
+                        });
+                return;
             } else {
-                Toast.makeText(this, "SignIn Failed", Toast.LENGTH_SHORT).show();
+                // Sign in failed
+                if (response == null) {
+                    // User pressed back button
+                    showSnackbar(R.string.sign_in_cancelled);
+                    return;
+                }
+
+                if (response.getErrorCode() == ErrorCodes.NO_NETWORK) {
+                    showSnackbar(R.string.no_internet_connection);
+                    return;
+                }
+
+                if (response.getErrorCode() == ErrorCodes.UNKNOWN_ERROR) {
+                    showSnackbar(R.string.unknown_error);
+                    return;
+                }
             }
+
+            showSnackbar(R.string.unknown_sign_in_response);
         }
+    }
+
+    private void showSnackbar(int message){
+
+        Toast.makeText(this, getString(message), Toast.LENGTH_SHORT).show();
+
+        //Snackbar.make(HomeActivity.this , getString(message), Snackbar.LENGTH_LONG).show();
     }
 
 }

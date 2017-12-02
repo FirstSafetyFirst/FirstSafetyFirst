@@ -54,16 +54,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentViewHolder> imp
 
         if(comment.getAuthor() != null) holder.title.setText(comment.getAuthor());
 
-        if(comment.getXmlText() != null) holder.comment.setText(comment.getXmlText());
-
-
-        holder.likeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               presenter.addLike(mPostKey, mKeysList.get(position));
-
-            }
-        });
+        if(comment.getText() != null) holder.comment.setText(comment.getText());
     }
 
     @Override
