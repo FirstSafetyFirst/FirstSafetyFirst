@@ -81,6 +81,15 @@ public class EventsAdapter extends RecyclerView.Adapter<EventViewHolder> impleme
             }
         }
 
+        holder.eventCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, EventsDetailActivity.class);
+                intent.putExtra(EventsDetailActivity.EXTRA_EVENT_KEY, mKeysList.get(position));
+                context.startActivity(intent);
+            }
+        });
+/**
         holder.details.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,7 +99,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventViewHolder> impleme
 
             }
         });
-
+**/
 
     }
 

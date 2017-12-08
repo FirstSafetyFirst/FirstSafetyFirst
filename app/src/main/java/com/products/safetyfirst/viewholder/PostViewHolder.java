@@ -1,18 +1,15 @@
 package com.products.safetyfirst.viewholder;
 
 import android.content.Context;
-import android.content.Intent;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.products.safetyfirst.R;
-import com.products.safetyfirst.activity.PostDetailActivity;
 import com.products.safetyfirst.customview.CircleTransform;
 import com.products.safetyfirst.models.PostDiscussionModel;
 import com.products.safetyfirst.models.PostModel;
@@ -38,9 +35,10 @@ public class PostViewHolder  extends RecyclerView.ViewHolder{
     public TextView post_author;
     public TextView post_author_email;
     public JustifiedWebView body;
-    public Button readMore;
+    //public Button readMore;
     public LinearLayout post_author_layout;
     public ImageView postImage;
+    public CardView postCardView;
 
     public final Context context;
 
@@ -56,10 +54,11 @@ public class PostViewHolder  extends RecyclerView.ViewHolder{
         dateTime = itemView.findViewById(R.id.dateTime);
         post_author = itemView.findViewById(R.id.post_author);
         post_author_email = itemView.findViewById(R.id.post_author_email);
-        readMore = itemView.findViewById(R.id.view_details);
+        //readMore = itemView.findViewById(R.id.view_details);
         post_author_layout = itemView.findViewById(R.id.post_author_layout);
         postImage = itemView.findViewById(R.id.post_image);
         context = itemView.getContext();
+        postCardView= itemView.findViewById(R.id.card_view);
     }
 
 
@@ -73,7 +72,7 @@ public class PostViewHolder  extends RecyclerView.ViewHolder{
         SimpleDateFormat sDate = new SimpleDateFormat("dd MM yyyy", new Locale("hi", "IN"));
         dateTime.setText(sDate.format(date));
 
-        readMore.setOnClickListener(new View.OnClickListener() {
+        /**readMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -84,6 +83,7 @@ public class PostViewHolder  extends RecyclerView.ViewHolder{
 
             }
         });
+         **/
     }
 
     public void setData(PostModel post){

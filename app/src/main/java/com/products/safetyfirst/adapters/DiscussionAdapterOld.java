@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.database.ChildEventListener;
@@ -19,7 +18,6 @@ import com.google.firebase.database.Query;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.activity.PostDetailActivity;
 import com.products.safetyfirst.activity.ProfileActivity;
-import com.products.safetyfirst.models.NewsModel;
 import com.products.safetyfirst.models.PostModel;
 import com.products.safetyfirst.viewholder.PostViewHolder;
 
@@ -162,7 +160,7 @@ public class DiscussionAdapterOld  extends RecyclerView.Adapter<PostViewHolder> 
 
 
 
-        holder.readMore.setOnClickListener(new View.OnClickListener() {
+/**        holder.readMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, PostDetailActivity.class);
@@ -171,7 +169,8 @@ public class DiscussionAdapterOld  extends RecyclerView.Adapter<PostViewHolder> 
 
             }
         });
-      /*  holder.post_author_layout.setOnClickListener(new View.OnClickListener() {
+        **/
+       holder.post_author_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, ProfileActivity.class);
@@ -180,7 +179,15 @@ public class DiscussionAdapterOld  extends RecyclerView.Adapter<PostViewHolder> 
 
             }
         });
-*/
+
+       holder.postCardView.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               Intent intent = new Intent(context, PostDetailActivity.class);
+               intent.putExtra(PostDetailActivity.EXTRA_POST_KEY, postArrayKey.get(position));
+               context.startActivity(intent);
+           }
+       });
         if (position==0){
             mpaginateprogbar.setVisibility(View.VISIBLE);
             getMoreData();

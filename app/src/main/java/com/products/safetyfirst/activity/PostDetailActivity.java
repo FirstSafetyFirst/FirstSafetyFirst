@@ -83,8 +83,8 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
         mAuthorName = findViewById(R.id.post_author);
         mAuthorEmail = findViewById(R.id.post_author_email);
 
-        mView_details = findViewById(R.id.view_details);
-        mView_details.setVisibility(View.GONE);
+        //mView_details = findViewById(R.id.view_details);
+       // mView_details.setVisibility(View.GONE);
 
         mOverflow = findViewById(R.id.overflow);
         mOverflow.setVisibility(View.GONE);

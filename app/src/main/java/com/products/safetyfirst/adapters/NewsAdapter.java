@@ -145,7 +145,16 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
         Glide.with(context).load(newsArrayList.get(position).getImgUrl()).into(holder.images);
 
         holder.title.setText( newsArrayList.get(position).getTitle());
-        holder.timestamp.setText("10 May, 2017");
+//        holder.timestamp.setText("10 May, 2017");
+        holder.newsCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, NewsDetailActivity.class);
+                intent.putExtra(NewsDetailActivity.EXTRA_NEWS_KEY, newsArrayKey.get(position));
+                context.startActivity(intent);
+            }
+        });
+        /**
         holder.detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -154,7 +163,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
                 context.startActivity(intent);
 
             }
-        });
+        });**/
 
         if (position==0){
             mpaginateprogbar.setVisibility(View.VISIBLE);

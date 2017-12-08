@@ -8,15 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.products.safetyfirst.R;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
 import com.products.safetyfirst.activity.PostDetailActivity;
 import com.products.safetyfirst.activity.ProfileActivity;
 import com.products.safetyfirst.models.PostModel;
-import com.products.safetyfirst.utils.JustifiedWebView;
 import com.products.safetyfirst.viewholder.PostViewHolder;
 
 import java.util.List;
@@ -92,7 +86,7 @@ public class DiscussionAdapter extends
 
             }
         });
-
+/**
         postViewHolder.readMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -101,7 +95,7 @@ public class DiscussionAdapter extends
                 postViewHolder.context.startActivity(intent);
             }
         });
-
+**/
         postViewHolder.post_author_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -111,6 +105,14 @@ public class DiscussionAdapter extends
             }
         });
 
+        postViewHolder.postCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(postViewHolder.context, PostDetailActivity.class);
+                intent.putExtra(PostDetailActivity.EXTRA_POST_KEY, postModel.getPreviousPost());
+                postViewHolder.context.startActivity(intent);
+            }
+        });
     }
 
     @Override
