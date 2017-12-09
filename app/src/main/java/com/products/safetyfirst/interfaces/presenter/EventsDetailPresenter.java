@@ -1,7 +1,7 @@
 package com.products.safetyfirst.interfaces.presenter;
 
 
-import com.products.safetyfirst.models.EventModel;
+import com.products.safetyfirst.Pojos.EventModel;
 
 /**
  * Created by vikas on 12/10/17.

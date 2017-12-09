@@ -15,7 +15,6 @@
             android:layout_marginTop="@dimen/activity_horizontal_margin"
             android:layout_marginBottom="@dimen/activity_horizontal_margin"
             android:textColor="@color/colorPrimary"
-            android:onClick="createAccount"
             android:text="@string/dont_have_account"/>
 
         <ImageView
@@ -30,9 +29,6 @@
             android:layout_height="wrap_content"
             android:hint="@string/email"
             android:inputType="textEmailAddress"
-            android:drawableStart="@drawable/ic_email_black_24dp"
-            android:drawableLeft="@drawable/ic_email_black_24dp"
-            android:drawableTint="@color/colorAccent"
             android:drawablePadding="@dimen/activity_horizontal_margin"/>
         <EditText
             android:id="@+id/field_password"
@@ -40,9 +36,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password"
-            android:drawableStart="@drawable/ic_lock_black_24dp"
-            android:drawableLeft="@drawable/ic_lock_black_24dp"
-            android:drawableTint="@color/colorAccent"
             android:drawablePadding="@dimen/activity_horizontal_margin"/>
         <TextView
             android:id="@+id/forgot_password"
@@ -51,7 +44,6 @@
             android:layout_gravity="end"
             android:layout_marginTop="@dimen/activity_horizontal_margin"
             android:textColor="@color/colorPrimary"
-            android:onClick="forgotPassword"
             android:text="@string/forgot"/>
         <Button
             android:id="@+id/button_sign_in"

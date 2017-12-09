@@ -3,6 +3,7 @@ package com.products.safetyfirst.activity;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,9 +26,9 @@ import com.products.safetyfirst.customview.CircleTransform;
 import com.products.safetyfirst.impementations.presenter.PostDetailPresenterImpl;
 import com.products.safetyfirst.interfaces.presenter.PostDetailPresenter;
 import com.products.safetyfirst.interfaces.view.PostDetailView;
-import com.products.safetyfirst.models.Comment;
-import com.products.safetyfirst.models.PostModel;
-import com.products.safetyfirst.models.UserModel;
+import com.products.safetyfirst.Pojos.Comment;
+import com.products.safetyfirst.Pojos.PostModel;
+import com.products.safetyfirst.Pojos.UserModel;
 import com.products.safetyfirst.utils.JustifiedWebView;
 import com.products.safetyfirst.utils.PrefManager;
 
@@ -74,6 +75,7 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         setContentView(R.layout.activity_post_detail);
 
         mBodyView = findViewById(R.id.post_body);
@@ -100,6 +102,7 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle("");
         }
 
         fab = findViewById(R.id.fab);
@@ -125,6 +128,10 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fab:
+                if(getCurrentUserId() == null ) {
+                    Toast.makeText(this, "Please Sign In to post a comment", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 final Dialog fullscreenDialog = new Dialog(PostDetailActivity.this, R.style.DialogFullscreen);
                 fullscreenDialog.setContentView(R.layout.dialog_fullscreen);
 
@@ -192,7 +199,6 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
 
             if(post.getImageList() != null){
                 List<String> imageList = post.getImageList();
-               // Toast.makeText(this, "Images", Toast.LENGTH_SHORT).show();
                 initImageRecycler(post.getImageList());
 
 
@@ -208,7 +214,6 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
             mAuthorName.setText(user.getUsername());
             mAuthorEmail.setText(user.getEmail());
             Glide.with(getBaseContext()).load(user.getPhotoUrl())
-                    .error(R.drawable.ic_person_black_24dp)
                     .transform(new CircleTransform(getBaseContext())).into(mAuthorImage);
 
         }

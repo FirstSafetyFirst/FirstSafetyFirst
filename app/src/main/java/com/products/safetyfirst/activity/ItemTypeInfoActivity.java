@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
@@ -22,7 +23,7 @@ import com.products.safetyfirst.fragment.ItemsFragments.VideoFragment;
 import com.products.safetyfirst.impementations.presenter.KnowItPresenterImpl;
 import com.products.safetyfirst.interfaces.presenter.KnowItPresenter;
 import com.products.safetyfirst.interfaces.view.KnowItView;
-import com.products.safetyfirst.models.KnowItItemType;
+import com.products.safetyfirst.Pojos.KnowItItemType;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -42,6 +43,7 @@ public class ItemTypeInfoActivity extends AppCompatActivity implements KnowItVie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         setContentView(R.layout.activity_item_type_info);
 
         mainImage = findViewById(R.id.main_image);

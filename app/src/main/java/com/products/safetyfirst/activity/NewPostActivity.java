@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.firebase.firestore.DocumentReference;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.androidhelpers.ImageHelper;
 import com.products.safetyfirst.androidhelpers.ImageSelectionHelper;
@@ -63,6 +65,7 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         setContentView(R.layout.activity_new_post);
 
         user = UserHelper.getInstance();
@@ -140,10 +143,11 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
 
     private void createNewPost() {
         if(!titleText.getText().toString().trim().equals("") && !editor.getHtml().trim().equals("")) {
-            final String postKey = postHelper.createPostKey();
-            Analytics.logEventShare(getApplicationContext(),titleText.getText().toString(),postKey);
+            final DocumentReference postKey = postHelper.createPostKey();
+            Toast.makeText(this, postKey.getId(), Toast.LENGTH_SHORT).show();
+            Analytics.logEventShare(getApplicationContext(),titleText.getText().toString(),postKey.toString());
             List<String> imageUrls = new ArrayList<>();
-            postHelper.createImageUrls(postKey, imageList, imageUrls, 0, new PostHelper.UploadCallbacks() {
+            postHelper.createImageUrls(postKey.toString(), imageList, imageUrls, 0, new PostHelper.UploadCallbacks() {
                 NotificationHelper.ProgressNotification progressNotification;
 
                 @Override

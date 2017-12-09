@@ -6,7 +6,7 @@ import com.products.safetyfirst.interfaces.interactor.AddProjectInteractor;
 import com.products.safetyfirst.interfaces.presenter.AddProjectPresenter;
 import com.products.safetyfirst.interfaces.view.AddProjectView;
 import com.products.safetyfirst.interfaces.adapter.AddProjectsAdapterView;
-import com.products.safetyfirst.models.ProjectModel;
+import com.products.safetyfirst.Pojos.ProjectModel;
 
 import java.util.ArrayList;
 

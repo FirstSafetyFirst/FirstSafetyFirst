@@ -11,7 +11,7 @@ import android.view.animation.AnimationUtils;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.impementations.presenter.AddProjectPresenterImpl;
 import com.products.safetyfirst.interfaces.adapter.AddProjectsAdapterView;
-import com.products.safetyfirst.models.ProjectModel;
+import com.products.safetyfirst.Pojos.ProjectModel;
 import com.products.safetyfirst.viewholder.ProjectsViewHolder;
 
 import java.util.ArrayList;

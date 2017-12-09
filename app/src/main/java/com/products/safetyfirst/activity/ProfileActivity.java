@@ -15,6 +15,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,7 +34,7 @@ import com.products.safetyfirst.fragment.ProfileFragment.ProjectsFragment;
 import com.products.safetyfirst.fragment.ProfileFragment.QuestionsFragment;
 import com.products.safetyfirst.impementations.presenter.ProfileActivityPresenterImpl;
 import com.products.safetyfirst.interfaces.view.ProfileActivityView;
-import com.products.safetyfirst.models.UserModel;
+import com.products.safetyfirst.Pojos.UserModel;
 
 import java.util.Objects;
 
@@ -66,6 +67,7 @@ public class ProfileActivity extends BaseActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         setContentView(R.layout.activity_profile);
 
         Toolbar toolbar = findViewById(R.id.toolbar);

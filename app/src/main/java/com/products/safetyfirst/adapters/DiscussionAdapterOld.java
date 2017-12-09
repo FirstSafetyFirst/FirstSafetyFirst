@@ -2,23 +2,30 @@ package com.products.safetyfirst.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.bumptech.glide.Glide;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.products.safetyfirst.R;
+<<<<<<< HEAD
 import com.products.safetyfirst.activity.PostDetailActivity;
 import com.products.safetyfirst.activity.ProfileActivity;
 import com.products.safetyfirst.models.PostModel;
+||||||| merged common ancestors
+import com.products.safetyfirst.activity.PostDetailActivity;
+import com.products.safetyfirst.activity.ProfileActivity;
+import com.products.safetyfirst.models.NewsModel;
+import com.products.safetyfirst.models.PostModel;
+=======
+import com.products.safetyfirst.Pojos.PostModel;
+>>>>>>> 61fdc84e51e37e24cc10abc02f412f867bf7210e
 import com.products.safetyfirst.viewholder.PostViewHolder;
 
 import java.util.ArrayList;
@@ -83,8 +90,8 @@ public class DiscussionAdapterOld  extends RecyclerView.Adapter<PostViewHolder> 
     private void getMoreData(){
         tempkeys= postArrayKey;
         tempPostModels = postArrayList;
-        Query Getmorenewsquery=mDatabase.child("posts").orderByKey().endAt(mLastkey).limitToLast(10);
-        Getmorenewsquery.addChildEventListener(new ChildEventListener() {
+        Query getMorePostsQuery=mDatabase.child("posts").orderByKey().endAt(mLastkey).limitToLast(10);
+        getMorePostsQuery.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 postModels.add(dataSnapshot.getValue(PostModel.class));
@@ -145,7 +152,7 @@ public class DiscussionAdapterOld  extends RecyclerView.Adapter<PostViewHolder> 
     @Override
     public void onBindViewHolder(final PostViewHolder holder, final int position) {
 
-        //  Glide.with(context).load(postArrayList.get(position).getImg_url()).into(holder.images);
+        /*//  Glide.with(context).load(postArrayList.get(position).getImg_url()).into(holder.images);
         if(postArrayList.get(position).getImage()!= null)
             Glide.with(context).load(postArrayList.get(position).getImage()).into(holder.postImage);
 
@@ -169,6 +176,7 @@ public class DiscussionAdapterOld  extends RecyclerView.Adapter<PostViewHolder> 
 
             }
         });
+<<<<<<< HEAD
         **/
        holder.post_author_layout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -176,7 +184,17 @@ public class DiscussionAdapterOld  extends RecyclerView.Adapter<PostViewHolder> 
                 Intent intent = new Intent(context, ProfileActivity.class);
                 intent.putExtra(ProfileActivity.EXTRA_PROFILE_KEY, postArrayList.get(position).getAuthor());
                 context.startActivity(intent);
+||||||| merged common ancestors
+      /*  holder.post_author_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ProfileActivity.class);
+                intent.putExtra(ProfileActivity.EXTRA_PROFILE_KEY, postArrayList.get(position).getAuthor());
+                context.startActivity(intent);
+=======
+>>>>>>> 61fdc84e51e37e24cc10abc02f412f867bf7210e
 
+<<<<<<< HEAD
             }
         });
 
@@ -188,10 +206,16 @@ public class DiscussionAdapterOld  extends RecyclerView.Adapter<PostViewHolder> 
                context.startActivity(intent);
            }
        });
+||||||| merged common ancestors
+            }
+        });
+*/
+=======
+>>>>>>> 61fdc84e51e37e24cc10abc02f412f867bf7210e
         if (position==0){
             mpaginateprogbar.setVisibility(View.VISIBLE);
             getMoreData();
-        }
+        }*/
     }
 
     @Override

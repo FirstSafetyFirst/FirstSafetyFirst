@@ -6,7 +6,7 @@ import com.products.safetyfirst.interfaces.adapter.EventsAdapterView;
 import com.products.safetyfirst.interfaces.interactor.EventsInteractor;
 import com.products.safetyfirst.interfaces.presenter.EventsPresenter;
 import com.products.safetyfirst.interfaces.view.EventsView;
-import com.products.safetyfirst.models.EventModel;
+import com.products.safetyfirst.Pojos.EventModel;
 
 import java.util.ArrayList;
 

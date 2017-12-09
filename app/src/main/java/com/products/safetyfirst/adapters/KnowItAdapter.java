@@ -14,7 +14,7 @@ import com.products.safetyfirst.activity.KnowItSecondActivity;
 import com.products.safetyfirst.impementations.presenter.KnowItPresenterImpl;
 import com.products.safetyfirst.interfaces.adapter.KnowItAdapterView;
 import com.products.safetyfirst.interfaces.presenter.KnowItPresenter;
-import com.products.safetyfirst.models.KnowItItem;
+import com.products.safetyfirst.Pojos.KnowItItem;
 import com.products.safetyfirst.utils.Analytics;
 import com.products.safetyfirst.viewholder.KnowItViewHolder;
 

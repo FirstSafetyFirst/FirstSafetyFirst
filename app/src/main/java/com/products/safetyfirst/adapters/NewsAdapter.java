@@ -1,132 +1,35 @@
 package com.products.safetyfirst.adapters;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
 import com.bumptech.glide.Glide;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.Query;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.activity.NewsDetailActivity;
-import com.products.safetyfirst.models.NewsModel;
+import com.products.safetyfirst.impementations.presenter.NewsPresenterImpl;
+import com.products.safetyfirst.interfaces.adapter.NewsAdapterView;
+import com.products.safetyfirst.Pojos.NewsModel;
 import com.products.safetyfirst.viewholder.NewsViewHolder;
 
 import java.util.ArrayList;
 
-public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
-
+public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> implements NewsAdapterView{
+    private final ArrayList<NewsModel> mEventsList = new ArrayList<>();
+    private final ArrayList<String> mKeysList = new ArrayList<>();
+    private final NewsPresenterImpl presenter;
     private final Context context;
-    private ArrayList<NewsModel> getNews = new ArrayList<>();
-    private ArrayList<NewsModel> tempNews = new ArrayList<>();
-    private ArrayList<String> tempkeys = new ArrayList<>();
-    private ArrayList<String> getKeys = new ArrayList<>();
-    private final DatabaseReference mDatabase;
-    private ArrayList<NewsModel> newsArrayList = new ArrayList<>();
-    private ArrayList<String> newsArrayKey=new ArrayList<>();
-    private final Query newsquery;
-    private String mLastkey;
-    private final ProgressBar mpaginateprogbar;
+    private final String mUserId;
 
-    public NewsAdapter(Context cont, Query query, DatabaseReference mDatabase, ProgressBar mpaginateprogbar ) {
-        this.context=cont;
-        this.newsquery = query;
-        this.mDatabase = mDatabase;
-        this.mpaginateprogbar = mpaginateprogbar;
-        query.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                newsArrayKey.add(dataSnapshot.getKey());
-                newsArrayList.add(dataSnapshot.getValue(NewsModel.class));
-                notifyItemInserted(newsArrayList.size()-1);
-                if(newsArrayList.size()==1){
-                    mLastkey=dataSnapshot.getKey();
-                }
-
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+    public NewsAdapter(Context context, String userId){
+        this.presenter = new NewsPresenterImpl(this);
+        this.context = context;
+        this.mUserId = userId;
     }
 
-    private void getMoreData(){
-        tempkeys=newsArrayKey;
-        tempNews=newsArrayList;
-        Query Getmorenewsquery=mDatabase.child("news").orderByKey().endAt(mLastkey).limitToLast(10);
-        Getmorenewsquery.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                getNews.add(dataSnapshot.getValue(NewsModel.class));
-                getKeys.add(dataSnapshot.getKey());
-                if(getNews.size()==10){
-                    getNews.remove(9);
-                    getKeys.remove(9);
-                    newsArrayList=getNews;
-                    newsArrayKey=getKeys;
-                    for(int i=0;i<tempNews.size();i++){
-                        newsArrayList.add(tempNews.get(i));
-                        newsArrayKey.add(tempkeys.get(i));
-                    }
-                    notifyItemRangeInserted(0,9);
-                    mpaginateprogbar.setVisibility(View.GONE);
-                    getKeys=new ArrayList<>();
-                    getNews=new ArrayList<>();
-                }
-                if(getNews.size()==1){
-                    mLastkey=dataSnapshot.getKey();
-                }
-
-
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-    }
 
     @Override
     public NewsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -136,14 +39,18 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
         return new NewsViewHolder(itemView);
     }
 
-    @SuppressLint("RecyclerView")
     @Override
-    public void onBindViewHolder(final NewsViewHolder holder, final int position) {
+    public void onBindViewHolder(NewsViewHolder holder, final int position) {
 
-      //  Glide.with(context).load(newsArrayList.get(position).getImg_url()).into(holder.images);
-        if(newsArrayList.get(position).getImgUrl() != null)
-        Glide.with(context).load(newsArrayList.get(position).getImgUrl()).into(holder.images);
+        NewsModel event = mEventsList.get(position);
 
+        if(event.getTitle() != null) holder.title.setText(event.getTitle());
+
+        if(event.getImgUrl() != null){
+            Glide.with(context).load(event.getImgUrl()).fitCenter().into(holder.images);
+        }
+
+<<<<<<< HEAD
         holder.title.setText( newsArrayList.get(position).getTitle());
 //        holder.timestamp.setText("10 May, 2017");
         holder.newsCardView.setOnClickListener(new View.OnClickListener() {
@@ -155,25 +62,58 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> {
             }
         });
         /**
+||||||| merged common ancestors
+        holder.title.setText( newsArrayList.get(position).getTitle());
+        holder.timestamp.setText("10 May, 2017");
+=======
+>>>>>>> 61fdc84e51e37e24cc10abc02f412f867bf7210e
         holder.detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, NewsDetailActivity.class);
-                intent.putExtra(NewsDetailActivity.EXTRA_NEWS_KEY, newsArrayKey.get(position));
+                intent.putExtra(NewsDetailActivity.EXTRA_NEWS_KEY, mKeysList.get(position));
                 context.startActivity(intent);
 
             }
+<<<<<<< HEAD
         });**/
 
         if (position==0){
             mpaginateprogbar.setVisibility(View.VISIBLE);
             getMoreData();
         }
+||||||| merged common ancestors
+        });
+
+        if (position==0){
+            mpaginateprogbar.setVisibility(View.VISIBLE);
+            getMoreData();
+        }
+=======
+        });
+>>>>>>> 61fdc84e51e37e24cc10abc02f412f867bf7210e
     }
 
     @Override
     public int getItemCount() {
-        return newsArrayList.size();
+        return mEventsList.size();
     }
 
+    @Override
+    public void addAllEvents(ArrayList<NewsModel> events) {
+        mEventsList.clear();
+        mEventsList.addAll(events);
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public void addAllKeys(ArrayList<String> keys) {
+        mKeysList.clear();
+        mKeysList.addAll(keys);
+    }
+
+    @Override
+    public void request() {
+        presenter.request();
+    }
 }

@@ -6,8 +6,14 @@ package com.products.safetyfirst.interfaces.interactor;
 
 public interface PostInteractor {
 
-    void requestFirstPosts();
+    void requestPosts();
 
-    void requestPost(String key);
+    void addAction(final String mEventId, final String mProfileKey, int mAction);
+
+    @SuppressWarnings("EmptyMethod")
+    interface  OnUpdateFinishedListener{
+        void onError(String message);
+        void onSuccess(String message);
+    }
 
 }

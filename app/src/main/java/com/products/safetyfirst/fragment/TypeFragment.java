@@ -138,9 +138,6 @@ public class TypeFragment extends Fragment {
         @Override
         public void unbindView(TypeFragment.ViewHolder holder) {
             super.unbindView(holder);
-
-           // holder.title.setText(null);
-           // holder.image.setImageDrawable(null);
         }
     }
 }

@@ -18,7 +18,7 @@ import com.products.safetyfirst.R;
 import com.products.safetyfirst.activity.HomeActivity;
 import com.products.safetyfirst.activity.NotificationActivity;
 import com.products.safetyfirst.activity.PostDetailActivity;
-import com.products.safetyfirst.models.NotificationModel;
+import com.products.safetyfirst.Pojos.NotificationModel;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,6 +28,7 @@ import java.util.Map;
 import java.util.Random;
 
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 
 /**
@@ -149,6 +150,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public NotificationModel insertInDatabase(final String body, final int type, final String extraString, final String title) {
         Realm realm;
         Realm.init(getApplicationContext());
+        RealmConfiguration config = new RealmConfiguration
+                .Builder()
+                .deleteRealmIfMigrationNeeded()
+                .build();
+        Realm.setDefaultConfiguration(config);
+
         realm = Realm.getDefaultInstance();
         final NotificationModel notif = new NotificationModel();
 

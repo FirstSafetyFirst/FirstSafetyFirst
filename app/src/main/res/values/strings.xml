@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">SAFETY FIRST</string>
-    <string name="app_code">x2e8v</string>
+    <string name="app_name">Safety First</string>
+    <string name="app_code">qwh8n</string>
 
-    <string name="deep_link_url">https://x2e8v.app.goo.gl/</string>
+    <string name="deep_link_url">https://qwh8n.app.goo.gl/</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -57,6 +57,60 @@
     <string name="hello_blank_fragment">blank_fragment</string>
     <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer facilisis felis imperdiet nibh efficitur, quis aliquam odio volutpat. Morbi in tellus tortor. Ut suscipit velit id nibh luctus, sed accumsan dolor cursus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vivamus in interdum nisi, at volutpat nibh. Mauris ultrices auctor eros non rhoncus. In hac habitasse platea dictumst. Donec ut pulvinar augue, ac semper libero.</string>
     <string name="faqs">FAQs</string>
+    <string name="terms_n_conditions">By downloading any application from SAFETY FIRST or Google™ (here after referered to as “The Company”), installing or using this application or any portion thereof (“Application”), you agree to the following terms and conditions (the “Terms and Conditions”).\n
+USE OF APPLICATION
+a. The Company grants you the non-exclusive, non-transferable, limited right and license to install and use this Application solely and exclusively for your personal use.
+\nb. You are prohibited from using the Application in any manner that could damage, disable, overburden, or impair the Application (or servers or networks connected to the Application), or using the Application in any manner that could interfere with any other party’s use and enjoyment of the Application (or servers or networks connected to the Application).
+\nc. You agree that you are solely responsible for, and that the Company has no responsibility to you or to any third party for) your use of the Application.
+You agree that you are solely responsible for any breach thereof of your obligations, and for the consequences (including any loss or damage which The Company may suffer) of any such breach.
+PROPRIETARY RIGHTS
+You acknowledge that (a) the Application holds proprietary and confidential information that is protected by the applicable intellectual property and other laws prevailing in India and worldwide, and (b) The Company and/or third parties own the right, title and interest in and to the Application and all content , that may be presented or accessed through the Application, including without limitation all Intellectual Property Rights therein and thereto.
+“Intellectual Property Rights” means any and all rights recognised from time to time under the patent law, copyright law, trademark law, , in relation to the developed application, its renewals, extensions and restorations thereof.
+You further agree that you will not, and will neither allow any third party to, (i) copy, sell, license, distribute, transfer, modify, adapt, translate, prepare derivative works from, decompile, reverse engineer, disassemble or otherwise attempt to derive source code from the Application or content that may be presented or accessed through the Application for any purpose, (ii) take any action to circumvent or defeat the security or content usage rules provided, deployed or enforced by any functionality (including without limitation digital rights management functionality) contained in the Application, (iii) use the Application to access, copy, transfer, transcode or retransmit content in violation of any law or third party rights, or (iv) remove, obscure, or alter the Company’s or any third party’ss copyright notices, trademarks, or other proprietary rights notices affixed to or contained within or accessed in conjunction with or through the Application.
+\n3. THE COMPANY TERMS OF SERVICE AND PRIVACY POLICY
+a. The Company’s Privacy Policy (located at http://www.google.com/privacypolicy.html) explains how the Company treats your information and protects your privacy when you use the Application. You agree to the use of your data in accordance with the Company’s privacy policies.
+b. The Application may contain features that are used in conjunction with the Company’s search and other services. Accordingly, your use of such features of the Application is also governed by The Company’s Terms of Service located at http://www.google.com/terms_of_service.html, The Company’s Privacy Policy located at http://www.google.com/privacypolicy.html, as well as any applicable The Company Service-specific Terms of Service and Privacy Policy, which may be updated from time to time and without notice.
+6. TERMINATION
+a. These Terms and Conditions will continue to apply until terminated by either you or the Company as set forth below. You may note however that termination thereof will not absolve you of any consequences that follow as respects acts and things done at the time of usage of the application
+b. You may terminate these Terms and Conditions at any time by permanently deleting the Application from your mobile device in its entirety.
+c. Your rights automatically and immediately terminate without notice from The Company or any Third Party if you fail to comply with any provision of these Terms and Conditions. In such event, you must immediately delete the Application.
+\n7. INDEMNITY
+To the maximum extent permitted by law, you agree to defend, indemnify and hold harmless The Company, its affiliates and their respective directors, officers, employees and agents from and against any and all claims, actions, suits or proceedings, as well as any and all losses, liabilities, damages, costs and expenses (including reasonable attorneys fees) arising out of or accruing from your use of the Application, including your downloading, installation, or use of the Application, or your violation of these Terms and Conditions.
+8. Disclaimer of Warranties
+a. You expressly understand and agree that your use of the application is at your sole discretion and risk and that the application is provided as is and as available without warranty of any kind.
+B. You are solely responsible for any damage to your mobile device, or other device, or loss of data that results from such use.
+C. The Company is not responsible for the authenticity of any content hosted on the application and any consequences that may follow as a result of following the content thereof
+D. The company further expressly disclaims all warranties and conditions of any kind, whether express or implied, including, but not limited to the implied warranties and conditions of merchantability, fitness for a particular purpose and non-infringement, with respect to the application.
+
+\n9. Limitation of liability
+\nYou expressly understand and agree that the company, its subsidiaries and affiliates, and its licensors are not liable to you under any theory of liability for any direct, indirect, incidental, special consequential or exemplary damages that may be incurred by you through your use of the application, including any loss of data or damage to your mobile device, whether or not the company or its representatives have been advised of or should have been aware of the possibility of any such losses arising.
+
+10. MISCELLANEOUS
+a. These Terms and Conditions constitute the entire Agreement between you and The Company relating to the Application and govern your use of the Application, and completely replace any prior or contemporaneous agreements between you and The Company regarding the Application.
+b. The failure of The Company to exercise or enforce any right or provision of these Terms and Conditions does not constitute a waiver of such right or provision, which will still be available to The Company.
+c. If any court of law, having the jurisdiction to decide on this matter, rules that any provision of these Terms and Conditions is invalid, then that provision will be removed from the Terms and Conditions without affecting the rest of the Terms and Conditions. The remaining provisions of these Terms and Conditions will continue to be valid and enforceable.
+
+
+
+
+
+As a condition of use you agree to not use the Services for any purpose that are unlawful or prohibited by these Terms, or any other purpose not reasonably intended by Safety First By way of example, and not as a limitation you agree not to use the Services:
+
+To abuse, harass, threaten, impersonate or intimidate any person:
+To post or transmit, or cause to be posted or transmitted, any Content that is illegal, defamatory, obscene pornographic, abusive. offensive, profane, or that infringes any copyright or other right of any person; For any purpose (including posting or viewing Content) that is not permitted under the laws of the jurisdiction  where  you use the Services;
+
+To post or transmit, or cause to be posted or transmitted, any communication or solicitation designed or intended to obtain password. account, or private information from any Safety First user
+
+To create or transmit unwanted ‘spam’ to any person or any URL
+
+To create multiple accounts for the purpose of voting for or against users photographs or images;
+To post copyrighted Content which doesn’t belong to you, with exception of Blogs where you may post such Content explicit mention of the authors name and a link to the source of the Content:
+With the exception of accessing RSS feeds, you will not use any robot, spider, scraper or other automated means to access the Se for any purpose without our express written permission.
+ Addtionally. you agree that you will not: (i) take any action that imposes, or may impose in our sole discretion an unreasonable or disproportionately large load on our infrastructure: (I) interfere or attempt to interfere with the proper working of the Site or any activities concluded on the Site, or (ii) bypass any measures we may use to prevent or restrict access to the Site,
+
+To artificially inflate or alter vote counts, blog counts. comments or any other Service or for the purpose of giving or receiving money or other compensation in exchange for votes, or for participating in any other organized effort that ii any way artificially alters the results of Services:
+To advertise to, or so, any user to buy or sell any products or services, orb use any information obtained from the Services in order to contact, advertise to, solicit, or sell any user without prior explicit consent To promote or sell Content of another person
+</string>
     <string name="help">Help</string>
     <string name="tnc"><![CDATA[Terms & Conditions]]></string>
     <string name="feedback">Feedback</string>
@@ -113,6 +167,12 @@
     <string name="pick_avatar">Please select</string>
     <string name="projects">Please add any projects you have worked on. This will be used to calculate your Safety First rank !!</string>
     <string name="evaluation">Evaluation (in Rupees)</string>
-    <string name="years" >Years</string>
+    <string name="years">Years</string>
+    <string name="no_visitor">Sorry the Visitor\'s List is not currently Available. We are trying our best to get it soon!!</string>
+    <string name="sign_in_cancelled">SignIn Cancelled</string>
+    <string name="no_internet_connection">No Internet Connection</string>
+    <string name="unknown_error">Unkown Error</string>
+    <string name="unknown_sign_in_response">Unown Response</string>
+    <string name="divider_bullet">•</string>
 
 </resources>

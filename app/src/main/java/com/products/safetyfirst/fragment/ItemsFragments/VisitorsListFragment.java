@@ -4,13 +4,16 @@ package com.products.safetyfirst.fragment.ItemsFragments;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.FileUriExposedException;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,6 +46,8 @@ public class VisitorsListFragment extends Fragment {
     private File openedFile;
     private ProgressBar progress;
     private Button btn;
+    private ImageView sad;
+    private TextView noVisitor;
 
     public VisitorsListFragment() {
         // Required empty public constructor
@@ -80,23 +85,36 @@ public class VisitorsListFragment extends Fragment {
         View mainView = inflater.inflate(R.layout.fragment_type_checklist, container, false);
         btn = mainView.findViewById(R.id.checklist);
         progress = mainView.findViewById(R.id.download_progress);
-
+        noVisitor = mainView.findViewById(R.id.no_vistor_text);
+        sad = mainView.findViewById(R.id.sad);
+        final String url  = ((EventsDetailActivity) getActivity()).getVisitors();
+        if (url==null || url == "NULL") {
+            noVisitor.setVisibility(View.VISIBLE);
+            sad.setVisibility(View.VISIBLE);
+            btn.setVisibility(View.GONE);
+        }
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openPdf();
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+                openPdf(url);
                 progress.setVisibility(View.VISIBLE);
                 btn.setVisibility(View.GONE);
+
+            }
+                            else{
+                Toast.makeText(getContext(), "THis feature will be available soon", Toast.LENGTH_SHORT).show();
+            }
             }
         });
         return mainView;
     }
 
-    private void openPdf(){
+    private void openPdf(final String url){
 
-        final  String url  = ((EventsDetailActivity) getActivity()).getVisitors();
 
-        if (url==null) return ;
+        if(url == null || url =="NULL") return;
+
 
         File dir = getContext().getCacheDir();
         String[] fileNameSplit = url.split("/");
@@ -120,9 +138,12 @@ public class VisitorsListFragment extends Fragment {
                         progress.setVisibility(View.GONE);
                         btn.setVisibility(View.VISIBLE);
                         try {
-                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.fromFile(externalFile));
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                            startActivityForResult(intent, VIEW_FILE_CODE);
+
+
+                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.fromFile(externalFile));
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                                startActivityForResult(intent, VIEW_FILE_CODE);
+
                         } catch (ActivityNotFoundException e){
                             Toast.makeText(getContext(), "Install PDF Viewer", Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.google.android.apps.pdfviewer&hl=en"));

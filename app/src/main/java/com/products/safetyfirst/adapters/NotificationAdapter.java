@@ -12,7 +12,7 @@ import com.products.safetyfirst.R;
 import com.products.safetyfirst.activity.HomeActivity;
 import com.products.safetyfirst.activity.NewsDetailActivity;
 import com.products.safetyfirst.activity.PostDetailActivity;
-import com.products.safetyfirst.models.NotificationModel;
+import com.products.safetyfirst.Pojos.NotificationModel;
 
 import io.realm.Realm;
 import io.realm.RealmQuery;

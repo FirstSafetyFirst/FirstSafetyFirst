@@ -10,7 +10,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 import com.products.safetyfirst.interfaces.interactor.EventsDetailInteractor;
 import com.products.safetyfirst.interfaces.presenter.EventsDetailPresenter;
-import com.products.safetyfirst.models.EventModel;
+import com.products.safetyfirst.Pojos.EventModel;
 
 import java.util.HashMap;
 import java.util.Map;

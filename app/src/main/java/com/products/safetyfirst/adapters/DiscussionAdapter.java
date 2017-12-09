@@ -1,16 +1,30 @@
 package com.products.safetyfirst.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.products.safetyfirst.R;
+<<<<<<< HEAD
 import com.products.safetyfirst.activity.PostDetailActivity;
 import com.products.safetyfirst.activity.ProfileActivity;
 import com.products.safetyfirst.models.PostModel;
+||||||| merged common ancestors
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import com.products.safetyfirst.activity.PostDetailActivity;
+import com.products.safetyfirst.activity.ProfileActivity;
+import com.products.safetyfirst.models.PostModel;
+import com.products.safetyfirst.utils.JustifiedWebView;
+=======
+
+import com.products.safetyfirst.Pojos.PostModel;
+>>>>>>> 61fdc84e51e37e24cc10abc02f412f867bf7210e
 import com.products.safetyfirst.viewholder.PostViewHolder;
 
 import java.util.List;
@@ -53,7 +67,7 @@ public class DiscussionAdapter extends
 
         //CharSequence getRelativeTimeSpanString (long time,
         //long now,
-        //long minResolution)
+   /*     //long minResolution)
 
         postViewHolder.post_title.setText(postModel.getTitle());
         postViewHolder.post_title.setAllCaps(true);
@@ -104,6 +118,7 @@ public class DiscussionAdapter extends
                 postViewHolder.context.startActivity(intent);
             }
         });
+<<<<<<< HEAD
 
         postViewHolder.postCardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,6 +128,11 @@ public class DiscussionAdapter extends
                 postViewHolder.context.startActivity(intent);
             }
         });
+||||||| merged common ancestors
+
+=======
+*/
+>>>>>>> 61fdc84e51e37e24cc10abc02f412f867bf7210e
     }
 
     @Override

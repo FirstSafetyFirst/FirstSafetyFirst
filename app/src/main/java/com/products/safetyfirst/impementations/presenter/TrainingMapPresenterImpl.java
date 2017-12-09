@@ -4,7 +4,7 @@ import com.products.safetyfirst.impementations.Interactor.TrainingMapInteractorI
 import com.products.safetyfirst.interfaces.interactor.TrainingMapInteractor;
 import com.products.safetyfirst.interfaces.presenter.TrainingMapPresenter;
 import com.products.safetyfirst.interfaces.view.TrainingMapView;
-import com.products.safetyfirst.models.TrainingCenterModel;
+import com.products.safetyfirst.Pojos.TrainingCenterModel;
 
 import java.util.ArrayList;
 

@@ -89,7 +89,7 @@ public class Interest_Fragment extends Fragment implements View.OnClickListener,
         int i = view.getId();
         if (i == R.id.btn_done_interest) {
             Intent intent = new Intent(getContext(), HomeActivity.class);
-            getActivity().finishAfterTransition();
+            getActivity().finish();
             startActivity(intent);
         }
     }

@@ -94,8 +94,8 @@ public class BaseActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(context, SignInActivity.class);
-            startActivity(intent);
+           // Intent intent = new Intent(context, SignInActivity.class);
+           // startActivity(intent);
         }
     }
 

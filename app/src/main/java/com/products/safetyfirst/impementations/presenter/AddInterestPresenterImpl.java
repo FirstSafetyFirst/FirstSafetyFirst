@@ -6,7 +6,7 @@ import com.products.safetyfirst.interfaces.adapter.AddInterestAdapterView;
 import com.products.safetyfirst.interfaces.interactor.AddInterestInteractor;
 import com.products.safetyfirst.interfaces.presenter.AddInterestPresenter;
 import com.products.safetyfirst.interfaces.view.AddInterestView;
-import com.products.safetyfirst.models.InterestModel;
+import com.products.safetyfirst.Pojos.InterestModel;
 
 import java.util.ArrayList;
 

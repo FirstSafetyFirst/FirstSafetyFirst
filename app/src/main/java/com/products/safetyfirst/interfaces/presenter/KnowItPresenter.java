@@ -1,7 +1,7 @@
 package com.products.safetyfirst.interfaces.presenter;
 
-import com.products.safetyfirst.models.KnowItItem;
-import com.products.safetyfirst.models.KnowItItemType;
+import com.products.safetyfirst.Pojos.KnowItItem;
+import com.products.safetyfirst.Pojos.KnowItItemType;
 
 import java.util.ArrayList;
 

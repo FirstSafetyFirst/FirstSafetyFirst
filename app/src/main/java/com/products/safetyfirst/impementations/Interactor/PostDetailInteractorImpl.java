@@ -13,9 +13,9 @@ import com.products.safetyfirst.impementations.presenter.PostDetailPresenterImpl
 import com.products.safetyfirst.interfaces.interactor.PostDetailInteractor;
 import com.products.safetyfirst.interfaces.presenter.PostDetailPresenter;
 import com.products.safetyfirst.modelhelper.UserHelper;
-import com.products.safetyfirst.models.Comment;
-import com.products.safetyfirst.models.PostModel;
-import com.products.safetyfirst.models.UserModel;
+import com.products.safetyfirst.Pojos.Comment;
+import com.products.safetyfirst.Pojos.PostModel;
+import com.products.safetyfirst.Pojos.UserModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -107,7 +107,7 @@ public class PostDetailInteractorImpl implements PostDetailInteractor {
 
             String key = mCommentsRef.push().getKey();
 
-            Comment comment = new Comment(user.getUid(), user.getDisplayName(), mAnswer, 0);
+            Comment comment = new Comment(user.getUid(), user.getDisplayName(), mAnswer, null);
 
             Map<String, Object> commentValues = comment.toMap();
 

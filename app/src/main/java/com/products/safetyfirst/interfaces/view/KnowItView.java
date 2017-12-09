@@ -1,6 +1,6 @@
 package com.products.safetyfirst.interfaces.view;
 
-import com.products.safetyfirst.models.KnowItItemType;
+import com.products.safetyfirst.Pojos.KnowItItemType;
 
 /**
  * Created by ishita sharma on 10/20/2017.

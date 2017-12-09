@@ -33,7 +33,7 @@ public class NotificationHelper implements SimpleNotification {
     @Override
     public int createNotif(Context context, String title, String text) {
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
-                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setSmallIcon(R.drawable.ic_launcher)
                         .setContentTitle(title)
                         .setContentText(text);
         NotificationManager mNotificationManager =
@@ -50,7 +50,7 @@ public class NotificationHelper implements SimpleNotification {
     @Override
     public ProgressNotification createProgressNotif(Context context, String title, String text) {
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.ic_launcher)
                 .setContentTitle(title)
                 .setContentText(text);
         NotificationManager mNotificationManager =

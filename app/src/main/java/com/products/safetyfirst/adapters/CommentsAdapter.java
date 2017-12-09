@@ -13,7 +13,7 @@ import com.products.safetyfirst.R;
 import com.products.safetyfirst.impementations.presenter.PostDetailPresenterImpl;
 import com.products.safetyfirst.interfaces.adapter.CommentsAdapterView;
 import com.products.safetyfirst.interfaces.presenter.PostDetailPresenter;
-import com.products.safetyfirst.models.Comment;
+import com.products.safetyfirst.Pojos.Comment;
 import com.products.safetyfirst.viewholder.CommentViewHolder;
 
 import java.util.ArrayList;
@@ -54,16 +54,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentViewHolder> imp
 
         if(comment.getAuthor() != null) holder.title.setText(comment.getAuthor());
 
-        if(comment.getXmlText() != null) holder.comment.setText(comment.getXmlText());
-
-
-        holder.likeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               presenter.addLike(mPostKey, mKeysList.get(position));
-
-            }
-        });
+        if(comment.getText() != null) holder.comment.setText(comment.getText());
     }
 
     @Override

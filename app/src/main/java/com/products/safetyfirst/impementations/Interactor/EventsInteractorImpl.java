@@ -10,9 +10,10 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.products.safetyfirst.interfaces.interactor.EventsInteractor;
 import com.products.safetyfirst.interfaces.presenter.EventsPresenter;
-import com.products.safetyfirst.models.EventModel;
+import com.products.safetyfirst.Pojos.EventModel;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,6 +50,9 @@ public class EventsInteractorImpl implements EventsInteractor {
                         mListOfEvents.add(x.getValue(EventModel.class));
                         eventsArrayKey.add(x.getKey());
                     }
+                    Collections.reverse(mListOfEvents);
+                    Collections.reverse(eventsArrayKey);
+
                     presenter.getChildren(mListOfEvents);
                     presenter.getKeys(eventsArrayKey);
                 }

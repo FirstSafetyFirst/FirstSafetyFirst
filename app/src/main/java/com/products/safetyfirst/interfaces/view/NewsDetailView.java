@@ -1,6 +1,6 @@
 package com.products.safetyfirst.interfaces.view;
 
-import com.products.safetyfirst.models.NewsModel;
+import com.products.safetyfirst.Pojos.NewsModel;
 
 /**
  * Created by vikas on 06/10/17.

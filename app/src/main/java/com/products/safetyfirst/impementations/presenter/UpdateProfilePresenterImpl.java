@@ -6,7 +6,7 @@ import com.products.safetyfirst.impementations.Interactor.UpdateProfileInteracto
 import com.products.safetyfirst.interfaces.interactor.UpdateProfileInteractor;
 import com.products.safetyfirst.interfaces.presenter.UpdateProfilePresenter;
 import com.products.safetyfirst.interfaces.view.UpdateProfileView;
-import com.products.safetyfirst.models.UserModel;
+import com.products.safetyfirst.Pojos.UserModel;
 
 /**
  * Created by vikas on 04/10/17.

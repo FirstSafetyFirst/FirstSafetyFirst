@@ -18,7 +18,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.products.safetyfirst.interfaces.interactor.UpdateProfileInteractor;
 import com.products.safetyfirst.interfaces.presenter.UpdateProfilePresenter;
-import com.products.safetyfirst.models.UserModel;
+import com.products.safetyfirst.Pojos.UserModel;
 
 import java.util.HashMap;
 import java.util.Map;

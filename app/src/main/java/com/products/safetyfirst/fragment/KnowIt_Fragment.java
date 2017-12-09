@@ -16,7 +16,7 @@ import com.products.safetyfirst.adapters.KnowItAdapter;
 import com.products.safetyfirst.impementations.presenter.KnowItPresenterImpl;
 import com.products.safetyfirst.interfaces.presenter.KnowItPresenter;
 import com.products.safetyfirst.interfaces.view.KnowItView;
-import com.products.safetyfirst.models.KnowItItemType;
+import com.products.safetyfirst.Pojos.KnowItItemType;
 
 @SuppressWarnings({"ALL", "EmptyMethod"})
 public class KnowIt_Fragment extends Fragment implements KnowItView{

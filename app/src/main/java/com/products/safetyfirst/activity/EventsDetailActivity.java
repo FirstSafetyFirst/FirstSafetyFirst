@@ -1,7 +1,6 @@
 package com.products.safetyfirst.activity;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
@@ -13,14 +12,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.products.safetyfirst.R;
@@ -30,15 +28,12 @@ import com.products.safetyfirst.fragment.ItemsFragments.VisitorsListFragment;
 import com.products.safetyfirst.impementations.presenter.EventsDetailPresenterImpl;
 import com.products.safetyfirst.interfaces.presenter.EventsDetailPresenter;
 import com.products.safetyfirst.interfaces.view.EventsDetailView;
-import com.products.safetyfirst.models.EventModel;
+import com.products.safetyfirst.Pojos.EventModel;
 import com.products.safetyfirst.utils.Analytics;
 import com.products.safetyfirst.utils.JustifiedWebView;
 import com.products.safetyfirst.utils.PrefManager;
 
-import jp.wasabeef.richeditor.RichEditor;
-
 import static com.products.safetyfirst.utils.Constants.GOING;
-import static com.products.safetyfirst.utils.Constants.INTERESTED;
 
 @SuppressWarnings({"ALL", "EmptyMethod"})
 public class EventsDetailActivity extends BaseActivity implements View.OnClickListener, EventsDetailView {
@@ -58,6 +53,8 @@ public class EventsDetailActivity extends BaseActivity implements View.OnClickLi
     private String HEADLINE;
     private ActionBar actionBar;
 
+    private String deepLink;
+
     private TabLayout tabs;
     private ViewPager viewPager;
     private ImageView mainImage;
@@ -70,6 +67,7 @@ public class EventsDetailActivity extends BaseActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         setContentView(R.layout.activity_events_detail);
 
         mainImage = findViewById(R.id.main_image);
@@ -80,7 +78,7 @@ public class EventsDetailActivity extends BaseActivity implements View.OnClickLi
         actionBar = getSupportActionBar();
 
         if (actionBar != null) {
-            actionBar.setTitle("Detail");
+            actionBar.setTitle("Event Details");
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
@@ -93,7 +91,7 @@ public class EventsDetailActivity extends BaseActivity implements View.OnClickLi
         if (mEventKey == null) {
             throw new IllegalArgumentException("Must pass EXTRA_EVENT_KEY");
         }
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+      //  getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 
         mInterested.setOnClickListener(this);
         mShare.setOnClickListener(this);
@@ -235,10 +233,15 @@ public class EventsDetailActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     public void share() {
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.putExtra(android.content.Intent.EXTRA_TEXT, url + "\nShared via:Safety First\nhttps://play.google.com/store/apps/details?id=com.vikas.dtu.safetyfirst2");
-        startActivity(intent);
+        if (deepLink != null) {
+            Intent intent = new Intent();
+            String msg = "Hey see this Event: " + deepLink;
+            intent.setAction(Intent.ACTION_SEND);
+            intent.putExtra(Intent.EXTRA_TEXT, msg);
+            intent.setType("text/plain");
+            startActivity(intent);
+
+        }
     }
 
     @Override
@@ -261,6 +264,7 @@ public class EventsDetailActivity extends BaseActivity implements View.OnClickLi
         Analytics.logEventViewItem(getApplicationContext(),event.getTimestamp().toString(),event.getTitle(),"event");
 
         this.event = event;
+        this.deepLink = event.getDeeplink();
 
         if (actionBar != null) {
             actionBar.setTitle(event.getTitle());
@@ -268,74 +272,18 @@ public class EventsDetailActivity extends BaseActivity implements View.OnClickLi
 
         setupTabs();
 
-       // Toast.makeText(this, event.getDesc(), Toast.LENGTH_SHORT).show();
-
         ImageView main_image = findViewById(R.id.main_image);
         if(event.getThumbUrl() != null ) Glide.with(getApplicationContext()).load(event.getThumbUrl()).fitCenter().into(main_image);
 
-       // Toast.makeText(this, ""+event.getThumbUrl(), Toast.LENGTH_SHORT).show();
-       // Toast.makeText(this, ""+event.getVisitors(), Toast.LENGTH_SHORT).show();
-
-     /*  if(event.getTitle() != null) mTitleView.setText(event.getTitle());
-       if(event.getDesc() != null ) mBodyView.setText(event.getDesc());
-       if(event.getUrl() != null ) Glide.with(getApplicationContext()).load(event.getUrl()).fitCenter().into(image_scrolling_top);
-
-        if(event.bookmarks != null){
-            if(event.bookmarks.containsKey(getCurrentUserId()))
-                mBookmark.setImageResource(R.drawable.ic_bookmark_black_24dp);
-
-            else
-                mBookmark.setImageResource(R.drawable.ic_bookmark_border_black_24dp);
-        }*/
-
-  /*
-        if(event.action != null){
-            if (event.action.containsKey(getCurrentUserId())) {
-
-                long a = (long) event.action.get(getCurrentUserId());
-
-                if(a==1){
-                    fab.setImageResource(R.drawable.ic_event_available_black_24dp);
-                    fab.setColorFilter(Color.argb(255, 255, 127, 80));
-
-                    fab1.setImageResource(R.drawable.ic_check_box_outline_blank_black_24dp);
-                    fab1.setColorFilter(Color.argb(255, 255, 255, 255));
-                }
-
-                if(a==0){
-                    fab.setImageResource(R.drawable.ic_today_black_24dp);
-                    fab.setColorFilter(Color.argb(255, 255, 255, 255));
-
-                    fab1.setImageResource(R.drawable.ic_event_black_24dp);
-                    fab1.setColorFilter(Color.argb(255, 255, 127, 80));
-                }
-
-
-            } else {
-                fab.setImageResource(R.drawable.ic_today_black_24dp);
-                fab1.setImageResource(R.drawable.ic_check_box_outline_blank_black_24dp);
-
-                fab.setColorFilter(Color.argb(255, 255, 255, 255));
-                fab1.setColorFilter(Color.argb(255, 255, 255, 255));
-            }
-        }else{
-            fab.setImageResource(R.drawable.ic_today_black_24dp);
-            fab1.setImageResource(R.drawable.ic_check_box_outline_blank_black_24dp);
-
-            fab.setColorFilter(Color.argb(255, 255, 255, 255));
-            fab1.setColorFilter(Color.argb(255, 255, 255, 255));
-        }
-*/
     }
 
     @Override
     public void onError(String string) {
-        //Toast.makeText(this, string, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onSuccess() {
-        //Toast.makeText(this, "Going", Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
@@ -345,103 +293,6 @@ public class EventsDetailActivity extends BaseActivity implements View.OnClickLi
 
 
     private void showTutorial(){
-/*
-        final Display display = getWindowManager().getDefaultDisplay();
-        final Drawable droid = ContextCompat.getDrawable(this, R.drawable.ic_camera_alt_black_24dp);
-        final Rect droidTarget = new Rect(0, 0, droid.getIntrinsicWidth() * 2, droid.getIntrinsicHeight() * 2);
-        droidTarget.offset(display.getWidth() / 2, display.getHeight() / 2);
-
-        final SpannableString sassyDesc = new SpannableString("It tells your friends that you are Going to this event");
-        sassyDesc.setSpan(new StyleSpan(Typeface.ITALIC), sassyDesc.length() - "Going".length(), sassyDesc.length(), 0);
-
-        final TapTargetSequence sequence = new TapTargetSequence(this)
-                .targets(
-                        // This tap target will target the back button, we just need to pass its containing toolbar
-                      //  TapTarget.forView(fab, "This is an action button", sassyDesc).id(1),
-                        // Likewise, this tap target will target the search button
-                        TapTarget.forView(fab1, "This is another action button", "It tells your friends that you are Interested to this event")
-                                .dimColor(android.R.color.black)
-                                .outerCircleColor(R.color.colorPrimaryLight)
-                                //   .targetCircleColor(android.R.color.black)
-                                .transparentTarget(true)
-                                .textColor(android.R.color.black)
-                                .id(2),
-
-                        TapTarget.forView(mBookmark, "This is the BookMark button", "You can use it to find this event later !!")
-                                .dimColor(android.R.color.black)
-                                .outerCircleColor(R.color.colorAccent)
-                                .targetCircleColor(android.R.color.black)
-                                .transparentTarget(true)
-                                .textColor(android.R.color.black)
-                                .id(3),
-
-                        TapTarget.forView(mShare, "This is the Share button", "You can share news with your friends !!")
-                                .dimColor(android.R.color.black)
-                                .outerCircleColor(R.color.colorAccent)
-                                .targetCircleColor(android.R.color.black)
-                                .transparentTarget(true)
-                                .textColor(android.R.color.black)
-                                .id(4)
-                )
-                .listener(new TapTargetSequence.Listener() {
-                    // This listener will tell us when interesting(tm) events happen in regards
-                    // to the sequence
-                    @Override
-                    public void onSequenceFinish() {
-                        //  Toast.makeText(NewsDetailActivity.this, "You are educated now", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onSequenceStep(TapTarget lastTarget, boolean targetClicked) {
-                        Log.d("TapTargetView", "Clicked on " + lastTarget.id());
-                    }
-
-                    @Override
-                    public void onSequenceCanceled(TapTarget lastTarget) {
-                        final AlertDialog dialog = new AlertDialog.Builder(EventsDetailActivity.this)
-                                .setTitle("Uh oh")
-                                .setMessage("You canceled the sequence")
-                                .setPositiveButton("Oops", null).show();
-                        TapTargetView.showFor(dialog,
-                                TapTarget.forView(dialog.getButton(DialogInterface.BUTTON_POSITIVE), "Uh oh!", "You canceled the sequence at step " + lastTarget.id())
-                                        .cancelable(false)
-                                        .tintTarget(false), new TapTargetView.Listener() {
-                                    @Override
-                                    public void onTargetClick(TapTargetView view) {
-                                        super.onTargetClick(view);
-                                        dialog.dismiss();
-                                    }
-                                });
-                    }
-                });
-
-        // You don't always need a sequence, and for that there's a single time tap target
-        final SpannableString spannedDesc = new SpannableString("Hey!! You can see the Event Details here");
-        spannedDesc.setSpan(new UnderlineSpan(), spannedDesc.length() - "Event Details".length(), spannedDesc.length(), 0);
-        TapTargetView.showFor(this, TapTarget.forBounds(droidTarget, "Event Details", spannedDesc)
-                .cancelable(false)
-                .drawShadow(true)
-                .titleTextDimen(R.dimen.title_text_size)
-                .tintTarget(false), new TapTargetView.Listener() {
-            @Override
-            public void onTargetClick(TapTargetView view) {
-                super.onTargetClick(view);
-                sequence.start();
-            }
-
-            @Override
-            public void onOuterCircleClick(TapTargetView view) {
-                super.onOuterCircleClick(view);
-                //  Toast.makeText(view.getContext(), "You clicked the outer circle!", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onTargetDismissed(TapTargetView view, boolean userInitiated) {
-                Log.d("TapTargetViewSample", "You dismissed me :(");
-            }
-        });
-
-*/
     }
 
     @Override
@@ -453,7 +304,6 @@ public class EventsDetailActivity extends BaseActivity implements View.OnClickLi
 
     public String getEventInfo(){
         if(event != null) return event.getDesc();
-        Toast.makeText(this, "null event", Toast.LENGTH_SHORT).show();
         return null;
     }
 

@@ -9,7 +9,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.products.safetyfirst.interfaces.interactor.ProfileActivityInteractor;
 import com.products.safetyfirst.interfaces.presenter.ProfileActivityPresenter;
-import com.products.safetyfirst.models.UserModel;
+import com.products.safetyfirst.Pojos.UserModel;
 
 import java.util.HashMap;
 import java.util.Map;

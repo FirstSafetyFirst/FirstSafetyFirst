@@ -13,14 +13,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.activity.NewPostActivity;
 import com.products.safetyfirst.adapters.DiscussionAdapterOld;
-import com.products.safetyfirst.adapters.NewsAdapter;
 import com.products.safetyfirst.modelhelper.UserHelper;
 
 import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
@@ -29,11 +27,10 @@ import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
  * A simple {@link Fragment} subclass.
  */
 public class DiscussionFragmentOld extends Fragment {
-    private static final String TAG = "NewsListFragment";
-    private RecyclerView news_recycler;
+    private static final String TAG = "PostListFragment";
+    private RecyclerView post_recycler;
 
     private DatabaseReference mDatabase;
-    private ProgressBar mProgressBar;
     private ProgressBar mpaginateprogbar;
     private FloatingActionButton mFab;
 
@@ -57,11 +54,10 @@ public class DiscussionFragmentOld extends Fragment {
         mDatabase = getDatabase().getReference();
         mpaginateprogbar= rootView.findViewById(R.id.newspaginateprogbar);
 
-        mProgressBar = rootView.findViewById(R.id.progressBar);
         mFab = rootView.findViewById(R.id.new_post);
 
-        news_recycler = rootView.findViewById(R.id.discussion_recycler);
-        news_recycler.setHasFixedSize(true);
+        post_recycler = rootView.findViewById(R.id.discussion_recycler);
+      //  post_recycler.setHasFixedSize(true);
 
         final UserHelper user  = UserHelper.getInstance();
         mFab.setOnClickListener(new View.OnClickListener() {
@@ -76,7 +72,7 @@ public class DiscussionFragmentOld extends Fragment {
             }
         });
 
-        news_recycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        post_recycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
@@ -104,11 +100,11 @@ public class DiscussionFragmentOld extends Fragment {
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         mLayoutManager.setReverseLayout(true);
         mLayoutManager.setStackFromEnd(true);
-        news_recycler.setLayoutManager(mLayoutManager);
-        news_recycler.setItemAnimator(new DefaultItemAnimator());
+        post_recycler.setLayoutManager(mLayoutManager);
+        post_recycler.setItemAnimator(new DefaultItemAnimator());
 
-        Query newsQuery =  mDatabase.child("posts").orderByKey().limitToLast(10);
-        news_recycler.setAdapter(new DiscussionAdapterOld(getActivity(),newsQuery, mDatabase, mpaginateprogbar));
+        Query postQuery =  mDatabase.child("posts").orderByKey().limitToLast(10);
+        post_recycler.setAdapter(new DiscussionAdapterOld(getActivity(),postQuery, mDatabase, mpaginateprogbar));
     }
 
     @Override

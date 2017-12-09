@@ -14,6 +14,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -35,13 +36,15 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.ErrorCodes;
+import com.firebase.ui.auth.IdpResponse;
+import com.firebase.ui.auth.ResultCodes;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 import com.getkeepsafe.taptargetview.TapTargetView;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -56,7 +59,10 @@ import com.google.firebase.dynamiclinks.DynamicLink;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 import com.google.firebase.dynamiclinks.ShortDynamicLink;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.products.safetyfirst.BuildConfig;
+import com.products.safetyfirst.Pojos.UserModel;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.fragment.DiscussionFragment;
 import com.products.safetyfirst.fragment.DiscussionFragmentOld;
@@ -69,9 +75,10 @@ import com.products.safetyfirst.utils.Constants;
 import com.products.safetyfirst.utils.PrefManager;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-
 import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
+import static com.products.safetyfirst.utils.DatabaseUtil.getFireStore;
 
 public class HomeActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, ProjectsFragment.OnFragmentInteractionListener, TrainingFragment.OnFragmentInteractionListener {
@@ -83,6 +90,7 @@ public class HomeActivity extends BaseActivity
     private static final String TAG_FRAGMENT_KNOWIT = "tag_frag_knowit";
     private static final String TAG_FRAGMENT_UPDATE_PROFILE = "tag_fragment_update_profile";
     private static final String KEY_LOCATION = "location";
+    private static final int RC_SIGN_IN = 123;
 
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
     private boolean mLocationPermissionGranted;
@@ -134,18 +142,7 @@ public class HomeActivity extends BaseActivity
         setContentView(R.layout.activity_home);
 
         searchView= findViewById(R.id.search);
-        /*
-        searchView.setOnSearchClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(searchView.getQuery()!=null){
-                    searchView.setSubmitButtonEnabled(true);
-                    Analytics.logEventSearch(getApplicationContext(), ""+searchView.getQuery());
-                }
 
-            }
-        });
-         */
         final int versionCode= BuildConfig.VERSION_CODE;
         Query query= getDatabase().getReference().child("current version");
 //        Query query= getDatabase().getReference().child("versionInfo").child("versionCode");
@@ -259,7 +256,7 @@ public class HomeActivity extends BaseActivity
                                     startActivity(intent);
                                     break;
                                 case "event":
-                                    Intent eventIntent = new Intent(HomeActivity.this, NewsDetailActivity.class);
+                                    Intent eventIntent = new Intent(HomeActivity.this, EventsDetailActivity.class);
                                     eventIntent.putExtra(EventsDetailActivity.EXTRA_EVENT_KEY, key);
                                     startActivity(eventIntent);
                                     break;
@@ -404,7 +401,8 @@ public class HomeActivity extends BaseActivity
 
     private void buildFragmentsList() {
         News_Events_Fragment newsFragment = new News_Events_Fragment();
-        DiscussionFragmentOld discussionFragment = new DiscussionFragmentOld();
+       // DiscussionFragmentOld discussionFragment = new DiscussionFragmentOld();
+        DiscussionFragment discussionFragment = new DiscussionFragment();
         TrainingFragment trainingFragment = new TrainingFragment();
         KnowIt_Fragment knowFragment = new KnowIt_Fragment();
         UpdateProfileFragment updateProfileFragment = new UpdateProfileFragment();
@@ -460,13 +458,30 @@ public class HomeActivity extends BaseActivity
         } else if (id == R.id.nav_feedback) {
             rateMe();
         } else if (id == R.id.nav_tnc) {
-            showTncDialog(getString(R.string.tnc), getString(R.string.lorem_ipsum));
+            showTncDialog(getString(R.string.tnc), getString(R.string.terms_n_conditions));
         } else if (id == R.id.nav_invite) {
                 sendInvite();
         } else if (id == R.id.nav_logout) {
             mFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
             if (mFirebaseUser == null) {
-                startActivity(new Intent(HomeActivity.this, SignInActivity.class));
+                List<AuthUI.IdpConfig> providers = Arrays.asList(
+                        new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
+                        new AuthUI.IdpConfig.Builder(AuthUI.PHONE_VERIFICATION_PROVIDER).build(),
+                        // new AuthUI.IdpConfig.Builder(AuthUI.FACEBOOK_PROVIDER).build(),
+                        // new AuthUI.IdpConfig.Builder(AuthUI.TWITTER_PROVIDER).build(),
+                        new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build());
+
+                startActivityForResult(
+                        AuthUI.getInstance()
+                                .createSignInIntentBuilder()
+                                .setAvailableProviders(providers)
+                                .setTosUrl("https://superapp.example.com/terms-of-service.html")
+                                .setPrivacyPolicyUrl("https://superapp.example.com/privacy-policy.html")
+                                .setIsSmartLockEnabled(!BuildConfig.DEBUG)
+                                .build(),
+                        RC_SIGN_IN);
+
+                //startActivity(new Intent(HomeActivity.this, LoginActivity.class));
             } else
                 showLogoutDialog();
 
@@ -659,11 +674,11 @@ public class HomeActivity extends BaseActivity
         // We need the display to get the width and height at this point in time
         final Display display = getWindowManager().getDefaultDisplay();
         // Load our little droid guy
-        final Drawable droid = ContextCompat.getDrawable(this, R.drawable.ic_camera_alt_black_24dp);
+       // final Drawable droid = ContextCompat.getDrawable(this, R.drawable.ic_camera_alt_black_24dp);
         // Tell our droid buddy where we want him to appear
-        final Rect droidTarget = new Rect(0, 0, droid.getIntrinsicWidth() * 2, droid.getIntrinsicHeight() * 2);
+      //  final Rect droidTarget = new Rect(0, 0, droid.getIntrinsicWidth() * 2, droid.getIntrinsicHeight() * 2);
         // Using deprecated methods makes you look way cool
-        droidTarget.offset(display.getWidth() / 2, display.getHeight() / 2);
+     //   droidTarget.offset(display.getWidth() / 2, display.getHeight() / 2);
 
         final SpannableString sassyDesc = new SpannableString("It shows some additional information");
         sassyDesc.setSpan(new StyleSpan(Typeface.ITALIC), sassyDesc.length() - "information".length(), sassyDesc.length(), 0);
@@ -671,7 +686,7 @@ public class HomeActivity extends BaseActivity
         final TapTargetSequence sequence = new TapTargetSequence(this)
                 .targets(
                         // This tap target will target the back button, we just need to pass its containing toolbar
-                        TapTarget.forToolbarNavigationIcon(toolbar, "This is the menu button", sassyDesc).id(1),
+                        TapTarget.forToolbarNavigationIcon(toolbar, "This is the menu button", sassyDesc).id(1)
                         // Likewise, this tap target will target the search button
                        /* TapTarget.forToolbarMenuItem(toolbar, R.id.search, "This is a search icon", "As you can see, it has gotten pretty dark around here...")
                                 .dimColor(android.R.color.black)
@@ -681,12 +696,12 @@ public class HomeActivity extends BaseActivity
                                 .textColor(android.R.color.black)
                                 .id(2),*/
                         // You can also target the overflow button in your toolbar
-                        TapTarget.forToolbarOverflow(toolbar, "This will show more options", "But they're not useful :(").id(3),
+                 //       TapTarget.forToolbarOverflow(toolbar, "This will show more options", "But they're not useful :(").id(3)
                         // This tap target will target our droid buddy at the given target rect
-                        TapTarget.forBounds(droidTarget, "Oh look!", "You can point to any part of the screen. You also can't cancel this one!")
-                                .cancelable(false)
+                  //      TapTarget.forBounds(droidTarget, "Oh look!", "You can point to any part of the screen. You also can't cancel this one!")
+                    //            .cancelable(false)
                                // .icon(droid)
-                                .id(4)
+                      //          .id(4)
                 )
                 .listener(new TapTargetSequence.Listener() {
                     // This listener will tell us when interesting(tm) events happen in regards
@@ -749,4 +764,66 @@ public class HomeActivity extends BaseActivity
 
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RC_SIGN_IN) {
+            IdpResponse response = IdpResponse.fromResultIntent(data);
+
+            if (resultCode == ResultCodes.OK) {
+                // Successfully signed in
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                Toast.makeText(this, user.getDisplayName(), Toast.LENGTH_SHORT).show();
+                //WRITE TO FIREBASE
+                FirebaseFirestore db = getFireStore();
+
+                UserModel userModel = new UserModel(user.getDisplayName(), user.getPhotoUrl()==null?"":user.getPhotoUrl().toString());
+
+                db.collection("users")
+                        .add(userModel)
+                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                Log.d("LOGIN", "DocumentSnapshot added with ID: " + documentReference.getId());
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w("LOGIN", "Error adding document", e);
+                            }
+                        });
+                return;
+            } else {
+                // Sign in failed
+                if (response == null) {
+                    // User pressed back button
+                    showSnackbar(R.string.sign_in_cancelled);
+                    return;
+                }
+
+                if (response.getErrorCode() == ErrorCodes.NO_NETWORK) {
+                    showSnackbar(R.string.no_internet_connection);
+                    return;
+                }
+
+                if (response.getErrorCode() == ErrorCodes.UNKNOWN_ERROR) {
+                    showSnackbar(R.string.unknown_error);
+                    return;
+                }
+            }
+
+            showSnackbar(R.string.unknown_sign_in_response);
+        }
+    }
+
+    private void showSnackbar(int message){
+
+        Toast.makeText(this, getString(message), Toast.LENGTH_SHORT).show();
+
+        //Snackbar.make(HomeActivity.this , getString(message), Snackbar.LENGTH_LONG).show();
+    }
+
 }

@@ -66,4 +66,8 @@
     <item name="white" type="color">#FFFFFF</item>
     <item name="blue_grey" type="color">#607D8B</item>
 
+    <color name="greyPrimary">#DE000000</color>
+    <color name="greySecondary">#8B000000</color>
+    <color name="greyDisabled">#61000000</color>
+
 </resources>
