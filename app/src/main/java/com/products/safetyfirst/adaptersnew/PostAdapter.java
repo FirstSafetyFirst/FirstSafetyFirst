@@ -19,13 +19,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * RecyclerView adapter for a list of Restaurants.
+ * RecyclerView adapter for a list of Posts.
  */
 public class PostAdapter extends FirestoreAdapter<PostAdapter.ViewHolder> {
 
     public interface OnPostSelectedListener {
 
-        void onPostSelected(DocumentSnapshot restaurant);
+        void onPostSelected(DocumentSnapshot post);
 
     }
 
