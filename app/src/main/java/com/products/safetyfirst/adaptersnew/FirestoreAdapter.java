@@ -42,8 +42,9 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder>
 
     @Override
     public void onScroll(AbsListView absListView, int firstVisibleItem, int visibleItemCount, int totalItems) {
-
+        Log.e("OnScroll","OnScroll called");
         if(firstVisibleItem + visibleItemCount + THRESHOLD > mSnapshots.size()){
+            Log.e("NextData", "Going to make query of next data");
             makeNextSetOfQuery();
         }
 
@@ -83,11 +84,12 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder>
     //To query a collection of documents, be it post or comment.
     // Invoke makeQuery method when starting to load data.
     public void makeQuery(Query query){
-
+        Log.e("FireAdapter","FireAdapter MakeQuery called");
         mQuery=  query.limit(THRESHOLD);
         mQuery.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot documentSnapshots) {
+                Log.e("OnSuccess","Fetched 10 items");
                 mSnapshots= (ArrayList<DocumentSnapshot>) documentSnapshots.getDocuments();
                 lastVisible= documentSnapshots.getDocuments().get(documentSnapshots.size()-1);
             }
@@ -101,9 +103,10 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder>
         mQuery.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot documentSnapshots) {
+                Log.e("NextSuccess","Next set of data recieved");
                 ArrayList<DocumentSnapshot> nextSetOfData= (ArrayList<DocumentSnapshot>) documentSnapshots.getDocuments();
                 if(nextSetOfData!=null)
-                mSnapshots.addAll(nextSetOfData);
+                    mSnapshots.addAll(nextSetOfData);
                 lastVisible= documentSnapshots.getDocuments().get(documentSnapshots.size()-1);
             }
         });
