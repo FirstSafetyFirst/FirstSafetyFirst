@@ -3,6 +3,7 @@ package com.products.safetyfirst.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -15,10 +16,12 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.Query;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.activity.NewPostActivity;
-import com.products.safetyfirst.adapters.DiscussionAdapterOld;
+import com.products.safetyfirst.adaptersnew.PostAdapter;
 import com.products.safetyfirst.modelhelper.UserHelper;
 
 import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
@@ -103,8 +106,15 @@ public class DiscussionFragmentOld extends Fragment {
         post_recycler.setLayoutManager(mLayoutManager);
         post_recycler.setItemAnimator(new DefaultItemAnimator());
 
-        Query postQuery =  mDatabase.child("posts").orderByKey().limitToLast(10);
-        post_recycler.setAdapter(new DiscussionAdapterOld(getActivity(),postQuery, mDatabase, mpaginateprogbar));
+        //com.google.firebase.database.Query postQuery =  mDatabase.child("posts").orderByKey().limitToLast(10);
+        Query query= FirebaseFirestore.getInstance().collection("posts");
+       // post_recycler.setAdapter(new DiscussionAdapterOld(getActivity(),postQuery, mDatabase, mpaginateprogbar));
+        post_recycler.setAdapter(new PostAdapter(query, new PostAdapter.OnPostSelectedListener() {
+            @Override
+            public void onPostSelected(DocumentSnapshot restaurant) {
+                Snackbar.make(getView(),"Selected", BaseTransientBottomBar.LENGTH_LONG);
+            }
+        }));
     }
 
     @Override

@@ -23,12 +23,12 @@ public class DiscussionAdapter extends
 
     // Store a member variable for the contacts
     private final List<PostModel> postModels;
-   // private Context context;
+    // private Context context;
 
     // Pass in the contact array into the constructor
     public DiscussionAdapter(List<PostModel> contacts, Context context) {
         postModels = contacts;
-    //    this.context = context;
+        //    this.context = context;
     }
 
     // Provide a direct reference to each of the views within a data item
@@ -52,39 +52,26 @@ public class DiscussionAdapter extends
         //CharSequence getRelativeTimeSpanString (long time,
         //long now,
    /*     //long minResolution)
-
         postViewHolder.post_title.setText(postModel.getTitle());
         postViewHolder.post_title.setAllCaps(true);
-
-
-
         postViewHolder.body.setText(postModel.getBody()+"");
-
         postViewHolder.overflow.setVisibility(View.GONE);
-
         postViewHolder.likeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
             }
         });
-
         postViewHolder.ansBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
             }
         });
-
         postViewHolder.bookmark.setVisibility(View.GONE);
-
         postViewHolder.bookmark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
             }
         });
-
         postViewHolder.readMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -93,7 +80,6 @@ public class DiscussionAdapter extends
                 postViewHolder.context.startActivity(intent);
             }
         });
-
         postViewHolder.post_author_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

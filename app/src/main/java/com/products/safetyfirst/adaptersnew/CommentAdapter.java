@@ -24,6 +24,7 @@ public class CommentAdapter extends FirestoreAdapter<CommentAdapter.ViewHolder> 
 
     public CommentAdapter(Query query) {
         super(query);
+        makeQuery(query);
     }
 
     @Override

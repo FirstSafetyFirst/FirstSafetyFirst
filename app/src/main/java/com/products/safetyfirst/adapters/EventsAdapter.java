@@ -63,13 +63,13 @@ public class EventsAdapter extends RecyclerView.Adapter<EventViewHolder> impleme
         if(event.getTimestamp() != null) {
           /*  holder.dateTime.setText(DateUtils.getRelativeTimeSpanString(
                     (long) event.getTimestamp()));*/
-          holder.dateTime.setText(getDate((long)event.getTimestamp()));
+            holder.dateTime.setText(getDate((long)event.getTimestamp()));
         }
         if(event.getThumbUrl() != null){
             Glide.with(context).load(event.getThumbUrl()).fitCenter().into(holder.images);
         }
 
-        holder.details.setOnClickListener(new View.OnClickListener() {
+        holder.eventCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, EventsDetailActivity.class);

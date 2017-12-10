@@ -1,8 +1,8 @@
 package com.products.safetyfirst.viewholder;
 
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,18 +18,17 @@ public class NewsViewHolder extends RecyclerView.ViewHolder{
     private final ImageView favicon;
     private final ImageView bookmark;
     public final TextView title;
-    public final TextView timestamp;
-    public final Button detail;
+    //public final TextView timestamp;
+    public final CardView newsCardView;
 
     public NewsViewHolder(View view) {
 
         super(view);
+        newsCardView= view.findViewById(R.id.news_item_card_view);
         images = view.findViewById(R.id.news_avtar);
         favicon = view.findViewById(R.id.favicon);
         bookmark = view.findViewById(R.id.bookmark);
         title = view.findViewById(R.id.title);
-        timestamp = view.findViewById(R.id.dateTime);
-        detail = view.findViewById(R.id.view_details);
-
+        //timestamp = view.findViewById(R.id.dateTime);
     }
 }
