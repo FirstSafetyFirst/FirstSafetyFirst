@@ -12,60 +12,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-<<<<<<< HEAD
         android:orientation="vertical">
-||||||| merged common ancestors
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/event_avtar"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="10dp"
-            android:layout_weight="0.4"
-            android:adjustViewBounds="true"
-            android:background="@drawable/round_corner"
-            android:contentDescription="@string/news_image"
-            android:scaleType="centerCrop"
-            android:src="@drawable/welcome" />
-        <View
-            android:layout_width="1dp"
-            android:layout_height="130dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="10dp"
-            android:background="@android:color/darker_gray"
-            />
-=======
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/event_avtar"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginStart="5dp"
-            android:layout_marginTop="10dp"
-            android:layout_weight="0.4"
-            android:adjustViewBounds="true"
-            android:background="@drawable/round_corner"
-            android:contentDescription="@string/news_image"
-            android:src="@drawable/logo" />
-        <View
-            android:layout_width="1dp"
-            android:layout_height="130dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="10dp"
-            android:background="@android:color/darker_gray"
-            />
->>>>>>> 61fdc84e51e37e24cc10abc02f412f867bf7210e
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -128,19 +75,10 @@
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:gravity="center"
-<<<<<<< HEAD
+
                     android:text="Going"
                     android:textSize="10sp"
                     android:visibility="gone" />
-||||||| merged common ancestors
-                    android:visibility="invisible"
-                    android:text="Going"
-                    android:textSize="10sp" />
-=======
-                    android:visibility="invisible"
-                   />
->>>>>>> 61fdc84e51e37e24cc10abc02f412f867bf7210e
-
                 <TextView
                     android:id="@+id/interested"
                     android:layout_width="0dp"
@@ -149,33 +87,9 @@
                     android:layout_margin="5dp"
                     android:layout_weight="1"
                     android:gravity="center"
-<<<<<<< HEAD
                     android:text="Maybe"
                     android:textSize="10sp"
                     android:visibility="gone" />
-||||||| merged common ancestors
-                    android:visibility="invisible"
-                    android:text="Maybe"
-                    android:textSize="10sp" />
-                <Button
-                    android:id="@+id/view_details"
-                    style="@style/Widget.AppCompat.Button.Colored"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|end"
-                    android:text="Open"
-                    android:textStyle="bold" />
-=======
-                    android:visibility="invisible" />
-                <Button
-                    android:id="@+id/view_details"
-                    style="@style/Widget.AppCompat.Button.Colored"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|end"
-                    android:text="Open"
-                    android:textStyle="bold" />
->>>>>>> 61fdc84e51e37e24cc10abc02f412f867bf7210e
 
             </LinearLayout>
         </LinearLayout>

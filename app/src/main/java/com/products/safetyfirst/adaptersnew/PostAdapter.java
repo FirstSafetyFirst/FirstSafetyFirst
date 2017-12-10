@@ -33,6 +33,7 @@ public class PostAdapter extends FirestoreAdapter<PostAdapter.ViewHolder> {
 
     public PostAdapter(Query query, OnPostSelectedListener listener) {
         super(query);
+        makeQuery(query);
         mListener = listener;
     }
 
@@ -72,7 +73,7 @@ public class PostAdapter extends FirestoreAdapter<PostAdapter.ViewHolder> {
         public void bind(final DocumentSnapshot snapshot,
                          final OnPostSelectedListener listener) {
 
-            PostModel postModel = snapshot.toObject(PostModel.class);
+            PostModel postModel = (PostModel) snapshot.getData().get(0);
             Resources resources = itemView.getResources();
 
             // Load image

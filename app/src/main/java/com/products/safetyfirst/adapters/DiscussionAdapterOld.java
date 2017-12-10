@@ -13,22 +13,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
-import com.products.safetyfirst.R;
-<<<<<<< HEAD
-import com.products.safetyfirst.activity.PostDetailActivity;
-import com.products.safetyfirst.activity.ProfileActivity;
-import com.products.safetyfirst.models.PostModel;
-||||||| merged common ancestors
-import com.products.safetyfirst.activity.PostDetailActivity;
-import com.products.safetyfirst.activity.ProfileActivity;
-import com.products.safetyfirst.models.NewsModel;
-import com.products.safetyfirst.models.PostModel;
-=======
 import com.products.safetyfirst.Pojos.PostModel;
->>>>>>> 61fdc84e51e37e24cc10abc02f412f867bf7210e
+import com.products.safetyfirst.R;
 import com.products.safetyfirst.viewholder.PostViewHolder;
 
 import java.util.ArrayList;
+
 
 /**
  * Created by vikas on 09/11/17.
@@ -178,13 +168,17 @@ public class DiscussionAdapterOld  extends RecyclerView.Adapter<PostViewHolder> 
         });
 <<<<<<< HEAD
         **/
-       holder.post_author_layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, ProfileActivity.class);
-                intent.putExtra(ProfileActivity.EXTRA_PROFILE_KEY, postArrayList.get(position).getAuthor());
-                context.startActivity(intent);
-||||||| merged common ancestors
+       /*holder.post_author_layout.setOnClickListener(new View.OnClickListener() {
+                                                        @Override
+                                                        public void onClick(View v) {
+                                                            Intent intent = new Intent(context, ProfileActivity.class);
+                                                            intent.putExtra(ProfileActivity.EXTRA_PROFILE_KEY, postArrayList.get(position).getAuthor());
+                                                            context.startActivity(intent);
+                                                        }
+
+                                                    }
+                                                    */
+//||||||| merged common ancestors
       /*  holder.post_author_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -209,13 +203,14 @@ public class DiscussionAdapterOld  extends RecyclerView.Adapter<PostViewHolder> 
 ||||||| merged common ancestors
             }
         });
-*/
+
 =======
 >>>>>>> 61fdc84e51e37e24cc10abc02f412f867bf7210e
+*/
         if (position==0){
             mpaginateprogbar.setVisibility(View.VISIBLE);
             getMoreData();
-        }*/
+        }
     }
 
     @Override

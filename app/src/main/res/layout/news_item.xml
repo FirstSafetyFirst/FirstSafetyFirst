@@ -34,31 +34,8 @@
             android:adjustViewBounds="true"
             android:contentDescription="@string/news_image"
             android:scaleType="fitXY"
-<<<<<<< HEAD
-            android:src="@mipmap/ic_launcher"/>
-||||||| merged common ancestors
-            android:src="@mipmap/ic_launcher"/>
-        <View
-            android:layout_width="1dp"
-            android:layout_height="130dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="10dp"
-            android:background="@android:color/darker_gray"
-            />
-=======
-            android:src="@drawable/ic_launcher"/>
-        <View
-            android:layout_width="1dp"
-            android:layout_height="130dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="10dp"
-            android:background="@android:color/darker_gray"
-            />
->>>>>>> 61fdc84e51e37e24cc10abc02f412f867bf7210e
+            android:src="@drawable/round_corner"/>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -75,26 +52,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:orientation="horizontal">
-<<<<<<< HEAD
 
-||||||| merged common ancestors
-                <TextView
-                    android:id="@+id/dateTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:text="01:00AM"
-                    android:textSize="12sp" />
-=======
-                <TextView
-                    android:visibility="invisible"
-                    android:id="@+id/dateTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:text="01:00AM"
-                    android:textSize="12sp" />
->>>>>>> 61fdc84e51e37e24cc10abc02f412f867bf7210e
+
                 <ImageView
                     android:id="@+id/bookmark"
                     android:visibility="gone"
