@@ -1,8 +1,8 @@
 package com.products.safetyfirst.viewholder;
 
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,12 +20,12 @@ public class EventViewHolder extends RecyclerView.ViewHolder{
     private final ImageView bookmark;
     public final TextView going;
     public final TextView maybe;
-    public final Button details;
-
+    public final CardView eventCardView;
 
     public EventViewHolder(View view) {
 
         super(view);
+        eventCardView= view.findViewById(R.id.event_item_card_view);
         mView = view;
         images = view.findViewById(R.id.event_avtar);
         title = view.findViewById(R.id.title);
@@ -34,8 +34,6 @@ public class EventViewHolder extends RecyclerView.ViewHolder{
 
         going = view.findViewById(R.id.going);
         maybe = view.findViewById(R.id.interested);
-        details = view.findViewById(R.id.view_details);
-
     }
 }
 

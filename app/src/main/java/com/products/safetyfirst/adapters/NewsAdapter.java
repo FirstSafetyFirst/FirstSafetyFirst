@@ -50,7 +50,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> implements
             Glide.with(context).load(event.getImgUrl()).fitCenter().into(holder.images);
         }
 
-        holder.detail.setOnClickListener(new View.OnClickListener() {
+        holder.newsCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, NewsDetailActivity.class);

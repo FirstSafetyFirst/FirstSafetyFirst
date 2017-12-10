@@ -3,20 +3,23 @@ package com.products.safetyfirst.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.activity.NewPostActivity;
-import com.products.safetyfirst.adapters.PostAdapter;
 import com.products.safetyfirst.impementations.presenter.PostPresenterImpl;
 import com.products.safetyfirst.interfaces.presenter.PostPresenter;
 import com.products.safetyfirst.interfaces.view.PostsView;
@@ -29,7 +32,7 @@ public class DiscussionFragment extends Fragment implements PostsView{
     private PostPresenter presenter;
     private ProgressBar mProgressbar;
     private RecyclerView recycler;
-    private PostAdapter adapter;
+    private com.products.safetyfirst.adaptersnew.PostAdapter adapter;
     private FloatingActionButton mFab;
 
 
@@ -64,9 +67,19 @@ public class DiscussionFragment extends Fragment implements PostsView{
     }
 
     private void fillUI() {
-        adapter = new PostAdapter(getContext(), "");
-        adapter.request();
+        //adapter = new PostAdapter(getContext(), "");
+        //adapter.request();
+        //recycler.setAdapter(ad);
+        Query query= FirebaseFirestore.getInstance().collection("posts");
+        adapter=new com.products.safetyfirst.adaptersnew.PostAdapter(query, new com.products.safetyfirst.adaptersnew.PostAdapter.OnPostSelectedListener() {
+            @Override
+            public void onPostSelected(DocumentSnapshot restaurant) {
+                //TODO: do something here, till then this temporary snackbar
+                Snackbar.make(getView(),"Selected", BaseTransientBottomBar.LENGTH_LONG);
+            }
+        });
         recycler.setAdapter(adapter);
+
     }
 
     private void createUI(View view) {
