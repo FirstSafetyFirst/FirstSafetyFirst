@@ -50,6 +50,8 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder>
 
     }
 
+
+
     @Override
     public void onScrollStateChanged(AbsListView absListView, int i) {
         //do nothing for now...

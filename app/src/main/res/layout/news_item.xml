@@ -12,129 +12,47 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <TextView android:id="@+id/title"
+            android:typeface="sans"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:layout_margin="4dp"
-            android:maxLines="4"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:maxLines="2"
             android:textColor="@color/colorPrimary"
-            android:textStyle="bold"
+            android:fontFamily="sans-serif-light"
             tools:text="Fu-5 things for Monday, April 24,North korea, Trump,Afganistan" />
 
         <ImageView
             android:id="@+id/news_avtar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="4dp"
-            android:layout_weight="0.4"
-            android:adjustViewBounds="true"
+            android:layout_height="256dp"
             android:contentDescription="@string/news_image"
-            android:scaleType="fitXY"
-            android:src="@drawable/round_corner"/>
-
+            android:src="@drawable/ic_launcher"
+            android:scaleType="fitXY"/>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_weight="0.60"
-            android:orientation="vertical">
-
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            android:orientation="horizontal" android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+            <TextView
+                android:id="@+id/noOfViews"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:orientation="horizontal">
+                android:text="5 Views"
+                android:gravity="center"
+                android:fontFamily="sans-serif-thin"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/activity_vertical_margin"/>
 
-
-                <ImageView
-                    android:id="@+id/bookmark"
-                    android:visibility="gone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:background="#00000000"
-                    android:contentDescription="@string/bookmark_image"
-                    app:srcCompat="@drawable/ic_turned_in_not_black_24dp" />
-            </LinearLayout>
-
-            <RelativeLayout
-                android:id="@+id/menus"
-                android:layout_width="match_parent"
+            <android.support.design.widget.CheckableImageButton
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/titles"
-                android:orientation="horizontal"
-                android:visibility="gone">
-
-                <ImageView
-                    android:id="@+id/favicon"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitXY"
-                    android:src="@color/blue" />
-
-                <TextView
-                    android:id="@+id/organizer_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_toRightOf="@+id/favicon"
-                    android:text="TOI"
-                    android:textSize="@dimen/date_time"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/organizer_image"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="5dp"
-                    android:text="01:00AM"
-                    android:textSize="@dimen/date_time" />
-
-
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:orientation="horizontal"
-                    android:visibility="gone">
-
-                    <android.support.design.widget.CheckableImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="#00000000"
-                        app:srcCompat="@drawable/ic_turned_in_not_black_24dp" />
-
-                    <android.support.design.widget.CheckableImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="#00000000"
-                        app:srcCompat="@drawable/ic_share_black_24dp" />
-
-                    <android.support.design.widget.CheckableImageButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:backgroundTint="#00000000"
-                        app:srcCompat="@drawable/ic_more_vert_black_24dp" />
-                </LinearLayout>
-
-
-            </RelativeLayout>
+                android:backgroundTint="@color/white"
+                app:srcCompat="@drawable/ic_share_black_24dp" />
 
         </LinearLayout>
-        <include
-            layout="@layout/news_footer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
     </LinearLayout>
 </android.support.v7.widget.CardView>
