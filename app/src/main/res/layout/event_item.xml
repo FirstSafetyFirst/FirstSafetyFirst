@@ -25,10 +25,10 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:layout_marginLeft="@dimen/activity_vertical_margin"
+                android:layout_margin="@dimen/activity_vertical_margin"
                 android:textAllCaps="true"
                 android:fontFamily="sans-serif-light"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/colorPrimaryDark"
                 tools:text="Fu-5 things for Monday, April 24,North korea, Trump,Afganistan" />
 
                 <TextView
@@ -37,6 +37,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:textAlignment="textEnd"
+                    android:textColor="@color/greySecondary"
                     android:text="01:00AM"
                     android:layout_marginRight="@dimen/activity_vertical_margin"
                     android:textSize="12sp" />
