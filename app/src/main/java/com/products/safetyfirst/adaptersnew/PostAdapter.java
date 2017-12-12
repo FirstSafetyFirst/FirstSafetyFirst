@@ -2,6 +2,7 @@ package com.products.safetyfirst.adaptersnew;
 
 import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,7 +74,9 @@ public class PostAdapter extends FirestoreAdapter<PostAdapter.ViewHolder> {
         public void bind(final DocumentSnapshot snapshot,
                          final OnPostSelectedListener listener) {
 
-            PostModel postModel = (PostModel) snapshot.getData().get(0);
+            //PostModel postModel = (PostModel) snapshot.getData();
+            PostModel postModel= new PostModel(snapshot.getData()) ;
+            Log.v("FirestoreAdapter",postModel.toString());
             Resources resources = itemView.getResources();
 
             // Load image

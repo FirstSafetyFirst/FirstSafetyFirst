@@ -2,7 +2,6 @@ package com.products.safetyfirst.Pojos;
 
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
-import com.google.firebase.firestore.DocumentReference;
 
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +27,19 @@ public class PostModel {
     private String image;
 
     public PostModel() {
+    }
+    //constructor for conversion of data returned from snapshot to postModel.
+    public PostModel(Map<String,Object> map){
+        HashMap<String,Object> hashMap= new HashMap<>(map);
+        title= hashMap.get("title").toString();
+        body=hashMap.get("body").toString();
+        uid=hashMap.get("uid").toString();
+        //imageList=
+        //fileList=
+        //author=hashMap.get("author").toString();
+        //authorImageUrl=hashMap.get("authorImageUrl").toString();
+        //photoUrl= hashMap.get("photoUrl").toString();
+
     }
 
     public PostModel(String title, String body, String uid, String author, List<String> imageList, List<String> fileList) {

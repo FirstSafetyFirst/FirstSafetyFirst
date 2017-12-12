@@ -67,10 +67,12 @@ public class DiscussionFragment extends Fragment implements PostsView{
     }
 
     private void fillUI() {
-        //adapter = new PostAdapter(getContext(), "");
-        //adapter.request();
-        //recycler.setAdapter(ad);
-        Query query= FirebaseFirestore.getInstance().collection("posts");
+        /*
+        adapter = new PostAdapter(getContext(), getCurrentUserId());
+        adapter.request();
+        recycler.setAdapter(adapter);
+        */
+       Query query= FirebaseFirestore.getInstance().collection("posts");
         adapter=new com.products.safetyfirst.adaptersnew.PostAdapter(query, new com.products.safetyfirst.adaptersnew.PostAdapter.OnPostSelectedListener() {
             @Override
             public void onPostSelected(DocumentSnapshot restaurant) {
@@ -79,7 +81,6 @@ public class DiscussionFragment extends Fragment implements PostsView{
             }
         });
         recycler.setAdapter(adapter);
-
     }
 
     private void createUI(View view) {
@@ -117,6 +118,9 @@ public class DiscussionFragment extends Fragment implements PostsView{
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
+                if(dy+10 > adapter.getItemCount()){
+                    adapter.makeNextSetOfQuery();
+                }
             }
         });
        // mProgressbar = view.findViewById(R.id.newspaginateprogbar);

@@ -1,10 +1,12 @@
 package com.products.safetyfirst.adaptersnew;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.AbsListView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -22,7 +24,7 @@ import java.util.ArrayList;
 
 public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder>
         extends RecyclerView.Adapter<VH>
-        implements EventListener<QuerySnapshot> ,AbsListView.OnScrollListener{
+        implements EventListener<QuerySnapshot> {
 
     private static final String TAG = "FirestoreAdapter";
 
@@ -39,7 +41,7 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder>
     public FirestoreAdapter(Query query) {
         mQuery = query;
     }
-
+/**
     @Override
     public void onScroll(AbsListView absListView, int firstVisibleItem, int visibleItemCount, int totalItems) {
 
@@ -54,7 +56,7 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder>
         //do nothing for now...
         //because the logic for loading is already implemented in onScroll
     }
-
+**/
     // load data according to scrolling
     /*
     public void LoadDataAccordingToScrolling(RecyclerView view,String key, String orderProperty, long limit){
@@ -85,18 +87,32 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder>
     public void makeQuery(Query query){
 
         mQuery=  query.limit(THRESHOLD);
-        mQuery.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        Log.v(TAG,mQuery.toString());
+        mQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public void onSuccess(QuerySnapshot documentSnapshots) {
-                mSnapshots= (ArrayList<DocumentSnapshot>) documentSnapshots.getDocuments();
-                lastVisible= documentSnapshots.getDocuments().get(documentSnapshots.size()-1);
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                DocumentSnapshot documentSnapshot=null;
+                if (task.isSuccessful()) {
+                    for (DocumentSnapshot document : task.getResult()) {
+                        Log.v(TAG, document.getId() + " => " + document.getData());
+                        mSnapshots.add(document);
+                        documentSnapshot=document;
+                        Log.v(TAG, mSnapshots.toString());
+                    }
+                    lastVisible=documentSnapshot;
+                } else {
+                    Log.v(TAG, "Error getting documents: ", task.getException());
+                }
             }
         });
+        Log.v(TAG, mSnapshots.toString());
+        Log.v(TAG,mSnapshots.size()+" ");
 
     }
     //this method can be called as soon as we have to load more data with the same query
     //parameters as earlier. Here we can use the lastVisible documentSnapshot to start with.
     public void makeNextSetOfQuery(){
+        if(lastVisible!=null)
         mQuery=mQuery.startAt(lastVisible);
         mQuery.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
@@ -105,6 +121,20 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder>
                 if(nextSetOfData!=null)
                 mSnapshots.addAll(nextSetOfData);
                 lastVisible= documentSnapshots.getDocuments().get(documentSnapshots.size()-1);
+            }
+        });
+        mQuery.startAt(lastVisible).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (DocumentSnapshot document : task.getResult()) {
+                        Log.v(TAG, document.getId() + " => " + document.getData());
+                        mSnapshots.add(document);
+                        Log.v(TAG, mSnapshots.toString());
+                    }
+                } else {
+                    Log.v(TAG, "Error getting documents: ", task.getException());
+                }
             }
         });
     }
@@ -136,6 +166,8 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder>
         onDataChanged();
     }
 
+
+
     public void startListening() {
         if (mQuery != null && mRegistration == null) {
             mRegistration = mQuery.addSnapshotListener(this);
@@ -163,6 +195,14 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder>
         // Listen to new query
         mQuery = query;
         startListening();
+    }
+
+    public ArrayList<DocumentSnapshot> getmSnapshots() {
+        return mSnapshots;
+    }
+
+    public void setmSnapshots(ArrayList<DocumentSnapshot> mSnapshots) {
+        this.mSnapshots = mSnapshots;
     }
 
     @Override
