@@ -50,6 +50,16 @@ public class PostModel {
         this.fileList = fileList;
         this.author = author;
     }
+    //constructor for the combined query of author and post
+    public PostModel(Map<String, Object> postData, Map<String, Object> authorData) {
+        HashMap<String,Object> postMap= new HashMap<>(postData);
+        HashMap<String,Object> authorMap= new HashMap<>(authorData);
+        title= postMap.get("title").toString();
+        body=postMap.get("body").toString();
+        uid=postMap.get("uid").toString();
+        author= authorMap.get("name").toString();
+        photoUrl= authorMap.get("photoUrl").toString();
+    }
 
     public String getTitle() {
         return title;

@@ -35,7 +35,7 @@ public class CommentAdapter extends FirestoreAdapter<CommentAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.bind(getSnapshot(position).toObject(Comment.class));
+        holder.bind(getSnapshot(position).getPostDocument().toObject(Comment.class));
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

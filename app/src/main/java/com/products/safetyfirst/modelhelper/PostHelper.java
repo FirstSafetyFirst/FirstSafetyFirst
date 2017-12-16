@@ -10,12 +10,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.products.safetyfirst.Pojos.PostModel;
-import com.products.safetyfirst.Pojos.UserModel;
 import com.products.safetyfirst.utils.Constants;
 import com.products.safetyfirst.utils.DatabaseUtil;
 import com.products.safetyfirst.utils.StringHelper;
@@ -63,7 +61,7 @@ public class PostHelper {
 
             //WRITE TO FIREBASE
             postKey.set(post);
-
+        //TODO: make a check for empty ques
 
 
         Map<String, Boolean> keyValue = new HashMap<>();

@@ -2,7 +2,6 @@ package com.products.safetyfirst.adaptersnew;
 
 import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +13,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.Query;
 import com.products.safetyfirst.Pojos.PostModel;
 import com.products.safetyfirst.R;
+import com.products.safetyfirst.androidhelpers.PostDocument;
 import com.products.safetyfirst.utils.JustifiedWebView;
 
 import butterknife.BindView;
@@ -71,12 +71,12 @@ public class PostAdapter extends FirestoreAdapter<PostAdapter.ViewHolder> {
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(final DocumentSnapshot snapshot,
+        public void bind(final PostDocument snapshot,
                          final OnPostSelectedListener listener) {
 
             //PostModel postModel = (PostModel) snapshot.getData();
-            PostModel postModel= new PostModel(snapshot.getData()) ;
-            Log.v("FirestoreAdapter",postModel.toString());
+            PostModel postModel= new PostModel(snapshot.getPostDocument().getData(),snapshot.getUserDocument().getData()) ;
+            //Log.v("FirestoreAdapter",postModel.toString());
             Resources resources = itemView.getResources();
 
             // Load image
@@ -95,7 +95,7 @@ public class PostAdapter extends FirestoreAdapter<PostAdapter.ViewHolder> {
                 @Override
                 public void onClick(View view) {
                     if (listener != null) {
-                        listener.onPostSelected(snapshot);
+                        listener.onPostSelected(snapshot.getPostDocument());
                     }
                 }
             });

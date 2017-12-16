@@ -1,12 +1,8 @@
 package com.products.safetyfirst.adaptersnew;
 
-import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
@@ -15,6 +11,8 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.products.safetyfirst.androidhelpers.PostDocument;
+import com.products.safetyfirst.androidhelpers.PostHelper;
 
 import java.util.ArrayList;
 
@@ -32,111 +30,29 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder>
     private ListenerRegistration mRegistration;
     private FirebaseFirestore db= FirebaseFirestore.getInstance();
 
-    private ArrayList<DocumentSnapshot> mSnapshots = new ArrayList<>();
+    private ArrayList<PostDocument> mSnapshots = new ArrayList<>();
 
     private DocumentSnapshot lastVisible;
     boolean needToload= true;
     private static final int THRESHOLD =10;
 
+    private PostHelper postHelper;
+
     public FirestoreAdapter(Query query) {
         mQuery = query;
-    }
-/**
-    @Override
-    public void onScroll(AbsListView absListView, int firstVisibleItem, int visibleItemCount, int totalItems) {
-
-        if(firstVisibleItem + visibleItemCount + THRESHOLD > mSnapshots.size()){
-            makeNextSetOfQuery();
-        }
-
+        postHelper= new PostHelper(query);
     }
 
-    @Override
-    public void onScrollStateChanged(AbsListView absListView, int i) {
-        //do nothing for now...
-        //because the logic for loading is already implemented in onScroll
-    }
-**/
-    // load data according to scrolling
-    /*
-    public void LoadDataAccordingToScrolling(RecyclerView view,String key, String orderProperty, long limit){
-        int currentPosition=0;
-        if(needToload){
-            makeQuery(key,orderProperty,limit);
-            needToload=false;
-        }
-        view.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-
-
-            }
-
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-
-            }
-        });
-
-    }
-**/
     //To query a collection of documents, be it post or comment.
     // Invoke makeQuery method when starting to load data.
     public void makeQuery(Query query){
 
-        mQuery=  query.limit(THRESHOLD);
-        Log.v(TAG,mQuery.toString());
-        mQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                DocumentSnapshot documentSnapshot=null;
-                if (task.isSuccessful()) {
-                    for (DocumentSnapshot document : task.getResult()) {
-                        Log.v(TAG, document.getId() + " => " + document.getData());
-                        mSnapshots.add(document);
-                        documentSnapshot=document;
-                        Log.v(TAG, mSnapshots.toString());
-                    }
-                    lastVisible=documentSnapshot;
-                } else {
-                    Log.v(TAG, "Error getting documents: ", task.getException());
-                }
-            }
-        });
-        Log.v(TAG, mSnapshots.toString());
-        Log.v(TAG,mSnapshots.size()+" ");
-
+       mSnapshots= postHelper.makeQuery(query);
     }
     //this method can be called as soon as we have to load more data with the same query
     //parameters as earlier. Here we can use the lastVisible documentSnapshot to start with.
     public void makeNextSetOfQuery(){
-        if(lastVisible!=null)
-        mQuery=mQuery.startAt(lastVisible);
-        mQuery.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot documentSnapshots) {
-                ArrayList<DocumentSnapshot> nextSetOfData= (ArrayList<DocumentSnapshot>) documentSnapshots.getDocuments();
-                if(nextSetOfData!=null)
-                mSnapshots.addAll(nextSetOfData);
-                lastVisible= documentSnapshots.getDocuments().get(documentSnapshots.size()-1);
-            }
-        });
-        mQuery.startAt(lastVisible).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (DocumentSnapshot document : task.getResult()) {
-                        Log.v(TAG, document.getId() + " => " + document.getData());
-                        mSnapshots.add(document);
-                        Log.v(TAG, mSnapshots.toString());
-                    }
-                } else {
-                    Log.v(TAG, "Error getting documents: ", task.getException());
-                }
-            }
-        });
+       mSnapshots= postHelper.makeNextSetOfQuery();
     }
 
     @Override
@@ -197,11 +113,11 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder>
         startListening();
     }
 
-    public ArrayList<DocumentSnapshot> getmSnapshots() {
+    public ArrayList<PostDocument> getmSnapshots() {
         return mSnapshots;
     }
 
-    public void setmSnapshots(ArrayList<DocumentSnapshot> mSnapshots) {
+    public void setmSnapshots(ArrayList<PostDocument> mSnapshots) {
         this.mSnapshots = mSnapshots;
     }
 
@@ -210,24 +126,26 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder>
         return mSnapshots.size();
     }
 
-    protected DocumentSnapshot getSnapshot(int index) {
+    protected PostDocument getSnapshot(int index) {
         return mSnapshots.get(index);
     }
 
     protected void onDocumentAdded(DocumentChange change) {
-        mSnapshots.add(change.getNewIndex(), change.getDocument());
+        mSnapshots.add(new PostDocument(change.getDocument(),postHelper.findAuthor(change.getDocument())));
         notifyItemInserted(change.getNewIndex());
     }
 
     protected void onDocumentModified(DocumentChange change) {
+        PostDocument p= new PostDocument(change.getDocument(),postHelper.findAuthor(change.getDocument()));
         if (change.getOldIndex() == change.getNewIndex()) {
             // Item changed but remained in same position
-            mSnapshots.set(change.getOldIndex(), change.getDocument());
+
+            mSnapshots.set(change.getOldIndex(), p);
             notifyItemChanged(change.getOldIndex());
         } else {
             // Item changed and changed position
             mSnapshots.remove(change.getOldIndex());
-            mSnapshots.add(change.getNewIndex(), change.getDocument());
+            mSnapshots.add(change.getNewIndex(), p);
             notifyItemMoved(change.getOldIndex(), change.getNewIndex());
         }
     }
