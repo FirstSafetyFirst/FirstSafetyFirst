@@ -48,6 +48,7 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder>
     public void makeQuery(Query query){
 
        mSnapshots= postHelper.makeQuery(query);
+
     }
     //this method can be called as soon as we have to load more data with the same query
     //parameters as earlier. Here we can use the lastVisible documentSnapshot to start with.
