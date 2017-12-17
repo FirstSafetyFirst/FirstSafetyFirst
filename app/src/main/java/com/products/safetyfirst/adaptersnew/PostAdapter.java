@@ -2,6 +2,7 @@ package com.products.safetyfirst.adaptersnew;
 
 import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,14 +21,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * RecyclerView adapter for a list of Restaurants.
+ * RecyclerView adapter for a list of Posts.
  */
 public class PostAdapter extends FirestoreAdapter<PostAdapter.ViewHolder>{
 
 
     public interface OnPostSelectedListener {
 
-        void onPostSelected(DocumentSnapshot restaurant);
+        void onPostSelected(DocumentSnapshot post);
 
     }
 
@@ -35,8 +36,10 @@ public class PostAdapter extends FirestoreAdapter<PostAdapter.ViewHolder>{
 
     public PostAdapter(Query query, OnPostSelectedListener listener) {
         super(query);
+        Log.e("PostAdapter","Post Adapter Constructor called");
         makeQuery(query);
         mListener = listener;
+
     }
 
     @Override
@@ -81,7 +84,7 @@ public class PostAdapter extends FirestoreAdapter<PostAdapter.ViewHolder>{
             Resources resources = itemView.getResources();
 
             // Load image
-            Glide.with(imageView.getContext())
+         /*   Glide.with(imageView.getContext())
                     .load(postModel.getPhotoUrl())
                     .into(imageView);
             Glide.with(imageView.getContext())
@@ -89,7 +92,7 @@ public class PostAdapter extends FirestoreAdapter<PostAdapter.ViewHolder>{
                     .into(postAutorPhoto);
             postTitle.setText(postModel.getTitle());
             postAuthor.setText(postModel.getAuthor());
-            postBody.setText(postModel.getBody());
+            postBody.setText(postModel.getBody());*/
 
             // Click listener
             itemView.setOnClickListener(new View.OnClickListener() {
