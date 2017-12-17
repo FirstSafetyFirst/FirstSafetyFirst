@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.Typeface;
@@ -15,6 +16,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
 import android.text.SpannableString;
 import android.text.style.StyleSpan;
@@ -29,6 +31,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.getkeepsafe.taptargetview.TapTarget;
 import com.getkeepsafe.taptargetview.TapTargetSequence;
 import com.getkeepsafe.taptargetview.TapTargetView;
@@ -41,32 +45,51 @@ import com.products.safetyfirst.utils.Analytics;
 import com.products.safetyfirst.utils.JustifiedWebView;
 import com.products.safetyfirst.utils.PrefManager;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 @SuppressWarnings({"ALL", "EmptyMethod"})
 public class NewsDetailActivity extends BaseActivity implements View.OnClickListener, NewsDetailView {
+
     public static final String EXTRA_NEWS_KEY = "post_key";
     private static final String TAG = "NewsDetailActivity";
+
     private NewsDetailPresenter presenter;
-    private FloatingActionButton fab;
-    private ImageView image_scrolling_top;
-    private String mNewsKey;
-    private TextView mTitleView;
-    private JustifiedWebView mBodyView;
-    private Button mReadMore;
-    private ImageButton mShare;
+
+    @BindView(R.id.bookmark)
+    FloatingActionButton fab;
+
+    @BindView(R.id.image_scrolling_top)
+    ImageView image_scrolling_top;
+
+    @BindView(R.id.title)
+    TextView mTitleView;
+
+    @BindView(R.id.body)
+    JustifiedWebView mBodyView;
+
+    @BindView(R.id.read_more)
+    Button mReadMore;
+
+    @BindView(R.id.share)
+    ImageButton mShare;
+
+    @BindView(R.id.collapsing_toolbar_layout)
+    CollapsingToolbarLayout mCollapsingToolbar;
+
     private String url;
     private String deepLink = null;
     private String HEADLINE;
-
+    private String mNewsKey;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_detail);
 
+        ButterKnife.bind(this);
 
-        mBodyView = findViewById(R.id.body);
-        mTitleView = findViewById(R.id.title);
-        mReadMore = findViewById(R.id.read_more);
-        mShare = findViewById(R.id.share);
+        mCollapsingToolbar.setTitle("");
 
         mNewsKey = getIntent().getStringExtra(EXTRA_NEWS_KEY);
         if (mNewsKey == null) {
@@ -80,14 +103,10 @@ public class NewsDetailActivity extends BaseActivity implements View.OnClickList
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        fab = findViewById(R.id.bookmark);
-
-        image_scrolling_top = findViewById(R.id.image_scrolling_top);
         Glide.with(this).load(R.drawable.ic_launcher).fitCenter().into(image_scrolling_top);
 
         mReadMore.setOnClickListener(this);
         mShare.setOnClickListener(this);
-        fab.setOnClickListener(this);
 
         presenter = new NewsDetailPresenterImpl(this, mNewsKey);
         presenter.requestNews();
@@ -146,6 +165,7 @@ public class NewsDetailActivity extends BaseActivity implements View.OnClickList
         ActivityCompat.finishAfterTransition(this);
     }
 
+    @OnClick(R.id.bookmark)
     @Override
     public void setBookMark() {
         if(isLoggedIn()) {
@@ -200,7 +220,29 @@ public class NewsDetailActivity extends BaseActivity implements View.OnClickList
         }
 
         if (news.getImgUrl() != null) {
-            Glide.with(getApplicationContext()).load(news.getImgUrl()).fitCenter().into(image_scrolling_top);
+           // Glide.with(getApplicationContext()).load(news.getImgUrl()).fitCenter().into(image_scrolling_top);
+            Glide.with(getApplicationContext())
+                    .load(news.getImgUrl())
+                    .asBitmap()
+                    .fitCenter()
+                    .into(new SimpleTarget<Bitmap>(100,100) {
+                        @Override
+                        public void onResourceReady(Bitmap bitmap, GlideAnimation glideAnimation) {
+                            image_scrolling_top.setImageBitmap(bitmap); // Possibly runOnUiThread()
+                           /* Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
+                                @Override
+                                public void onGenerated(Palette palette) {
+                                    try {
+                                        mCollapsingToolbar.setExpandedTitleColor(palette.getDarkVibrantSwatch().getTitleTextColor());
+                                        mCollapsingToolbar.setCollapsedTitleTextColor(palette.getDarkVibrantSwatch().getTitleTextColor());
+                                        mCollapsingToolbar.setBackgroundColor(palette.getDarkVibrantSwatch().getRgb());
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            } );*/
+                        }
+                    });
 
         }
     }

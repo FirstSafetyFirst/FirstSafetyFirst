@@ -63,7 +63,7 @@ public class DiscussionFragment extends Fragment implements PostsView{
     @Override
     public void onStart() {
         super.onStart();
-        fillUI();
+        //fillUI();
     }
 
     private void fillUI() {
