@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder>
         extends RecyclerView.Adapter<VH>
-        implements EventListener<QuerySnapshot> {
+        implements EventListener<QuerySnapshot>, PostHelper.UpdateSnapshot{
 
     private static final String TAG = "FirestoreAdapter";
 
@@ -38,21 +38,25 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder>
 
     private PostHelper postHelper;
 
+    @Override
+    public void updateList(ArrayList<PostDocument> snapshots) {
+        mSnapshots.addAll(snapshots);
+    }
+
     public FirestoreAdapter(Query query) {
         mQuery = query;
         postHelper= new PostHelper(query);
     }
-
     //To query a collection of documents, be it post or comment.
     // Invoke makeQuery method when starting to load data.
     public void makeQuery(Query query){
 
-       mSnapshots= postHelper.makeQuery(query);
+       postHelper.makeQuery(query,this);
     }
     //this method can be called as soon as we have to load more data with the same query
     //parameters as earlier. Here we can use the lastVisible documentSnapshot to start with.
     public void makeNextSetOfQuery(){
-       mSnapshots= postHelper.makeNextSetOfQuery();
+        postHelper.makeNextSetOfQuery(this);
     }
 
     @Override

@@ -19,8 +19,13 @@ import java.util.ArrayList;
 
 public class PostHelper {
 
+    public interface UpdateSnapshot{
+        void updateList(ArrayList<PostDocument> mSnapshots);
+    }
+
     private static final String TAG= "PostHelper";
     private int THRESHOLD= 10;
+    private UpdateSnapshot updateSnapshot;
     //private ArrayList<DocumentSnapshot> mPostSnapshots,mAuthorSnapshots;
     private ArrayList<PostDocument> mSnapshots= new ArrayList<>();
     DocumentSnapshot postLastVisible, authorLastVisible,documentSnapshot,usersnapshot;
@@ -31,8 +36,9 @@ public class PostHelper {
     }
 
     // Invoke makeQuery method when starting to load data.
-    public ArrayList<PostDocument> makeQuery(Query postQuery){
+    public void makeQuery(Query postQuery,UpdateSnapshot u){
 
+            updateSnapshot=u;
             mQuery=  postQuery.limit(THRESHOLD);
             Log.v(TAG,postQuery.toString());
             mQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -40,7 +46,8 @@ public class PostHelper {
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
                     if (task.isSuccessful()) {
-                        for (DocumentSnapshot postdocument : task.getResult()) {
+
+                        for (final DocumentSnapshot postdocument : task.getResult()) {
                             Log.v(TAG, postdocument.getId() + " => " + postdocument.getData());
                             PostModel postModel= new PostModel(postdocument.getData()) ;
                             String uid= postModel.getUid();
@@ -49,18 +56,21 @@ public class PostHelper {
                                         @Override
                                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                             if(task.isSuccessful()){
-                                                if(!task.getResult().isEmpty())
-                                                usersnapshot= task.getResult().getDocuments().get(0);
+                                                if(!task.getResult().isEmpty()) {
+                                                    usersnapshot = task.getResult().getDocuments().get(0);
+                                                    mSnapshots.add(new PostDocument(postdocument,usersnapshot));
+                                                }
                                                 else
                                                  usersnapshot=null;
                                             }
                                         }
                                     });
 
-                            mSnapshots.add(new PostDocument(postdocument,usersnapshot));
+                            updateSnapshot.updateList(mSnapshots);
                             documentSnapshot= postdocument;
                             //Log.v(TAG, mPostSnapshots.toString());
                         }
+
                         postLastVisible=documentSnapshot;
                         authorLastVisible=usersnapshot;
 
@@ -72,19 +82,20 @@ public class PostHelper {
             //Log.v(TAG, mPostSnapshots.toString());
             //Log.v(TAG,mPostSnapshots.size()+" ");
 
-        return mSnapshots;
+        mSnapshots.clear();
     }
 
     //this method can be called as soon as we have to load more data with the same query
     //parameters as earlier. Here we can use the lastVisible documentSnapshot to start with.
-    public ArrayList<PostDocument> makeNextSetOfQuery(){
+    public void makeNextSetOfQuery(final UpdateSnapshot updateSnapshot){
+        this.updateSnapshot= updateSnapshot;
         if(postLastVisible!=null)
             mQuery.startAt(postLastVisible)
                     .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if (task.isSuccessful()) {
-                                for (DocumentSnapshot postdocument : task.getResult()) {
+                                for (final DocumentSnapshot postdocument : task.getResult()) {
                                     Log.v(TAG, postdocument.getId() + " => " + postdocument.getData());
                                     PostModel postModel= new PostModel(postdocument.getData()) ;
                                     String uid= postModel.getUid();
@@ -94,14 +105,16 @@ public class PostHelper {
                                                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                                     if(task.isSuccessful()){
                                                         usersnapshot= task.getResult().getDocuments().get(0);
+                                                        mSnapshots.add(new PostDocument(postdocument,usersnapshot));
                                                     }
                                                 }
                                             });
 
-                                    mSnapshots.add(new PostDocument(postdocument,usersnapshot));
+
                                     documentSnapshot= postdocument;
                                     //Log.v(TAG, mPostSnapshots.toString());
                                 }
+                                updateSnapshot.updateList(mSnapshots);
                                 postLastVisible=documentSnapshot;
                                 authorLastVisible=usersnapshot;
 
@@ -110,7 +123,7 @@ public class PostHelper {
                             }
                         }
                     });
-        return mSnapshots;
+        mSnapshots.clear();
     }
     DocumentSnapshot author;
     public DocumentSnapshot findAuthor(DocumentSnapshot d){

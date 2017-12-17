@@ -22,7 +22,8 @@ import butterknife.ButterKnife;
 /**
  * RecyclerView adapter for a list of Restaurants.
  */
-public class PostAdapter extends FirestoreAdapter<PostAdapter.ViewHolder> {
+public class PostAdapter extends FirestoreAdapter<PostAdapter.ViewHolder>{
+
 
     public interface OnPostSelectedListener {
 
@@ -102,4 +103,7 @@ public class PostAdapter extends FirestoreAdapter<PostAdapter.ViewHolder> {
         }
 
     }
+
+
+
 }
