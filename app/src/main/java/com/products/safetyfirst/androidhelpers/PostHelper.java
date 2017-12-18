@@ -60,7 +60,7 @@ public class PostHelper {
                                         if (task.isSuccessful() && !task.getResult().isEmpty()) {
                                             userSnapshot = task.getResult().getDocuments().get(0);
                                             mSnapshots.add(new PostDocument(postdocument, userSnapshot));
-                                            if (document_count == 10) {
+                                            if (document_count == THRESHOLD) {
                                                 updateSnapshot.updateList(mSnapshots);
                                                 mSnapshots.clear();
                                                 postLastVisible = postdocument;
@@ -106,7 +106,7 @@ public class PostHelper {
                                         if (task.isSuccessful() && !task.getResult().isEmpty()) {
                                             userSnapshot = task.getResult().getDocuments().get(0);
                                             mSnapshots.add(new PostDocument(postdocument, userSnapshot));
-                                            if (document_count == 10) {
+                                            if (document_count == THRESHOLD) {
                                                 updateSnapshot.updateList(mSnapshots);
                                                 mSnapshots.clear();
                                                 postLastVisible = postdocument;
