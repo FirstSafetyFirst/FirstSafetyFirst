@@ -4,7 +4,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import com.google.firebase.firestore.DocumentChange;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -22,41 +21,39 @@ import java.util.ArrayList;
 
 public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder>
         extends RecyclerView.Adapter<VH>
-        implements EventListener<QuerySnapshot>, PostHelper.UpdateSnapshot{
+        implements EventListener<QuerySnapshot>{
 
     private static final String TAG = "FirestoreAdapter";
 
-    private Query mQuery;
     private ListenerRegistration mRegistration;
-    private FirebaseFirestore db= FirebaseFirestore.getInstance();
 
     private ArrayList<PostDocument> mSnapshots = new ArrayList<>();
 
-    private DocumentSnapshot lastVisible;
-    boolean needToload= true;
-    private static final int THRESHOLD =10;
-
     private PostHelper postHelper;
 
-    @Override
-    public void updateList(ArrayList<PostDocument> snapshots) {
-        mSnapshots.addAll(snapshots);
-    }
+    private Query mQuery;
 
-    public FirestoreAdapter(Query query) {
-        mQuery = query;
-        postHelper= new PostHelper(query);
+
+
+    public FirestoreAdapter() {
+        mQuery= FirebaseFirestore.getInstance().collection("posts");
+        postHelper= new PostHelper(mQuery);
     }
     //To query a collection of documents, be it post or comment.
     // Invoke makeQuery method when starting to load data.
-    public void makeQuery(Query query){
+    public void makeQuery(){
 
-       postHelper.makeQuery(query,this);
+       postHelper.makeQuery(new PostHelper.UpdateSnapshot() {
+           @Override
+           public void updateList(ArrayList<PostDocument> snapshots) {
+               mSnapshots.addAll(snapshots);
+           }
+       });
     }
     //this method can be called as soon as we have to load more data with the same query
     //parameters as earlier. Here we can use the lastVisible documentSnapshot to start with.
     public void makeNextSetOfQuery(){
-        postHelper.makeNextSetOfQuery(this);
+        postHelper.makeNextSetOfQuery();
     }
 
     @Override

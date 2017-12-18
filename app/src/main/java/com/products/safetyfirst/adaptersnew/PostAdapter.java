@@ -9,9 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.Query;
 import com.products.safetyfirst.Pojos.PostModel;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.androidhelpers.PostDocument;
@@ -34,10 +32,9 @@ public class PostAdapter extends FirestoreAdapter<PostAdapter.ViewHolder>{
 
     private OnPostSelectedListener mListener;
 
-    public PostAdapter(Query query, OnPostSelectedListener listener) {
-        super(query);
+    public PostAdapter(OnPostSelectedListener listener) {
         Log.e("PostAdapter","Post Adapter Constructor called");
-        makeQuery(query);
+        makeQuery();
         mListener = listener;
 
     }
@@ -78,9 +75,8 @@ public class PostAdapter extends FirestoreAdapter<PostAdapter.ViewHolder>{
         public void bind(final PostDocument snapshot,
                          final OnPostSelectedListener listener) {
 
-            //PostModel postModel = (PostModel) snapshot.getData();
             PostModel postModel= new PostModel(snapshot.getPostDocument().getData(),snapshot.getUserDocument().getData()) ;
-            //Log.v("FirestoreAdapter",postModel.toString());
+
             Resources resources = itemView.getResources();
 
             // Load image
@@ -106,7 +102,5 @@ public class PostAdapter extends FirestoreAdapter<PostAdapter.ViewHolder>{
         }
 
     }
-
-
 
 }

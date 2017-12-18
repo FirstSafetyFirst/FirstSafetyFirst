@@ -16,8 +16,6 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.activity.NewPostActivity;
 import com.products.safetyfirst.impementations.presenter.PostPresenterImpl;
@@ -67,13 +65,8 @@ public class DiscussionFragment extends Fragment implements PostsView{
     }
 
     private void fillUI() {
-        /*
-        adapter = new PostAdapter(getContext(), getCurrentUserId());
-        adapter.request();
-        recycler.setAdapter(adapter);
-        */
-       Query query= FirebaseFirestore.getInstance().collection("posts");
-        adapter=new com.products.safetyfirst.adaptersnew.PostAdapter(query, new com.products.safetyfirst.adaptersnew.PostAdapter.OnPostSelectedListener() {
+
+        adapter=new com.products.safetyfirst.adaptersnew.PostAdapter( new com.products.safetyfirst.adaptersnew.PostAdapter.OnPostSelectedListener() {
             @Override
             public void onPostSelected(DocumentSnapshot restaurant) {
                 //TODO: do something here, till then this temporary snackbar
