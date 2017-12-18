@@ -37,18 +37,17 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder>
 
     public FirestoreAdapter() {
         mQuery= FirebaseFirestore.getInstance().collection("posts");
-        postHelper= new PostHelper(mQuery);
+        postHelper= new PostHelper(mQuery, new PostHelper.UpdateSnapshot() {
+            @Override
+            public void updateList(ArrayList<PostDocument> snapshots) {
+                mSnapshots.addAll(snapshots);
+            }
+        });
     }
     //To query a collection of documents, be it post or comment.
     // Invoke makeQuery method when starting to load data.
     public void makeQuery(){
-
-       postHelper.makeQuery(new PostHelper.UpdateSnapshot() {
-           @Override
-           public void updateList(ArrayList<PostDocument> snapshots) {
-               mSnapshots.addAll(snapshots);
-           }
-       });
+       postHelper.makeQuery();
     }
     //this method can be called as soon as we have to load more data with the same query
     //parameters as earlier. Here we can use the lastVisible documentSnapshot to start with.
