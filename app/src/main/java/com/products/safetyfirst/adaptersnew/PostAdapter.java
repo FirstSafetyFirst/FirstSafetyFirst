@@ -24,6 +24,8 @@ import butterknife.ButterKnife;
 public class PostAdapter extends FirestoreAdapter<PostAdapter.ViewHolder>{
 
 
+    private static final int THRESHOLD = 10;
+
     public interface OnPostSelectedListener {
 
         void onPostSelected(DocumentSnapshot post);
@@ -47,6 +49,8 @@ public class PostAdapter extends FirestoreAdapter<PostAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        if( getItemCount() < position + THRESHOLD)
+            makeNextSetOfQuery();
         holder.bind(getSnapshot(position), mListener);
     }
 

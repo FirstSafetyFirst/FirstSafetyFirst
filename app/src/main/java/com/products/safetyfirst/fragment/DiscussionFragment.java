@@ -108,13 +108,6 @@ public class DiscussionFragment extends Fragment implements PostsView{
                 }
             }
 
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                if(dy+10 > adapter.getItemCount()){
-                    adapter.makeNextSetOfQuery();
-                }
-            }
         });
        // mProgressbar = view.findViewById(R.id.newspaginateprogbar);
 
