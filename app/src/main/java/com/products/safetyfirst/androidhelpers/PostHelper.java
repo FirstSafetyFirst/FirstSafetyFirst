@@ -19,128 +19,123 @@ import java.util.ArrayList;
 
 public class PostHelper {
 
-    public interface UpdateSnapshot{
+    public interface UpdateSnapshot {
         void updateList(ArrayList<PostDocument> mSnapshots);
     }
 
-    private static final String TAG= "PostHelper";
-    private int THRESHOLD= 10;
+    private static final String TAG = "PostHelper";
+    private int THRESHOLD = 10;
     private UpdateSnapshot updateSnapshot;
-    private ArrayList<PostDocument> mSnapshots= new ArrayList<>();
-    DocumentSnapshot postLastVisible, authorLastVisible,usersnapshot;
-    Query mQuery;
+    private ArrayList<PostDocument> mSnapshots = new ArrayList<>();
+    private DocumentSnapshot postLastVisible, authorLastVisible, userSnapshot;
+    private Query mQuery;
 
-    public PostHelper(Query query) {
-        mQuery=query.limit(THRESHOLD);
+    public PostHelper(Query query, UpdateSnapshot updateSnapshot) {
+        mQuery = query.limit(THRESHOLD);
+        this.updateSnapshot = updateSnapshot;
     }
 
     private int document_count;
-    private boolean ismakeQueryCalled= false;
+    private boolean isMakeQueryCalled = false;
 
     // Invoke makeQuery method when starting to load data.
-    public void makeQuery(UpdateSnapshot u){
-        ismakeQueryCalled=true;
-            updateSnapshot=u;
-            Log.v(TAG,mQuery.toString());
-            mQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+    public void makeQuery() {
+        isMakeQueryCalled = true;
+        Log.v(TAG, mQuery.toString());
+        mQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
-                    if (task.isSuccessful()) {
-                        document_count=0;
-                        for (final DocumentSnapshot postdocument : task.getResult()) {
-                            document_count++;
-                            Log.v(TAG, postdocument.getId() + " => " + postdocument.getData());
-                            PostModel postModel= new PostModel(postdocument.getData()) ;
-                            String uid= postModel.getUid();
-                            FirebaseFirestore.getInstance().collection("users").whereEqualTo("id",uid).get()
-                                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                            if(task.isSuccessful()){
-                                                if(!task.getResult().isEmpty()) {
-                                                    usersnapshot = task.getResult().getDocuments().get(0);
-
-                                                    if(document_count==10) {
-                                                        mSnapshots.add(new PostDocument(postdocument,usersnapshot));
-                                                        updateSnapshot.updateList(mSnapshots);
-                                                        PostHelper.this.notify();
-                                                        postLastVisible=postdocument;
-                                                        authorLastVisible=usersnapshot;
-                                                    }
-                                                }
-                                                else
-                                                 usersnapshot=null;
+                if (task.isSuccessful()) {
+                    document_count = 0;
+                    for (final DocumentSnapshot postdocument : task.getResult()) {
+                        document_count++;
+                        Log.v(TAG, postdocument.getId() + " => " + postdocument.getData());
+                        PostModel postModel = new PostModel(postdocument.getData());
+                        String uid = postModel.getUid();
+                        FirebaseFirestore.getInstance().collection("users").whereEqualTo("id", uid).get()
+                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                        if (task.isSuccessful() && !task.getResult().isEmpty()) {
+                                            userSnapshot = task.getResult().getDocuments().get(0);
+                                            mSnapshots.add(new PostDocument(postdocument, userSnapshot));
+                                            if (document_count == THRESHOLD) {
+                                                updateSnapshot.updateList(mSnapshots);
+                                                mSnapshots.clear();
+                                                postLastVisible = postdocument;
+                                                authorLastVisible = userSnapshot;
                                             }
-                                        }
-                                    });
+                                        } else
+                                            userSnapshot = null;
+                                    }
+                                });
 
-                        }
-                    } else {
-                        Log.v(TAG, "Error getting documents: ", task.getException());
                     }
+                } else {
+                    Log.v(TAG, "Error getting documents: ", task.getException());
                 }
-            });
+            }
+        });
 
         mSnapshots.clear();
     }
 
     //this method can be called as soon as we have to load more data with the same query
     //parameters as earlier. Here we can use the lastVisible documentSnapshot to start with.
-    public void makeNextSetOfQuery(){
-        if(!ismakeQueryCalled){
-            Log.v(TAG,"Error: First invoke makeQuery");
+    public void makeNextSetOfQuery() {
+        if (!isMakeQueryCalled || postLastVisible == null) {
+            Log.v(TAG, "Error: First invoke makeQuery");
+            return;
         }
-        else {
-            if (postLastVisible != null)
-                mQuery.startAt(postLastVisible)
-                        .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            document_count=0;
-                            for (final DocumentSnapshot postdocument : task.getResult()) {
-                                document_count++;
-                                Log.v(TAG, postdocument.getId() + " => " + postdocument.getData());
-                                PostModel postModel = new PostModel(postdocument.getData());
-                                String uid = postModel.getUid();
-                                FirebaseFirestore.getInstance().collection("users").whereEqualTo("uid", uid).get()
-                                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                                if (task.isSuccessful()) {
-                                                    usersnapshot = task.getResult().getDocuments().get(0);
-                                                    if(document_count==10) {
-                                                        mSnapshots.add(new PostDocument(postdocument, usersnapshot));
-                                                        updateSnapshot.updateList(mSnapshots);
-                                                        PostHelper.this.notify();
-                                                        postLastVisible=postdocument;
-                                                        authorLastVisible=usersnapshot;
-                                                    }
-                                                }
+        mQuery.startAt(postLastVisible)
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    document_count = 0;
+                    for (final DocumentSnapshot postdocument : task.getResult()) {
+                        document_count++;
+                        Log.v(TAG, postdocument.getId() + " => " + postdocument.getData());
+                        PostModel postModel = new PostModel(postdocument.getData());
+                        String uid = postModel.getUid();
+                        FirebaseFirestore.getInstance().collection("users").whereEqualTo("uid", uid).get()
+                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                        if (task.isSuccessful() && !task.getResult().isEmpty()) {
+                                            userSnapshot = task.getResult().getDocuments().get(0);
+                                            mSnapshots.add(new PostDocument(postdocument, userSnapshot));
+                                            if (document_count == THRESHOLD) {
+                                                updateSnapshot.updateList(mSnapshots);
+                                                mSnapshots.clear();
+                                                postLastVisible = postdocument;
+                                                authorLastVisible = userSnapshot;
                                             }
-                                        });
-                            }
-
-                        } else {
-                            Log.v(TAG, "Error getting documents: ", task.getException());
-                        }
+                                        }
+                                    }
+                                });
                     }
-                });
-            mSnapshots.clear();
-        }
+
+                } else {
+                    Log.v(TAG, "Error getting documents: ", task.getException());
+                }
+            }
+        });
+        mSnapshots.clear();
     }
 
     DocumentSnapshot author;
-    public DocumentSnapshot findAuthor(DocumentSnapshot d){
-        PostModel p= new PostModel(d.getData());
-        String uid= p.getUid();
-        FirebaseFirestore.getInstance().collection("users").whereEqualTo("uid",uid).get()
+
+    public DocumentSnapshot findAuthor(DocumentSnapshot d) {
+        PostModel p = new PostModel(d.getData());
+        String uid = p.getUid();
+        FirebaseFirestore.getInstance().collection("users").whereEqualTo("uid", uid).get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if(task.isSuccessful()){
-                            author= task.getResult().getDocuments().get(0);
+                        if (task.isSuccessful()) {
+                            author = task.getResult().getDocuments().get(0);
                         }
                     }
                 });
