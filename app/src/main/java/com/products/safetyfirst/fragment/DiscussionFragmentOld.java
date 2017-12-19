@@ -109,7 +109,7 @@ public class DiscussionFragmentOld extends Fragment {
         //com.google.firebase.database.Query postQuery =  mDatabase.child("posts").orderByKey().limitToLast(10);
         Query query= FirebaseFirestore.getInstance().collection("posts");
        // post_recycler.setAdapter(new DiscussionAdapterOld(getActivity(),postQuery, mDatabase, mpaginateprogbar));
-        post_recycler.setAdapter(new PostAdapter(query, new PostAdapter.OnPostSelectedListener() {
+        post_recycler.setAdapter(new PostAdapter(new PostAdapter.OnPostSelectedListener() {
             @Override
             public void onPostSelected(DocumentSnapshot restaurant) {
                 Snackbar.make(getView(),"Selected", BaseTransientBottomBar.LENGTH_LONG);
