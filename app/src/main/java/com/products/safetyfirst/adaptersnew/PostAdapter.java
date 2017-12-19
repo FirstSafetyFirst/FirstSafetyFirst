@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.products.safetyfirst.Pojos.PostModel;
 import com.products.safetyfirst.R;
@@ -35,7 +36,6 @@ public class PostAdapter extends FirestoreAdapter<PostAdapter.ViewHolder>{
     private OnPostSelectedListener mListener;
 
     public PostAdapter(OnPostSelectedListener listener) {
-        Log.e("PostAdapter","Post Adapter Constructor called");
         makeQuery();
         mListener = listener;
 
@@ -84,7 +84,7 @@ public class PostAdapter extends FirestoreAdapter<PostAdapter.ViewHolder>{
             Resources resources = itemView.getResources();
 
             // Load image
-         /*   Glide.with(imageView.getContext())
+            Glide.with(imageView.getContext())
                     .load(postModel.getPhotoUrl())
                     .into(imageView);
             Glide.with(imageView.getContext())
@@ -92,7 +92,7 @@ public class PostAdapter extends FirestoreAdapter<PostAdapter.ViewHolder>{
                     .into(postAutorPhoto);
             postTitle.setText(postModel.getTitle());
             postAuthor.setText(postModel.getAuthor());
-            postBody.setText(postModel.getBody());*/
+            postBody.setText(postModel.getBody());
 
             // Click listener
             itemView.setOnClickListener(new View.OnClickListener() {

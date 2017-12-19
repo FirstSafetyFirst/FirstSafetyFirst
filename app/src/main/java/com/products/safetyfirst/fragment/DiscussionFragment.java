@@ -61,14 +61,14 @@ public class DiscussionFragment extends Fragment implements PostsView{
     @Override
     public void onStart() {
         super.onStart();
-        //fillUI();
+        fillUI();
     }
 
     private void fillUI() {
 
         adapter=new com.products.safetyfirst.adaptersnew.PostAdapter( new com.products.safetyfirst.adaptersnew.PostAdapter.OnPostSelectedListener() {
             @Override
-            public void onPostSelected(DocumentSnapshot restaurant) {
+            public void onPostSelected(DocumentSnapshot post) {
                 //TODO: do something here, till then this temporary snackbar
                 Snackbar.make(getView(),"Selected", BaseTransientBottomBar.LENGTH_LONG);
             }
