@@ -2,7 +2,6 @@ package com.products.safetyfirst.Pojos;
 
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
-import com.google.firebase.firestore.DocumentReference;
 
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +28,19 @@ public class PostModel {
 
     public PostModel() {
     }
+    //constructor for conversion of data returned from snapshot to postModel.
+    public PostModel(Map<String,Object> map){
+        HashMap<String,Object> hashMap= new HashMap<>(map);
+        title= hashMap.get("title").toString();
+        body=hashMap.get("body").toString();
+        uid=hashMap.get("uid").toString();
+        //imageList=
+        //fileList=
+        //author=hashMap.get("author").toString();
+        //authorImageUrl=hashMap.get("authorImageUrl").toString();
+        //photoUrl= hashMap.get("photoUrl").toString();
+
+    }
 
     public PostModel(String title, String body, String uid, String author, List<String> imageList, List<String> fileList) {
         this.title = title;
@@ -37,6 +49,16 @@ public class PostModel {
         this.imageList = imageList;
         this.fileList = fileList;
         this.author = author;
+    }
+    //constructor for the combined query of author and post
+    public PostModel(Map<String, Object> postData, Map<String, Object> authorData) {
+        HashMap<String,Object> postMap= new HashMap<>(postData);
+        HashMap<String,Object> authorMap= new HashMap<>(authorData);
+        title= postMap.get("title").toString();
+        body=postMap.get("body").toString();
+        uid=postMap.get("uid").toString();
+        author= authorMap.get("name").toString();
+        photoUrl= authorMap.get("photoUrl").toString();
     }
 
     public String getTitle() {

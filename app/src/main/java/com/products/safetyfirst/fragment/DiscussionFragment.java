@@ -16,8 +16,6 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.activity.NewPostActivity;
 import com.products.safetyfirst.impementations.presenter.PostPresenterImpl;
@@ -67,11 +65,8 @@ public class DiscussionFragment extends Fragment implements PostsView{
     }
 
     private void fillUI() {
-        //adapter = new PostAdapter(getContext(), "");
-        //adapter.request();
-        //recycler.setAdapter(ad);
-        Query query= FirebaseFirestore.getInstance().collection("posts");
-        adapter=new com.products.safetyfirst.adaptersnew.PostAdapter(query, new com.products.safetyfirst.adaptersnew.PostAdapter.OnPostSelectedListener() {
+
+        adapter=new com.products.safetyfirst.adaptersnew.PostAdapter( new com.products.safetyfirst.adaptersnew.PostAdapter.OnPostSelectedListener() {
             @Override
             public void onPostSelected(DocumentSnapshot restaurant) {
                 //TODO: do something here, till then this temporary snackbar
@@ -79,7 +74,6 @@ public class DiscussionFragment extends Fragment implements PostsView{
             }
         });
         recycler.setAdapter(adapter);
-
     }
 
     private void createUI(View view) {
@@ -114,10 +108,6 @@ public class DiscussionFragment extends Fragment implements PostsView{
                 }
             }
 
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-            }
         });
        // mProgressbar = view.findViewById(R.id.newspaginateprogbar);
 

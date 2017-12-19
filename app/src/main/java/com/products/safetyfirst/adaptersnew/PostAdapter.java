@@ -9,11 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.Query;
 import com.products.safetyfirst.Pojos.PostModel;
 import com.products.safetyfirst.R;
+import com.products.safetyfirst.androidhelpers.PostDocument;
 import com.products.safetyfirst.utils.JustifiedWebView;
 
 import butterknife.BindView;
@@ -22,7 +21,10 @@ import butterknife.ButterKnife;
 /**
  * RecyclerView adapter for a list of Posts.
  */
-public class PostAdapter extends FirestoreAdapter<PostAdapter.ViewHolder> {
+public class PostAdapter extends FirestoreAdapter<PostAdapter.ViewHolder>{
+
+
+    private static final int THRESHOLD = 10;
 
     public interface OnPostSelectedListener {
 
@@ -32,10 +34,9 @@ public class PostAdapter extends FirestoreAdapter<PostAdapter.ViewHolder> {
 
     private OnPostSelectedListener mListener;
 
-    public PostAdapter(Query query, OnPostSelectedListener listener) {
-        super(query);
+    public PostAdapter(OnPostSelectedListener listener) {
         Log.e("PostAdapter","Post Adapter Constructor called");
-        makeQuery(query);
+        makeQuery();
         mListener = listener;
 
     }
@@ -48,6 +49,8 @@ public class PostAdapter extends FirestoreAdapter<PostAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        if( getItemCount() < position + THRESHOLD)
+            makeNextSetOfQuery();
         holder.bind(getSnapshot(position), mListener);
     }
 
@@ -73,10 +76,11 @@ public class PostAdapter extends FirestoreAdapter<PostAdapter.ViewHolder> {
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(final DocumentSnapshot snapshot,
+        public void bind(final PostDocument snapshot,
                          final OnPostSelectedListener listener) {
 
-            PostModel postModel = (PostModel) snapshot.getData().get(0);
+            PostModel postModel= new PostModel(snapshot.getPostDocument().getData(),snapshot.getUserDocument().getData()) ;
+
             Resources resources = itemView.getResources();
 
             // Load image
@@ -95,11 +99,12 @@ public class PostAdapter extends FirestoreAdapter<PostAdapter.ViewHolder> {
                 @Override
                 public void onClick(View view) {
                     if (listener != null) {
-                        listener.onPostSelected(snapshot);
+                        listener.onPostSelected(snapshot.getPostDocument());
                     }
                 }
             });
         }
 
     }
+
 }
