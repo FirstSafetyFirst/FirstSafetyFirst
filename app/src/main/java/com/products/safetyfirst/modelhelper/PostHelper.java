@@ -53,7 +53,7 @@ public class PostHelper {
             final String title,
             final String body,
             final List<String> fileList,
-            final List<String> imageList) {
+            final List<String> imageList,final List<String> post_tags) {
 
             PostModel post = new PostModel(
                     title, body, userhelper.getUserId(), userhelper.getUserName(), imageList, fileList
@@ -68,6 +68,12 @@ public class PostHelper {
         keyValue.put(postKey.getId(), true);
 
         getFireStore().collection(Constants.USERS_POSTS_LINK).document(userhelper.getUserId()).set(keyValue);
+        //implementation for adding post key to tags-posts
+        if(post_tags.size()>0)
+        for(String tag:post_tags){
+            getFireStore().collection("posts-tags").document(tag).set(keyValue);
+        }
+
            // DatabaseUtil.getDatabase().getReference().child(Constants.POSTS_STARS_LINK).child(postKey).setValue(0);
            // DatabaseUtil.getDatabase().getReference().child(Constants.POSTS_VIEWS_LINK).child(postKey).setValue(0);
     }
