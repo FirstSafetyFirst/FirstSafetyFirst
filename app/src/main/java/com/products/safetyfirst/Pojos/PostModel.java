@@ -3,7 +3,6 @@ package com.products.safetyfirst.Pojos;
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +25,6 @@ public class PostModel {
     private List<String> fileList;
     public Map<String, Boolean> stars = new HashMap<>();
     private String image;
-    private ArrayList<String> tags= new ArrayList<>();
 
     public PostModel() {
     }
@@ -45,14 +43,14 @@ public class PostModel {
     }
 
     public PostModel(String title, String body, String uid, String author,
-                     List<String> imageList, List<String> fileList/**,ArrayList<String> tags**/) {
+                     List<String> imageList, List<String> fileList) {
         this.title = title;
         this.body = body;
         this.uid = uid;
         this.imageList = imageList;
         this.fileList = fileList;
         this.author = author;
-        //this.tags=tags;
+
     }
     //constructor for the combined query of author and post
     public PostModel(Map<String, Object> postData, Map<String, Object> authorData) {
