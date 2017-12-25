@@ -42,13 +42,15 @@ public class PostModel {
 
     }
 
-    public PostModel(String title, String body, String uid, String author, List<String> imageList, List<String> fileList) {
+    public PostModel(String title, String body, String uid, String author,
+                     List<String> imageList, List<String> fileList) {
         this.title = title;
         this.body = body;
         this.uid = uid;
         this.imageList = imageList;
         this.fileList = fileList;
         this.author = author;
+
     }
     //constructor for the combined query of author and post
     public PostModel(Map<String, Object> postData, Map<String, Object> authorData) {
