@@ -13,7 +13,7 @@ import java.util.Map;
 @IgnoreExtraProperties
 public class PostModel {
 
-    private List<String> tagList;
+    private HashMap<String,Boolean> tags;
     private String author;
     private String authorImageUrl;
     private String body;
@@ -44,14 +44,14 @@ public class PostModel {
     }
 
     public PostModel(String title, String body, String uid, String author,
-                     List<String> imageList, List<String> fileList, List<String> tagList) {
+                     List<String> imageList, List<String> fileList, HashMap<String,Boolean> tags) {
         this.title = title;
         this.body = body;
         this.uid = uid;
         this.imageList = imageList;
         this.fileList = fileList;
         this.author = author;
-        this.tagList= tagList;
+        this.tags= tags;
 
     }
     //constructor for the combined query of author and post
@@ -161,12 +161,12 @@ public class PostModel {
         this.stars = stars;
     }
 
-    public List<String> getTagList() {
-        return tagList;
+    public HashMap<String,Boolean> getTags() {
+        return tags;
     }
 
-    public void setTagList(List<String> tagList) {
-        this.tagList = tagList;
+    public void setTags(HashMap<String,Boolean> tags) {
+        this.tags = tags;
     }
 
     @Exclude
@@ -181,7 +181,7 @@ public class PostModel {
         result.put("stars", stars);
         result.put("authorImageUrl", authorImageUrl);
         result.put("imageList", imageList);
-        result.put("tags",tagList);
+        result.put("tags",tags);
         return result;
     }
 }

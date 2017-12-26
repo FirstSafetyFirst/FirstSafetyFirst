@@ -54,10 +54,10 @@ public class PostHelper {
             final String body,
             final List<String> fileList,
             final List<String> imageList,
-            final List<String> post_tags) {
+            final HashMap<String,Boolean> tags) {
 
             PostModel post = new PostModel(
-                    title, body, userhelper.getUserId(), userhelper.getUserName(), imageList, fileList,post_tags
+                    title, body, userhelper.getUserId(), userhelper.getUserName(), imageList, fileList,tags
             );
 
             //WRITE TO FIREBASE
