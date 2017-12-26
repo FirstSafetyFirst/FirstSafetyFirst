@@ -68,6 +68,7 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
     private ImageSelectionHelper imageSelectionHelper;
     private ImageHelper imageHelper;
     private TagHelper tagHelper;
+    private HashMap<String,Boolean> tags;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -246,14 +247,18 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
             Toast.makeText(this, postKey.getId(), Toast.LENGTH_SHORT).show();
             Analytics.logEventShare(getApplicationContext(),titleText.getText().toString(),postKey.toString());
             List<String> imageUrls = new ArrayList<>();
-
+            //make a map out of the array list of tags
+            tags= new HashMap<>();
+            for(int i=0;i<post_tags.size();i++){
+                tags.put(post_tags.get(i),true);
+            }
             postHelper.createImageUrls(postKey.toString(), imageList, imageUrls, 0, new PostHelper.UploadCallbacks() {
                 NotificationHelper.ProgressNotification progressNotification;
 
                 @Override
                 public void onComplete(List<String> imageList) {
 
-                    postHelper.createNewPost(postKey, titleText.getText().toString(), editor.getHtml(), null, imageList,post_tags);
+                    postHelper.createNewPost(postKey, titleText.getText().toString(), editor.getHtml(), null, imageList,tags);
 
                     int notificationId = notifHelper.createNotif(NewPostActivity.this, "Created new post", titleText.getText().toString());
                     if(progressNotification != null) {
