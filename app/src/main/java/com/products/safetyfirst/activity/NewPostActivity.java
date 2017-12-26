@@ -68,6 +68,7 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
     private ImageSelectionHelper imageSelectionHelper;
     private ImageHelper imageHelper;
     private TagHelper tagHelper;
+    private boolean isTagButtonClicked= false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,6 +139,7 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
     }
     private int counter=0;
     private void handleClickForTagButton() {
+        isTagButtonClicked= true;
         if(counter==0){
             showTags();
         }
@@ -243,6 +245,18 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
             Toast.makeText(this, postKey.getId(), Toast.LENGTH_SHORT).show();
             Analytics.logEventShare(getApplicationContext(),titleText.getText().toString(),postKey.toString());
             List<String> imageUrls = new ArrayList<>();
+            //check if user hasn't added any tags
+            if(!isTagButtonClicked){
+                String post_content = (titleText.getText().toString()+" "+editor.getHtml()).toLowerCase();
+
+                ArrayList<String> tags= tagHelper.getTags();
+                //now search for the tags in the post_content
+                for(int i=0;i<tags.size();i++){
+                    if(post_content.contains(tags.get(i))){
+                        post_tags.add(tags.get(i));
+                    }
+                }
+            }
             postHelper.createImageUrls(postKey.toString(), imageList, imageUrls, 0, new PostHelper.UploadCallbacks() {
                 NotificationHelper.ProgressNotification progressNotification;
 
