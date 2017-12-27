@@ -9,21 +9,21 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.products.safetyfirst.Pojos.UserModel;
 import com.products.safetyfirst.interfaces.interactor.UpdateProfileInteractor;
 import com.products.safetyfirst.interfaces.presenter.UpdateProfilePresenter;
-import com.products.safetyfirst.Pojos.UserModel;
+import com.products.safetyfirst.utils.DatabaseUtil;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
 
 /**
  * Created by vikas on 04/10/17.
@@ -80,15 +80,15 @@ public class UpdateProfileInteractorImpl implements UpdateProfileInteractor {
             childUpdates.put("city", city);
            // childUpdates.put("certificate", certificate);
             childUpdates.put("phone",phone.toString());
-            DatabaseReference mProfileReference;
+            DocumentReference mProfileReference;
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             String mProfileKey = null;
 
             if (user != null) {
-                mProfileKey = user.getUid();
-                mProfileReference = getDatabase().getReference()
-                        .child("users").child(mProfileKey);
-                mProfileReference.updateChildren(childUpdates);
+
+            mProfileKey = user.getUid();
+            mProfileReference = DatabaseUtil.getFireStore().collection("users").document(mProfileKey);
+            mProfileReference.set(childUpdates, SetOptions.merge());
             }
             listener.onSuccess();
         }
@@ -97,7 +97,7 @@ public class UpdateProfileInteractorImpl implements UpdateProfileInteractor {
     @Override
     public void getProfile() {
 
-        DatabaseReference mProfileReference;
+        DocumentReference mProfileReference;
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String mProfileKey = null;
 
@@ -105,20 +105,17 @@ public class UpdateProfileInteractorImpl implements UpdateProfileInteractor {
 
         if (user != null) {
             mProfileKey = user.getUid();
-
-            mProfileReference = getDatabase().getReference()
-                    .child("users").child(mProfileKey);
-
-            mProfileReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            mProfileReference= DatabaseUtil.getFireStore().collection("users").document(mProfileKey);
+            mProfileReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
                 @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    UserModel user = dataSnapshot.getValue(UserModel.class);
-                    presenter.getProfile(user);
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    Log.w("UpdateProfileInteractor", "loadPost:onCancelled", databaseError.toException());
+                public void onEvent(DocumentSnapshot documentSnapshot, FirebaseFirestoreException e) {
+                    if(e!=null){
+                      e.printStackTrace();
+                    }
+                    else if(documentSnapshot.exists()){
+                        UserModel user = documentSnapshot.toObject(UserModel.class);
+                        presenter.getProfile(user);
+                    }
                 }
             });
         }

@@ -2,23 +2,21 @@ package com.products.safetyfirst.impementations.Interactor;
 
 import android.util.Log;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.products.safetyfirst.Pojos.InterestModel;
 import com.products.safetyfirst.interfaces.interactor.AddInterestInteractor;
 import com.products.safetyfirst.interfaces.presenter.AddInterestPresenter;
-import com.products.safetyfirst.Pojos.InterestModel;
+import com.products.safetyfirst.utils.DatabaseUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
 
 /**
  * Created by vikas on 05/10/17.
@@ -33,26 +31,33 @@ public class AddInterestInteractorImpl implements AddInterestInteractor {
     }
 
     @Override
-    public void addInterest(InterestModel interests, OnUpdateFinishedListener listener) {
+    public void addInterest(InterestModel interests, final OnUpdateFinishedListener listener) {
 
 
-        DatabaseReference mInterestReference;
+        DocumentReference mInterestReference;
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         if (user != null) {
 
             String mProfileKey = user.getUid();
 
-            mInterestReference = getDatabase().getReference()
-                    .child("user-interests").child(mProfileKey);
+            mInterestReference = DatabaseUtil.getFireStore()
+                    .collection("users-interests").document(mProfileKey);
 
             Map<String , Object> data = new HashMap<>();
             if (interests != null)
              data.put(interests.getInterest(), interests.getLiked());
-            mInterestReference.updateChildren(data);
+             mInterestReference.update(data)
+             .addOnSuccessListener(new OnSuccessListener<Void>() {
+                 @Override
+                 public void onSuccess(Void aVoid) {
+                     Log.v("AddInterestInteractor","Interests added");
+                     listener.onSuccess();
+                 }
+             });
 
         }
-        listener.onSuccess();
+        //listener.onSuccess();
 
 
     }
@@ -60,34 +65,39 @@ public class AddInterestInteractorImpl implements AddInterestInteractor {
     @Override
     public void requestInterest() {
 
-        Query query;
+        DocumentReference query;
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String mProfileKey;
 
-        if (user != null) {
-            mProfileKey = user.getUid();
+        if(user!=null){
+            mProfileKey= user.getUid();
 
-            query = FirebaseDatabase.getInstance().getReference()
-                    .child("user-interests").child(mProfileKey);
+            query= DatabaseUtil.getFireStore().collection("users-interests").document(mProfileKey);
 
-            query.addValueEventListener(new ValueEventListener() {
+            query.addSnapshotListener(new EventListener<DocumentSnapshot>() {
                 @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    ArrayList<InterestModel> mListOfInterests = new ArrayList<>();
-
-                    for (DataSnapshot x : dataSnapshot.getChildren()) {
-                        mListOfInterests.add(new InterestModel(x.getKey(), (Boolean) x.getValue()));
+                public void onEvent(DocumentSnapshot documentSnapshot, FirebaseFirestoreException e) {
+                    if (e != null) {
+                        Log.v("AddInterestInteractor", "Listen failed.", e);
+                        return;
                     }
-                    presenter.getChildren(mListOfInterests);
-                }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    Log.e("Add Project Interacter", "Could not fetch projects");
+                    if (documentSnapshot != null && documentSnapshot.exists()) {
+
+                        ArrayList<InterestModel>mListofInterests = new ArrayList<>();
+                        Object[] keys= documentSnapshot.getData().keySet().toArray();
+                        Object[] values= documentSnapshot.getData().values().toArray();
+                        for(int i=0; i<keys.length;i++){
+                            mListofInterests.add(new InterestModel(keys[i].toString(),(Boolean) values[i]));
+                        }
+                        presenter.getChildren(mListofInterests);
+                        Log.v("AddInterestInteractor",mListofInterests.toString());
+
+                    } else {
+                        Log.v("AddInterestInteractor", "Current data: null");
+                    }
                 }
             });
-
-
         }
     }
 }
