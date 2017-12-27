@@ -1,7 +1,18 @@
 package com.products.safetyfirst.modelhelper;
 
+import android.support.annotation.NonNull;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.products.safetyfirst.Pojos.UserModel;
+
+import static com.products.safetyfirst.utils.DatabaseUtil.getFireStore;
 
 /**
  * Created by rishabh on 14/10/17.
@@ -19,6 +30,30 @@ public class UserHelper {
     }
 
     private final FirebaseAuth auth = FirebaseAuth.getInstance();
+
+    public boolean writeUser(){
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        //WRITE TO FIREBASE
+        FirebaseFirestore db = getFireStore();
+
+        UserModel userModel = new UserModel(user.getDisplayName(), user.getPhotoUrl()==null?"":user.getPhotoUrl().toString());
+
+        db.collection("users").document(user.getUid())
+                .set(userModel)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("LOGIN", "DocumentSnapshot added with ID: " + user.getUid());
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("LOGIN", "Error adding document", e);
+                    }
+                });
+        return  false;
+    }
 
     public boolean isSignedIn() {
         return (auth.getCurrentUser() != null);
