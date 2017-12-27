@@ -68,6 +68,7 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
     private ImageSelectionHelper imageSelectionHelper;
     private ImageHelper imageHelper;
     private TagHelper tagHelper;
+    private HashMap<String,Boolean> tags;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +98,15 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
         tag_button= findViewById(R.id.post_tag_btn);
         horizontalScrollView= findViewById(R.id.horizontal_scroll_view_for_tags);
         horizontalScrollView.setHorizontalScrollBarEnabled(false);
+
+        editor.setOnTextChangeListener(new RichEditor.OnTextChangeListener() {
+            @Override
+            public void onTextChange(String text) {
+                horizontalScrollView.removeAllViews();
+                post_tags.clear();
+                showTags();
+            }
+        });
 
         initEditor();
         initImgRecycler();
@@ -136,20 +146,14 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.post_tag_btn: handleClickForTagButton(); break;
         }
     }
-    private int counter=0;
+
     private void handleClickForTagButton() {
-        if(counter==0){
-            showTags();
-        }
-        else if(counter%2==1){
+
+        if(horizontalScrollView.getVisibility()==View.VISIBLE){
             horizontalScrollView.setVisibility(View.GONE);
         }
-        else {
-            horizontalScrollView.removeAllViews();
-            post_tags.clear();
-            showTags();
-        }
-        counter++;
+        else
+            horizontalScrollView.setVisibility(View.VISIBLE);
     }
 
     private  ArrayList<String> post_tags= new ArrayList<>();
@@ -243,13 +247,18 @@ public class NewPostActivity extends AppCompatActivity implements View.OnClickLi
             Toast.makeText(this, postKey.getId(), Toast.LENGTH_SHORT).show();
             Analytics.logEventShare(getApplicationContext(),titleText.getText().toString(),postKey.toString());
             List<String> imageUrls = new ArrayList<>();
+            //make a map out of the array list of tags
+            tags= new HashMap<>();
+            for(int i=0;i<post_tags.size();i++){
+                tags.put(post_tags.get(i),true);
+            }
             postHelper.createImageUrls(postKey.toString(), imageList, imageUrls, 0, new PostHelper.UploadCallbacks() {
                 NotificationHelper.ProgressNotification progressNotification;
 
                 @Override
                 public void onComplete(List<String> imageList) {
 
-                    postHelper.createNewPost(postKey, titleText.getText().toString(), editor.getHtml(), null, imageList,post_tags);
+                    postHelper.createNewPost(postKey, titleText.getText().toString(), editor.getHtml(), null, imageList,tags);
 
                     int notificationId = notifHelper.createNotif(NewPostActivity.this, "Created new post", titleText.getText().toString());
                     if(progressNotification != null) {
