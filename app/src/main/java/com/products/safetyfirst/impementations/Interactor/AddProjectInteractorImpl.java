@@ -1,27 +1,23 @@
 package com.products.safetyfirst.impementations.Interactor;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ServerValue;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.SetOptions;
+import com.products.safetyfirst.Pojos.ProjectModel;
 import com.products.safetyfirst.interfaces.interactor.AddProjectInteractor;
 import com.products.safetyfirst.interfaces.presenter.AddProjectPresenter;
-import com.products.safetyfirst.Pojos.ProjectModel;
+import com.products.safetyfirst.utils.DatabaseUtil;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-
-import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
 
 /**
  * Created by vikas on 04/10/17.
@@ -73,18 +69,18 @@ public class AddProjectInteractorImpl implements AddProjectInteractor {
             childUpdates.put("years", years);
             childUpdates.put("evaluation", evaluation);
             childUpdates.put("timestamp", ServerValue.TIMESTAMP);
-            DatabaseReference mProjectReference;
+            Map<String,Object> map= new HashMap<>();
+            map.put(System.currentTimeMillis()+"",childUpdates);
+            DocumentReference mProjectReference;
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             String mProfileKey = null;
             String mProjectKey = null;
 
             if (user != null) {
-                mProfileKey = user.getUid();
-                mProjectKey = getDatabase().getReference()
-                        .child("user-projects").child(mProfileKey).push().getKey();
-                mProjectReference = FirebaseDatabase.getInstance().getReference()
-                        .child("user-projects").child(mProfileKey).child(mProjectKey);
-                mProjectReference.updateChildren(childUpdates);
+              mProfileKey= user.getUid();
+              mProjectReference= DatabaseUtil.getFireStore().collection("user-projects").document(mProfileKey);
+              mProjectKey= mProjectReference.getId();
+              mProjectReference.set(map, SetOptions.merge());
             }
             listener.onSuccess();
         }
@@ -92,38 +88,33 @@ public class AddProjectInteractorImpl implements AddProjectInteractor {
 
     @Override
     public void requestProjects(String mProfileKey) {
-        Query query;
+        DocumentReference query;
         if ( mProfileKey != null) {
-
-            query = getDatabase().getReference()
-                    .child("user-projects").child(mProfileKey).orderByChild("timestamp");
-
-            query.addValueEventListener(new ValueEventListener() {
+            query= DatabaseUtil.getFireStore().collection("user-projects").document(mProfileKey);
+            query.addSnapshotListener(new EventListener<DocumentSnapshot>() {
                 @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    ArrayList<ProjectModel> mListOfProjects = new ArrayList<>();
-
-                    for (DataSnapshot x : dataSnapshot.getChildren()) {
-                        mListOfProjects.add(x.getValue(ProjectModel.class));
+                public void onEvent(DocumentSnapshot documentSnapshot, FirebaseFirestoreException e) {
+                    if(e!=null){
+                       e.printStackTrace();
                     }
+                    else if(documentSnapshot.exists()&& documentSnapshot!=null){
+                        HashMap<String,Object> map= new HashMap<>(documentSnapshot.getData());
+                        Object[] o= map.values().toArray();
 
-                    Collections.reverse(mListOfProjects);
-
-                    if(mListOfProjects.size() == 0){
-                        presenter.noProjects();
-                    }else {
-                        presenter.getChildren(mListOfProjects);
+                        if(map!=null) {
+                            ArrayList<ProjectModel> mListOfProjects = new ArrayList<>();
+                            for (int i = 0; i< o.length; i++) {
+                                mListOfProjects.add(new ProjectModel((HashMap<String,Object>)o[i]));
+                            }
+                            if(mListOfProjects.size() == 0){
+                                presenter.noProjects();
+                            }else {
+                                presenter.getChildren(mListOfProjects);
+                            }
+                        }
                     }
-
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    Log.e("Add Project Interacter", "Could not fetch projects");
                 }
             });
-
-
         }
 
 
