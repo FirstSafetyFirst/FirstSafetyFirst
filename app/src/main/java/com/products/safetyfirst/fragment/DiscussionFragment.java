@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import android.widget.ProgressBar;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.activity.NewPostActivity;
+import com.products.safetyfirst.androidhelpers.PostHelper;
 import com.products.safetyfirst.impementations.presenter.PostPresenterImpl;
 import com.products.safetyfirst.interfaces.presenter.PostPresenter;
 import com.products.safetyfirst.interfaces.view.PostsView;
@@ -32,7 +34,10 @@ public class DiscussionFragment extends Fragment implements PostsView{
     private RecyclerView recycler;
     private com.products.safetyfirst.adaptersnew.PostAdapter adapter;
     private FloatingActionButton mFab;
-
+    private LinearLayoutManager mlayoutManager;
+    private boolean loading = true;
+    private int pastVisiblesItems, visibleItemCount, totalItemCount;
+    private int THRESHOLD=10;
 
     public DiscussionFragment(){}
 
@@ -66,19 +71,13 @@ public class DiscussionFragment extends Fragment implements PostsView{
 
     private void fillUI() {
 
-        adapter=new com.products.safetyfirst.adaptersnew.PostAdapter( new com.products.safetyfirst.adaptersnew.PostAdapter.OnPostSelectedListener() {
-            @Override
-            public void onPostSelected(DocumentSnapshot restaurant) {
-                //TODO: do something here, till then this temporary snackbar
-                Snackbar.make(getView(),"Selected", BaseTransientBottomBar.LENGTH_LONG);
-            }
-        });
         recycler.setAdapter(adapter);
     }
 
     private void createUI(View view) {
         recycler = view.findViewById(R.id.discussion_recycler);
-        recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mlayoutManager= new LinearLayoutManager(getActivity());
+        recycler.setLayoutManager(mlayoutManager);
         recycler.setHasFixedSize(true);
         recycler.setItemAnimator(new DefaultItemAnimator());
 
@@ -97,6 +96,21 @@ public class DiscussionFragment extends Fragment implements PostsView{
             }
         });
 
+        adapter=new com.products.safetyfirst.adaptersnew.PostAdapter(new com.products.safetyfirst.adaptersnew.PostAdapter.OnPostSelectedListener() {
+            @Override
+            public void onPostSelected(DocumentSnapshot restaurant) {
+                //TODO: do something here, till then this temporary snackbar
+                Snackbar.make(getView(), "Selected", BaseTransientBottomBar.LENGTH_LONG);
+            }
+        }
+        , new PostHelper.NotifyAdapter() {
+            @Override
+            public void notifyChangeInData() {
+                adapter.notifyDataSetChanged();
+                Log.v("PostHelper","Adapter notified");
+            }
+        });
+
         recycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
@@ -107,7 +121,26 @@ public class DiscussionFragment extends Fragment implements PostsView{
                     mFab.show();
                 }
             }
+            /**
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                if(dy > 0) //check for scroll down
+                {
+                    visibleItemCount = mlayoutManager.getChildCount();
+                    totalItemCount = mlayoutManager.getItemCount();
+                    pastVisiblesItems = mlayoutManager.findFirstVisibleItemPosition();
 
+                    if (loading)
+                    {
+                        if ( (visibleItemCount + pastVisiblesItems + THRESHOLD) >= totalItemCount)
+                        {
+                            adapter.makeNextSetOfQuery();
+                        }
+                    }
+                }
+            }
+
+            **/
         });
        // mProgressbar = view.findViewById(R.id.newspaginateprogbar);
 

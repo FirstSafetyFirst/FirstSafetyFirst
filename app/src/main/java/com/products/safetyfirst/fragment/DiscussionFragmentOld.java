@@ -22,6 +22,7 @@ import com.google.firebase.firestore.Query;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.activity.NewPostActivity;
 import com.products.safetyfirst.adaptersnew.PostAdapter;
+import com.products.safetyfirst.androidhelpers.PostHelper;
 import com.products.safetyfirst.modelhelper.UserHelper;
 
 import static com.products.safetyfirst.utils.DatabaseUtil.getDatabase;
@@ -36,7 +37,7 @@ public class DiscussionFragmentOld extends Fragment {
     private DatabaseReference mDatabase;
     private ProgressBar mpaginateprogbar;
     private FloatingActionButton mFab;
-
+    private PostAdapter adapter;
 
     public DiscussionFragmentOld() {
         // Required empty public constructor
@@ -109,10 +110,28 @@ public class DiscussionFragmentOld extends Fragment {
         //com.google.firebase.database.Query postQuery =  mDatabase.child("posts").orderByKey().limitToLast(10);
         Query query= FirebaseFirestore.getInstance().collection("posts");
        // post_recycler.setAdapter(new DiscussionAdapterOld(getActivity(),postQuery, mDatabase, mpaginateprogbar));
+        adapter= new PostAdapter(new PostAdapter.OnPostSelectedListener() {
+            @Override
+            public void onPostSelected(DocumentSnapshot post) {
+                Snackbar.make(getView(), "Selected", BaseTransientBottomBar.LENGTH_LONG);
+            }
+        },
+                new PostHelper.NotifyAdapter() {
+                    @Override
+                    public void notifyChangeInData() {
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+
         post_recycler.setAdapter(new PostAdapter(new PostAdapter.OnPostSelectedListener() {
             @Override
             public void onPostSelected(DocumentSnapshot restaurant) {
-                Snackbar.make(getView(),"Selected", BaseTransientBottomBar.LENGTH_LONG);
+
+            }
+        }, new PostHelper.NotifyAdapter() {
+            @Override
+            public void notifyChangeInData() {
+
             }
         }));
     }

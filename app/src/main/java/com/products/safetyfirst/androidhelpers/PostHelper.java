@@ -23,6 +23,10 @@ public class PostHelper {
         void updateList(ArrayList<PostDocument> mSnapshots);
     }
 
+    public interface NotifyAdapter{
+        void notifyChangeInData();
+    }
+
     private static final String TAG = "PostHelper";
     private int THRESHOLD = 10;
     private UpdateSnapshot updateSnapshot;
@@ -41,7 +45,7 @@ public class PostHelper {
     // Invoke makeQuery method when starting to load data.
     public void makeQuery() {
         isMakeQueryCalled = true;
-        Log.v(TAG, mQuery.toString());
+        Log.v(TAG, mQuery.toString()+"makeQuery() called");
         mQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -84,6 +88,7 @@ public class PostHelper {
     //this method can be called as soon as we have to load more data with the same query
     //parameters as earlier. Here we can use the lastVisible documentSnapshot to start with.
     public void makeNextSetOfQuery() {
+        Log.v(TAG, "makenextsetofQuery");
         if (!isMakeQueryCalled || postLastVisible == null) {
             Log.v(TAG, "Error: First invoke makeQuery");
             return;
@@ -143,3 +148,4 @@ public class PostHelper {
     }
 
 }
+
