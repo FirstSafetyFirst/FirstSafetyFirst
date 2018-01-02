@@ -31,9 +31,8 @@ public class PostInteractorImpl implements PostInteractor {
 
     @Override
     public void requestPosts() {
-        Query query;
 
-        query = getDatabase().getReference()
+        Query query = getDatabase().getReference()
                 .child("posts").orderByKey();
 
         query.addValueEventListener(new ValueEventListener() {

@@ -27,9 +27,8 @@ public class TrainingInteractorImpl implements TrainingInteractor {
 
     @Override
     public void requestTrainingCenterTypes() {
-        Query query;
 
-        query = getDatabase().getReference()
+        Query query = getDatabase().getReference()
                 .child("training");
 
         query.addValueEventListener(new ValueEventListener() {

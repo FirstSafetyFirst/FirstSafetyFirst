@@ -71,6 +71,7 @@ import com.products.safetyfirst.fragment.News_Events_Fragment;
 import com.products.safetyfirst.fragment.ProfileFragment.ProjectsFragment;
 import com.products.safetyfirst.fragment.TrainingFragment;
 import com.products.safetyfirst.fragment.UpdateProfileFragment;
+import com.products.safetyfirst.modelhelper.UserHelper;
 import com.products.safetyfirst.utils.Constants;
 import com.products.safetyfirst.utils.PrefManager;
 
@@ -145,7 +146,7 @@ public class HomeActivity extends BaseActivity
 
         final int versionCode= BuildConfig.VERSION_CODE;
         Query query= getDatabase().getReference().child("current version");
-//        Query query= getDatabase().getReference().child("versionInfo").child("versionCode");
+
         final long[] version = new long[1];
         query.addValueEventListener(new ValueEventListener() {
             @Override
@@ -481,7 +482,6 @@ public class HomeActivity extends BaseActivity
                                 .build(),
                         RC_SIGN_IN);
 
-                //startActivity(new Intent(HomeActivity.this, LoginActivity.class));
             } else
                 showLogoutDialog();
 
@@ -652,10 +652,6 @@ public class HomeActivity extends BaseActivity
                     }
                 });
 
-
-
-
-
     }
 
     private void validateAppCode() {
@@ -774,27 +770,12 @@ public class HomeActivity extends BaseActivity
 
             if (resultCode == ResultCodes.OK) {
                 // Successfully signed in
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                Toast.makeText(this, user.getDisplayName(), Toast.LENGTH_SHORT).show();
-                //WRITE TO FIREBASE
-                FirebaseFirestore db = getFireStore();
 
-                UserModel userModel = new UserModel(user.getDisplayName(), user.getPhotoUrl()==null?"":user.getPhotoUrl().toString());
+                UserHelper userhelper = UserHelper.getInstance();
+                if( userhelper.writeUser() ){
+                    Toast.makeText(this, userhelper.getUser().getDisplayName(), Toast.LENGTH_SHORT).show();
+                }
 
-                db.collection("users")
-                        .add(userModel)
-                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference) {
-                                Log.d("LOGIN", "DocumentSnapshot added with ID: " + documentReference.getId());
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w("LOGIN", "Error adding document", e);
-                            }
-                        });
                 return;
             } else {
                 // Sign in failed
