@@ -28,9 +28,10 @@ public class PostHelper {
     }
 
     private static final String TAG = "PostHelper";
-    private int THRESHOLD = 10;
+    private int THRESHOLD = 10,i=0;
     private UpdateSnapshot updateSnapshot;
     private ArrayList<PostDocument> mSnapshots = new ArrayList<>();
+    private ArrayList<DocumentSnapshot> postdocuments = new ArrayList<>();
     private DocumentSnapshot postLastVisible, authorLastVisible, userSnapshot;
     private Query mQuery;
 
@@ -55,26 +56,11 @@ public class PostHelper {
                     for (final DocumentSnapshot postdocument : task.getResult()) {
                         document_count++;
                         Log.v(TAG, postdocument.getId() + " => " + postdocument.getData());
-                        PostModel postModel = new PostModel(postdocument.getData());
-                        String uid = postModel.getUid();
-                        FirebaseFirestore.getInstance().collection("users").whereEqualTo("id", uid).get()
-                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                        if (task.isSuccessful() && !task.getResult().isEmpty()) {
-                                            userSnapshot = task.getResult().getDocuments().get(0);
-                                            mSnapshots.add(new PostDocument(postdocument, userSnapshot));
-                                            if (document_count == THRESHOLD) {
-                                                updateSnapshot.updateList(mSnapshots);
-                                                mSnapshots.clear();
-                                                postLastVisible = postdocument;
-                                                authorLastVisible = userSnapshot;
-                                            }
-                                        } else
-                                            userSnapshot = null;
-                                    }
-                                });
 
+                        postdocuments.add(postdocument);
+                        if(document_count==THRESHOLD){
+                            fetchUserDetails();
+                        }
                     }
                 } else {
                     Log.v(TAG, "Error getting documents: ", task.getException());
@@ -83,6 +69,32 @@ public class PostHelper {
         });
 
         mSnapshots.clear();
+    }
+
+    private void fetchUserDetails() {
+        for(i=0; i<postdocuments.size(); i++){
+            final DocumentSnapshot postdocument= postdocuments.get(i);
+            PostModel postModel= new PostModel(postdocument.getData());
+            String uid = postModel.getUid();
+            FirebaseFirestore.getInstance().collection("users").whereEqualTo("id", uid).get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful() && !task.getResult().isEmpty()) {
+                                userSnapshot = task.getResult().getDocuments().get(0);
+                                mSnapshots.add(new PostDocument(postdocument, userSnapshot));
+                                if (i == THRESHOLD) {
+                                    updateSnapshot.updateList(mSnapshots);
+                                    mSnapshots.clear();
+                                    postdocuments.clear();
+                                    postLastVisible = postdocument;
+                                    authorLastVisible = userSnapshot;
+                                }
+                            } else
+                                userSnapshot = null;
+                        }
+                    });
+        }
     }
 
     //this method can be called as soon as we have to load more data with the same query
@@ -102,27 +114,13 @@ public class PostHelper {
                     for (final DocumentSnapshot postdocument : task.getResult()) {
                         document_count++;
                         Log.v(TAG, postdocument.getId() + " => " + postdocument.getData());
-                        PostModel postModel = new PostModel(postdocument.getData());
-                        String uid = postModel.getUid();
-                        FirebaseFirestore.getInstance().collection("users").whereEqualTo("uid", uid).get()
-                                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                        if (task.isSuccessful() && !task.getResult().isEmpty()) {
-                                            userSnapshot = task.getResult().getDocuments().get(0);
-                                            mSnapshots.add(new PostDocument(postdocument, userSnapshot));
-                                            if (document_count == THRESHOLD) {
-                                                updateSnapshot.updateList(mSnapshots);
-                                                mSnapshots.clear();
-                                                postLastVisible = postdocument;
-                                                authorLastVisible = userSnapshot;
-                                            }
-                                        }
-                                    }
-                                });
+                        postdocuments.add(postdocument);
+                        if(document_count==THRESHOLD) {
+                            fetchUserDetails();
+                        }
                     }
-
-                } else {
+                }
+                else {
                     Log.v(TAG, "Error getting documents: ", task.getException());
                 }
             }

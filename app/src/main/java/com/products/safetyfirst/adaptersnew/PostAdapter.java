@@ -42,7 +42,7 @@ public class PostAdapter extends FirestoreAdapter<PostAdapter.ViewHolder>{
         Log.e("PostAdapter","Post Adapter Constructor called");
         makeQuery();
         mListener = listener;
-        total_count = THRESHOLD;
+        total_count = getItemCount();
     }
 
     @Override
@@ -53,9 +53,14 @@ public class PostAdapter extends FirestoreAdapter<PostAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        if(total_count < getItemCount()+5){
+     //   if(total_count < getItemCount()+5){
+     //       makeNextSetOfQuery();
+     //       total_count = total_count + THRESHOLD;
+     //   }
+        if(position + THRESHOLD > getItemCount() && total_count <= getItemCount()){
+
             makeNextSetOfQuery();
-            total_count = total_count + THRESHOLD;
+            total_count= total_count + THRESHOLD;
         }
         holder.bind(getSnapshot(position), mListener);
     }
