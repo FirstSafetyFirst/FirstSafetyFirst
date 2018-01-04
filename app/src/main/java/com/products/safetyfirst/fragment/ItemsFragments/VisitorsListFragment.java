@@ -53,31 +53,6 @@ public class VisitorsListFragment extends Fragment {
         // Required empty public constructor
     }
 
-    private static void downloadFile(String url, File outputFile) {
-        try {
-            URL u = new URL(url);
-            URLConnection conn = u.openConnection();
-            int contentLength = conn.getContentLength();
-
-            DataInputStream stream = new DataInputStream(u.openStream());
-
-            byte[] buffer = new byte[contentLength];
-            stream.readFully(buffer);
-            stream.close();
-
-            DataOutputStream fos = new DataOutputStream(new FileOutputStream(outputFile));
-            fos.write(buffer);
-            fos.flush();
-            fos.close();
-        } catch (FileNotFoundException e) {
-            //noinspection UnnecessaryReturnStatement
-            return; // swallow a 404
-        } catch (IOException e) {
-            //noinspection UnnecessaryReturnStatement
-            return; // swallow a 404
-        }
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -96,15 +71,11 @@ public class VisitorsListFragment extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
                 openPdf(url);
                 progress.setVisibility(View.VISIBLE);
                 btn.setVisibility(View.GONE);
 
-            }
-                            else{
-                Toast.makeText(getContext(), "THis feature will be available soon", Toast.LENGTH_SHORT).show();
-            }
+
             }
         });
         return mainView;
@@ -115,68 +86,14 @@ public class VisitorsListFragment extends Fragment {
 
         if(url == null || url =="NULL") return;
 
-
-        File dir = getContext().getCacheDir();
-        String[] fileNameSplit = url.split("/");
-        fileNameSplit = fileNameSplit[fileNameSplit.length-1].split("[?]");
-        final String fileName = fileNameSplit[0];
-        final File file = new File(dir, fileName);
-        new Thread(new Runnable() {
-            public void run() {
-                if(!file.exists()) {  //check if file exists is cache
-                    downloadFile(url, file);
-                }
-                final File externalFile = new File(Environment.getExternalStorageDirectory(), fileName);
-                openedFile = externalFile;
-                try {
-                    copy(file, externalFile);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                getActivity().runOnUiThread(new Runnable(){
-                    public void run() {
-                        progress.setVisibility(View.GONE);
-                        btn.setVisibility(View.VISIBLE);
-                        try {
-
-
-                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.fromFile(externalFile));
-                                intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-                                startActivityForResult(intent, VIEW_FILE_CODE);
-
-                        } catch (ActivityNotFoundException e){
-                            Toast.makeText(getContext(), "Install PDF Viewer", Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.google.android.apps.pdfviewer&hl=en"));
-                            startActivity(intent);
-                        }
-                    }
-                });
-            }
-        }).start();
-
-    }
-
-    private void copy(File src, File dst) throws IOException {
-        InputStream in = new FileInputStream(src);
-        OutputStream out = new FileOutputStream(dst);
-
-        // Transfer bytes from in to out
-        byte[] buf = new byte[1024];
-        int len;
-        while ((len = in.read(buf)) > 0) {
-            out.write(buf, 0, len);
+        if (url.equalsIgnoreCase("Not Available")){
+            Toast.makeText(getContext(), url, Toast.LENGTH_SHORT).show();
+            return;
         }
-        in.close();
-        out.close();
-    }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == VIEW_FILE_CODE) {
-            if(resultCode == RESULT_OK){
-                openedFile.delete();
-            }
-        }
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        startActivity(browserIntent);
+
     }
 
 }

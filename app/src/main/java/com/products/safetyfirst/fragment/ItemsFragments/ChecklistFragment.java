@@ -2,11 +2,16 @@ package com.products.safetyfirst.fragment.ItemsFragments;
 
 
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.FileProvider;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +21,7 @@ import android.widget.Toast;
 
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.activity.ItemTypeInfoActivity;
+import com.products.safetyfirst.activity.WebViewActivity;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -26,8 +32,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -93,17 +101,35 @@ public class ChecklistFragment extends Fragment {
 
         if (url==null) return ;
 
-        File dir = getContext().getCacheDir();
+        if (url.equalsIgnoreCase("Not Available")){
+            Toast.makeText(getContext(), url, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        startActivity(browserIntent);
+
+       // Intent intent = new Intent(getContext(), WebViewActivity.class);
+       // intent.putExtra("Url", url);
+       // startActivity(intent);
+
+/*
+        //Toast.makeText(getContext(), url, Toast.LENGTH_SHORT).show();
+
+        File dir = getContext().getFilesDir();
         String[] fileNameSplit = url.split("/");
         fileNameSplit = fileNameSplit[fileNameSplit.length-1].split("[?]");
+
         final String fileName = fileNameSplit[0];
+
         final File file = new File(dir, fileName);
+
         new Thread(new Runnable() {
             public void run() {
                 if(!file.exists()) {  //check if file exists is cache
                     downloadFile(url, file);
                 }
-                final File externalFile = new File(Environment.getExternalStorageDirectory(), fileName);
+                final File externalFile = new File(getContext().getFilesDir(), fileName);
                 openedFile = externalFile;
                 try {
                     copy(file, externalFile);
@@ -115,9 +141,20 @@ public class ChecklistFragment extends Fragment {
                         progress.setVisibility(View.GONE);
                         btn.setVisibility(View.VISIBLE);
                         try {
-                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.fromFile(externalFile));
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                            Uri file_uri = FileProvider.getUriForFile(getContext(), getString(R.string.file_provider_authority), file);
+
+                            getContext().grantUriPermission(getString(R.string.file_provider_authority), file_uri, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                           // Toast.makeText(getContext(), file_uri.toString(), Toast.LENGTH_SHORT).show();
+                            Log.e("PROVIDER", getString(R.string.file_provider_authority));
+                            Log.e("FILE", file_uri.toString());
+
+                            Intent intent = new Intent(Intent.ACTION_VIEW);
+                            intent.setDataAndType(file_uri, "application/pdf");
+                            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            grantAllUriPermissions(getContext(), intent, file_uri);
                             startActivityForResult(intent, VIEW_FILE_CODE);
+
                         } catch (ActivityNotFoundException e){
                             Toast.makeText(getContext(), "Install PDF Viewer", Toast.LENGTH_LONG).show();
                             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.google.android.apps.pdfviewer&hl=en"));
@@ -127,7 +164,15 @@ public class ChecklistFragment extends Fragment {
                 });
             }
         }).start();
+*/
+    }
 
+    private void grantAllUriPermissions(Context context, Intent intent, Uri uri) {
+        List<ResolveInfo> resInfoList = context.getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+        for (ResolveInfo resolveInfo : resInfoList) {
+            String packageName = resolveInfo.activityInfo.packageName;
+            context.grantUriPermission(packageName, uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        }
     }
 
     private void copy(File src, File dst) throws IOException {

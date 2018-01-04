@@ -1,24 +1,22 @@
 package com.products.safetyfirst.fragment;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.adapters.TrainingAdapter;
 import com.products.safetyfirst.impementations.presenter.TrainingPresenterImpl;
 import com.products.safetyfirst.interfaces.presenter.TrainingPresenter;
 import com.products.safetyfirst.interfaces.view.TrainingView;
-
 
 @SuppressWarnings({"ALL", "EmptyMethod"})
 public class TrainingFragment extends Fragment implements TrainingView{
@@ -53,9 +51,8 @@ public class TrainingFragment extends Fragment implements TrainingView{
         recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         recycler.setHasFixedSize(true);
         recycler.setItemAnimator(new DefaultItemAnimator());
-
+        recycler.addItemDecoration(new DividerItemDecoration(recycler.getContext(), DividerItemDecoration.VERTICAL));
         mProgressbar = view.findViewById(R.id.newspaginateprogbar);
-
         presenter = new TrainingPresenterImpl(this);
 
     }
@@ -68,10 +65,7 @@ public class TrainingFragment extends Fragment implements TrainingView{
 
     private void fillUI() {
         adapter = new TrainingAdapter(getContext());
-
-
         adapter.request();
-
         recycler.setAdapter(adapter);
     }
 

@@ -174,5 +174,6 @@ To advertise to, or so, any user to buy or sell any products or services, orb us
     <string name="unknown_error">Unkown Error</string>
     <string name="unknown_sign_in_response">Unown Response</string>
     <string name="divider_bullet">•</string>
+    <string name="file_provider_authority">com.products.safetyfirst.fileprovider</string>
 
 </resources>
