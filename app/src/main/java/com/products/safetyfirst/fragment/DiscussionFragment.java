@@ -38,6 +38,7 @@ public class DiscussionFragment extends Fragment implements PostsView{
     private boolean loading = true;
     private int pastVisiblesItems, visibleItemCount, totalItemCount;
     private int THRESHOLD=10;
+    private int count=0;
 
     public DiscussionFragment(){}
 
@@ -76,18 +77,19 @@ public class DiscussionFragment extends Fragment implements PostsView{
 
     private void createUI(View view) {
         recycler = view.findViewById(R.id.discussion_recycler);
-        mlayoutManager= new LinearLayoutManager(getActivity());
+        recycler.setHasFixedSize(false);
+        mlayoutManager = new LinearLayoutManager(getActivity());
         recycler.setLayoutManager(mlayoutManager);
         recycler.setHasFixedSize(true);
         recycler.setItemAnimator(new DefaultItemAnimator());
 
         mFab = view.findViewById(R.id.new_post);
 
-        final UserHelper user  = UserHelper.getInstance();
+        final UserHelper user = UserHelper.getInstance();
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(user.isSignedIn()) {
+                if (user.isSignedIn()) {
                     Intent intent = new Intent(getContext(), NewPostActivity.class);
                     startActivity(intent);
                 } else {
@@ -96,18 +98,19 @@ public class DiscussionFragment extends Fragment implements PostsView{
             }
         });
 
-        adapter=new com.products.safetyfirst.adaptersnew.PostAdapter(new com.products.safetyfirst.adaptersnew.PostAdapter.OnPostSelectedListener() {
+        adapter = new com.products.safetyfirst.adaptersnew.PostAdapter(new com.products.safetyfirst.adaptersnew.PostAdapter.OnPostSelectedListener() {
             @Override
             public void onPostSelected(DocumentSnapshot restaurant) {
                 //TODO: do something here, till then this temporary snackbar
                 Snackbar.make(getView(), "Selected", BaseTransientBottomBar.LENGTH_LONG);
             }
         }
-        , new PostHelper.NotifyAdapter() {
+                , new PostHelper.NotifyAdapter() {
             @Override
             public void notifyChangeInData() {
-                adapter.notifyDataSetChanged();
-                Log.v("PostHelper","Adapter notified");
+                adapter.notifyItemRangeInserted(count, THRESHOLD);
+                Log.v("PostHelper", "Adapter notified");
+                count=count+THRESHOLD;
             }
         });
 
@@ -122,32 +125,30 @@ public class DiscussionFragment extends Fragment implements PostsView{
                 }
             }
             /**
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                if(dy > 0) //check for scroll down
-                {
-                    visibleItemCount = mlayoutManager.getChildCount();
-                    totalItemCount = mlayoutManager.getItemCount();
-                    pastVisiblesItems = mlayoutManager.findFirstVisibleItemPosition();
+             @Override public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+             if(dy > 0) //check for scroll down
+             {
+             visibleItemCount = mlayoutManager.getChildCount();
+             totalItemCount = mlayoutManager.getItemCount();
+             pastVisiblesItems = mlayoutManager.findFirstVisibleItemPosition();
 
-                    if (loading)
-                    {
-                        if ( (visibleItemCount + pastVisiblesItems + THRESHOLD) >= totalItemCount)
-                        {
-                            adapter.makeNextSetOfQuery();
-                        }
-                    }
-                }
-            }
+             if (loading)
+             {
+             if ( (visibleItemCount + pastVisiblesItems + THRESHOLD) >= totalItemCount)
+             {
+             adapter.makeNextSetOfQuery();
+             }
+             }
+             }
+             }
 
-            **/
+             **/
         });
-       // mProgressbar = view.findViewById(R.id.newspaginateprogbar);
+        // mProgressbar = view.findViewById(R.id.newspaginateprogbar);
 
         presenter = new PostPresenterImpl(this);
 
     }
-
     @Override
     public void onError(String message) {
 

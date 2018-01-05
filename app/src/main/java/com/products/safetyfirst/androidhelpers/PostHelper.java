@@ -71,7 +71,10 @@ public class PostHelper {
         mSnapshots.clear();
     }
 
+    int d=0;
+
     private void fetchUserDetails() {
+        d=0;
         for(i=0; i<postdocuments.size(); i++){
             final DocumentSnapshot postdocument= postdocuments.get(i);
             PostModel postModel= new PostModel(postdocument.getData());
@@ -83,8 +86,11 @@ public class PostHelper {
                             if (task.isSuccessful() && !task.getResult().isEmpty()) {
                                 userSnapshot = task.getResult().getDocuments().get(0);
                                 mSnapshots.add(new PostDocument(postdocument, userSnapshot));
-                                if (i == THRESHOLD) {
+                                d=d+1;
+                                Log.v(TAG,d+"");
+                                if (d == THRESHOLD-1) {
                                     updateSnapshot.updateList(mSnapshots);
+                                    Log.v(TAG,mSnapshots.toString());
                                     mSnapshots.clear();
                                     postdocuments.clear();
                                     postLastVisible = postdocument;
