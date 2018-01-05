@@ -24,6 +24,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
+import static java.sql.Types.NULL;
+
 /**
  * Created by VIKAS on 11-Oct-17.
  */
@@ -57,7 +59,7 @@ public class EventsAdapter extends RecyclerView.Adapter<EventViewHolder> impleme
         Animation animation = AnimationUtils.loadAnimation(context, R.anim.anim_recycler_item_show);
         holder.mView.startAnimation(animation);
 
-        EventModel event = mEventsList.get(position);
+        final EventModel event = mEventsList.get(position);
 
         if(event.getTitle() != null) holder.title.setText(event.getTitle());
         if(event.getTimestamp() != null) {
@@ -65,6 +67,10 @@ public class EventsAdapter extends RecyclerView.Adapter<EventViewHolder> impleme
                     (long) event.getTimestamp()));*/
             holder.dateTime.setText(getDate((long)event.getTimestamp()));
         }
+
+        if(event.getNumViews() != NULL)
+            holder.views.setText(String.valueOf(event.getNumViews()) + " Views");
+
         if(event.getThumbUrl() != null){
             Glide.with(context).load(event.getThumbUrl()).fitCenter().into(holder.images);
         }
@@ -75,6 +81,21 @@ public class EventsAdapter extends RecyclerView.Adapter<EventViewHolder> impleme
                 Intent intent = new Intent(context, EventsDetailActivity.class);
                 intent.putExtra(EventsDetailActivity.EXTRA_EVENT_KEY, mKeysList.get(position));
                 context.startActivity(intent);
+
+            }
+        });
+
+        holder.share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (event.getDeeplink() != null) {
+                    Intent intent = new Intent();
+                    String msg = "Are you going to this event?  " + event.getDeeplink();
+                    intent.setAction(Intent.ACTION_SEND);
+                    intent.putExtra(Intent.EXTRA_TEXT, msg);
+                    intent.setType("text/plain");
+                    context.startActivity(intent);
+                }
 
             }
         });

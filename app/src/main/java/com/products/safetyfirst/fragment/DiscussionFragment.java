@@ -1,5 +1,6 @@
 package com.products.safetyfirst.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,13 +16,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
+import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.products.safetyfirst.BuildConfig;
 import com.products.safetyfirst.R;
+import com.products.safetyfirst.activity.BaseActivity;
 import com.products.safetyfirst.activity.NewPostActivity;
 import com.products.safetyfirst.impementations.presenter.PostPresenterImpl;
 import com.products.safetyfirst.interfaces.presenter.PostPresenter;
 import com.products.safetyfirst.interfaces.view.PostsView;
 import com.products.safetyfirst.modelhelper.UserHelper;
+
+import java.util.Arrays;
+import java.util.List;
 
 @SuppressWarnings({"ALL", "EmptyMethod"})
 public class DiscussionFragment extends Fragment implements PostsView{
@@ -32,7 +39,7 @@ public class DiscussionFragment extends Fragment implements PostsView{
     private RecyclerView recycler;
     private com.products.safetyfirst.adaptersnew.PostAdapter adapter;
     private FloatingActionButton mFab;
-
+    private static final int RC_SIGN_IN = 123;
 
     public DiscussionFragment(){}
 
@@ -92,7 +99,10 @@ public class DiscussionFragment extends Fragment implements PostsView{
                     Intent intent = new Intent(getContext(), NewPostActivity.class);
                     startActivity(intent);
                 } else {
-                    Snackbar.make(getView(), "Sign In first", Snackbar.LENGTH_LONG).show();
+                    Snackbar mySnackbar = Snackbar.make(getView(),
+                            R.string.not_signed_in, Snackbar.LENGTH_SHORT);
+                    mySnackbar.setAction(R.string.signIn, new MySignInListener());
+                    mySnackbar.show();
                 }
             }
         });
@@ -113,6 +123,35 @@ public class DiscussionFragment extends Fragment implements PostsView{
 
         presenter = new PostPresenterImpl(this);
 
+    }
+
+    public class MySignInListener implements View.OnClickListener{
+
+        public MySignInListener(){
+        }
+
+        @Override
+        public void onClick(View v) {
+
+            List<AuthUI.IdpConfig> providers = Arrays.asList(
+                    new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
+                    new AuthUI.IdpConfig.Builder(AuthUI.PHONE_VERIFICATION_PROVIDER).build(),
+                    // new AuthUI.IdpConfig.Builder(AuthUI.FACEBOOK_PROVIDER).build(),
+                    // new AuthUI.IdpConfig.Builder(AuthUI.TWITTER_PROVIDER).build(),
+                    new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build());
+
+            startActivityForResult(
+                    AuthUI.getInstance()
+                            .createSignInIntentBuilder()
+                            .setAvailableProviders(providers)
+                            .setTosUrl("https://superapp.example.com/terms-of-service.html")
+                            .setPrivacyPolicyUrl("https://superapp.example.com/privacy-policy.html")
+                            .setIsSmartLockEnabled(!BuildConfig.DEBUG)
+                            .build(),
+                    RC_SIGN_IN);
+
+
+        }
     }
 
     @Override

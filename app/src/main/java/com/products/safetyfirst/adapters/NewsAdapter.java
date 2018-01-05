@@ -17,6 +17,8 @@ import com.products.safetyfirst.viewholder.NewsViewHolder;
 
 import java.util.ArrayList;
 
+import static java.sql.Types.NULL;
+
 public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> implements NewsAdapterView{
     private final ArrayList<NewsModel> mEventsList = new ArrayList<>();
     private final ArrayList<String> mKeysList = new ArrayList<>();
@@ -42,7 +44,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> implements
     @Override
     public void onBindViewHolder(NewsViewHolder holder, final int position) {
 
-        NewsModel event = mEventsList.get(position);
+        final NewsModel event = mEventsList.get(position);
 
         if(event.getTitle() != null) holder.title.setText(event.getTitle());
 
@@ -50,12 +52,31 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsViewHolder> implements
             Glide.with(context).load(event.getImgUrl()).fitCenter().into(holder.images);
         }
 
+        if(event.getNumViews() != NULL)
+        holder.views.setText(String.valueOf(event.getNumViews()) + " Views");
+
+
         holder.newsCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, NewsDetailActivity.class);
                 intent.putExtra(NewsDetailActivity.EXTRA_NEWS_KEY, mKeysList.get(position));
                 context.startActivity(intent);
+
+            }
+        });
+
+        holder.share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (event.getDeeplink() != null) {
+                    Intent intent = new Intent();
+                    String msg = "Hey see this News: " + event.getDeeplink();
+                    intent.setAction(Intent.ACTION_SEND);
+                    intent.putExtra(Intent.EXTRA_TEXT, msg);
+                    intent.setType("text/plain");
+                    context.startActivity(intent);
+                }
 
             }
         });

@@ -3,6 +3,7 @@ package com.products.safetyfirst.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,18 +15,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.firebase.ui.auth.AuthUI;
 import com.mikepenz.fastadapter.FastAdapter;
 import com.mikepenz.fastadapter.IAdapter;
 import com.mikepenz.fastadapter.commons.adapters.FastItemAdapter;
 import com.mikepenz.fastadapter.items.AbstractItem;
+import com.products.safetyfirst.BuildConfig;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.activity.ItemTypeInfoActivity;
 import com.products.safetyfirst.activity.KnowItSecondActivity;
+import com.products.safetyfirst.modelhelper.UserHelper;
 import com.products.safetyfirst.utils.Analytics;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -40,6 +45,8 @@ public class TypeFragment extends Fragment {
     private FastItemAdapter<TypeItem> typeAdapter;
     private List<TypeItem> types;
     private HashMap<String,String> knowItItemTypes;
+    private static final int RC_SIGN_IN = 123;
+
     public TypeFragment() {
         // Required empty public constructor
     }
@@ -72,10 +79,23 @@ public class TypeFragment extends Fragment {
         typeAdapter.withOnClickListener(new FastAdapter.OnClickListener<TypeItem>() {
             @Override
             public boolean onClick(View v, IAdapter<TypeItem> adapter, TypeItem item, int position) {
-                Intent intent = new Intent(getContext(), ItemTypeInfoActivity.class);
+
+
                 Analytics.logEventViewItem(getContext(),"know_it_item_type"+position,item.getTitle(),"know it item type");
-                intent.putExtra(ItemTypeInfoActivity.EXTRA_ITEM_NAME, item.getTitle());
-                startActivity(intent);
+
+                final UserHelper user  = UserHelper.getInstance();
+                if(user.isSignedIn()) {
+                    Intent intent = new Intent(getContext(), ItemTypeInfoActivity.class);
+                    intent.putExtra(ItemTypeInfoActivity.EXTRA_ITEM_NAME, item.getTitle());
+                    startActivity(intent);
+                } else {
+                    Snackbar mySnackbar = Snackbar.make(getView(),
+                            R.string.not_signed_in, Snackbar.LENGTH_SHORT);
+                    mySnackbar.setAction(R.string.signIn, new MySignInListener());
+                    mySnackbar.show();
+                }
+
+
                 return true;
             }
         });
@@ -138,6 +158,35 @@ public class TypeFragment extends Fragment {
         @Override
         public void unbindView(TypeFragment.ViewHolder holder) {
             super.unbindView(holder);
+        }
+    }
+
+    public class MySignInListener implements View.OnClickListener{
+
+        public MySignInListener(){
+        }
+
+        @Override
+        public void onClick(View v) {
+
+            List<AuthUI.IdpConfig> providers = Arrays.asList(
+                    new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
+                    new AuthUI.IdpConfig.Builder(AuthUI.PHONE_VERIFICATION_PROVIDER).build(),
+                    // new AuthUI.IdpConfig.Builder(AuthUI.FACEBOOK_PROVIDER).build(),
+                    // new AuthUI.IdpConfig.Builder(AuthUI.TWITTER_PROVIDER).build(),
+                    new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build());
+
+            startActivityForResult(
+                    AuthUI.getInstance()
+                            .createSignInIntentBuilder()
+                            .setAvailableProviders(providers)
+                            .setTosUrl("https://superapp.example.com/terms-of-service.html")
+                            .setPrivacyPolicyUrl("https://superapp.example.com/privacy-policy.html")
+                            .setIsSmartLockEnabled(!BuildConfig.DEBUG)
+                            .build(),
+                    RC_SIGN_IN);
+
+
         }
     }
 }

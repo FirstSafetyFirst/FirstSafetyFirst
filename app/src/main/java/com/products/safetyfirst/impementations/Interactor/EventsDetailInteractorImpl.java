@@ -7,7 +7,10 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
+import com.products.safetyfirst.Pojos.NewsModel;
 import com.products.safetyfirst.interfaces.interactor.EventsDetailInteractor;
 import com.products.safetyfirst.interfaces.presenter.EventsDetailPresenter;
 import com.products.safetyfirst.Pojos.EventModel;
@@ -31,10 +34,33 @@ public class EventsDetailInteractorImpl implements EventsDetailInteractor {
 
     @Override
     public void requestEvent(String mEventKey) {
-        DatabaseReference mPostReference = getDatabase().getReference()
+        DatabaseReference mEventReference = getDatabase().getReference()
                 .child("events").child(mEventKey);
 
-        mPostReference.addValueEventListener(new ValueEventListener() {
+        mEventReference.runTransaction(new Transaction.Handler() {
+            @Override
+            public Transaction.Result doTransaction(MutableData mutableData) {
+                EventModel p = mutableData.getValue(EventModel.class);
+                if (p == null) {
+                    return Transaction.success(mutableData);
+                }
+
+                p.setNumViews(p.getNumViews() + 1);
+
+                // Set value and report transaction success
+                mutableData.setValue(p);
+                return Transaction.success(mutableData);
+            }
+
+            @Override
+            public void onComplete(DatabaseError databaseError, boolean b,
+                                   DataSnapshot dataSnapshot) {
+                // Transaction completed
+                Log.d("EventDetailInteractor", "eventsTransaction:onComplete:" + databaseError);
+            }
+        });
+
+        mEventReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 EventModel event = dataSnapshot.getValue(EventModel.class);

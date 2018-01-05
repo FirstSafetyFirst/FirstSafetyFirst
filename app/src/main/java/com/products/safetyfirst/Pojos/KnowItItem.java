@@ -11,6 +11,16 @@ public class KnowItItem {
     private  String item_name;
     private String safety_checklist;
     private String thumb_url;
+    private long numViews;
+
+    public long getNumViews() {
+        return numViews;
+    }
+
+    public void setNumViews(long numViews) {
+        this.numViews = numViews;
+    }
+
     private   HashMap<String,String> types;
     public KnowItItem(){
 

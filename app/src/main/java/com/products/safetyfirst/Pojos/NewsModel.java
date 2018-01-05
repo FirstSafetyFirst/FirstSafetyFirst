@@ -13,19 +13,6 @@ public class NewsModel {
     private String title,imgUrl,favicon, body, uid, author;
     private Integer timestamp;
     private String deeplink;
-
-    public String getDeeplink() {
-        return deeplink;
-    }
-
-    public long getNumShares() {
-        return numShares;
-    }
-
-    public long getNumViews() {
-        return numViews;
-    }
-
     private long numShares;
     private long numViews;
 
@@ -74,6 +61,18 @@ public class NewsModel {
 
     public void setNumViews(long numViews) {
         this.numViews = numViews;
+    }
+
+    public String getDeeplink() {
+        return deeplink;
+    }
+
+    public long getNumShares() {
+        return numShares;
+    }
+
+    public long getNumViews() {
+        return numViews;
     }
 
     public void setImgUrl(String imgUrl) {

@@ -48,6 +48,7 @@
                 android:layout_marginLeft="@dimen/activity_vertical_margin"/>
 
             <android.support.design.widget.CheckableImageButton
+                android:id="@+id/share"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/white"
