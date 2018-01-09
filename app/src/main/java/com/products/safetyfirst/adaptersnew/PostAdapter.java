@@ -1,5 +1,6 @@
 package com.products.safetyfirst.adaptersnew;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.products.safetyfirst.Pojos.PostModel;
 import com.products.safetyfirst.R;
+import com.products.safetyfirst.activity.PostDetailActivity;
 import com.products.safetyfirst.androidhelpers.PostDocument;
 import com.products.safetyfirst.androidhelpers.PostHelper;
 import com.products.safetyfirst.utils.JustifiedWebView;
@@ -52,12 +54,9 @@ public class PostAdapter extends FirestoreAdapter<PostAdapter.ViewHolder>{
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder,final int position) {
-     //   if(total_count < getItemCount()+5){
-     //       makeNextSetOfQuery();
-     //       total_count = total_count + THRESHOLD;
-     //   }
-        holder.setIsRecyclable(false);
+    public void onBindViewHolder( ViewHolder holder,final int position) {
+
+        //holder.setIsRecyclable(false);
         holder.bind(getSnapshot(position), mListener);
         if(position + THRESHOLD > getItemCount() && total_count <= getItemCount()){
 
@@ -101,7 +100,7 @@ public class PostAdapter extends FirestoreAdapter<PostAdapter.ViewHolder>{
         public void bind(final PostDocument snapshot,
                          final OnPostSelectedListener listener) {
 
-            PostModel postModel= new PostModel(snapshot.getPostDocument().getData(),snapshot.getUserDocument().getData()) ;
+            final PostModel postModel= new PostModel(snapshot.getPostDocument().getData(),snapshot.getUserDocument().getData()) ;
             Resources resources = itemView.getResources();
 
             // Load image
@@ -115,19 +114,19 @@ public class PostAdapter extends FirestoreAdapter<PostAdapter.ViewHolder>{
             if(!postModel.getTitle().isEmpty())
                 postTitle.setText(postModel.getTitle());
             else
-                postTitle.setText("null");
+                postTitle.setText("");
 
             Log.v("postHelper",postModel.getAuthor());
             if(!postModel.getAuthor().isEmpty())
             postAuthor.setText(postModel.getAuthor());
             else
-                postAuthor.setText("null");
+                postAuthor.setText("");
 
             if(!postModel.getBody().isEmpty()) {
                 postBody.setText(postModel.getBody());
             }
             else
-                postBody.setText("null");
+                postBody.setText("");
 
             Log.v("PostHelper",postModel.getTitle()+"  "+postModel.getBody());
 
@@ -137,13 +136,11 @@ public class PostAdapter extends FirestoreAdapter<PostAdapter.ViewHolder>{
                 public void onClick(View view) {
                     if (listener != null) {
                         listener.onPostSelected(snapshot.getPostDocument());
+
                     }
                 }
             });
         }
-
-
-
     }
 
 }
