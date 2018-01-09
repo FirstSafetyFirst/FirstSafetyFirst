@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.google.firebase.firestore.Query;
 import com.products.safetyfirst.Pojos.Comment;
 import com.products.safetyfirst.R;
+import com.products.safetyfirst.androidhelpers.PostHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -22,8 +23,8 @@ import me.zhanghai.android.materialratingbar.MaterialRatingBar;
  */
 public class CommentAdapter extends FirestoreAdapter<CommentAdapter.ViewHolder> {
 
-    public CommentAdapter(Query query) {
-
+    public CommentAdapter(Query query, PostHelper.NotifyAdapter notifyAdapter) {
+        super(notifyAdapter);
     }
 
     @Override

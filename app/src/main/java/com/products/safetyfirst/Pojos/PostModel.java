@@ -1,5 +1,7 @@
 package com.products.safetyfirst.Pojos;
 
+import android.util.Log;
+
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
 
@@ -56,6 +58,7 @@ public class PostModel {
     }
     //constructor for the combined query of author and post
     public PostModel(Map<String, Object> postData, Map<String, Object> authorData) {
+        Log.v("PostHelper","Double const called");
         HashMap<String,Object> postMap= new HashMap<>(postData);
         HashMap<String,Object> authorMap= new HashMap<>(authorData);
         title= postMap.get("title").toString();
@@ -63,6 +66,7 @@ public class PostModel {
         uid=postMap.get("uid").toString();
         author= authorMap.get("name").toString();
         photoUrl= authorMap.get("photoUrl").toString();
+        Log.v("PostHelper",title+ " "+uid+" "+author);
     }
 
     public String getTitle() {

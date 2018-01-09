@@ -61,4 +61,5 @@ public class JustifiedWebView extends WebView {
                 + "</body></html>";
         loadData(text, "text/html; charset=utf-8", "utf-8");
     }
+
 }

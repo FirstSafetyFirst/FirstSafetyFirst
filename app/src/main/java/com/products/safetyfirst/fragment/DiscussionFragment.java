@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import com.products.safetyfirst.BuildConfig;
 import com.products.safetyfirst.R;
 import com.products.safetyfirst.activity.BaseActivity;
 import com.products.safetyfirst.activity.NewPostActivity;
+import com.products.safetyfirst.androidhelpers.PostHelper;
 import com.products.safetyfirst.impementations.presenter.PostPresenterImpl;
 import com.products.safetyfirst.interfaces.presenter.PostPresenter;
 import com.products.safetyfirst.interfaces.view.PostsView;
@@ -39,6 +41,11 @@ public class DiscussionFragment extends Fragment implements PostsView{
     private RecyclerView recycler;
     private com.products.safetyfirst.adaptersnew.PostAdapter adapter;
     private FloatingActionButton mFab;
+    private LinearLayoutManager mlayoutManager;
+    private boolean loading = true;
+    private int pastVisiblesItems, visibleItemCount, totalItemCount;
+    private int THRESHOLD=10;
+    private int count=0;
     private static final int RC_SIGN_IN = 123;
 
     public DiscussionFragment(){}
@@ -73,29 +80,24 @@ public class DiscussionFragment extends Fragment implements PostsView{
 
     private void fillUI() {
 
-        adapter=new com.products.safetyfirst.adaptersnew.PostAdapter( new com.products.safetyfirst.adaptersnew.PostAdapter.OnPostSelectedListener() {
-            @Override
-            public void onPostSelected(DocumentSnapshot post) {
-                //TODO: do something here, till then this temporary snackbar
-                Snackbar.make(getView(),"Selected", BaseTransientBottomBar.LENGTH_LONG);
-            }
-        });
         recycler.setAdapter(adapter);
     }
 
     private void createUI(View view) {
         recycler = view.findViewById(R.id.discussion_recycler);
-        recycler.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recycler.setHasFixedSize(false);
+        mlayoutManager = new LinearLayoutManager(getActivity());
+        recycler.setLayoutManager(mlayoutManager);
         recycler.setHasFixedSize(true);
         recycler.setItemAnimator(new DefaultItemAnimator());
 
         mFab = view.findViewById(R.id.new_post);
 
-        final UserHelper user  = UserHelper.getInstance();
+        final UserHelper user = UserHelper.getInstance();
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(user.isSignedIn()) {
+                if (user.isSignedIn()) {
                     Intent intent = new Intent(getContext(), NewPostActivity.class);
                     startActivity(intent);
                 } else {
@@ -104,6 +106,22 @@ public class DiscussionFragment extends Fragment implements PostsView{
                     mySnackbar.setAction(R.string.signIn, new MySignInListener());
                     mySnackbar.show();
                 }
+            }
+        });
+
+        adapter = new com.products.safetyfirst.adaptersnew.PostAdapter(new com.products.safetyfirst.adaptersnew.PostAdapter.OnPostSelectedListener() {
+            @Override
+            public void onPostSelected(DocumentSnapshot restaurant) {
+                //TODO: do something here, till then this temporary snackbar
+                Snackbar.make(getView(), "Selected", BaseTransientBottomBar.LENGTH_LONG);
+            }
+        }
+                , new PostHelper.NotifyAdapter() {
+            @Override
+            public void notifyChangeInData() {
+                adapter.notifyItemRangeInserted(count, THRESHOLD);
+                Log.v("PostHelper", "Adapter notified");
+                count=count+THRESHOLD;
             }
         });
 
@@ -117,9 +135,27 @@ public class DiscussionFragment extends Fragment implements PostsView{
                     mFab.show();
                 }
             }
+            /**
+             @Override public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+             if(dy > 0) //check for scroll down
+             {
+             visibleItemCount = mlayoutManager.getChildCount();
+             totalItemCount = mlayoutManager.getItemCount();
+             pastVisiblesItems = mlayoutManager.findFirstVisibleItemPosition();
 
+             if (loading)
+             {
+             if ( (visibleItemCount + pastVisiblesItems + THRESHOLD) >= totalItemCount)
+             {
+             adapter.makeNextSetOfQuery();
+             }
+             }
+             }
+             }
+
+             **/
         });
-       // mProgressbar = view.findViewById(R.id.newspaginateprogbar);
+        // mProgressbar = view.findViewById(R.id.newspaginateprogbar);
 
         presenter = new PostPresenterImpl(this);
 

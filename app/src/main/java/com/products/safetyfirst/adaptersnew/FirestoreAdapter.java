@@ -33,14 +33,15 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder>
 
     private Query mQuery;
 
-
-
-    public FirestoreAdapter() {
+    public FirestoreAdapter(final PostHelper.NotifyAdapter notifyAdapter) {
         mQuery= FirebaseFirestore.getInstance().collection("posts");
         postHelper= new PostHelper(mQuery, new PostHelper.UpdateSnapshot() {
             @Override
             public void updateList(ArrayList<PostDocument> snapshots) {
                 mSnapshots.addAll(snapshots);
+                Log.v("PostHelper","Snapshots added");
+                notifyAdapter.notifyChangeInData();
+                Log.v("PostHelper","CAlled notifyChange");
             }
         });
     }
