@@ -1,5 +1,6 @@
 package com.products.safetyfirst.viewholder;
 
+import android.support.design.widget.CheckableImageButton;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -16,7 +17,8 @@ public class NewsViewHolder extends RecyclerView.ViewHolder{
 
     public final ImageView images;
     public final TextView title;
-    //public final TextView timestamp;
+    public final TextView views;
+    public final CheckableImageButton share;
     public final CardView newsCardView;
 
     public NewsViewHolder(View view) {
@@ -25,6 +27,8 @@ public class NewsViewHolder extends RecyclerView.ViewHolder{
         newsCardView= view.findViewById(R.id.news_item_card_view);
         images = view.findViewById(R.id.news_avtar);
         title = view.findViewById(R.id.title);
+        share = view.findViewById(R.id.share);
+        views = view.findViewById(R.id.noOfViews);
         //timestamp = view.findViewById(R.id.dateTime);
     }
 }

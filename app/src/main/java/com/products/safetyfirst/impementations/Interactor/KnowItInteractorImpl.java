@@ -5,7 +5,9 @@ import android.util.Log;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 import com.products.safetyfirst.interfaces.interactor.KnowItInteractor;
 import com.products.safetyfirst.interfaces.presenter.KnowItPresenter;
@@ -55,6 +57,29 @@ public class KnowItInteractorImpl implements KnowItInteractor {
         DatabaseReference mPostReference = getDatabase().getReference()
                 .child("knowitTypes").child(itemName);
 
+        mPostReference.runTransaction(new Transaction.Handler() {
+            @Override
+            public Transaction.Result doTransaction(MutableData mutableData) {
+                KnowItItemType p = mutableData.getValue( KnowItItemType.class);
+                if (p == null) {
+                    return Transaction.success(mutableData);
+                }
+
+                p.setNumViews(p.getNumViews() + 1);
+
+                // Set value and report transaction success
+                mutableData.setValue(p);
+                return Transaction.success(mutableData);
+            }
+
+            @Override
+            public void onComplete(DatabaseError databaseError, boolean b,
+                                   DataSnapshot dataSnapshot) {
+                // Transaction completed
+                Log.d("KnowItInteractorImpl", "knowitTransaction:onComplete:" + databaseError);
+            }
+        });
+
         mPostReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -64,7 +89,7 @@ public class KnowItInteractorImpl implements KnowItInteractor {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.w("NewsDetailInteractor", "loadPost:onCancelled", databaseError.toException());
+                Log.w("KnowItInteractorImpl", "loadItem:onCancelled", databaseError.toException());
 
             }
         });

@@ -463,27 +463,7 @@ public class HomeActivity extends BaseActivity
         } else if (id == R.id.nav_invite) {
                 sendInvite();
         } else if (id == R.id.nav_logout) {
-            mFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-            if (mFirebaseUser == null) {
-                List<AuthUI.IdpConfig> providers = Arrays.asList(
-                        new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
-                        new AuthUI.IdpConfig.Builder(AuthUI.PHONE_VERIFICATION_PROVIDER).build(),
-                        // new AuthUI.IdpConfig.Builder(AuthUI.FACEBOOK_PROVIDER).build(),
-                        // new AuthUI.IdpConfig.Builder(AuthUI.TWITTER_PROVIDER).build(),
-                        new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build());
-
-                startActivityForResult(
-                        AuthUI.getInstance()
-                                .createSignInIntentBuilder()
-                                .setAvailableProviders(providers)
-                                .setTosUrl("https://superapp.example.com/terms-of-service.html")
-                                .setPrivacyPolicyUrl("https://superapp.example.com/privacy-policy.html")
-                                .setIsSmartLockEnabled(!BuildConfig.DEBUG)
-                                .build(),
-                        RC_SIGN_IN);
-
-            } else
-                showLogoutDialog();
+            signin();
 
         } else if (id == R.id.nav_update_profile) {
             switchFragment(4, TAG_FRAGMENT_UPDATE_PROFILE);
@@ -495,6 +475,31 @@ public class HomeActivity extends BaseActivity
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    public boolean signin() {
+        mFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (mFirebaseUser == null) {
+            List<AuthUI.IdpConfig> providers = Arrays.asList(
+                    new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
+                    new AuthUI.IdpConfig.Builder(AuthUI.PHONE_VERIFICATION_PROVIDER).build(),
+                    // new AuthUI.IdpConfig.Builder(AuthUI.FACEBOOK_PROVIDER).build(),
+                    // new AuthUI.IdpConfig.Builder(AuthUI.TWITTER_PROVIDER).build(),
+                    new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build());
+
+            startActivityForResult(
+                    AuthUI.getInstance()
+                            .createSignInIntentBuilder()
+                            .setAvailableProviders(providers)
+                            .setTosUrl("https://superapp.example.com/terms-of-service.html")
+                            .setPrivacyPolicyUrl("https://superapp.example.com/privacy-policy.html")
+                            .setIsSmartLockEnabled(!BuildConfig.DEBUG)
+                            .build(),
+                    RC_SIGN_IN);
+
+        } else
+            showLogoutDialog();
         return true;
     }
 
@@ -548,7 +553,7 @@ public class HomeActivity extends BaseActivity
         dialog.show();
     }
 
-    private void showLogoutDialog() {
+    public void showLogoutDialog() {
 
         final Dialog dialog = new Dialog(HomeActivity.this);
         dialog.setContentView(R.layout.dialog_logout);

@@ -10,6 +10,7 @@ import android.os.Parcelable;
 public class KnowItItemType implements Parcelable{
 
     private  String item_info,how_to_use,item_thumb_url, checklist,video_url;
+    private long numViews;
 
     public KnowItItemType(){}
 
@@ -59,6 +60,14 @@ public class KnowItItemType implements Parcelable{
     public String getChecklist(){ return checklist;}
 
     public String getVideo_url(){ return video_url;}
+
+    public long getNumViews() {
+        return numViews;
+    }
+
+    public void setNumViews(long numViews) {
+        this.numViews = numViews;
+    }
 
     @Override
     public int describeContents() {

@@ -110,7 +110,6 @@ public class NewsDetailActivity extends BaseActivity implements View.OnClickList
 
         presenter = new NewsDetailPresenterImpl(this, mNewsKey);
         presenter.requestNews();
-
         PrefManager prefManager = new PrefManager(this);
         if (prefManager.isFirstNewsLaunch()) {
             showTutorial();
@@ -182,10 +181,6 @@ public class NewsDetailActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void share() {
-     /*   Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.putExtra(android.content.Intent.EXTRA_TEXT, url + "\nShared via:Safety First\nhttps://play.google.com/store/apps/details?id=com.vikas.dtu.safetyfirst2");
-        startActivity(intent);*/
         if (deepLink != null) {
             Intent intent = new Intent();
             String msg = "Hey see this News: " + deepLink;
@@ -220,7 +215,7 @@ public class NewsDetailActivity extends BaseActivity implements View.OnClickList
         }
 
         if (news.getImgUrl() != null) {
-           // Glide.with(getApplicationContext()).load(news.getImgUrl()).fitCenter().into(image_scrolling_top);
+
             Glide.with(getApplicationContext())
                     .load(news.getImgUrl())
                     .asBitmap()
@@ -229,18 +224,6 @@ public class NewsDetailActivity extends BaseActivity implements View.OnClickList
                         @Override
                         public void onResourceReady(Bitmap bitmap, GlideAnimation glideAnimation) {
                             image_scrolling_top.setImageBitmap(bitmap); // Possibly runOnUiThread()
-                           /* Palette.from(bitmap).generate(new Palette.PaletteAsyncListener() {
-                                @Override
-                                public void onGenerated(Palette palette) {
-                                    try {
-                                        mCollapsingToolbar.setExpandedTitleColor(palette.getDarkVibrantSwatch().getTitleTextColor());
-                                        mCollapsingToolbar.setCollapsedTitleTextColor(palette.getDarkVibrantSwatch().getTitleTextColor());
-                                        mCollapsingToolbar.setBackgroundColor(palette.getDarkVibrantSwatch().getRgb());
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            } );*/
                         }
                     });
 

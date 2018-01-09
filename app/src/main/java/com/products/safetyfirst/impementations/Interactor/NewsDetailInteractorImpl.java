@@ -38,6 +38,29 @@ public class NewsDetailInteractorImpl implements NewsDetailInteractor {
         DatabaseReference mPostReference =getDatabase().getReference()
                 .child("news").child(mPostKey);
 
+        mPostReference.runTransaction(new Transaction.Handler() {
+            @Override
+            public Transaction.Result doTransaction(MutableData mutableData) {
+                NewsModel p = mutableData.getValue(NewsModel.class);
+                if (p == null) {
+                    return Transaction.success(mutableData);
+                }
+
+                p.setNumViews(p.getNumViews() + 1);
+
+                // Set value and report transaction success
+                mutableData.setValue(p);
+                return Transaction.success(mutableData);
+            }
+
+            @Override
+            public void onComplete(DatabaseError databaseError, boolean b,
+                                   DataSnapshot dataSnapshot) {
+                // Transaction completed
+                Log.d("NewsDetailInteractor", "newsTransaction:onComplete:" + databaseError);
+            }
+        });
+
         mPostReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -70,6 +93,7 @@ public class NewsDetailInteractorImpl implements NewsDetailInteractor {
 
     }
 
+
     private void addBookMarkToUser(DatabaseReference userRef, final String mNewsKey) {
         userRef.runTransaction(new Transaction.Handler() {
             @Override
@@ -94,7 +118,7 @@ public class NewsDetailInteractorImpl implements NewsDetailInteractor {
             public void onComplete(DatabaseError databaseError, boolean b,
                                    DataSnapshot dataSnapshot) {
                 // Transaction completed
-                Log.d("News Bookmark", "postTransaction:onComplete:" + databaseError);
+                Log.d("NewsDetailInteractor", "postTransaction:onComplete:" + databaseError);
             }
         });
     }

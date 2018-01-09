@@ -15,7 +15,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="Open Visitor's List" />
+            android:text="Open File" />
 
         <ImageView
             android:visibility="gone"

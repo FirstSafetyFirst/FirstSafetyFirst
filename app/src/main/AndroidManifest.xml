@@ -24,7 +24,7 @@
         android:theme="@style/AppTheme.NoActionBar">
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="${applicationId}.provider"
+            android:authorities="@string/file_provider_authority"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
@@ -76,8 +76,6 @@
             android:parentActivityName=".activity.KnowItSecondActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.BaseActivity" />
-        <activity android:name=".activity.SignUpActivity" />
-        <activity android:name=".activity.SignInActivity" />
         <activity android:name=".activity.PasswordResetActivity" />
         <activity
             android:name=".activity.PostDetailActivity"
@@ -132,10 +130,6 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".login.LoginActivity" />
-        <activity
-            android:name=".home.MainActivity"
-            android:label="@string/title_activity_main" />
         <activity
             android:name=".postDetail.PostDetailActivity"
             android:label="@string/title_activity_post_detail"
