@@ -35,7 +35,6 @@ import com.products.safetyfirst.utils.PrefManager;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
-
 import jp.wasabeef.richeditor.RichEditor;
 
 
@@ -85,12 +84,6 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
         mAuthorName = findViewById(R.id.post_author);
         mAuthorEmail = findViewById(R.id.post_author_email);
 
-        //mView_details = findViewById(R.id.view_details);
-       // mView_details.setVisibility(View.GONE);
-
-        mOverflow = findViewById(R.id.overflow);
-        mOverflow.setVisibility(View.GONE);
-     //   mShare =(ImageButton) findViewById(R.id.share);
         recyclerView = findViewById(R.id.recycler_view);
 
         mPostKey = getIntent().getStringExtra(EXTRA_POST_KEY);
@@ -261,9 +254,6 @@ public class PostDetailActivity extends BaseActivity implements View.OnClickList
     protected void onDestroy() {
         super.onDestroy();
     }
-
-
-
 
     private static boolean checkHyperlinkText(String input) {
         Log.d("TAGhyper7", "string: " + input);

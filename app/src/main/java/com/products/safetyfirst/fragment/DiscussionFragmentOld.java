@@ -110,12 +110,7 @@ public class DiscussionFragmentOld extends Fragment {
         //com.google.firebase.database.Query postQuery =  mDatabase.child("posts").orderByKey().limitToLast(10);
         Query query= FirebaseFirestore.getInstance().collection("posts");
        // post_recycler.setAdapter(new DiscussionAdapterOld(getActivity(),postQuery, mDatabase, mpaginateprogbar));
-        adapter= new PostAdapter(new PostAdapter.OnPostSelectedListener() {
-            @Override
-            public void onPostSelected(DocumentSnapshot post) {
-                Snackbar.make(getView(), "Selected", BaseTransientBottomBar.LENGTH_LONG);
-            }
-        },
+        adapter= new PostAdapter(
                 new PostHelper.NotifyAdapter() {
                     @Override
                     public void notifyChangeInData() {
@@ -123,14 +118,10 @@ public class DiscussionFragmentOld extends Fragment {
                     }
                 });
 
-        post_recycler.setAdapter(new PostAdapter(new PostAdapter.OnPostSelectedListener() {
+        post_recycler.setAdapter(new PostAdapter(
+            new PostHelper.NotifyAdapter() {
             @Override
-            public void onPostSelected(DocumentSnapshot restaurant) {
-
-            }
-        }, new PostHelper.NotifyAdapter() {
-            @Override
-            public void notifyChangeInData() {
+                public void notifyChangeInData() {
 
             }
         }));

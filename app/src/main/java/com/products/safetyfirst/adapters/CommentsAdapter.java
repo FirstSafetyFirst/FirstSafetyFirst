@@ -47,14 +47,11 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentViewHolder> imp
     @SuppressLint("RecyclerView")
     @Override
     public void onBindViewHolder(CommentViewHolder holder, final int position) {
-        Animation animation = AnimationUtils.loadAnimation(context, R.anim.anim_recycler_item_show);
-        holder.mView.startAnimation(animation);
 
         Comment comment = mCommentssList.get(position);
+        String key = mKeysList.get(position);
+        holder.setData(comment, key);
 
-        if(comment.getAuthor() != null) holder.title.setText(comment.getAuthor());
-
-        if(comment.getText() != null) holder.comment.setText(comment.getText());
     }
 
     @Override

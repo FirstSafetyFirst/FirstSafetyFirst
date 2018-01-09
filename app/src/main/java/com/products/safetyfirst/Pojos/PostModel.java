@@ -28,6 +28,7 @@ public class PostModel {
     private List<String> fileList;
     public Map<String, Boolean> stars = new HashMap<>();
     private String image;
+    private long numViews;
 
     public PostModel() {
     }
@@ -37,12 +38,6 @@ public class PostModel {
         title= hashMap.get("title").toString();
         body=hashMap.get("body").toString();
         uid=hashMap.get("uid").toString();
-        //imageList=
-        //fileList=
-        //author=hashMap.get("author").toString();
-        //authorImageUrl=hashMap.get("authorImageUrl").toString();
-        //photoUrl= hashMap.get("photoUrl").toString();
-
     }
 
     public PostModel(String title, String body, String uid, String author,
@@ -95,6 +90,14 @@ public class PostModel {
 
     public List<String> getImageList() {
         return imageList;
+    }
+
+    public long getNumViews() {
+        return numViews;
+    }
+
+    public void setNumViews(long numViews) {
+        this.numViews = numViews;
     }
 
     public void setImageList(List<String> imageList) {

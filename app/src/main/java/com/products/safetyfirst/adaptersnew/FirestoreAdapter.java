@@ -12,6 +12,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.products.safetyfirst.androidhelpers.PostDocument;
 import com.products.safetyfirst.androidhelpers.PostHelper;
+import com.products.safetyfirst.utils.DatabaseUtil;
 
 import java.util.ArrayList;
 
@@ -34,7 +35,7 @@ public abstract class FirestoreAdapter<VH extends RecyclerView.ViewHolder>
     private Query mQuery;
 
     public FirestoreAdapter(final PostHelper.NotifyAdapter notifyAdapter) {
-        mQuery= FirebaseFirestore.getInstance().collection("posts");
+        mQuery= DatabaseUtil.getFireStore().collection("posts");
         postHelper= new PostHelper(mQuery, new PostHelper.UpdateSnapshot() {
             @Override
             public void updateList(ArrayList<PostDocument> snapshots) {

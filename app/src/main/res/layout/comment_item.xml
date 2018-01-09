@@ -55,9 +55,4 @@ android:paddingRight="16dp">
     android:textColor="@color/greyPrimary"
     tools:text="I thought it was pretty great! And I really have a ton to say wow." />
 
-<View
-    style="@style/AppTheme.Divider"
-    android:layout_below="@id/rating_item_text"
-    android:layout_marginTop="16dp"
-    android:layout_marginBottom="8dp"/>
 </RelativeLayout>

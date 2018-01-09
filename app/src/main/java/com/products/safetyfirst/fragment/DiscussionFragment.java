@@ -1,10 +1,8 @@
 package com.products.safetyfirst.fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.BaseTransientBottomBar;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -18,10 +16,8 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.firebase.ui.auth.AuthUI;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.products.safetyfirst.BuildConfig;
 import com.products.safetyfirst.R;
-import com.products.safetyfirst.activity.BaseActivity;
 import com.products.safetyfirst.activity.NewPostActivity;
 import com.products.safetyfirst.androidhelpers.PostHelper;
 import com.products.safetyfirst.impementations.presenter.PostPresenterImpl;
@@ -109,14 +105,8 @@ public class DiscussionFragment extends Fragment implements PostsView{
             }
         });
 
-        adapter = new com.products.safetyfirst.adaptersnew.PostAdapter(new com.products.safetyfirst.adaptersnew.PostAdapter.OnPostSelectedListener() {
-            @Override
-            public void onPostSelected(DocumentSnapshot restaurant) {
-                //TODO: do something here, till then this temporary snackbar
-                Snackbar.make(getView(), "Selected", BaseTransientBottomBar.LENGTH_LONG);
-            }
-        }
-                , new PostHelper.NotifyAdapter() {
+        adapter = new com.products.safetyfirst.adaptersnew.PostAdapter(
+                new PostHelper.NotifyAdapter() {
             @Override
             public void notifyChangeInData() {
                 adapter.notifyItemRangeInserted(count, THRESHOLD);
